@@ -32,32 +32,41 @@ class FilterBottomSheet extends StatelessWidget {
           Obx(() => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(backgroundColor: controller.modeIndex.value == 0 ?
-                      Theme.of(context).colorScheme.background.withAlpha(80) : Theme.of(context).colorScheme.surface),
-                    onPressed: () => controller.changeMode(0),
-                    child: const Text(
-                      "일반모드",
-                      style: TextStyle(),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(backgroundColor: controller.modeIndex.value == 0 ?
+                        Theme.of(context).colorScheme.background.withAlpha(80) : Theme.of(context).colorScheme.surface),
+                      onPressed: () => controller.changeMode(0),
+                      child: const Text(
+                        "일반모드",
+                        style: TextStyle(),
+                      ),
                     ),
                   ),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(backgroundColor: controller.modeIndex.value == 1 ?
-                      Theme.of(context).colorScheme.background.withAlpha(80) : Theme.of(context).colorScheme.surface),
-                    onPressed: () => controller.changeMode(1),
-                    child: const Text(
-                      "보유넨도편집",
-                      style: TextStyle(),
-                    )
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(backgroundColor: controller.modeIndex.value == 1 ?
+                        Theme.of(context).colorScheme.background.withAlpha(80) : Theme.of(context).colorScheme.surface),
+                      onPressed: () => controller.changeMode(1),
+                      child: const Text(
+                        "보유넨도",
+                        style: TextStyle(),
+                      )
+                    ),
                   ),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(backgroundColor: controller.modeIndex.value == 2 ?
-                      Theme.of(context).colorScheme.background.withAlpha(80) : Theme.of(context).colorScheme.surface),
-                    onPressed: () =>  controller.changeMode(2),
-                    child: const Text(
-                      "위시넨도편집",
-                      style: TextStyle(),
-                    )
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(backgroundColor: controller.modeIndex.value == 2 ?
+                        Theme.of(context).colorScheme.background.withAlpha(80) : Theme.of(context).colorScheme.surface),
+                      onPressed: () =>  controller.changeMode(2),
+                      child: const Text(
+                        "위시넨도",
+                        style: TextStyle(),
+                      )
+                    ),
                   ),
                 ],
               )),

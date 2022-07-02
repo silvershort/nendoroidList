@@ -147,18 +147,7 @@ class NendoController extends GetxController {
         int tempA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
         int tempB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
 
-        if (Get.find<BottomSheetController>().descendingSort.value) {
-          // 숫자 내림차순 정렬
-          if (tempA < tempB) {
-            return 1;
-          } else if (tempA > tempB) {
-            return -1;
-          } else {
-            // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
-            // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
-            return b.num.compareTo(a.num);
-          }
-        } else {
+        if (!Get.find<BottomSheetController>().descendingSort.value) {
           // 오름차순 정렬
           if (tempA > tempB) {
             return 1;
@@ -167,6 +156,17 @@ class NendoController extends GetxController {
           } else {
             return a.num.compareTo(b.num);
           }
+        }
+
+        // 숫자 내림차순 정렬
+        if (tempA < tempB) {
+          return 1;
+        } else if (tempA > tempB) {
+          return -1;
+        } else {
+          // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
+          // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
+          return b.num.compareTo(a.num);
         }
       });
   }
@@ -505,6 +505,7 @@ class NendoController extends GetxController {
   // 넨도 json 파일을 읽을때는 깃허브 API 권한이 필요없기 때문에 헤더값에 토큰값은 넣지 않음
   RestClient getNendoClient() {
     return RestClient(Dio()
+      ..options.headers["Access-Control-Allow-Origin"] = "header"
       ..interceptors.add(InterceptorsWrapper(onResponse: (res, handler) async {
         if (res.headers.map[Headers.contentTypeHeader]?.first.startsWith('text') == true) {
           res.data = jsonDecode(res.data as String);
