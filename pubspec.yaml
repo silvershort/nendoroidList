@@ -1,0 +1,40 @@
+name: nendoroid_list
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  retrofit: ^3.0.1+1
+  logger:
+  dio: ^4.0.6
+  http:
+  async: ^2.4.1
+  extended_image:
+  intl:
+  hive:
+  hive_flutter:
+  get:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  retrofit_generator: ^4.0.1
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0
+  hive_generator:
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: oneMobile
+      fonts:
+        - asset: fonts/one_mobile_light.otf
+        - asset: fonts/one_mobile_regular.otf
+          weight: 400
+        - asset: fonts/one_mobile_bold.otf
+          weight: 700
