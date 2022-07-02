@@ -505,7 +505,6 @@ class NendoController extends GetxController {
   // 넨도 json 파일을 읽을때는 깃허브 API 권한이 필요없기 때문에 헤더값에 토큰값은 넣지 않음
   RestClient getNendoClient() {
     return RestClient(Dio()
-      ..options.headers["Access-Control-Allow-Origin"] = "header"
       ..interceptors.add(InterceptorsWrapper(onResponse: (res, handler) async {
         if (res.headers.map[Headers.contentTypeHeader]?.first.startsWith('text') == true) {
           res.data = jsonDecode(res.data as String);
