@@ -29,14 +29,7 @@ class NotificationController extends GetxController {
   void onInit() {
     super.onInit();
     _initNotification();
-    // _getToken();
   }
-
-  void _getToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print("token : $token");
-  }
-
   void _initNotification() async {
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -54,7 +47,6 @@ class NotificationController extends GetxController {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print("User granted permission");
       String? token = await _messaging.getToken();
       print("The token is $token");
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {

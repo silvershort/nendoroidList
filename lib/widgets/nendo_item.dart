@@ -6,6 +6,7 @@ import 'package:nendoroid_list/controllers/bottom_sheet_controller.dart';
 import 'package:nendoroid_list/controllers/dashboard_controller.dart';
 import 'package:nendoroid_list/controllers/nendo_controller.dart';
 import 'package:nendoroid_list/models/nendo_data.dart';
+import 'package:nendoroid_list/pages/detail_page.dart';
 import 'package:nendoroid_list/utilities/intl_util.dart';
 
 class NendoItem extends StatelessWidget {
@@ -58,7 +59,9 @@ class NendoItem extends StatelessWidget {
           GestureDetector(
             onTap: () {
               int mode = modeController.modeIndex.value;
-              if (mode == 0) {} else if (mode == 1) {
+              if (mode == 0) {
+                Get.to(DetailPage(nendoData: nendoData));
+              } else if (mode == 1) {
                 nendoController.updateHaveNendo(nendoData.num);
               } else if (mode == 2) {
                 nendoController.updateWishNendo(nendoData.num);
