@@ -10,10 +10,18 @@ import 'package:nendoroid_list/pages/dashboard_page.dart';
 import 'package:nendoroid_list/utilities/app_color.dart';
 import 'package:nendoroid_list/utilities/app_font.dart';
 import 'package:nendoroid_list/utilities/hive_name.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'firebase_options.dart';
+
 
 import 'controllers/dashboard_controller.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await Hive.initFlutter();
   Hive.registerAdapter(NendoDataAdapter());
   Hive.registerAdapter(NameAdapter());
@@ -34,6 +42,8 @@ void main() async {
       fontFamily: AppFont.oneMobile,
     );
   }
+
+
 
   runApp(MyApp(appTheme: appTheme));
 }

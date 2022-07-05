@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nendoroid_list/controllers/dashboard_controller.dart';
 import 'package:nendoroid_list/controllers/nendo_controller.dart';
 import 'package:nendoroid_list/controllers/setting_controller.dart';
+import 'package:nendoroid_list/pages/license_info_page.dart';
 import 'package:nendoroid_list/utilities/app_color.dart';
 import 'package:nendoroid_list/utilities/intl_util.dart';
 
@@ -94,9 +95,12 @@ class SettingPage extends StatelessWidget {
         Obx(
           () => Row(
             children: [
-              Text(
-                nendoController.getGithubTokenKey() ?? "등록된 토큰키가 없습니다.",
-                style: const TextStyle(fontSize: 16.0),
+              Flexible(
+                child: Text(
+                  nendoController.getGithubTokenKey() ?? "등록된 토큰키가 없습니다.",
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 16.0),
+                ),
               ),
               Visibility(
                 visible: nendoController.getGithubTokenKey() != null,
@@ -143,6 +147,24 @@ class SettingPage extends StatelessWidget {
         ),
         Container(
           child: themeColorTile(AppColor.themeColors),
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+        const Text(
+          "앱 정보 : ",
+          style: TextStyle(fontSize: 18.0),
+        ),
+        const SizedBox(
+          height: 5.0,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Get.to(const LicenseInfoPage());
+          },
+          child: const Text(
+            "앱 및 오픈소스 라이센스 정보"
+          ),
         ),
       ],
     );

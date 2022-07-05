@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_list/controllers/nendo_controller.dart';
 import 'package:nendoroid_list/models/gender_rate.dart';
+import 'package:nendoroid_list/models/most_series.dart';
 import 'package:nendoroid_list/models/nendo_data.dart';
 import 'package:nendoroid_list/utilities/intl_util.dart';
 import 'package:nendoroid_list/widgets/my_painter.dart';
@@ -59,16 +60,34 @@ class MyPage extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            const Text(
-              "구매한 넨도로이드 가격 총합",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "     구매한 넨도로이드 가격 총합",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+                const SizedBox(width: 5.0,),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  onPressed: () {
+                    showPriceDialog();
+                  },
+                  icon: Icon(
+                    Icons.help_outline,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 3.0,
             ),
-            Obx(() => accentText(accentWord: IntlUtil.comma(nendoController.getSumPrice()), normalWord: "엔", fontSize: 18.0)),
+            Obx(() => accentText(accentWord: IntlUtil.comma(nendoController.getSumPrice()), normalWord: "원", fontSize: 18.0)),
             const SizedBox(
               height: 20.0,
             ),
@@ -115,8 +134,8 @@ class MyPage extends StatelessWidget {
   }
 
   Widget mostSeries() {
-    String series = nendoController.getMostHaveSeries();
-    if (series.isEmpty) {
+    MostSeries? mostSeries = nendoController.getMostHaveSeries();
+    if (mostSeries == null) {
       return const SizedBox(height: 0.0,);
     } else {
       return Column(
@@ -132,8 +151,8 @@ class MyPage extends StatelessWidget {
           ),
           const SizedBox(height: 5.0,),
           accentText(
-            accentWord: series,
-            normalWord: " (${nendoController.getHaveSeriesCount(series)}개)",
+            accentWord: mostSeries.series,
+            normalWord: " (${mostSeries.count}개)",
             fontSize: 18.0,
           ),
         ],
@@ -274,5 +293,26 @@ class MyPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  void showPriceDialog() {
+    Get.dialog(AlertDialog(
+      title: const Text("가격 합산 방식"),
+      content: Text(
+        "가지고 있는 넨도로이드의 가격을 직접 입력했을경우 입력한 가격을 사용하고 입력하지 않았을 경우 "
+            "출시 가격을 이용하여 가격을 합산합니다.\n출시 가격의 경우 오늘의 환율을 적용하여 원화 가격으로 변환해주고 있으며, "
+            "환율정보를 가져오지 못했을경우 100엔당 1000원으로 계산합니다.\n\n"
+            "오늘의 환율 : ${nendoController.todayYen.value == 0 ? "환율정보 없음" : "${nendoController.todayYen.value}엔"}",
+        style: const TextStyle(height: 1.3),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: const Text("확인"),
+        ),
+      ],
+    ));
   }
 }

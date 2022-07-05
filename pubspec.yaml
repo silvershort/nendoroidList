@@ -10,15 +10,16 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   retrofit: ^3.0.1+1
-  logger:
+  logger: ^1.1.0
   dio: ^4.0.6
-  http:
-  async: ^2.4.1
-  extended_image:
-  intl:
-  hive:
-  hive_flutter:
-  get:
+  async: ^2.8.2
+  extended_image: ^6.2.1
+  intl: ^0.17.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  get: ^4.6.5
+  firebase_core: ^1.19.1
+  package_info_plus: ^1.4.2
 
 dev_dependencies:
   flutter_test:

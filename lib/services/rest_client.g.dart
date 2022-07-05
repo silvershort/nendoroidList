@@ -68,6 +68,25 @@ class _RestClient implements RestClient {
     return value;
   }
 
+  @override
+  Future<List<ExchangeRateYen>> getExchangeRate() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<
+        List<ExchangeRateYen>>(Options(
+            method: 'GET', headers: _headers, extra: _extra)
+        .compose(_dio.options,
+            'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => ExchangeRateYen.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

@@ -5,7 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:nendoroid_list/models/exchange_rate_yen.dart';
 import 'package:nendoroid_list/models/gender_rate.dart';
+import 'package:nendoroid_list/models/most_series.dart';
 import 'package:nendoroid_list/utilities/hive_name.dart';
 import 'package:nendoroid_list/utilities/intl_util.dart';
 
@@ -51,11 +53,15 @@ class NendoController extends GetxController {
   RxString localCommitDate = "".obs;
   RxString serverCommitDate = "".obs;
 
+  // 오늘의 엔화 환율
+  RxInt todayYen = 0.obs;
+
   // 개인 Github Token
   RxString githubToken = "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".obs;
 
   // 최초 실행시 데이터 세팅
   Future init() async {
+    getTodayYen();
     initLoading.value = true;
     nendoBox = await Hive.openBox<NendoData>(HiveName.nendoBoxName);
     setBox = await Hive.openBox<SetData>(HiveName.setBoxName);
@@ -72,8 +78,12 @@ class NendoController extends GetxController {
       setList.value = setBox.values.toList() as List<SetData>;
       initNendoList();
       downloadComplete.value = true;
-      // 서버에 있는 커밋날짜를 받아와준다.
-      serverCommitDate.value = IntlUtil.convertDate(gmtTime: await getCommitDate());
+      try {
+        // 서버에 있는 커밋날짜를 받아와준다.
+        serverCommitDate.value = IntlUtil.convertDate(gmtTime: await getCommitDate());
+      } catch (e) {
+        print(e);
+      }
       // 로컬에 있는 커밋날짜를 받아와준다.
       localCommitDate.value = settingBox.get(HiveName.localCommitDateKey);
     }
@@ -128,6 +138,9 @@ class NendoController extends GetxController {
       await setBox.put(data.setName, data);
     }
 
+    // 정렬
+    sortNendoList(Get.find<BottomSheetController>().descendingSort.value);
+
     // 다운로드 완료 후 설정
     backupNendoList = [];
     downloadComplete.value = true;
@@ -147,7 +160,18 @@ class NendoController extends GetxController {
         int tempA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
         int tempB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
 
-        if (!Get.find<BottomSheetController>().descendingSort.value) {
+        if (Get.find<BottomSheetController>().descendingSort.value) {
+          // 숫자 내림차순 정렬
+          if (tempA < tempB) {
+            return 1;
+          } else if (tempA > tempB) {
+            return -1;
+          } else {
+            // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
+            // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
+            return b.num.compareTo(a.num);
+          }
+        } else {
           // 오름차순 정렬
           if (tempA > tempB) {
             return 1;
@@ -156,17 +180,6 @@ class NendoController extends GetxController {
           } else {
             return a.num.compareTo(b.num);
           }
-        }
-
-        // 숫자 내림차순 정렬
-        if (tempA < tempB) {
-          return 1;
-        } else if (tempA > tempB) {
-          return -1;
-        } else {
-          // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
-          // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
-          return b.num.compareTo(a.num);
         }
       });
   }
@@ -266,6 +279,14 @@ class NendoController extends GetxController {
     nendoList.refresh();
   }
 
+  // 넨도 구매 가격 변경
+  void setNendoPurchasePrice(String number, int? price) {
+    NendoData item = nendoList.where((element) => element.num == number).first;
+    item.myPrice = price;
+    nendoBox.put(item.num, item);
+    nendoList.refresh();
+  }
+
   // 보유 넨도개수 조절
   void setNendoHaveCount(String number, int count) async {
     // 소유하고 있다면 1개 밑으로 내려갈 수 없으므로
@@ -298,7 +319,13 @@ class NendoController extends GetxController {
     int totalPrice = 0;
     for (NendoData element in haveList) {
       // 가격 * 보유개수
-      totalPrice += element.price * element.count;
+      if (element.myPrice != null) {
+        totalPrice += element.myPrice! * element.count;
+      } else {
+        // 오늘의 환율을 정상적으로 못받았을경우 기본값 10
+        double exchangeRate = todayYen.value == 0 ? 10 : todayYen.value / 100;
+        totalPrice += (element.price * exchangeRate * element.count).toInt();
+      }
     }
     return totalPrice;
   }
@@ -314,29 +341,24 @@ class NendoController extends GetxController {
     genderRateList.add(GenderRate(
       gender: "여성",
       count: femaleCount,
-      rate: femaleCount / haveList.length * 100,
+      rate: haveList.isEmpty ? 0 : femaleCount / haveList.length * 100,
     ));
     genderRateList.add(GenderRate(
       gender: "남성",
       count: maleCount,
-      rate: maleCount / haveList.length * 100,
+      rate: haveList.isEmpty ? 0 : maleCount / haveList.length * 100,
     ));
     genderRateList.add(GenderRate(
       gender: "기타",
       count: etcCount,
-      rate: etcCount / haveList.length * 100,
+      rate: haveList.isEmpty ? 0 : etcCount / haveList.length * 100,
     ));
     genderRateList.sort((a, b) => b.rate.compareTo(a.rate));
     return genderRateList;
   }
 
-  // 특정 시리즈의 보유개수를 반환
-  int getHaveSeriesCount(String series) {
-    return nendoList.where((item) => item.have && (item.series.ko ?? "").contains(series)).length;
-  }
-
-  // 가장 많이 가지고 있는 넨도로이드 시리즈를 반환
-  String getMostHaveSeries() {
+  // 가장 많이 가지고 있는 넨도로이드 시리즈와 개수를 반환
+  MostSeries? getMostHaveSeries() {
     List<NendoData> haveList = nendoList.where((item) => item.have).toList();
     String mostSeries = "";
     int mostCount = 0;
@@ -361,16 +383,15 @@ class NendoController extends GetxController {
 
     // 가장 많은 시리즈가 단 1개일경우 보여주지 않는다.
     if (mostCount == 1) {
-      return "";
+      return null;
     } else {
-      return mostSeries;
+      return MostSeries(series: mostSeries, count: mostCount);
     }
   }
 
   // 가장 많이 가지고 있는 넨도로이드를 반환
   List<NendoData> getMostHaveNendo() {
-    List<NendoData> sortList = nendoList.toList()
-    ..sort((a,b) => b.count.compareTo(a.count));
+    List<NendoData> sortList = nendoList.toList()..sort((a, b) => b.count.compareTo(a.count));
 
     if (sortList.isEmpty) {
       return [];
@@ -398,7 +419,7 @@ class NendoController extends GetxController {
   // 내가 보유한 넨도 세트 리스트를 반환해줌
   List<String> getCompleteSetList() {
     List<String> completeList = [];
-    List<NendoData> haveList = nendoList.where((item) => item.have).toList();;
+    List<NendoData> haveList = nendoList.where((item) => item.have).toList();
     for (SetData setData in setList) {
       // 보유한 넨도 리스트에서 같은 시리즈 이름을 가진 리스트를 뽑고 거기서 넨도 번호를 받아온다.
       List<String> tempHaveSetList = haveList.where((item) => (item.series.ko ?? "").contains(setData.setName)).map((e) => e.num).toList();
@@ -411,6 +432,16 @@ class NendoController extends GetxController {
       }
     }
     return completeList;
+  }
+
+  // 환율 정보를 받아옴
+  void getTodayYen() async {
+    try {
+      List<ExchangeRateYen> list = await RestClient(Dio()).getExchangeRate();
+      todayYen.value = list[0].basePrice?.toInt() ?? 0;
+    } catch (e) {
+      print(e);
+    }
   }
 
   // 개인용 깃허브 API 키를 등록해줌

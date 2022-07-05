@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'nendo_controller.dart';
 
 class BottomSheetController extends GetxController {
+  final int HAVE_EDIT = 1;
+  final int WISH_EDIT = 2;
+
   RxInt modeIndex = 0.obs;
   int nendoFilterIndex = -1;
   RxBool descendingSort = true.obs;

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "647472862543",
+    "project_id": "nendoroidlist",
+    "storage_bucket": "nendoroidlist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647472862543:android:a46fdf32f02b8f09b5613a",
+        "android_client_info": {
+          "package_name": "com.example.nendoroid_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647472862543-avmug28c545vnd2ohafvee91kl8405fg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8aa6QtLK3pB_4C11-dM_dXIQzaEvjUGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647472862543-avmug28c545vnd2ohafvee91kl8405fg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

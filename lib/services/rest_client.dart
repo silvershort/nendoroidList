@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:nendoroid_list/models/exchange_rate_yen.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 import '../models/nendo_data.dart';
 import '../models/repo.dart';
@@ -30,8 +28,12 @@ abstract class RestClient {
   );
 
   // 폴더 이름 리스트 및 넨도 json 파일명 리스트 가져오기
-  @GET('https://api.github.com/repos/KhoraLee/NendoroidDB/contents/Nendoroid/{folderName}')
+  @GET("https://api.github.com/repos/KhoraLee/NendoroidDB/contents/Nendoroid/{folderName}")
   Future<List<Repo>> getRepoList(
       @Path("folderName") String folderName,
   );
+
+  // 환율 정보 받아오기
+  @GET("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY")
+  Future<List<ExchangeRateYen>> getExchangeRate();
 }
