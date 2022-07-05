@@ -46,6 +46,7 @@ class _DetailPageState extends State<DetailPage> {
                 _completer.future.then((value) => _webViewController = value);
                 _completer.complete(webViewController);
               },
+              // 굿스마일 공식 홈페이지를 보여주고 만약 영문이름을 받아오지 못했다면 그냥 구글검색을 해줌
               initialUrl: getUrl(widget.nendoData) ?? "http://www.google.co.kr/search?complete=1&hl=ko&q=${widget.nendoData.name.ko}",
               javascriptMode: JavascriptMode.unrestricted,
             ),
@@ -69,6 +70,7 @@ class _DetailPageState extends State<DetailPage> {
    if (nendoData.name.en == null) {
      return null;
    } else {
+     // url 생성시 영문명에서 특수문자를 제외하고 공백을 +로 바꿔준다.
      String nendoName = widget.nendoData.name.en!
          .replaceAll(":", "")
          .replaceAll(".", "")
@@ -78,6 +80,7 @@ class _DetailPageState extends State<DetailPage> {
    }
   }
 
+  // 웹뷰 뒤로가기 기능
   Future<bool> _goBack(BuildContext context) async {
     if (_webViewController == null) {
       return true;

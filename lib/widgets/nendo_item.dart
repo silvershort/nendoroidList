@@ -122,6 +122,22 @@ class NendoItem extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    Visibility(
+                                      visible: nendoData.have,
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Theme.of(context).primaryColor,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: nendoData.wish,
+                                      child: const Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                        size: 18,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Text(
