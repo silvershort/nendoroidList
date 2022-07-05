@@ -1,8 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:nendoroid_list/controllers/bottom_sheet_controller.dart';
 import 'package:nendoroid_list/controllers/nendo_controller.dart';
+import 'package:nendoroid_list/controllers/notification_controller.dart';
 import 'package:nendoroid_list/controllers/setting_controller.dart';
 import 'package:nendoroid_list/models/nendo_data.dart';
 import 'package:nendoroid_list/models/set_data.dart';
@@ -10,18 +14,13 @@ import 'package:nendoroid_list/pages/dashboard_page.dart';
 import 'package:nendoroid_list/utilities/app_color.dart';
 import 'package:nendoroid_list/utilities/app_font.dart';
 import 'package:nendoroid_list/utilities/hive_name.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'firebase_options.dart';
-
 
 import 'controllers/dashboard_controller.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   await Hive.initFlutter();
   Hive.registerAdapter(NendoDataAdapter());
   Hive.registerAdapter(NameAdapter());
@@ -43,8 +42,6 @@ void main() async {
     );
   }
 
-
-
   runApp(MyApp(appTheme: appTheme));
 }
 
@@ -62,6 +59,9 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialBinding: BindingsBuilder.put(() => {
+        Get.put(NotificationController())
+      }),
       theme: appTheme,
       home: DashboardPage(),
     );
