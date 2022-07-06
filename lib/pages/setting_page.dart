@@ -223,7 +223,7 @@ class SettingPage extends StatelessWidget {
     Get.dialog(AlertDialog(
       title: const Text("GithubToken 안내"),
       content: const Text(
-        "해당앱은 서버가 따로 구축되어있지 않으며 Github에 저장되어있는 넨도로이드 DB를 Github 무료 API를 통해서 받아오고 있습니다.\n따라서 무료 API 호출 회수가 모두 소진될경우 일정시간동안 DB를 받아오는것이 불가능해지기 때문에 지속적으로 다운로드 에러가 발생할경우 개인용 토큰을 발급받아서 등록해주시기 바랍니다.\n만약 에러가 발생하지 않는다면 굳이 등록할 필요는 없습니다.",
+        "해당앱은 서버가 따로 구축되어있지 않으며 Github에 저장되어있는 넨도로이드 DB를 Github 무료 API를 통해서 받아오고 있습니다.\n따라서 무료 API 호출 회수가 모두 소진될경우 일정시간동안 DB를 받아오는것이 불가능해지기 때문에 지속적으로 다운로드 에러가 발생할경우 개인용 토큰을 발급받아서 등록해주시기 바라며 등록 후에도 에러가 발생한다면 IP주소 변경 후에 시도해보시기 바랍니다.\n만약 에러가 발생하지 않는다면 굳이 등록할 필요는 없습니다.",
         style: TextStyle(height: 1.3),
       ),
       actions: [

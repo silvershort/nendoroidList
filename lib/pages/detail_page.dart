@@ -34,7 +34,7 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "상세 페이지"
+          "상세 정보"
         ),
       ),
       body: WillPopScope(

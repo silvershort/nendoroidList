@@ -4,6 +4,7 @@ import 'package:nendoroid_list/controllers/nendo_controller.dart';
 import 'package:nendoroid_list/models/gender_rate.dart';
 import 'package:nendoroid_list/models/most_series.dart';
 import 'package:nendoroid_list/models/nendo_data.dart';
+import 'package:nendoroid_list/pages/detail_page.dart';
 import 'package:nendoroid_list/utilities/intl_util.dart';
 import 'package:nendoroid_list/widgets/my_painter.dart';
 
@@ -127,10 +128,100 @@ class MyPage extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-          ], 
+            thisMonthBuyNendo(),
+            const SizedBox(
+              height: 20.0,
+            ),
+            thisMonthWishNendo(),
+            const SizedBox(
+              height: 20.0,
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  Widget thisMonthBuyNendo() {
+    List<NendoData> nendoList = nendoController.getThisMonthHaveList();
+    if (nendoList.isEmpty) {
+      return const SizedBox();
+    } else {
+      return Column(
+        children: [
+          const Text(
+            "이번달 출시 예정인 나의 넨도로이드",
+            style: TextStyle(
+              fontSize: 18.0,
+            ),
+          ),
+          const SizedBox(height: 5.0,),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: nendoList.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  InkWell(
+                    child: accentText(
+                        accentWord: "[${nendoList[index].num}]", normalWord: " ${nendoList[index].name.ko}", fontSize: 16.0),
+                    onTap: () {
+                      Get.to(DetailPage(nendoData: nendoList[index]));
+                    },
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      );
+    }
+  }
+
+  Widget thisMonthWishNendo() {
+    List<NendoData> nendoList = nendoController.getThisMonthWishList();
+    if (nendoList.isEmpty) {
+      return const SizedBox();
+    } else {
+      return Column(
+        children: [
+          const Text(
+            "이번달 출시 예정인 위시 넨도로이드",
+            style: TextStyle(
+              fontSize: 18.0,
+            ),
+          ),
+          const SizedBox(height: 5.0,),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: nendoList.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  InkWell(
+                    child: accentText(
+                        accentWord: "[${nendoList[index].num}]", normalWord: " ${nendoList[index].name.ko}", fontSize: 16.0),
+                    onTap: () {
+                      Get.to(DetailPage(nendoData: nendoList[index]));
+                    },
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      );
+    }
   }
 
   Widget mostSeries() {
@@ -187,8 +278,13 @@ class MyPage extends StatelessWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  accentText(
-                      accentWord: "[${mostList[index].num}] ${mostList[index].name.ko}", normalWord: " (${mostList[index].count}개)", fontSize: 18.0),
+                  InkWell(
+                    child: accentText(
+                        accentWord: "[${mostList[index].num}] ${mostList[index].name.ko}", normalWord: " (${mostList[index].count}개)", fontSize: 16.0),
+                    onTap: () {
+                      Get.to(DetailPage(nendoData: mostList[index]));
+                    },
+                  ),
                   const SizedBox(
                     height: 5.0,
                   ),

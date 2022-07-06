@@ -1,7 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:nendoroid_list/controllers/bottom_sheet_controller.dart';
@@ -16,7 +13,6 @@ import 'package:nendoroid_list/utilities/app_font.dart';
 import 'package:nendoroid_list/utilities/hive_name.dart';
 
 import 'controllers/dashboard_controller.dart';
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +38,12 @@ void main() async {
     );
   }
 
+  Get.put(NendoController()).init();
+  Get.put(DashboardController());
+  Get.put(SettingController());
+  Get.put(BottomSheetController());
+  Get.put(NotificationController());
+
   runApp(MyApp(appTheme: appTheme));
 }
 
@@ -52,16 +54,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.put(NendoController()).init();
-    Get.put(DashboardController());
-    Get.put(BottomSheetController());
-    Get.put(SettingController());
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialBinding: BindingsBuilder.put(() => {
-        Get.put(NotificationController())
-      }),
       theme: appTheme,
       home: DashboardPage(),
     );

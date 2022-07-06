@@ -5,9 +5,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:nendoroid_list/models/exchange_rate_yen.dart';
 import 'package:nendoroid_list/models/gender_rate.dart';
 import 'package:nendoroid_list/models/most_series.dart';
+import 'package:nendoroid_list/models/sort_data.dart';
 import 'package:nendoroid_list/utilities/hive_name.dart';
 import 'package:nendoroid_list/utilities/intl_util.dart';
 
@@ -139,7 +141,7 @@ class NendoController extends GetxController {
     }
 
     // 정렬
-    sortNendoList(Get.find<BottomSheetController>().descendingSort.value);
+    sortNendoList();
 
     // 다운로드 완료 후 설정
     backupNendoList = [];
@@ -154,34 +156,52 @@ class NendoController extends GetxController {
   List<NendoData> getLocalNendoList() {
     // 내부 DB 에서 넨도리스트를 받아온다.
     return (nendoBox.values.toList() as List<NendoData>)
-      // 넨도로이드를 정렬하기 위해서 정렬식을 짜준다.
-      ..sort((a, b) {
-        // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
-        int tempA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
-        int tempB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
+    ..sort((a, b) {
+      // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
+      int numA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
+      int numB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
 
-        if (Get.find<BottomSheetController>().descendingSort.value) {
-          // 숫자 내림차순 정렬
-          if (tempA < tempB) {
-            return 1;
-          } else if (tempA > tempB) {
-            return -1;
+
+      String releaseA = a.releaseDate.isEmpty ? "" : a.releaseDate[a.releaseDate.length - 1];
+      String releaseB = b.releaseDate.isEmpty ? "" : b.releaseDate[b.releaseDate.length - 1];
+      // String releaseA = a.num;
+      // String releaseB = b.num;
+
+      SortData sortData = Get.find<BottomSheetController>().sortData.value;
+
+      switch (sortData.sortingMethod) {
+        case BottomSheetController.release:
+          if (sortData.releaseSortOrder) {
+            // 출시일 오름차순
+            return releaseA.compareTo(releaseB);
           } else {
-            // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
-            // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
-            return b.num.compareTo(a.num);
+            return releaseB.compareTo(releaseA);
           }
-        } else {
-          // 오름차순 정렬
-          if (tempA > tempB) {
-            return 1;
-          } else if (tempA < tempB) {
-            return -1;
+        case BottomSheetController.num:
+        default:
+          if (sortData.numSortOrder) {
+            // 오름차순 정렬
+            if (numA > numB) {
+              return 1;
+            } else if (numA < numB) {
+              return -1;
+            } else {
+              return a.num.compareTo(b.num);
+            }
           } else {
-            return a.num.compareTo(b.num);
+            // 숫자 내림차순 정렬
+            if (numA < numB) {
+              return 1;
+            } else if (numA > numB) {
+              return -1;
+            } else {
+              // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
+              // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
+              return b.num.compareTo(a.num);
+            }
           }
-        }
-      });
+      }
+    });
   }
 
   // DB 업데이트전에 데이터 백업
@@ -190,32 +210,48 @@ class NendoController extends GetxController {
     backupNendoList = nendoList.where((item) => item.have || item.wish).toList();
   }
 
-  void sortNendoList(bool descendingSort) {
+  void sortNendoList() {
     nendoList.sort((a, b) {
       // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
-      int tempA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
-      int tempB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
+      int numA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
+      int numB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
 
-      if (Get.find<BottomSheetController>().descendingSort.value) {
-        // 숫자 내림차순 정렬
-        if (tempA < tempB) {
-          return 1;
-        } else if (tempA > tempB) {
-          return -1;
-        } else {
-          // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
-          // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
-          return b.num.compareTo(a.num);
-        }
-      } else {
-        // 오름차순 정렬
-        if (tempA > tempB) {
-          return 1;
-        } else if (tempA < tempB) {
-          return -1;
-        } else {
-          return a.num.compareTo(b.num);
-        }
+      String releaseA = a.releaseDate.isEmpty ? "" : a.releaseDate[a.releaseDate.length - 1];
+      String releaseB = b.releaseDate.isEmpty ? "" : b.releaseDate[b.releaseDate.length - 1];
+
+      SortData sortData = Get.find<BottomSheetController>().sortData.value;
+
+      switch (sortData.sortingMethod) {
+        case BottomSheetController.release:
+          if (sortData.releaseSortOrder) {
+            // 출시일 오름차순
+            return releaseA.compareTo(releaseB);
+          } else {
+            return releaseB.compareTo(releaseA);
+          }
+        case BottomSheetController.num:
+        default:
+          if (sortData.numSortOrder) {
+            // 오름차순 정렬
+            if (numA > numB) {
+              return 1;
+            } else if (numA < numB) {
+              return -1;
+            } else {
+              return a.num.compareTo(b.num);
+            }
+          } else {
+            // 숫자 내림차순 정렬
+            if (numA < numB) {
+              return 1;
+            } else if (numA > numB) {
+              return -1;
+            } else {
+              // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
+              // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
+              return b.num.compareTo(a.num);
+            }
+          }
       }
     });
   }
@@ -228,14 +264,22 @@ class NendoController extends GetxController {
       searchInWord(lastWord);
     }
     switch (index) {
-      case 0:
+      case BottomSheetController.haveFilter:
         nendoList.value = nendoList.where((item) => item.have).toList();
         break;
-      case 1:
+      case BottomSheetController.notHaveFilter:
         nendoList.value = nendoList.where((item) => !item.have).toList();
         break;
-      case 2:
+      case BottomSheetController.wishFilter:
         nendoList.value = nendoList.where((item) => item.wish).toList();
+        break;
+      case BottomSheetController.expectedFilter:
+        DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
+        nendoList.value = nendoList.where((item) {
+          DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
+          // 출시일이 오늘 날짜와 같거나 클때
+          return !itemDate.isBefore(today);
+        }).toList();
         break;
       case -1:
       default:
@@ -432,6 +476,27 @@ class NendoController extends GetxController {
       }
     }
     return completeList;
+  }
+
+  // 이번달 출시예정인 구매 넨도
+  List<NendoData> getThisMonthHaveList() {
+    List<NendoData> haveList = nendoList.where((item) => item.have).toList();
+    DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
+
+    return haveList.where((item) {
+      DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
+      return itemDate.compareTo(today) == 0;
+    }).toList();
+  }
+
+  // 이번달 출시예정인 위시 넨도
+  List<NendoData> getThisMonthWishList() {
+    List<NendoData> wishList = nendoList.where((item) => item.wish).toList();
+    DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
+    return wishList.where((item) {
+      DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
+      return itemDate.compareTo(today) == 0;
+    }).toList();
   }
 
   // 환율 정보를 받아옴
