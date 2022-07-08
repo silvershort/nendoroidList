@@ -9,7 +9,7 @@ class LicenseInfoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("앱 정보 및 라이센스 정보"),
+        title: const Text("앱 및 라이센스 정보"),
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),

@@ -13,19 +13,14 @@ import 'setting_page.dart';
 class DashboardPage extends StatelessWidget {
   DashboardPage({Key? key}) : super(key: key);
 
-  final TextStyle unselectedLabelStyle = TextStyle(
-      color: Colors.white.withOpacity(0.5),
-      fontWeight: FontWeight.w500,
-      fontSize: 12);
-  final TextStyle selectedLabelStyle = const TextStyle(
-      color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12);
+  final TextStyle unselectedLabelStyle = TextStyle(color: Colors.white.withOpacity(0.5), fontWeight: FontWeight.w500, fontSize: 12);
+  final TextStyle selectedLabelStyle = const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12);
 
   final TextEditingController searchEditingController = TextEditingController();
   final FocusNode searchFocus = FocusNode();
-  final DashboardController dashboardController =
-      Get.find<DashboardController>();
+  final DashboardController dashboardController = Get.find<DashboardController>();
   final Debounce _debounce = Debounce(milliseconds: 500);
-  
+
   String setAppBarTitle() {
     switch (Get.find<BottomSheetController>().modeIndex.value) {
       case 1:
@@ -155,69 +150,127 @@ class DashboardPage extends StatelessWidget {
       () => SafeArea(
         child: Scaffold(
           appBar: appBarWidget(),
-          body: IndexedStack(
-            index: dashboardController.tabIndex.value,
+          body: Row(
             children: [
-              const ListPage(),
-              MyPage(),
-              SettingPage(),
+              if (MediaQuery.of(context).size.width >= 640)
+                NavigationRail(
+                  labelType: NavigationRailLabelType.all,
+                  backgroundColor: Theme.of(context).colorScheme.background,
+                  unselectedIconTheme: IconThemeData(color: Colors.white.withOpacity(0.9)),
+                  unselectedLabelTextStyle: unselectedLabelStyle,
+                  selectedLabelTextStyle: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                  ),
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Container(
+                        margin: const EdgeInsets.only(bottom: 7),
+                        child: const Icon(
+                          Icons.list,
+                          size: 20.0,
+                        ),
+                      ),
+                      label: const Text("List"),
+                    ),
+                    NavigationRailDestination(
+                      icon: Container(
+                        margin: const EdgeInsets.only(bottom: 7),
+                        child: const Icon(
+                          Icons.person,
+                          size: 20.0,
+                        ),
+                      ),
+                      label: const Text("My"),
+                    ),
+                    NavigationRailDestination(
+                      icon: Container(
+                        margin: const EdgeInsets.only(bottom: 7),
+                        child: const Icon(
+                          Icons.settings,
+                          size: 20.0,
+                        ),
+                      ),
+                      label: const Text("Setting"),
+                    ),
+                  ],
+                  selectedIndex: dashboardController.tabIndex.value,
+                  onDestinationSelected: (index) => dashboardController.changeTabIndex(index),
+                ),
+              const VerticalDivider(
+                thickness: 1,
+                width: 1,
+              ),
+              Expanded(
+                child: IndexedStack(
+                  index: dashboardController.tabIndex.value,
+                  children: [
+                    const ListPage(),
+                    MyPage(),
+                    SettingPage(),
+                  ],
+                ),
+              ),
             ],
           ),
-          bottomNavigationBar: MediaQuery(
-            // MediaQuery 를 통해서 디바이스 폰트크기에 영향을 받지 않고 고정된 폰트 크기로 보여줄 수 있음.
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: BottomNavigationBar(
-              showUnselectedLabels: true,
-              showSelectedLabels: true,
-              onTap: (index) {
-                // 검색모드나 필터적용상태에서 My 페이지로 갈 경우 넨도로이드 목록 개수를 불러오는데 있어서 문제가 생길 수 있음.
-                // 따라서 다른페이지로 이동했을때 초기화를 해주도록 함.
-                if (index != 0 && (dashboardController.searchMode.value || Get.find<BottomSheetController>().nendoFilterIndex != -1)) {
-                  clearTextField();
-                  dashboardController.searchMode.value = false;
-                  Get.find<BottomSheetController>().resetNendoFilter();
-                }
-                dashboardController.changeTabIndex(index);
-              },
-              currentIndex: dashboardController.tabIndex.value,
-              unselectedItemColor: Colors.white.withOpacity(0.9),
-              unselectedLabelStyle: unselectedLabelStyle,
-              selectedLabelStyle: selectedLabelStyle,
-              backgroundColor: Theme.of(context).colorScheme.background,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Container(
-                    margin: const EdgeInsets.only(bottom: 7),
-                    child: const Icon(
-                      Icons.list,
-                      size: 20.0,
-                    ),
+          bottomNavigationBar: MediaQuery.of(context).size.width < 640
+              ? MediaQuery(
+                  // MediaQuery 를 통해서 디바이스 폰트크기에 영향을 받지 않고 고정된 폰트 크기로 보여줄 수 있음.
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: BottomNavigationBar(
+                    showUnselectedLabels: true,
+                    showSelectedLabels: true,
+                    onTap: (index) {
+                      // 검색모드나 필터적용상태에서 My 페이지로 갈 경우 넨도로이드 목록 개수를 불러오는데 있어서 문제가 생길 수 있음.
+                      // 따라서 다른페이지로 이동했을때 초기화를 해주도록 함.
+                      if (index != 0 && (dashboardController.searchMode.value || Get.find<BottomSheetController>().nendoFilterIndex != -1)) {
+                        clearTextField();
+                        dashboardController.searchMode.value = false;
+                        Get.find<BottomSheetController>().resetNendoFilter();
+                      }
+                      dashboardController.changeTabIndex(index);
+                    },
+                    currentIndex: dashboardController.tabIndex.value,
+                    unselectedItemColor: Colors.white.withOpacity(0.9),
+                    unselectedLabelStyle: unselectedLabelStyle,
+                    selectedLabelStyle: selectedLabelStyle,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    items: [
+                      BottomNavigationBarItem(
+                        icon: Container(
+                          margin: const EdgeInsets.only(bottom: 7),
+                          child: const Icon(
+                            Icons.list,
+                            size: 20.0,
+                          ),
+                        ),
+                        label: "List",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Container(
+                          margin: const EdgeInsets.only(bottom: 7),
+                          child: const Icon(
+                            Icons.person,
+                            size: 20.0,
+                          ),
+                        ),
+                        label: "My",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Container(
+                          margin: const EdgeInsets.only(bottom: 7),
+                          child: const Icon(
+                            Icons.settings,
+                            size: 20.0,
+                          ),
+                        ),
+                        label: "Setting",
+                      ),
+                    ],
                   ),
-                  label: "List",
-                ),
-                BottomNavigationBarItem(
-                  icon: Container(
-                    margin: const EdgeInsets.only(bottom: 7),
-                    child: const Icon(
-                      Icons.person,
-                      size: 20.0,
-                    ),
-                  ),
-                  label: "My",
-                ),
-                BottomNavigationBarItem(
-                  icon: Container(
-                    margin: const EdgeInsets.only(bottom: 7),
-                    child: const Icon(
-                      Icons.settings,
-                      size: 20.0,
-                    ),
-                  ),
-                  label: "Setting",
-                ),
-              ],
-            ),
-          ),
+                )
+              : null,
           floatingActionButton: Visibility(
             visible: dashboardController.tabIndex.value == 0,
             child: FloatingActionButton(

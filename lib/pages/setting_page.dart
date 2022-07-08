@@ -152,7 +152,7 @@ class SettingPage extends StatelessWidget {
           height: 20.0,
         ),
         const Text(
-          "앱 정보 : ",
+          "앱 및 라이센스 정보 : ",
           style: TextStyle(fontSize: 18.0),
         ),
         const SizedBox(

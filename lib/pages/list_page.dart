@@ -115,6 +115,8 @@ class _ListPageState extends State<ListPage> {
           );
         } else {
           return Scrollbar(
+            thickness: 5.0,
+            radius: const Radius.circular(5.0),
             controller: scrollController,
             interactive: true,
             trackVisibility: true,
@@ -136,9 +138,27 @@ class _ListPageState extends State<ListPage> {
                 controller: scrollController,
                 padding: const EdgeInsets.only(top: 10.0),
                 scrollDirection: Axis.vertical,
-                itemCount: controller.nendoList.length,
+                itemCount: controller.nendoList.length + 1,
                 itemBuilder: (context, index) {
-                  return NendoItem(nendoData: controller.nendoList[index]);
+                  if (index == 0) {
+                    if (dashboardController.searchMode.value) {
+                      return Container(
+                        height: 24,
+                        padding: const EdgeInsets.only(left: 10.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "검색된 넨도로이드 수 : ${controller.nendoList.length}",
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  } else {
+                    return NendoItem(nendoData: controller.nendoList[index - 1]);
+                  }
                 },
                 separatorBuilder: (context, index) {
                   return const Divider(
