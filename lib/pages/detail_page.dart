@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nendoroid_list/controllers/nendo_controller.dart';
-import 'package:nendoroid_list/models/nendo_data.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DetailPage extends StatefulWidget {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nendoroid_list/controllers/nendo_controller.dart';
-import 'package:nendoroid_list/models/gender_rate.dart';
-import 'package:nendoroid_list/models/most_series.dart';
-import 'package:nendoroid_list/models/nendo_data.dart';
-import 'package:nendoroid_list/pages/detail_page.dart';
-import 'package:nendoroid_list/utilities/intl_util.dart';
-import 'package:nendoroid_list/widgets/my_painter.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/models/gender_rate.dart';
+import 'package:nendoroid_db/models/most_series.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/pages/detail_page.dart';
+import 'package:nendoroid_db/utilities/intl_util.dart';
+import 'package:nendoroid_db/widgets/my_painter.dart';
 
 class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);

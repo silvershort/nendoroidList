@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nendoroid_list/controllers/bottom_sheet_controller.dart';
+import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
 
 import '../controllers/dashboard_controller.dart';
 import '../controllers/nendo_controller.dart';

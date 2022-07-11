@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:647472862543:android:a46fdf32f02b8f09b5613a",
         "android_client_info": {
-          "package_name": "com.example.nendoroid_list"
+          "package_name": "com.example.nendoroid_db"
         }
       },
       "oauth_client": [

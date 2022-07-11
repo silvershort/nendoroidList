@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nendoroid_list/models/exchange_rate_yen.dart';
+import 'package:nendoroid_db/models/exchange_rate_yen.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 

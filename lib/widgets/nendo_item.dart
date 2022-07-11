@@ -2,12 +2,12 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nendoroid_list/controllers/bottom_sheet_controller.dart';
-import 'package:nendoroid_list/controllers/dashboard_controller.dart';
-import 'package:nendoroid_list/controllers/nendo_controller.dart';
-import 'package:nendoroid_list/models/nendo_data.dart';
-import 'package:nendoroid_list/pages/detail_page.dart';
-import 'package:nendoroid_list/utilities/intl_util.dart';
+import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
+import 'package:nendoroid_db/controllers/dashboard_controller.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/pages/detail_page.dart';
+import 'package:nendoroid_db/utilities/intl_util.dart';
 
 class NendoItem extends StatelessWidget {
   NendoItem({Key? key, required this.nendoData}) : super(key: key);

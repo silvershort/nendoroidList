@@ -6,12 +6,12 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:nendoroid_list/models/exchange_rate_yen.dart';
-import 'package:nendoroid_list/models/gender_rate.dart';
-import 'package:nendoroid_list/models/most_series.dart';
-import 'package:nendoroid_list/models/sort_data.dart';
-import 'package:nendoroid_list/utilities/hive_name.dart';
-import 'package:nendoroid_list/utilities/intl_util.dart';
+import 'package:nendoroid_db/models/exchange_rate_yen.dart';
+import 'package:nendoroid_db/models/gender_rate.dart';
+import 'package:nendoroid_db/models/most_series.dart';
+import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/utilities/hive_name.dart';
+import 'package:nendoroid_db/utilities/intl_util.dart';
 
 import '../models/nendo_data.dart';
 import '../models/repo.dart';

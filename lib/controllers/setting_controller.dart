@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:nendoroid_list/utilities/app_color.dart';
+import 'package:nendoroid_db/utilities/app_color.dart';
 
 import '../utilities/app_font.dart';
 import '../utilities/hive_name.dart';

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:nendoroid_list/controllers/bottom_sheet_controller.dart';
-import 'package:nendoroid_list/controllers/nendo_controller.dart';
-import 'package:nendoroid_list/controllers/notification_controller.dart';
-import 'package:nendoroid_list/controllers/setting_controller.dart';
-import 'package:nendoroid_list/models/nendo_data.dart';
-import 'package:nendoroid_list/models/set_data.dart';
-import 'package:nendoroid_list/pages/dashboard_page.dart';
-import 'package:nendoroid_list/utilities/app_color.dart';
-import 'package:nendoroid_list/utilities/app_font.dart';
-import 'package:nendoroid_list/utilities/hive_name.dart';
+import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/controllers/notification_controller.dart';
+import 'package:nendoroid_db/controllers/setting_controller.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/set_data.dart';
+import 'package:nendoroid_db/pages/dashboard_page.dart';
+import 'package:nendoroid_db/utilities/app_color.dart';
+import 'package:nendoroid_db/utilities/app_font.dart';
+import 'package:nendoroid_db/utilities/hive_name.dart';
 
 import 'controllers/dashboard_controller.dart';
 

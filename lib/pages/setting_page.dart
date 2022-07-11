@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nendoroid_list/controllers/dashboard_controller.dart';
-import 'package:nendoroid_list/controllers/nendo_controller.dart';
-import 'package:nendoroid_list/controllers/setting_controller.dart';
-import 'package:nendoroid_list/pages/license_info_page.dart';
-import 'package:nendoroid_list/utilities/app_color.dart';
-import 'package:nendoroid_list/utilities/intl_util.dart';
+import 'package:nendoroid_db/controllers/dashboard_controller.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/controllers/setting_controller.dart';
+import 'package:nendoroid_db/pages/license_info_page.dart';
+import 'package:nendoroid_db/utilities/app_color.dart';
+import 'package:nendoroid_db/utilities/intl_util.dart';
 
 class SettingPage extends StatelessWidget {
   SettingPage({Key? key}) : super(key: key);
