@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nendoroid_list">
+    package="com.silvershort.nendoroid_db">
    <application
         android:label="넨도로이드 DB"
         android:name="${applicationName}"
