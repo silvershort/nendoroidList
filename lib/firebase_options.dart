@@ -71,6 +71,6 @@ class DefaultFirebaseOptions {
     projectId: 'nendoroidlist',
     storageBucket: 'nendoroidlist.appspot.com',
     iosClientId: '647472862543-l382pdtc2iqrbi6a46oohbcnnd46r8l0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.apiCall',
+    iosBundleId: 'com.silvershort.nendoroiddb',
   );
 }
