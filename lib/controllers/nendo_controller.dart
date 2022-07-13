@@ -58,6 +58,9 @@ class NendoController extends GetxController {
   // 오늘의 엔화 환율
   RxInt todayYen = 0.obs;
 
+  // 다운로드 용량
+  String dataSize = "0MB";
+
   // 개인 Github Token
   RxString githubToken = "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".obs;
 
@@ -75,7 +78,10 @@ class NendoController extends GetxController {
       githubToken.value = tokenKey;
     }
 
+    getRepoSize();
+
     if (nendoBox.isEmpty) {
+      getRepoSize();
     } else {
       setList.value = setBox.values.toList() as List<SetData>;
       initNendoList();
@@ -462,13 +468,16 @@ class NendoController extends GetxController {
 
   // 내가 보유한 넨도 세트 리스트를 반환해줌
   List<String> getCompleteSetList() {
+    print("@@@ getCompleteSetList");
     List<String> completeList = [];
     List<NendoData> haveList = nendoList.where((item) => item.have).toList();
     for (SetData setData in setList) {
       // 보유한 넨도 리스트에서 같은 시리즈 이름을 가진 리스트를 뽑고 거기서 넨도 번호를 받아온다.
       List<String> tempHaveSetList = haveList.where((item) => (item.series.ko ?? "").contains(setData.setName)).map((e) => e.num).toList();
-      // 세트리스트와 비교하기 위해 오름차순 정렬 (세트리스트는 기본적으로 오름차순 정렬)
+
+      // 리스트 비교를 위해 오름차순 정렬
       tempHaveSetList.sort();
+      setData.list.sort();
 
       // 세트 전체 넨도 번호 리스트와 보유한 넨도 리스트가 같은지 비교 후 같다면 completeList에 추가한다.
       if (listEquals(tempHaveSetList, setData.list)) {
@@ -616,5 +625,19 @@ class NendoController extends GetxController {
     final response = await dio.get("https://api.github.com/repos/KhoraLee/NendoroidDB/branches/master");
     String date = response.data['commit']['commit']['author']['date'];
     return date;
+  }
+
+  // DB 데이터의 총 용량을 받아옴
+  Future<void> getRepoSize() async {
+    try {
+      Dio dio = Dio()..options.headers["Authorization"] = githubToken.value;
+      final response = await dio.get("https://api.github.com/repos/KhoraLee/NendoroidDB");
+      int data = response.data['size'];
+      double mbSize = data / 1000;
+      dataSize = "${mbSize.toStringAsFixed(2)}MB";
+    } catch (e) {
+      print(e);
+      dataSize = "2MB";
+    }
   }
 }

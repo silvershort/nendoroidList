@@ -47,7 +47,25 @@ class _ListPageState extends State<ListPage> {
             ElevatedButton(
               child: const Text("넨도 데이터 가져오기"),
               onPressed: () {
-                controller.fetchData();
+                Get.dialog(AlertDialog(
+                  title: Text("다운로드 경고"),
+                  content: Text("[${controller.dataSize}] 데이터를 다운로드 합니다."),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text("취소"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.back();
+                        controller.fetchData();
+                      },
+                      child: const Text("확인"),
+                    ),
+                  ],
+                ));
               },
             ),
           ],
@@ -86,7 +104,9 @@ class _ListPageState extends State<ListPage> {
           children: [
             const Text("다운로드 도중 에러가 발생했습니다."),
             const Text("지속해서 발생한다면 개인용 Github 토큰을 등록해주세요."),
-            const SizedBox(height: 10.0,),
+            const SizedBox(
+              height: 10.0,
+            ),
             ElevatedButton(
               onPressed: () {
                 controller.downloadError.value = false;
