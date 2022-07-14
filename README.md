@@ -6,6 +6,8 @@ DB제공 : https://github.com/KhoraLee/NendoroidDB
 
 웹버전 : https://silvershort.github.io/web/#/
 
+플레이스토어 : https://play.google.com/store/apps/details?id=com.silvershort.nendoroid_db
+
 ## 사용된 주요 기술 스택
 
 :bulb: GetX (State Manager)
