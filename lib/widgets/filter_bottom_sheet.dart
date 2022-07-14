@@ -10,7 +10,7 @@ class FilterBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 400.0,
+      height: 420.0,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -138,14 +138,14 @@ class FilterBottomSheet extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: controller.nendoFilterIndex == BottomSheetController.haveFilter
+                            backgroundColor: controller.filterData.haveFilter
                                 ? Theme.of(context).colorScheme.background.withAlpha(80)
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.haveFilter);
                         },
                         child: const Text(
-                          "보유 넨도만",
+                          "보유",
                           style: TextStyle(),
                         ),
                       ),
@@ -154,14 +154,14 @@ class FilterBottomSheet extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: controller.nendoFilterIndex == BottomSheetController.notHaveFilter
+                            backgroundColor: controller.filterData.notHaveFilter
                                 ? Theme.of(context).colorScheme.background.withAlpha(80)
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.notHaveFilter);
                         },
                         child: const Text(
-                          "미보유 넨도만",
+                          "미보유",
                           style: TextStyle(),
                         ),
                       ),
@@ -176,14 +176,14 @@ class FilterBottomSheet extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: controller.nendoFilterIndex == BottomSheetController.wishFilter
+                            backgroundColor: controller.filterData.wishFilter
                                 ? Theme.of(context).colorScheme.background.withAlpha(80)
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.wishFilter);
                         },
                         child: const Text(
-                          "위시 넨도만",
+                          "위시",
                           style: TextStyle(),
                         ),
                       ),
@@ -192,14 +192,52 @@ class FilterBottomSheet extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: controller.nendoFilterIndex == BottomSheetController.expectedFilter
+                            backgroundColor: controller.filterData.expectedFilter
                                 ? Theme.of(context).colorScheme.background.withAlpha(80)
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.expectedFilter);
                         },
                         child: const Text(
-                          "출시예정 넨도만",
+                          "출시예정",
+                          style: TextStyle(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            backgroundColor: controller.filterData.femaleFilter
+                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                : Theme.of(context).colorScheme.surface),
+                        onPressed: () {
+                          controller.setNendoFilterIndex(BottomSheetController.femaleFilter);
+                        },
+                        child: const Text(
+                          "여성",
+                          style: TextStyle(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            backgroundColor: controller.filterData.maleFilter
+                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                : Theme.of(context).colorScheme.surface),
+                        onPressed: () {
+                          controller.setNendoFilterIndex(BottomSheetController.maleFilter);
+                        },
+                        child: const Text(
+                          "남성",
                           style: TextStyle(),
                         ),
                       ),

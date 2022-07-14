@@ -36,7 +36,7 @@ class MyPage extends StatelessWidget {
                     Obx(
                       () => accentText(
                         accentWord: "${nendoController.getHaveNendo()}",
-                        normalWord: " / ${nendoController.nendoList.length}",
+                        normalWord: " / ${nendoController.myNendoList.length}",
                         fontSize: 18.0,
                       ),
                     ),

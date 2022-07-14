@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:nendoroid_db/models/exchange_rate_yen.dart';
+import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/gender_rate.dart';
 import 'package:nendoroid_db/models/most_series.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
@@ -36,6 +37,8 @@ class NendoController extends GetxController {
   RxList<NendoData> nendoList = <NendoData>[].obs;
   RxList<SetData> setList = <SetData>[].obs;
   List<NendoData> backupNendoList = [];
+  // 필터 적용중에는 넨도리스트가 줄어들기 때문에 마이페이지에서 보여줄 넨도 리스트를 임시로 담는다.
+  RxList<NendoData> myNendoList = <NendoData>[].obs;
 
   // 앱 실행시 초기화까지 걸리는 로딩
   RxBool initLoading = false.obs;
@@ -159,6 +162,10 @@ class NendoController extends GetxController {
     nendoList.value = getLocalNendoList();
   }
 
+  void setMyNendoList() {
+    myNendoList.value = getLocalNendoList();
+  }
+
   List<NendoData> getLocalNendoList() {
     // 내부 DB 에서 넨도리스트를 받아온다.
     return (nendoBox.values.toList() as List<NendoData>)
@@ -264,32 +271,35 @@ class NendoController extends GetxController {
 
   // 특정 규칙에 따라서 리스트를 필터링 해준다.
   void filteringList(bool refresh) {
-    int index = Get.find<BottomSheetController>().nendoFilterIndex;
+    FilterData filterData = Get.find<BottomSheetController>().filterData;
 
     if (refresh) {
       searchInWord(lastWord);
     }
-    switch (index) {
-      case BottomSheetController.haveFilter:
-        nendoList.value = nendoList.where((item) => item.have).toList();
-        break;
-      case BottomSheetController.notHaveFilter:
-        nendoList.value = nendoList.where((item) => !item.have).toList();
-        break;
-      case BottomSheetController.wishFilter:
-        nendoList.value = nendoList.where((item) => item.wish).toList();
-        break;
-      case BottomSheetController.expectedFilter:
-        DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
-        nendoList.value = nendoList.where((item) {
-          DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
-          // 출시일이 오늘 날짜와 같거나 클때
-          return !itemDate.isBefore(today);
-        }).toList();
-        break;
-      case -1:
-      default:
-        break;
+
+    if (filterData.haveFilter) {
+      nendoList.value = nendoList.where((item) => item.have).toList();
+    } else if (filterData.notHaveFilter) {
+      nendoList.value = nendoList.where((item) => !item.have).toList();
+    }
+
+    if (filterData.wishFilter) {
+      nendoList.value = nendoList.where((item) => item.wish).toList();
+    }
+
+    if (filterData.expectedFilter) {
+      DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
+      nendoList.value = nendoList.where((item) {
+        DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
+        // 출시일이 오늘 날짜와 같거나 클때
+        return !itemDate.isBefore(today);
+      }).toList();
+    }
+
+    if (filterData.femaleFilter) {
+      nendoList.value = nendoList.where((item) => item.gender == "F").toList();
+    } else if (filterData.maleFilter) {
+      nendoList.value = nendoList.where((item) => item.gender == "M").toList();
     }
   }
 
@@ -351,21 +361,21 @@ class NendoController extends GetxController {
 
   // 현재 보유한 넨도로이드 개수를 알려줌
   int getHaveNendo() {
-    return nendoList.where((item) => item.have).length;
+    return myNendoList.where((item) => item.have).length;
   }
 
   // 현재 보유한 넨도로이드 개수를 %로 보여줌
   double getHaveRate() {
-    if (nendoList.where((item) => item.have).isEmpty) {
+    if (myNendoList.where((item) => item.have).isEmpty) {
       return 0;
     } else {
-      return nendoList.where((item) => item.have).length / nendoList.length * 100;
+      return myNendoList.where((item) => item.have).length / myNendoList.length * 100;
     }
   }
 
   // 내가 구매한 넨도가격을 합산해줌
   int getSumPrice() {
-    List<NendoData> haveList = nendoList.where((item) => item.have).toList();
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
     int totalPrice = 0;
     for (NendoData element in haveList) {
       // 가격 * 보유개수
@@ -382,7 +392,7 @@ class NendoController extends GetxController {
 
   // 넨도로이드 성별 비율과 개수를 반환
   List<GenderRate> getGenderRate() {
-    List<NendoData> haveList = nendoList.where((item) => item.have).toList();
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
     int femaleCount = haveList.where((item) => item.gender == "F").length;
     int maleCount = haveList.where((item) => item.gender == "M").length;
     int etcCount = haveList.where((item) => (item.gender != "F" && item.gender != "M")).length;
@@ -409,7 +419,7 @@ class NendoController extends GetxController {
 
   // 가장 많이 가지고 있는 넨도로이드 시리즈와 개수를 반환
   MostSeries? getMostHaveSeries() {
-    List<NendoData> haveList = nendoList.where((item) => item.have).toList();
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
     String mostSeries = "";
     int mostCount = 0;
     Set<String> completion = <String>{};
@@ -441,7 +451,7 @@ class NendoController extends GetxController {
 
   // 가장 많이 가지고 있는 넨도로이드를 반환
   List<NendoData> getMostHaveNendo() {
-    List<NendoData> sortList = nendoList.toList()..sort((a, b) => b.count.compareTo(a.count));
+    List<NendoData> sortList = myNendoList.toList()..sort((a, b) => b.count.compareTo(a.count));
 
     if (sortList.isEmpty) {
       return [];
@@ -468,9 +478,8 @@ class NendoController extends GetxController {
 
   // 내가 보유한 넨도 세트 리스트를 반환해줌
   List<String> getCompleteSetList() {
-    print("@@@ getCompleteSetList");
     List<String> completeList = [];
-    List<NendoData> haveList = nendoList.where((item) => item.have).toList();
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
     for (SetData setData in setList) {
       // 보유한 넨도 리스트에서 같은 시리즈 이름을 가진 리스트를 뽑고 거기서 넨도 번호를 받아온다.
       List<String> tempHaveSetList = haveList.where((item) => (item.series.ko ?? "").contains(setData.setName)).map((e) => e.num).toList();
@@ -489,7 +498,7 @@ class NendoController extends GetxController {
 
   // 이번달 출시예정인 구매 넨도
   List<NendoData> getThisMonthHaveList() {
-    List<NendoData> haveList = nendoList.where((item) => item.have).toList();
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
     DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
 
     return haveList.where((item) {
@@ -500,7 +509,7 @@ class NendoController extends GetxController {
 
   // 이번달 출시예정인 위시 넨도
   List<NendoData> getThisMonthWishList() {
-    List<NendoData> wishList = nendoList.where((item) => item.wish).toList();
+    List<NendoData> wishList = myNendoList.where((item) => item.wish).toList();
     DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
     return wishList.where((item) {
       DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);

@@ -224,11 +224,12 @@ class DashboardPage extends StatelessWidget {
                     onTap: (index) {
                       // 검색모드나 필터적용상태에서 My 페이지로 갈 경우 넨도로이드 목록 개수를 불러오는데 있어서 문제가 생길 수 있음.
                       // 따라서 다른페이지로 이동했을때 초기화를 해주도록 함.
-                      if (index != 0 && (dashboardController.searchMode.value || Get.find<BottomSheetController>().nendoFilterIndex != -1)) {
+                      /*if (index != 0 && (dashboardController.searchMode.value || Get.find<BottomSheetController>().nendoFilterIndex != -1)) {
                         clearTextField();
                         dashboardController.searchMode.value = false;
                         Get.find<BottomSheetController>().resetNendoFilter();
-                      }
+                      }*/
+                      Get.find<NendoController>().setMyNendoList();
                       dashboardController.changeTabIndex(index);
                     },
                     currentIndex: dashboardController.tabIndex.value,

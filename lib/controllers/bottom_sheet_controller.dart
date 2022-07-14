@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nendoroid_db/models/filter_data.dart';
 
 import '../models/sort_data.dart';
 import 'nendo_controller.dart';
@@ -17,9 +18,12 @@ class BottomSheetController extends GetxController {
   static const int notHaveFilter = 1;
   static const int wishFilter = 2;
   static const int expectedFilter = 3;
+  static const int maleFilter = 4;
+  static const int femaleFilter = 5;
 
   RxInt modeIndex = 0.obs;
   int nendoFilterIndex = -1;
+  FilterData filterData = FilterData();
   Rx<SortData> sortData = SortData(
     numSortOrder: descending,
     releaseSortOrder: descending,
@@ -28,26 +32,78 @@ class BottomSheetController extends GetxController {
 
   void setNendoFilterIndex(int index) {
     NendoController nendoController = Get.find<NendoController>();
-    if (nendoFilterIndex == index) {
-      nendoFilterIndex = -1;
-      nendoController.filteringList(true);
-    } else {
-      if (nendoFilterIndex == -1) {
-        nendoFilterIndex = index;
-        nendoController.filteringList(false);
-      } else {
-        nendoFilterIndex = index;
-        nendoController.filteringList(true);
-      }
+
+    switch (index) {
+      case haveFilter:
+        if (filterData.notHaveFilter) {
+          filterData.notHaveFilter = false;
+        }
+        if (filterData.haveFilter) {
+          filterData.haveFilter = false;
+        } else {
+          filterData.haveFilter = true;
+        }
+        break;
+      case notHaveFilter:
+        if (filterData.haveFilter) {
+          filterData.haveFilter = false;
+        }
+        if (filterData.notHaveFilter) {
+          filterData.notHaveFilter = false;
+        } else {
+          filterData.notHaveFilter = true;
+        }
+        break;
+      case wishFilter:
+        if (filterData.wishFilter) {
+          filterData.wishFilter = false;
+        } else {
+          filterData.wishFilter = true;
+        }
+        break;
+      case expectedFilter:
+        if (filterData.expectedFilter) {
+          filterData.expectedFilter = false;
+        } else {
+          filterData.expectedFilter = true;
+        }
+        break;
+      case maleFilter:
+        if (filterData.femaleFilter) {
+          filterData.femaleFilter = false;
+        }
+        if (filterData.maleFilter) {
+          filterData.maleFilter = false;
+        } else {
+          filterData.maleFilter = true;
+        }
+        break;
+      case femaleFilter:
+        if (filterData.maleFilter) {
+          filterData.maleFilter = false;
+        }
+        if (filterData.femaleFilter) {
+          filterData.femaleFilter = false;
+        } else {
+          filterData.femaleFilter = true;
+        }
+        break;
     }
+
     update();
+
+    nendoController.filteringList(true);
   }
 
   void resetNendoFilter() {
     NendoController nendoController = Get.find<NendoController>();
-    nendoFilterIndex = -1;
+    filterData = FilterData();
     nendoController.filteringList(true);
     update();
+  }
+
+  bool filterApplied() {
+    return !filterData.noFilter();
   }
 
   void changeMode(int index) {
