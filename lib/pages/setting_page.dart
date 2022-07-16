@@ -40,11 +40,32 @@ class SettingPage extends StatelessWidget {
           height: 3.0,
         ),
         Obx(
-          () => Text(
-            nendoController.serverCommitDate.isEmpty ? "DB 업데이트 날짜 : 데이터가 없습니다." : "DB 업데이트 날짜 : ${nendoController.serverCommitDate.value}",
-            style: const TextStyle(
-              fontSize: 18.0,
-            ),
+          () => Row(
+            children: [
+              Text(
+                nendoController.serverCommitDate.isEmpty ? "DB 업데이트 : 데이터가 없습니다." : "DB 업데이트 : ${nendoController.serverCommitDate.value}",
+                style: const TextStyle(
+                  fontSize: 18.0,
+                ),
+              ),
+              const SizedBox(width: 5.0,),
+              Visibility(
+                visible: IntlUtil.needUpdate(nendoController.serverCommitDate.value, nendoController.localCommitDate.value),
+                child: InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 2.0),
+                    child: Icon(
+                      Icons.update,
+                      size: 18,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  onTap: () {
+                    showUpdateDialog();
+                  },
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(
@@ -52,7 +73,7 @@ class SettingPage extends StatelessWidget {
         ),
         Obx(
           () => Text(
-            nendoController.localCommitDate.isEmpty ? "로컬 업데이트 날짜 : 데이터가 없습니다." : "로컬 업데이트 날짜 : ${nendoController.localCommitDate.value}",
+            nendoController.localCommitDate.isEmpty ? "로컬 업데이트 : 데이터가 없습니다." : "로컬 업데이트 : ${nendoController.localCommitDate.value}",
             style: const TextStyle(
               fontSize: 18.0,
             ),
