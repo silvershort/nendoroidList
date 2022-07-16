@@ -37,6 +37,7 @@ class NendoController extends GetxController {
   RxList<NendoData> nendoList = <NendoData>[].obs;
   RxList<SetData> setList = <SetData>[].obs;
   List<NendoData> backupNendoList = [];
+  List<NendoData> recoveryNendoList = [];
   // 필터 적용중에는 넨도리스트가 줄어들기 때문에 마이페이지에서 보여줄 넨도 리스트를 임시로 담는다.
   RxList<NendoData> myNendoList = <NendoData>[].obs;
 
@@ -109,6 +110,10 @@ class NendoController extends GetxController {
     currentStep.value = 0;
     totalStep.value = 0;
 
+    // 서버에러로 리스트를 원복해야할 경우
+    recoveryNendoList = nendoList.toList();
+    nendoList.value = [];
+
     try {
       // 서버 커밋 날짜 가져오기
       String commitDate = IntlUtil.convertDate(gmtTime: await getCommitDate());
@@ -133,6 +138,7 @@ class NendoController extends GetxController {
         currentStep.value = currentIndex + 1;
       }
     } catch (e) {
+      nendoList.value = recoveryNendoList.toList();
       downloadComplete.value = false;
       downloadLoading.value = false;
       downloadError.value = true;
@@ -585,9 +591,7 @@ class NendoController extends GetxController {
           NendoData backupData = backupNendoList[i];
           NendoData? newNendoData = result.firstWhereOrNull((newItem) => newItem.num == backupData.num);
           if (newNendoData != null) {
-            newNendoData.count = backupData.count;
-            newNendoData.have = backupData.have;
-            newNendoData.wish = backupData.wish;
+            newNendoData = backupData;
             // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
             backupNendoList.removeAt(i);
           }
