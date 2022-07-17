@@ -591,7 +591,10 @@ class NendoController extends GetxController {
           NendoData backupData = backupNendoList[i];
           NendoData? newNendoData = result.firstWhereOrNull((newItem) => newItem.num == backupData.num);
           if (newNendoData != null) {
-            newNendoData = backupData;
+            newNendoData.count = backupData.count;
+            newNendoData.have = backupData.have;
+            newNendoData.wish = backupData.wish;
+            newNendoData.myPrice = backupData.myPrice;
             // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
             backupNendoList.removeAt(i);
           }

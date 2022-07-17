@@ -35,7 +35,6 @@ class NendoData {
   @HiveField(11)
   int? myPrice;
 
-
   NendoData({
     required this.num,
     required this.name,
@@ -51,8 +50,7 @@ class NendoData {
     this.myPrice,
   });
 
-  factory NendoData.fromJson(Map<String, dynamic> json) =>
-      _$NendoDataFromJson(json);
+  factory NendoData.fromJson(Map<String, dynamic> json) => _$NendoDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$NendoDataToJson(this);
 }
