@@ -42,7 +42,7 @@ class NendoController extends GetxController {
   RxList<NendoData> myNendoList = <NendoData>[].obs;
 
   // 앱 실행시 초기화까지 걸리는 로딩
-  RxBool initLoading = false.obs;
+  RxBool initComplete = false.obs;
 
   // API 호출로 데이터를 받아올때 로딩
   RxBool downloadLoading = false.obs;
@@ -71,7 +71,6 @@ class NendoController extends GetxController {
   // 최초 실행시 데이터 세팅
   Future init() async {
     getTodayYen();
-    initLoading.value = true;
     nendoBox = await Hive.openBox<NendoData>(HiveName.nendoBoxName);
     setBox = await Hive.openBox<SetData>(HiveName.setBoxName);
     settingBox = await Hive.openBox<String>(HiveName.settingBoxName);
@@ -99,7 +98,7 @@ class NendoController extends GetxController {
       // 로컬에 있는 커밋날짜를 받아와준다.
       localCommitDate.value = settingBox.get(HiveName.localCommitDateKey);
     }
-    initLoading.value = false;
+    initComplete.value = true;
   }
 
   Future fetchData() async {

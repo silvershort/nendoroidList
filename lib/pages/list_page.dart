@@ -26,11 +26,11 @@ class _ListPageState extends State<ListPage> {
     final NendoController controller = Get.find<NendoController>();
     final DashboardController dashboardController = Get.find<DashboardController>();
     // 최초 로딩
-    if (controller.nendoList.isEmpty && controller.initLoading.value) {
+    if (controller.nendoList.isEmpty && !controller.initComplete.value) {
       return const CircularProgressIndicator();
       // 넨도 데이터가 없을때
     } else if (controller.nendoList.isEmpty &&
-        !controller.initLoading.value &&
+        controller.initComplete.value &&
         !controller.downloadComplete.value &&
         !controller.downloadLoading.value &&
         !controller.downloadError.value) {
