@@ -505,8 +505,10 @@ class NendoController extends GetxController {
   List<NendoData> getThisMonthHaveList() {
     List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
     DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
-
     return haveList.where((item) {
+      if (item.releaseDate.isEmpty) {
+        return false;
+      }
       DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
       return itemDate.compareTo(today) == 0;
     }).toList();
@@ -517,6 +519,9 @@ class NendoController extends GetxController {
     List<NendoData> wishList = myNendoList.where((item) => item.wish).toList();
     DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
     return wishList.where((item) {
+      if (item.releaseDate.isEmpty) {
+        return false;
+      }
       DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
       return itemDate.compareTo(today) == 0;
     }).toList();
