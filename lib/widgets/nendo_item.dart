@@ -245,8 +245,12 @@ class NendoItem extends StatelessWidget {
         ],
       );
     } else {
+      String purchasePrice = '출시가격 : ${IntlUtil.comma(nendoData.price)} ¥';
+      if (nendoData.myPrice != null && nendoData.have) {
+        purchasePrice += ' | 구매가격 : ${IntlUtil.comma(nendoData.myPrice!)} ₩';
+      }
       return Text(
-        '출시가격 : ${IntlUtil.comma(nendoData.price)} ¥',
+        purchasePrice,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(
           height: 1.0,
