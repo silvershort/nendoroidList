@@ -35,7 +35,6 @@ class NotificationController extends GetxController {
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     _messaging = FirebaseMessaging.instance;
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
