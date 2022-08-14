@@ -316,7 +316,10 @@ class NendoController extends GetxController {
       return;
     }
     List<NendoData> tempList = getLocalNendoList()
-        .where((item) => (item.name.ko ?? "").contains(word) || (item.name.en ?? "").contains(word) || (item.series.ko ?? "").contains(word))
+        .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+        || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
+        || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+        || (item.num) == word)
         .toList();
     nendoList.value = tempList;
     filteringList(false);
@@ -360,28 +363,6 @@ class NendoController extends GetxController {
     }
     NendoData item = nendoList.where((element) => element.num == number).first;
     item.count = count;
-    nendoBox.put(item.num, item);
-    nendoList.refresh();
-  }
-
-  // 넨도 메모 저장
-  void setNendoMemo(String number, String memo) {
-    NendoData item = nendoList.where((element) => element.num == number).first;
-    if (item.memo != null) {
-      item.memo!.add(memo);
-    } else {
-      item.memo = [memo];
-    }
-    nendoBox.put(item.num, item);
-    nendoList.refresh();
-  }
-
-  // 넨도 메모 삭제
-  void deleteNendoMemo(String number, String memo) {
-    NendoData item = nendoList.where((element) => element.num == number).first;
-    if (item.memo != null) {
-      item.memo!.remove(memo);
-    }
     nendoBox.put(item.num, item);
     nendoList.refresh();
   }

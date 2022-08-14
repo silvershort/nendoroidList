@@ -71,7 +71,7 @@ class DashboardPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                     decoration: InputDecoration(
-                      hintText: "이름 혹은 작품으로 검색",
+                      hintText: "이름, 작품, 번호로 검색",
                       hintStyle: const TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 0.7),
                       ),
