@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC8aa6QtLK3pB_4C11-dM_dXIQzaEvjUGU',
-    appId: '1:647472862543:android:a46fdf32f02b8f09b5613a',
+    appId: '1:647472862543:android:68d0d635db0a2cf7b5613a',
     messagingSenderId: '647472862543',
     projectId: 'nendoroidlist',
     storageBucket: 'nendoroidlist.appspot.com',
@@ -66,11 +66,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDZGWfScwIWLUhl6V-lnxOzQv9fUAkd1Gg',
-    appId: '1:647472862543:ios:6705e11aa91e70e2b5613a',
+    appId: '1:647472862543:ios:ea3641e82aaf7046b5613a',
     messagingSenderId: '647472862543',
     projectId: 'nendoroidlist',
     storageBucket: 'nendoroidlist.appspot.com',
-    iosClientId: '647472862543-l382pdtc2iqrbi6a46oohbcnnd46r8l0.apps.googleusercontent.com',
+    iosClientId: '647472862543-1ocbilhov6mch8odljv25fogq82csmhp.apps.googleusercontent.com',
     iosBundleId: 'com.silvershort.nendoroiddb',
   );
 }
