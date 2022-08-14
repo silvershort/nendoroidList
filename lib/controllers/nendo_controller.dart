@@ -118,10 +118,6 @@ class NendoController extends GetxController {
       String commitDate = IntlUtil.convertDate(gmtTime: await getCommitDate());
       serverCommitDate.value = commitDate;
 
-      // 로컬 커밋날짜 저장
-      settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
-      localCommitDate.value = IntlUtil.convertDate();
-
       // 넨도로이드 폴더 목록 가져오기
       await fetchFolderNameList();
       // 세트리스트 가져오기
@@ -136,6 +132,10 @@ class NendoController extends GetxController {
         // 다운로드 진행 상태 +1
         currentStep.value = currentIndex + 1;
       }
+
+      // 로컬 커밋날짜 저장
+      settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
+      localCommitDate.value = IntlUtil.convertDate();
     } catch (e) {
       nendoList.value = recoveryNendoList.toList();
       downloadComplete.value = false;

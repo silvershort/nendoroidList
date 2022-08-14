@@ -28,6 +28,7 @@ class SettingPage extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
+                    nendoController.serverCommitDate.isEmpty ? "업데이트 데이터가 없습니다." :
                     IntlUtil.needUpdate(nendoController.serverCommitDate.value, nendoController.localCommitDate.value)
                         ? "DB업데이트가 필요합니다. (탭 해서 업데이트)"
                         : "최신버전입니다.",
@@ -49,21 +50,18 @@ class SettingPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 5.0,),
-              Visibility(
-                visible: IntlUtil.needUpdate(nendoController.serverCommitDate.value, nendoController.localCommitDate.value),
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 2.0),
-                    child: Icon(
-                      Icons.update,
-                      size: 18,
-                      color: Theme.of(context).primaryColor,
-                    ),
+              InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 2.0),
+                  child: Icon(
+                    Icons.update,
+                    size: 18,
+                    color: Theme.of(context).primaryColor,
                   ),
-                  onTap: () {
-                    showUpdateDialog();
-                  },
                 ),
+                onTap: () {
+                  showUpdateDialog();
+                },
               ),
             ],
           ),
@@ -219,7 +217,11 @@ class SettingPage extends StatelessWidget {
   void showUpdateDialog() {
     Get.dialog(AlertDialog(
       title: const Text("DB 업데이트"),
-      content: const Text("DB 업데이트를 진행하시겠습니까?\n모든 데이터를 다시 받기때문에 시간이 다소 소요되며 다운로드 도중 앱 종료시 저장된 데이터가 삭제될 수 있습니다."),
+      content: Text(
+          IntlUtil.needUpdate(nendoController.serverCommitDate.value, nendoController.localCommitDate.value) ?
+      "DB 업데이트를 진행하시겠습니까?\n모든 데이터를 다시 받기때문에 시간이 다소 소요되며 다운로드 도중 앱 종료시 저장된 데이터가 삭제될 수 있습니다."
+          : "이미 최신버전입니다.\n강제 업데이트를 진행할까요?"
+      ),
       actions: [
         TextButton(
           onPressed: () {
