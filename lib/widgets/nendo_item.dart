@@ -58,22 +58,20 @@ class NendoItem extends StatelessWidget {
           width: double.infinity,
           height: 110.0,
           color: setItemSelectedColor(context),
-          child: MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                ExtendedImage.network(
-                  nendoData.image,
-                  width: 100.0,
-                  fit: BoxFit.cover,
-                  cache: true,
-                ),
-                const SizedBox(
-                  width: 10.0,
-                ),
-                Expanded(
-                    child: Stack(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              ExtendedImage.network(
+                nendoData.image,
+                width: 100.0,
+                fit: BoxFit.cover,
+                cache: true,
+              ),
+              const SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                child: Stack(
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +108,9 @@ class NendoItem extends StatelessWidget {
                                 size: 16,
                               ),
                             ),
-                            const SizedBox(width: 3.0,),
+                            const SizedBox(
+                              width: 3.0,
+                            ),
                             Visibility(
                               visible: nendoData.wish,
                               child: const Icon(
@@ -199,9 +199,9 @@ class NendoItem extends StatelessWidget {
                       ),
                     ),
                   ],
-                )),
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -241,8 +241,7 @@ class NendoItem extends StatelessWidget {
                 onTap: () {
                   showPurchasePriceDialog();
                 },
-              )
-          ),
+              )),
         ],
       );
     } else {

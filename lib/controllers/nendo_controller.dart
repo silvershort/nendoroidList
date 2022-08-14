@@ -364,6 +364,28 @@ class NendoController extends GetxController {
     nendoList.refresh();
   }
 
+  // 넨도 메모 저장
+  void setNendoMemo(String number, String memo) {
+    NendoData item = nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.add(memo);
+    } else {
+      item.memo = [memo];
+    }
+    nendoBox.put(item.num, item);
+    nendoList.refresh();
+  }
+
+  // 넨도 메모 삭제
+  void deleteNendoMemo(String number, String memo) {
+    NendoData item = nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.remove(memo);
+    }
+    nendoBox.put(item.num, item);
+    nendoList.refresh();
+  }
+
   // 현재 보유한 넨도로이드 개수를 알려줌
   int getHaveNendo() {
     return myNendoList.where((item) => item.have).length;

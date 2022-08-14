@@ -215,62 +215,58 @@ class DashboardPage extends StatelessWidget {
             ],
           ),
           bottomNavigationBar: MediaQuery.of(context).size.width < 640
-              ? MediaQuery(
-                  // MediaQuery 를 통해서 디바이스 폰트크기에 영향을 받지 않고 고정된 폰트 크기로 보여줄 수 있음.
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                  child: BottomNavigationBar(
-                    showUnselectedLabels: true,
-                    showSelectedLabels: true,
-                    onTap: (index) {
-                      // 검색모드나 필터적용상태에서 My 페이지로 갈 경우 넨도로이드 목록 개수를 불러오는데 있어서 문제가 생길 수 있음.
-                      // 따라서 다른페이지로 이동했을때 초기화를 해주도록 함.
-                      /*if (index != 0 && (dashboardController.searchMode.value || Get.find<BottomSheetController>().nendoFilterIndex != -1)) {
-                        clearTextField();
-                        dashboardController.searchMode.value = false;
-                        Get.find<BottomSheetController>().resetNendoFilter();
-                      }*/
-                      Get.find<NendoController>().setMyNendoList();
-                      dashboardController.changeTabIndex(index);
-                    },
-                    currentIndex: dashboardController.tabIndex.value,
-                    unselectedItemColor: Colors.white.withOpacity(0.9),
-                    unselectedLabelStyle: unselectedLabelStyle,
-                    selectedLabelStyle: selectedLabelStyle,
-                    backgroundColor: Theme.of(context).colorScheme.background,
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: Container(
-                          margin: const EdgeInsets.only(bottom: 7),
-                          child: const Icon(
-                            Icons.list,
-                            size: 20.0,
-                          ),
-                        ),
-                        label: "List",
+              ? BottomNavigationBar(
+                showUnselectedLabels: true,
+                showSelectedLabels: true,
+                onTap: (index) {
+                  // 검색모드나 필터적용상태에서 My 페이지로 갈 경우 넨도로이드 목록 개수를 불러오는데 있어서 문제가 생길 수 있음.
+                  // 따라서 다른페이지로 이동했을때 초기화를 해주도록 함.
+                  /*if (index != 0 && (dashboardController.searchMode.value || Get.find<BottomSheetController>().nendoFilterIndex != -1)) {
+                    clearTextField();
+                    dashboardController.searchMode.value = false;
+                    Get.find<BottomSheetController>().resetNendoFilter();
+                  }*/
+                  Get.find<NendoController>().setMyNendoList();
+                  dashboardController.changeTabIndex(index);
+                },
+                currentIndex: dashboardController.tabIndex.value,
+                unselectedItemColor: Colors.white.withOpacity(0.9),
+                unselectedLabelStyle: unselectedLabelStyle,
+                selectedLabelStyle: selectedLabelStyle,
+                backgroundColor: Theme.of(context).colorScheme.background,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: const Icon(
+                        Icons.list,
+                        size: 20.0,
                       ),
-                      BottomNavigationBarItem(
-                        icon: Container(
-                          margin: const EdgeInsets.only(bottom: 7),
-                          child: const Icon(
-                            Icons.person,
-                            size: 20.0,
-                          ),
-                        ),
-                        label: "My",
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Container(
-                          margin: const EdgeInsets.only(bottom: 7),
-                          child: const Icon(
-                            Icons.settings,
-                            size: 20.0,
-                          ),
-                        ),
-                        label: "Setting",
-                      ),
-                    ],
+                    ),
+                    label: "List",
                   ),
-                )
+                  BottomNavigationBarItem(
+                    icon: Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: const Icon(
+                        Icons.person,
+                        size: 20.0,
+                      ),
+                    ),
+                    label: "My",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: const Icon(
+                        Icons.settings,
+                        size: 20.0,
+                      ),
+                    ),
+                    label: "Setting",
+                  ),
+                ],
+              )
               : null,
           floatingActionButton: Visibility(
             visible: dashboardController.tabIndex.value == 0,

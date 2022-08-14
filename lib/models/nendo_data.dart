@@ -34,6 +34,8 @@ class NendoData {
   int count;
   @HiveField(11)
   int? myPrice;
+  @HiveField(12)
+  List<String>? memo;
 
   NendoData({
     required this.num,
@@ -48,6 +50,7 @@ class NendoData {
     this.count = 0,
     this.gender,
     this.myPrice,
+    this.memo,
   });
 
   factory NendoData.fromJson(Map<String, dynamic> json) => _$NendoDataFromJson(json);
