@@ -118,10 +118,6 @@ class NendoController extends GetxController {
       String commitDate = IntlUtil.convertDate(gmtTime: await getCommitDate());
       serverCommitDate.value = commitDate;
 
-      // 로컬 커밋날짜 저장
-      settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
-      localCommitDate.value = IntlUtil.convertDate();
-
       // 넨도로이드 폴더 목록 가져오기
       await fetchFolderNameList();
       // 세트리스트 가져오기
@@ -136,6 +132,10 @@ class NendoController extends GetxController {
         // 다운로드 진행 상태 +1
         currentStep.value = currentIndex + 1;
       }
+
+      // 로컬 커밋날짜 저장
+      settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
+      localCommitDate.value = IntlUtil.convertDate();
     } catch (e) {
       nendoList.value = recoveryNendoList.toList();
       downloadComplete.value = false;
@@ -316,7 +316,10 @@ class NendoController extends GetxController {
       return;
     }
     List<NendoData> tempList = getLocalNendoList()
-        .where((item) => (item.name.ko ?? "").contains(word) || (item.name.en ?? "").contains(word) || (item.series.ko ?? "").contains(word))
+        .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+        || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
+        || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+        || (item.num) == word)
         .toList();
     nendoList.value = tempList;
     filteringList(false);
@@ -326,12 +329,6 @@ class NendoController extends GetxController {
   void updateHaveNendo(String number) async {
     NendoData item = nendoList.where((element) => element.num == number).first;
     item.have = !item.have;
-    // 보유하고 있다면 개수 1로 수정, 미보유라면 0으로 수정
-    if (item.have) {
-      item.count = 1;
-    } else {
-      item.count = 0;
-    }
     nendoBox.put(item.num, item);
     nendoList.refresh();
   }
@@ -342,6 +339,11 @@ class NendoController extends GetxController {
     item.wish = !item.wish;
     nendoBox.put(item.num, item);
     nendoList.refresh();
+  }
+
+  // 번호로 넨도 데이터 가져오기
+  NendoData getNendoData(String number) {
+    return nendoList.where((item) => item.num == number).first;
   }
 
   // 넨도 구매 가격 변경
@@ -360,6 +362,28 @@ class NendoController extends GetxController {
     }
     NendoData item = nendoList.where((element) => element.num == number).first;
     item.count = count;
+    nendoBox.put(item.num, item);
+    nendoList.refresh();
+  }
+
+  // 넨도 메모 저장
+  void setNendoMemo(String number, List<String> memo) {
+    NendoData item = nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.addAll(memo);
+    } else {
+      item.memo = [...memo];
+    }
+    nendoBox.put(item.num, item);
+    nendoList.refresh();
+  }
+
+  // 넨도 메모 삭제
+  void deleteNendoMemo(String number, String memo) {
+    NendoData item = nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.remove(memo);
+    }
     nendoBox.put(item.num, item);
     nendoList.refresh();
   }
@@ -456,7 +480,8 @@ class NendoController extends GetxController {
 
   // 가장 많이 가지고 있는 넨도로이드를 반환
   List<NendoData> getMostHaveNendo() {
-    List<NendoData> sortList = myNendoList.toList()..sort((a, b) => b.count.compareTo(a.count));
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
+    List<NendoData> sortList = haveList..sort((a, b) => b.count.compareTo(a.count));
 
     if (sortList.isEmpty) {
       return [];
@@ -505,8 +530,10 @@ class NendoController extends GetxController {
   List<NendoData> getThisMonthHaveList() {
     List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
     DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
-
     return haveList.where((item) {
+      if (item.releaseDate.isEmpty) {
+        return false;
+      }
       DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
       return itemDate.compareTo(today) == 0;
     }).toList();
@@ -517,6 +544,9 @@ class NendoController extends GetxController {
     List<NendoData> wishList = myNendoList.where((item) => item.wish).toList();
     DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
     return wishList.where((item) {
+      if (item.releaseDate.isEmpty) {
+        return false;
+      }
       DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
       return itemDate.compareTo(today) == 0;
     }).toList();
@@ -594,6 +624,7 @@ class NendoController extends GetxController {
             newNendoData.have = backupData.have;
             newNendoData.wish = backupData.wish;
             newNendoData.myPrice = backupData.myPrice;
+            newNendoData.memo = backupData.memo?.toList();
             // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
             backupNendoList.removeAt(i);
           }

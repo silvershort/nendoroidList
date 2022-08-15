@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:647472862543:android:a46fdf32f02b8f09b5613a",
         "android_client_info": {
-          "package_name": "com.example.nendoroid_db"
+          "package_name": "com.example.nendoroid_list"
         }
       },
       "oauth_client": [
@@ -29,6 +29,49 @@
             {
               "client_id": "647472862543-avmug28c545vnd2ohafvee91kl8405fg.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "647472862543-l382pdtc2iqrbi6a46oohbcnnd46r8l0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.apiCall"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647472862543:android:68d0d635db0a2cf7b5613a",
+        "android_client_info": {
+          "package_name": "com.silvershort.nendoroid_db"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647472862543-avmug28c545vnd2ohafvee91kl8405fg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8aa6QtLK3pB_4C11-dM_dXIQzaEvjUGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647472862543-avmug28c545vnd2ohafvee91kl8405fg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "647472862543-l382pdtc2iqrbi6a46oohbcnnd46r8l0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.apiCall"
+              }
             }
           ]
         }
