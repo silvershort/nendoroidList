@@ -28,22 +28,24 @@ class _NendoAddMemoDialogState extends State<NendoAddMemoDialog> {
           const Text(
             "메모는 8글자 내외로 최대 4개 등록 가능합니다.",
             style: TextStyle(
-              fontSize: 11.0,
+              fontSize: 12.0,
             ),
           ),
+          const SizedBox(height: 3.0),
           const Text(
             "콤마를 이용하여 한번에 여러개 등록이 가능합니다.",
             style: TextStyle(
-              fontSize: 11.0,
+              fontSize: 12.0,
             ),
           ),
+          const SizedBox(height: 3.0),
           const Text(
             "ex) 박스없음,특전있음박,첫넨도",
             style: TextStyle(
-              fontSize: 11.0,
+              fontSize: 12.0,
             ),
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 15.0),
           TextField(
             autofocus: true,
             focusNode: focusNode,
@@ -54,10 +56,10 @@ class _NendoAddMemoDialogState extends State<NendoAddMemoDialog> {
             minLines: 1,
             decoration: const InputDecoration(
               isDense: true,
-              contentPadding: EdgeInsets.all(7.5),
+              contentPadding: EdgeInsets.all(10.0),
               labelText: '메모입력',
               labelStyle: TextStyle(
-                fontSize: 12.0,
+                fontSize: 14.0,
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
