@@ -58,7 +58,7 @@ class NendoItem extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
           width: double.infinity,
-          height: nendoData.memo != null && nendoData.memo!.isNotEmpty ? 130.0 : 110.0,
+          height: calculateItemHeight(),
           color: setItemSelectedColor(context),
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -225,9 +225,9 @@ class NendoItem extends StatelessWidget {
     if (modeController.modeIndex.value == BottomSheetController.haveEdit) {
       String purchasePrice = "";
       if (nendoData.myPrice != null && nendoData.have) {
-        purchasePrice = '구매가격 : ${IntlUtil.comma(nendoData.myPrice!)} ₩';
+        purchasePrice = '구매가격 : ${IntlUtil.comma(nendoData.myPrice!)} 원';
       } else {
-        purchasePrice = '출시가격 : ${IntlUtil.comma(nendoData.price)} ¥';
+        purchasePrice = '출시가격 : ${IntlUtil.comma(nendoData.price)} 엔';
       }
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -243,9 +243,9 @@ class NendoItem extends StatelessWidget {
         ],
       );
     } else {
-      String purchasePrice = '출시가격 : ${IntlUtil.comma(nendoData.price)} ¥';
+      String purchasePrice = '출시가격 : ${IntlUtil.comma(nendoData.price)} 엔';
       if (nendoData.myPrice != null && nendoData.have) {
-        purchasePrice += ' | 구매가격 : ${IntlUtil.comma(nendoData.myPrice!)} ₩';
+        purchasePrice += ' | 구매가격 : ${IntlUtil.comma(nendoData.myPrice!)} 원';
       }
       return Text(
         purchasePrice,
@@ -262,5 +262,13 @@ class NendoItem extends StatelessWidget {
     Get.dialog(
       NendoInfoEditDialog(nendoData: nendoData),
     );
+  }
+
+  double calculateItemHeight() {
+    if (nendoData.memo != null && nendoData.memo!.isNotEmpty) {
+      return 130.0;
+    } else {
+      return 110.0;
+    }
   }
 }
