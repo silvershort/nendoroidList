@@ -1,6 +1,6 @@
+import 'package:badges/badges.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
@@ -8,6 +8,8 @@ import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/pages/detail_page.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
+
+import 'nendo_info_edit_dialog.dart';
 
 class NendoItem extends StatelessWidget {
   NendoItem({Key? key, required this.nendoData}) : super(key: key);
@@ -56,7 +58,7 @@ class NendoItem extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
           width: double.infinity,
-          height: 110.0,
+          height: nendoData.memo != null && nendoData.memo!.isNotEmpty ? 130.0 : 110.0,
           color: setItemSelectedColor(context),
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -102,10 +104,23 @@ class NendoItem extends StatelessWidget {
                             ),
                             Visibility(
                               visible: nendoData.have,
-                              child: Icon(
-                                Icons.check,
-                                color: Theme.of(context).primaryColor,
-                                size: 16,
+                              child: Badge(
+                                showBadge: nendoData.count > 1,
+                                padding: const EdgeInsets.all(3.8),
+                                badgeColor: Colors.deepOrange,
+                                badgeContent: Text(
+                                  nendoData.count.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 10.0,
+                                    color: Colors.white
+                                  ),
+                                ),
+                                position: BadgePosition.bottomStart(),
+                                child: Icon(
+                                  Icons.check,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 16,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -146,57 +161,37 @@ class NendoItem extends StatelessWidget {
                             fontSize: 12.0,
                           ),
                         ),
+                        if (nendoData.memo != null && nendoData.memo!.isNotEmpty)
+                          Offstage(
+                            offstage: nendoData.memo == null,
+                            child: Wrap(
+                              spacing: 5.0,
+                              runSpacing: 2.5,
+                              children: memoChipList(context, nendoData.memo!),
+                            ),
+                          ),
                       ],
                     ),
                     Visibility(
                       visible: modeController.modeIndex.value == 1 && nendoData.have,
                       child: Positioned(
-                        bottom: 5.0,
-                        right: 0.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            SizedBox(
-                              height: 24.0,
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  nendoController.setNendoHaveCount(nendoData.num, nendoData.count - 1);
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  minimumSize: const Size(32, 24),
-                                  padding: const EdgeInsets.all(0),
-                                ),
-                                child: const Icon(
-                                  Icons.remove,
-                                  size: 18,
-                                ),
+                          bottom: -7.5,
+                          right: 2.5,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showNendoInfoEditDialog(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.fromLTRB(12.5, 7.5, 12.5, 7.5),
+                              minimumSize: const Size(0, 0),
+                            ),
+                            child: const Text(
+                              '상세편집',
+                              style: TextStyle(
+                                fontSize: 12,
                               ),
                             ),
-                            Container(
-                              height: 24.0,
-                              alignment: Alignment.center,
-                              child: Text("${nendoData.count}"),
-                            ),
-                            SizedBox(
-                              height: 24.0,
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  nendoController.setNendoHaveCount(nendoData.num, nendoData.count + 1);
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  minimumSize: const Size(32, 24),
-                                  padding: const EdgeInsets.all(0),
-                                ),
-                                child: const Icon(
-                                  Icons.add,
-                                  size: 18,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                          )),
                     ),
                   ],
                 ),
@@ -206,6 +201,24 @@ class NendoItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> memoChipList(BuildContext context, List<String> memoList) {
+    List<Widget> widgetList = [];
+    for (String memo in memoList) {
+      widgetList.add(Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.5),
+        child: Text(
+          memo,
+          style: const TextStyle(fontSize: 11.0, color: Colors.white),
+        ),
+      ));
+    }
+    return widgetList;
   }
 
   Widget nendoPrice(BuildContext context) {
@@ -227,26 +240,15 @@ class NendoItem extends StatelessWidget {
               fontSize: 12.0,
             ),
           ),
-          Visibility(
-              visible: nendoData.have,
-              child: InkWell(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child: Icon(
-                    Icons.edit,
-                    size: 14,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-                onTap: () {
-                  showPurchasePriceDialog();
-                },
-              )),
         ],
       );
     } else {
+      String purchasePrice = '출시가격 : ${IntlUtil.comma(nendoData.price)} ¥';
+      if (nendoData.myPrice != null && nendoData.have) {
+        purchasePrice += ' | 구매가격 : ${IntlUtil.comma(nendoData.myPrice!)} ₩';
+      }
       return Text(
-        '출시가격 : ${IntlUtil.comma(nendoData.price)} ¥',
+        purchasePrice,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(
           height: 1.0,
@@ -256,80 +258,9 @@ class NendoItem extends StatelessWidget {
     }
   }
 
-  void showPurchasePriceDialog() {
-    TextEditingController controller = TextEditingController();
-    Get.dialog(AlertDialog(
-      title: const Text("구매 가격 등록"),
-      content: TextField(
-        autofocus: true,
-        controller: controller,
-        keyboardType: TextInputType.number,
-        inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[0-9]"))],
-        decoration: const InputDecoration(
-            labelText: "실구매 가격(원)",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4.0)),
-            )),
-      ),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-              onPressed: () {
-                showResetPriceDialog();
-              },
-              child: const Text("초기화"),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: const Text("취소"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (controller.text.isEmpty) {
-                      Get.back();
-                    } else {
-                      int price = int.parse(controller.text);
-                      nendoController.setNendoPurchasePrice(nendoData.num, price);
-                      Get.back();
-                    }
-                  },
-                  child: const Text("확인"),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    ));
-  }
-
-  void showResetPriceDialog() {
-    Get.dialog(AlertDialog(
-      title: const Text("구매가격 초기화"),
-      content: const Text("구매가격을 초기화 하시겠습니까?"),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: const Text("취소"),
-        ),
-        TextButton(
-          onPressed: () {
-            nendoController.setNendoPurchasePrice(nendoData.num, null);
-            Get.back();
-            Get.back();
-          },
-          child: const Text("확인"),
-        ),
-      ],
-    ));
+  void showNendoInfoEditDialog(BuildContext context) {
+    Get.dialog(
+      NendoInfoEditDialog(nendoData: nendoData),
+    );
   }
 }

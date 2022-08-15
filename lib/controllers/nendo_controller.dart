@@ -329,12 +329,6 @@ class NendoController extends GetxController {
   void updateHaveNendo(String number) async {
     NendoData item = nendoList.where((element) => element.num == number).first;
     item.have = !item.have;
-    // 보유하고 있다면 개수 1로 수정, 미보유라면 0으로 수정
-    if (item.have) {
-      item.count = 1;
-    } else {
-      item.count = 0;
-    }
     nendoBox.put(item.num, item);
     nendoList.refresh();
   }
@@ -345,6 +339,11 @@ class NendoController extends GetxController {
     item.wish = !item.wish;
     nendoBox.put(item.num, item);
     nendoList.refresh();
+  }
+
+  // 번호로 넨도 데이터 가져오기
+  NendoData getNendoData(String number) {
+    return nendoList.where((item) => item.num == number).first;
   }
 
   // 넨도 구매 가격 변경
@@ -363,6 +362,28 @@ class NendoController extends GetxController {
     }
     NendoData item = nendoList.where((element) => element.num == number).first;
     item.count = count;
+    nendoBox.put(item.num, item);
+    nendoList.refresh();
+  }
+
+  // 넨도 메모 저장
+  void setNendoMemo(String number, List<String> memo) {
+    NendoData item = nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.addAll(memo);
+    } else {
+      item.memo = [...memo];
+    }
+    nendoBox.put(item.num, item);
+    nendoList.refresh();
+  }
+
+  // 넨도 메모 삭제
+  void deleteNendoMemo(String number, String memo) {
+    NendoData item = nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.remove(memo);
+    }
     nendoBox.put(item.num, item);
     nendoList.refresh();
   }
@@ -459,7 +480,8 @@ class NendoController extends GetxController {
 
   // 가장 많이 가지고 있는 넨도로이드를 반환
   List<NendoData> getMostHaveNendo() {
-    List<NendoData> sortList = myNendoList.toList()..sort((a, b) => b.count.compareTo(a.count));
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
+    List<NendoData> sortList = haveList..sort((a, b) => b.count.compareTo(a.count));
 
     if (sortList.isEmpty) {
       return [];
@@ -602,6 +624,7 @@ class NendoController extends GetxController {
             newNendoData.have = backupData.have;
             newNendoData.wish = backupData.wish;
             newNendoData.myPrice = backupData.myPrice;
+            newNendoData.memo = backupData.memo?.toList();
             // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
             backupNendoList.removeAt(i);
           }
