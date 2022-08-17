@@ -16,6 +16,7 @@ import 'package:nendoroid_db/pages/dashboard_page.dart';
 import 'package:nendoroid_db/utilities/app_color.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 import 'controllers/dashboard_controller.dart';
 import 'firebase_options.dart';
@@ -51,14 +52,19 @@ void main() async {
   Get.put(BottomSheetController());
   Get.put(NotificationController());
 
-  runZonedGuarded<Future<void>>(() async {
-    FlutterError.onError =
-        FirebaseCrashlytics.instance.recordFlutterFatalError;
-    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
+  if (kDebugMode) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     runApp(MyApp(appTheme: appTheme));
-  }, (error, stack) =>
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
+  } else {
+    runZonedGuarded<Future<void>>(() async {
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
+      FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+      runApp(MyApp(appTheme: appTheme));
+    }, (error, stack) =>
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
+  }
 }
 
 class MyApp extends StatelessWidget {
