@@ -295,6 +295,9 @@ class NendoController extends GetxController {
     if (filterData.expectedFilter) {
       DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
       nendoList.value = nendoList.where((item) {
+        if (item.releaseDate.isEmpty) {
+          return false;
+        }
         DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
         // 출시일이 오늘 날짜와 같거나 클때
         return !itemDate.isBefore(today);
