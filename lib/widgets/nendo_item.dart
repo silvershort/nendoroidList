@@ -58,7 +58,6 @@ class NendoItem extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
           width: double.infinity,
-          height: calculateItemHeight(),
           color: setItemSelectedColor(context),
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -136,6 +135,7 @@ class NendoItem extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 7.5),
                         Text(
                           '시리즈 : ${nendoData.series.ko ?? "데이터 없음"}',
                           overflow: TextOverflow.ellipsis,
@@ -144,7 +144,9 @@ class NendoItem extends StatelessWidget {
                             fontSize: 12.0,
                           ),
                         ),
+                        const SizedBox(height: 7.5),
                         nendoPrice(context),
+                        const SizedBox(height: 7.5),
                         Text(
                           '출시날짜 : ${nendoData.releaseDate}',
                           overflow: TextOverflow.ellipsis,
@@ -153,6 +155,7 @@ class NendoItem extends StatelessWidget {
                             fontSize: 12.0,
                           ),
                         ),
+                        const SizedBox(height: 7.5),
                         Text(
                           '성별 : ${nendoData.gender ?? "데이터 없음"}',
                           overflow: TextOverflow.ellipsis,
@@ -162,13 +165,18 @@ class NendoItem extends StatelessWidget {
                           ),
                         ),
                         if (nendoData.memo != null && nendoData.memo!.isNotEmpty)
-                          Offstage(
-                            offstage: nendoData.memo == null,
-                            child: Wrap(
-                              spacing: 5.0,
-                              runSpacing: 2.5,
-                              children: memoChipList(context, nendoData.memo!),
-                            ),
+                          Column(
+                            children: [
+                              const SizedBox(height: 7.5),
+                              Offstage(
+                                offstage: nendoData.memo == null,
+                                child: Wrap(
+                                  spacing: 5.0,
+                                  runSpacing: 2.5,
+                                  children: memoChipList(context, nendoData.memo!),
+                                ),
+                              ),
+                            ],
                           ),
                       ],
                     ),
@@ -262,13 +270,5 @@ class NendoItem extends StatelessWidget {
     Get.dialog(
       NendoInfoEditDialog(nendoData: nendoData),
     );
-  }
-
-  double calculateItemHeight() {
-    if (nendoData.memo != null && nendoData.memo!.isNotEmpty) {
-      return 130.0;
-    } else {
-      return 110.0;
-    }
   }
 }
