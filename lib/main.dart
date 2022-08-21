@@ -34,7 +34,7 @@ void main() async {
   int? index = appThemeBox.get(HiveName.appThemeIndexKey);
   late ThemeData appTheme;
 
-  if (index == AppColor.themeColors.length) {
+  if (index == -1) {
     appTheme = ThemeData(
       brightness: Brightness.dark,
       fontFamily: AppFont.oneMobile,
