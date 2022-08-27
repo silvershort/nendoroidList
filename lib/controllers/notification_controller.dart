@@ -107,7 +107,7 @@ class NotificationController extends GetxController {
           } else if (page == "setting") {
             index = 2;
           }
-          Get.find<DashboardController>().changeTabIndex(index);
+          Get.find<DashboardController>().tabIndex = index;
         }
       } catch (e) {
         print(e);

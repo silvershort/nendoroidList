@@ -26,14 +26,14 @@ class _ListPageState extends State<ListPage> {
     final NendoController controller = Get.find<NendoController>();
     final DashboardController dashboardController = Get.find<DashboardController>();
     // 최초 로딩
-    if (controller.nendoList.isEmpty && !controller.initComplete.value) {
+    if (controller.nendoList.isEmpty && !controller.initComplete) {
       return const CircularProgressIndicator();
       // 넨도 데이터가 없을때
     } else if (controller.nendoList.isEmpty &&
-        controller.initComplete.value &&
-        !controller.downloadComplete.value &&
-        !controller.downloadLoading.value &&
-        !controller.downloadError.value) {
+        controller.initComplete &&
+        !controller.downloadComplete &&
+        !controller.downloadLoading &&
+        !controller.downloadError) {
       return GestureDetector(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -73,22 +73,22 @@ class _ListPageState extends State<ListPage> {
       );
 
       // 넨도 데이터를 다운받을때
-    } else if (controller.downloadLoading.value) {
-      if (controller.totalStep.value == 0) {
+    } else if (controller.downloadLoading) {
+      if (controller.totalStep == 0) {
         return const Text("넨도로이드 목록을 가져오는중...");
       } else {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("${controller.currentStep.value} / ${controller.totalStep.value}"),
+            Text("${controller.currentStep} / ${controller.totalStep}"),
             const SizedBox(
               height: 5.0,
             ),
             FractionallySizedBox(
               widthFactor: 0.6,
               child: LinearProgressIndicator(
-                value: controller.currentStep.value / controller.totalStep.value,
+                value: controller.currentStep / controller.totalStep,
                 backgroundColor: Colors.grey,
               ),
             ),
@@ -97,7 +97,7 @@ class _ListPageState extends State<ListPage> {
       }
       // 리스트 출력
     } else {
-      if (controller.downloadError.value) {
+      if (controller.downloadError) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,8 +109,8 @@ class _ListPageState extends State<ListPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                controller.downloadError.value = false;
-                controller.init();
+                controller.downloadError = false;
+                controller.initData();
               },
               child: const Text(
                 "되돌아가기",
@@ -145,7 +145,7 @@ class _ListPageState extends State<ListPage> {
             child: NotificationListener<ScrollNotification>(
               onNotification: (scrollNotification) {
                 if (scrollNotification is ScrollStartNotification) {
-                  if (dashboardController.searchMode.value) {
+                  if (dashboardController.searchMode) {
                     FocusScope.of(context).unfocus();
                   }
                 }
@@ -161,7 +161,7 @@ class _ListPageState extends State<ListPage> {
                 itemCount: controller.nendoList.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    if (dashboardController.searchMode.value) {
+                    if (dashboardController.searchMode) {
                       return Container(
                         height: 24,
                         padding: const EdgeInsets.only(left: 10.0),

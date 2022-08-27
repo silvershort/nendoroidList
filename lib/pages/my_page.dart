@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/controllers/my_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/gender_rate.dart';
 import 'package:nendoroid_db/models/most_series.dart';
@@ -11,6 +12,7 @@ import 'package:nendoroid_db/widgets/my_painter.dart';
 class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);
   final NendoController nendoController = Get.find<NendoController>();
+  final MyController myController = Get.find<MyController>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +37,8 @@ class MyPage extends StatelessWidget {
                     ),
                     Obx(
                       () => accentText(
-                        accentWord: "${nendoController.getHaveNendo()}",
-                        normalWord: " / ${nendoController.myNendoList.length}",
+                        accentWord: "${myController.getHaveNendo()}",
+                        normalWord: " / ${myController.myNendoList.length}",
                         fontSize: 18.0,
                       ),
                     ),
@@ -52,7 +54,7 @@ class MyPage extends StatelessWidget {
                     foregroundPainter: MyPainter(
                         lineColor: Theme.of(context).colorScheme.background,
                         completeColor: Theme.of(context).colorScheme.primary,
-                        completePercent: nendoController.getHaveRate(),
+                        completePercent: myController.getHaveRate(),
                         width: 8.0),
                   ),
                 ),
@@ -88,7 +90,7 @@ class MyPage extends StatelessWidget {
             const SizedBox(
               height: 3.0,
             ),
-            Obx(() => accentText(accentWord: IntlUtil.comma(nendoController.getSumPrice()), normalWord: "원", fontSize: 18.0)),
+            Obx(() => accentText(accentWord: IntlUtil.comma(myController.getSumPrice()), normalWord: "원", fontSize: 18.0)),
             const SizedBox(
               height: 20.0,
             ),
@@ -102,7 +104,7 @@ class MyPage extends StatelessWidget {
               height: 5.0,
             ),
             accentText(
-              accentWord: "${nendoController.getCompleteSetList().length}",
+              accentWord: "${myController.getCompleteSetList().length}",
               normalWord: "세트",
               fontSize: 18.0,
             ),
@@ -143,7 +145,7 @@ class MyPage extends StatelessWidget {
   }
 
   Widget thisMonthBuyNendo() {
-    List<NendoData> nendoList = nendoController.getThisMonthHaveList();
+    List<NendoData> nendoList = myController.getThisMonthHaveList();
     if (nendoList.isEmpty) {
       return const SizedBox();
     } else {
@@ -184,7 +186,7 @@ class MyPage extends StatelessWidget {
   }
 
   Widget thisMonthWishNendo() {
-    List<NendoData> nendoList = nendoController.getThisMonthWishList();
+    List<NendoData> nendoList = myController.getThisMonthWishList();
     if (nendoList.isEmpty) {
       return const SizedBox();
     } else {
@@ -225,7 +227,7 @@ class MyPage extends StatelessWidget {
   }
 
   Widget mostSeries() {
-    MostSeries? mostSeries = nendoController.getMostHaveSeries();
+    MostSeries? mostSeries = myController.getMostHaveSeries();
     if (mostSeries == null) {
       return const SizedBox(height: 0.0,);
     } else {
@@ -252,7 +254,7 @@ class MyPage extends StatelessWidget {
   }
 
   Widget mostNendo() {
-    List<NendoData> mostList = nendoController.getMostHaveNendo();
+    List<NendoData> mostList = myController.getMostHaveNendo();
     if (mostList.isEmpty) {
       return const SizedBox(height: 0.0);
     } else {
@@ -298,7 +300,7 @@ class MyPage extends StatelessWidget {
   }
 
   Widget genderRateText() {
-    List<GenderRate> genderList = nendoController.getGenderRate();
+    List<GenderRate> genderList = myController.getGenderRate();
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -364,7 +366,7 @@ class MyPage extends StatelessWidget {
   }
 
   Widget haveSetList() {
-    List<String> setList = nendoController.getCompleteSetList();
+    List<String> setList = myController.getCompleteSetList();
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       itemCount: setList.length,
@@ -398,7 +400,7 @@ class MyPage extends StatelessWidget {
         "가지고 있는 넨도로이드의 가격을 직접 입력했을경우 입력한 가격을 사용하고 입력하지 않았을 경우 "
             "출시 가격을 이용하여 가격을 합산합니다.\n출시 가격의 경우 오늘의 환율을 적용하여 원화 가격으로 변환해주고 있으며, "
             "환율정보를 가져오지 못했을경우 100엔당 1000원으로 계산합니다.\n\n"
-            "오늘의 환율 : ${nendoController.todayYen.value == 0 ? "환율정보 없음" : "${nendoController.todayYen.value}원"}",
+            "오늘의 환율 : ${myController.todayYen == 0 ? "환율정보 없음" : "${myController.todayYen}원"}",
         style: const TextStyle(height: 1.3),
       ),
       actions: [

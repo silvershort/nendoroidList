@@ -18,7 +18,7 @@ class NendoItem extends StatelessWidget {
   final NendoController nendoController = Get.find<NendoController>();
 
   Color setItemSelectedColor(BuildContext context) {
-    int mode = modeController.modeIndex.value;
+    int mode = modeController.modeIndex;
     if (mode == 1) {
       if (nendoData.have) {
         return Theme.of(context).colorScheme.secondary.withAlpha(80);
@@ -41,7 +41,7 @@ class NendoItem extends StatelessWidget {
     return Obx(
       () => GestureDetector(
         onTap: () {
-          int mode = modeController.modeIndex.value;
+          int mode = modeController.modeIndex;
           if (mode == 0) {
             Get.to(DetailPage(nendoData: nendoData));
           } else if (mode == 1) {
@@ -51,7 +51,7 @@ class NendoItem extends StatelessWidget {
           }
 
           // 아이템 클릭했을때 포커스 해제
-          if (Get.find<DashboardController>().searchMode.value) {
+          if (Get.find<DashboardController>().searchMode) {
             FocusScope.of(context).unfocus();
           }
         },
@@ -181,7 +181,7 @@ class NendoItem extends StatelessWidget {
                       ],
                     ),
                     Visibility(
-                      visible: modeController.modeIndex.value == 1 && nendoData.have,
+                      visible: modeController.modeIndex == 1 && nendoData.have,
                       child: Positioned(
                           bottom: -7.5,
                           right: 2.5,
@@ -230,7 +230,7 @@ class NendoItem extends StatelessWidget {
   }
 
   Widget nendoPrice(BuildContext context) {
-    if (modeController.modeIndex.value == BottomSheetController.haveEdit) {
+    if (modeController.modeIndex == BottomSheetController.haveEdit) {
       String purchasePrice = "";
       if (nendoData.myPrice != null && nendoData.have) {
         purchasePrice = '구매가격 : ${IntlUtil.comma(nendoData.myPrice!)} 원';

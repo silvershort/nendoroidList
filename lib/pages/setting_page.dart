@@ -10,8 +10,8 @@ import 'package:nendoroid_db/utilities/intl_util.dart';
 
 class SettingPage extends StatelessWidget {
   SettingPage({Key? key}) : super(key: key);
-  final NendoController nendoController = Get.find<NendoController>();
   final SettingController settingController = Get.find<SettingController>();
+  final NendoController nendoController = Get.find<NendoController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SettingPage extends StatelessWidget {
       children: [
         Obx(() => GestureDetector(
               onTap: () {
-                if (IntlUtil.needUpdate(nendoController.serverCommitDate.value, nendoController.localCommitDate.value)) {
+                if (IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate)) {
                   showUpdateDialog();
                 }
               },
@@ -29,7 +29,7 @@ class SettingPage extends StatelessWidget {
                 children: [
                   Text(
                     nendoController.serverCommitDate.isEmpty ? "업데이트 데이터가 없습니다." :
-                    IntlUtil.needUpdate(nendoController.serverCommitDate.value, nendoController.localCommitDate.value)
+                    IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate)
                         ? "DB업데이트가 필요합니다. (탭 해서 업데이트)"
                         : "최신버전입니다.",
                     style: const TextStyle(fontSize: 13.0, color: Colors.deepOrangeAccent),
@@ -44,7 +44,7 @@ class SettingPage extends StatelessWidget {
           () => Row(
             children: [
               Text(
-                nendoController.serverCommitDate.isEmpty ? "DB 업데이트 : 데이터가 없습니다." : "DB 업데이트 : ${nendoController.serverCommitDate.value}",
+                nendoController.serverCommitDate.isEmpty ? "DB 업데이트 : 데이터가 없습니다." : "DB 업데이트 : ${nendoController.serverCommitDate}",
                 style: const TextStyle(
                   fontSize: 18.0,
                 ),
@@ -71,7 +71,7 @@ class SettingPage extends StatelessWidget {
         ),
         Obx(
           () => Text(
-            nendoController.localCommitDate.isEmpty ? "로컬 업데이트 : 데이터가 없습니다." : "로컬 업데이트 : ${nendoController.localCommitDate.value}",
+            nendoController.localCommitDate.isEmpty ? "로컬 업데이트 : 데이터가 없습니다." : "로컬 업데이트 : ${nendoController.localCommitDate}",
             style: const TextStyle(
               fontSize: 18.0,
             ),
@@ -218,7 +218,7 @@ class SettingPage extends StatelessWidget {
     Get.dialog(AlertDialog(
       title: const Text("DB 업데이트"),
       content: Text(
-          IntlUtil.needUpdate(nendoController.serverCommitDate.value, nendoController.localCommitDate.value) ?
+          IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate) ?
       "DB 업데이트를 진행하시겠습니까?\n모든 데이터를 다시 받기때문에 시간이 다소 소요되며 다운로드 도중 앱 종료시 저장된 데이터가 삭제될 수 있습니다."
           : "이미 최신버전입니다.\n강제 업데이트를 진행할까요?"
       ),
@@ -231,7 +231,7 @@ class SettingPage extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Get.find<DashboardController>().tabIndex.value = 0;
+            Get.find<DashboardController>().tabIndex = 0;
             nendoController.backupData();
             nendoController.fetchData();
             Get.back();
@@ -289,7 +289,7 @@ class SettingPage extends StatelessWidget {
                 if (controller.text.isEmpty) {
                   Get.back();
                 } else {
-                  nendoController.setGithubTokenKey(controller.text.trim());
+                  settingController.setGithubTokenKey(controller.text.trim());
                   Get.back();
                   showCommonDialog("등록이 완료되었습니다.");
                 }
@@ -320,7 +320,7 @@ class SettingPage extends StatelessWidget {
   }
 
   void clearGithubToken() {
-    nendoController.githubToken.value = "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";
-    nendoController.setGithubTokenKey("");
+    nendoController.githubToken = "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";
+    settingController.setGithubTokenKey("");
   }
 }
