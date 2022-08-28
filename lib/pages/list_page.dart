@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/widgets/list/list_download_error.dart';
 import 'package:nendoroid_db/widgets/list/list_download_view.dart';
 import 'package:nendoroid_db/widgets/list/list_empty_view.dart';
@@ -8,7 +7,6 @@ import 'package:nendoroid_db/widgets/list/list_nendo_view.dart';
 import 'package:nendoroid_db/widgets/list/list_notification_view.dart';
 
 import '../controllers/nendo_controller.dart';
-import '../widgets/list/list_nendo_item.dart';
 
 class ListPage extends GetView<NendoController> {
   const ListPage({Key? key}) : super(key: key);

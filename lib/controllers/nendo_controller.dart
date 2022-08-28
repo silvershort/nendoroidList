@@ -298,6 +298,10 @@ class NendoController extends GetxController {
   void updateHaveNendo(String number) async {
     NendoData item = nendoList.where((element) => element.num == number).first;
     item.have = !item.have;
+    // 보유넨도가 됐을경우 수량을 1로 수정
+    if (item.have && item.count == 0) {
+      item.count = 1;
+    }
     nendoBox.put(item.num, item);
     nendoList.refresh();
   }
