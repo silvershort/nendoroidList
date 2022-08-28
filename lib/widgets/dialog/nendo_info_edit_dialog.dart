@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/widgets/dialog/nendo_add_memo_dialog.dart';
-import 'package:nendoroid_db/widgets/nendo_memo_list.dart';
+import 'package:nendoroid_db/widgets/list/list_nendo_memo_list.dart';
 
 import 'nendo_price_reset_dialog.dart';
 
@@ -193,7 +193,7 @@ class NendoInfoEditDialog extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10.0),
-            NendoMemoList(num: nendoData.num),
+            ListNendoMemoList(num: nendoData.num),
           ],
         ),
         actions: [

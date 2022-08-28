@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class MyPainter extends CustomPainter {
+class MyCollectionPainter extends CustomPainter {
   Color lineColor;
   Color completeColor;
   double completePercent;
   double width;
 
-  MyPainter({
+  MyCollectionPainter({
     required this.lineColor,
     required this.completeColor,
     required this.completePercent,
