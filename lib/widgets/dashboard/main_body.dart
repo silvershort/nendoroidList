@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 
+import '../../controllers/my_controller.dart';
 import '../../pages/list_page.dart';
 import '../../pages/my_page.dart';
 import '../../pages/setting_page.dart';
@@ -60,7 +61,12 @@ class MainBody extends GetView<DashboardController> {
                 ),
               ],
               selectedIndex: controller.tabIndex,
-              onDestinationSelected: (index) => controller.tabIndex = index,
+              onDestinationSelected: (index) {
+                Get.find<MyController>().setMyNendoList();
+                controller.pageQueue.addPage(controller.tabIndex);
+                controller.tabIndex = index;
+                controller.pageQueue.removePage(controller.tabIndex);
+              },
             ),
           const VerticalDivider(
             thickness: 1,
