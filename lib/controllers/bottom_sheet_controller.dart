@@ -21,14 +21,18 @@ class BottomSheetController extends GetxController {
   static const int maleFilter = 4;
   static const int femaleFilter = 5;
 
-  RxInt modeIndex = 0.obs;
-  int nendoFilterIndex = -1;
-  FilterData filterData = FilterData();
-  Rx<SortData> sortData = SortData(
+  final RxInt _modeIndex = 0.obs;
+  int get modeIndex => _modeIndex.value;
+  set modeIndex(int modeIndex) => _modeIndex.value = modeIndex;
+
+  final Rx<SortData> _sortData = SortData(
     numSortOrder: descending,
     releaseSortOrder: descending,
     sortingMethod: num,
   ).obs;
+  SortData get sortData => _sortData.value;
+
+  FilterData filterData = FilterData();
 
   void setNendoFilterIndex(int index) {
     NendoController nendoController = Get.find<NendoController>();
@@ -107,27 +111,27 @@ class BottomSheetController extends GetxController {
   }
 
   void changeMode(int index) {
-    modeIndex.value = index;
+    modeIndex = index;
     Get.find<NendoController>().nendoList.refresh();
   }
 
   void setNameSort() {
-    if (sortData.value.sortingMethod == num) {
-      sortData.value.numSortOrder = !sortData.value.numSortOrder;
+    if (sortData.sortingMethod == num) {
+      sortData.numSortOrder = !sortData.numSortOrder;
     } else {
-      sortData.value.sortingMethod = num;
+      sortData.sortingMethod = num;
     }
-    sortData.refresh();
+    _sortData.refresh();
     Get.find<NendoController>().sortNendoList();
   }
 
   void setReleaseSort() {
-    if (sortData.value.sortingMethod == release) {
-      sortData.value.releaseSortOrder = !sortData.value.releaseSortOrder;
+    if (sortData.sortingMethod == release) {
+      sortData.releaseSortOrder = !sortData.releaseSortOrder;
     } else {
-      sortData.value.sortingMethod = release;
+      sortData.sortingMethod = release;
     }
-    sortData.refresh();
+    _sortData.refresh();
     Get.find<NendoController>().sortNendoList();
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -16,9 +17,9 @@ import 'package:nendoroid_db/pages/dashboard_page.dart';
 import 'package:nendoroid_db/utilities/app_color.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
-import 'package:flutter/foundation.dart' show kDebugMode;
 
 import 'controllers/dashboard_controller.dart';
+import 'controllers/my_controller.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -46,10 +47,11 @@ void main() async {
     );
   }
 
-  Get.put(NendoController()).init();
+  Get.put(NendoController());
+  Get.put(MyController());
+  Get.put(BottomSheetController());
   Get.put(DashboardController());
   Get.put(SettingController());
-  Get.put(BottomSheetController());
   Get.put(NotificationController());
 
   if (kDebugMode) {

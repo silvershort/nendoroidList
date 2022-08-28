@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/widgets/nendo_add_memo_dialog.dart';
+import 'package:nendoroid_db/widgets/dialog/nendo_add_memo_dialog.dart';
 import 'package:nendoroid_db/widgets/nendo_memo_list.dart';
 
 import 'nendo_price_reset_dialog.dart';
+
 
 class NendoInfoEditDialog extends StatelessWidget {
   NendoInfoEditDialog({Key? key, required this.nendoData}) : super(key: key);
