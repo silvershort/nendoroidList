@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/my_controller.dart';
 import 'package:nendoroid_db/widgets/my/accent_text.dart';
 
-import '../my_painter.dart';
+import 'my_collection_painter.dart';
 
 class MyCollectionView extends GetView<MyController> {
   const MyCollectionView({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class MyCollectionView extends GetView<MyController> {
             height: 70.0,
             width: 70.0,
             child: CustomPaint(
-              foregroundPainter: MyPainter(
+              foregroundPainter: MyCollectionPainter(
                   lineColor: Theme.of(context).colorScheme.background,
                   completeColor: Theme.of(context).colorScheme.primary,
                   completePercent: controller.getHaveRate(),

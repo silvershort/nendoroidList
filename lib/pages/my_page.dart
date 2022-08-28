@@ -16,7 +16,7 @@ import 'package:nendoroid_db/widgets/my/my_most_series_view.dart';
 import 'package:nendoroid_db/widgets/my/my_release_have_view.dart';
 import 'package:nendoroid_db/widgets/my/my_release_wish_view.dart';
 import 'package:nendoroid_db/widgets/my/my_total_price_view.dart';
-import 'package:nendoroid_db/widgets/my_painter.dart';
+import 'package:nendoroid_db/widgets/my/my_collection_painter.dart';
 
 class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);

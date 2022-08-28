@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 
-class NendoMemoList extends StatelessWidget {
-  NendoMemoList({Key? key, required this.num}) : super(key: key);
-
+class ListNendoMemoList extends GetView<NendoController> {
+  const ListNendoMemoList({Key? key, required this.num}) : super(key: key);
   final String num;
-  final NendoController nendoController = Get.find<NendoController>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class NendoMemoList extends StatelessWidget {
           alignment: WrapAlignment.start,
           spacing: 10.0,
           runSpacing: 5.0,
-          children: memoTag(context, nendoController.getNendoData(num).memo ?? []),
+          children: memoTag(context, controller.getNendoData(num).memo ?? []),
         ),
       ],
     ));
@@ -46,7 +44,7 @@ class NendoMemoList extends StatelessWidget {
           size: 14.0,
         ),
         onDeleted: () {
-          nendoController.deleteNendoMemo(num, memo);
+          controller.deleteNendoMemo(num, memo);
         },
       );
       tagList.add(tag);
