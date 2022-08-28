@@ -15,7 +15,9 @@ class MainBottomNavigationBar extends GetView<DashboardController> {
         showSelectedLabels: true,
         onTap: (index) {
           Get.find<MyController>().setMyNendoList();
+          controller.pageQueue.addPage(controller.tabIndex);
           controller.tabIndex = index;
+          controller.pageQueue.removePage(controller.tabIndex);
         },
         currentIndex: controller.tabIndex,
         unselectedItemColor: Colors.white.withOpacity(0.9),

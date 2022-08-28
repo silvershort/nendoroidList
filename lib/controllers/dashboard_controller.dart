@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../utilities/debounce.dart';
+import '../utilities/page_queue.dart';
 import 'bottom_sheet_controller.dart';
 import 'my_controller.dart';
 import 'nendo_controller.dart';
@@ -10,6 +11,8 @@ class DashboardController extends GetxController {
 
   final NendoController nendoController = Get.find<NendoController>();
   final MyController myController = Get.find<MyController>();
+  final PageQueue pageQueue = PageQueue();
+  DateTime? backPressTime;
 
   final RxInt _tabIndex = 0.obs;
   int get tabIndex => _tabIndex.value;
