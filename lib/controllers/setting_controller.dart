@@ -27,6 +27,12 @@ class SettingController extends GetxController {
     nendoController.githubToken = tokenKey;
   }
 
+  // 개인용 토큰 폐기
+  void clearGithubToken() {
+    nendoController.githubToken = "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";
+    setGithubTokenKey("");
+  }
+
   void setAppTheme(int index) async {
     if (index == AppColor.themeColors.length) {
       Get.changeTheme(ThemeData(

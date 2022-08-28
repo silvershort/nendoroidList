@@ -9,10 +9,10 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/pages/detail_page.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
 
-import 'nendo_info_edit_dialog.dart';
+import '../dialog/nendo_info_edit_dialog.dart';
 
-class NendoItem extends StatelessWidget {
-  NendoItem({Key? key, required this.nendoData}) : super(key: key);
+class ListNendoItem extends StatelessWidget {
+  ListNendoItem({Key? key, required this.nendoData}) : super(key: key);
   final NendoData nendoData;
   final BottomSheetController modeController = Get.find<BottomSheetController>();
   final NendoController nendoController = Get.find<NendoController>();
