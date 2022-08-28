@@ -28,7 +28,7 @@ class DashboardController extends GetxController {
 
   final TextEditingController searchEditingController = TextEditingController();
   final FocusNode searchFocus = FocusNode();
-  final Debounce debounce = Debounce(milliseconds: 500);
+  final Debounce debounce = Debounce(milliseconds: 100);
 
   void clearTextField() {
     searchEditingController.clear();
