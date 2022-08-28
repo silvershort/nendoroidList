@@ -10,7 +10,6 @@ class FilterBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 420.0,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -36,7 +35,7 @@ class FilterBottomSheet extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                          backgroundColor: controller.modeIndex.value == 0
+                          backgroundColor: controller.modeIndex == 0
                               ? Theme.of(context).colorScheme.background.withAlpha(80)
                               : Theme.of(context).colorScheme.surface),
                       onPressed: () => controller.changeMode(0),
@@ -50,7 +49,7 @@ class FilterBottomSheet extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: controller.modeIndex.value == 1
+                            backgroundColor: controller.modeIndex == 1
                                 ? Theme.of(context).colorScheme.background.withAlpha(80)
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () => controller.changeMode(1),
@@ -63,7 +62,7 @@ class FilterBottomSheet extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: controller.modeIndex.value == 2
+                            backgroundColor: controller.modeIndex == 2
                                 ? Theme.of(context).colorScheme.background.withAlpha(80)
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () => controller.changeMode(2),
@@ -89,12 +88,12 @@ class FilterBottomSheet extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                          backgroundColor: controller.sortData.value.sortingMethod == BottomSheetController.num
+                          backgroundColor: controller.sortData.sortingMethod == BottomSheetController.num
                               ? Theme.of(context).colorScheme.background.withAlpha(80)
                               : Theme.of(context).colorScheme.surface),
                       onPressed: () => controller.setNameSort(),
                       child: Text(
-                        controller.sortData.value.numSortOrder ? "번호순↑" : "번호순↓",
+                        controller.sortData.numSortOrder ? "번호순↑" : "번호순↓",
                         style: const TextStyle(
                           height: 1.0,
                         ),
@@ -105,12 +104,12 @@ class FilterBottomSheet extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: controller.sortData.value.sortingMethod == BottomSheetController.release
+                            backgroundColor: controller.sortData.sortingMethod == BottomSheetController.release
                                 ? Theme.of(context).colorScheme.background.withAlpha(80)
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () => controller.setReleaseSort(),
                         child: Text(
-                          controller.sortData.value.releaseSortOrder ? "출시일순↑" : "출시일순↓",
+                          controller.sortData.releaseSortOrder ? "출시일순↑" : "출시일순↓",
                           style: const TextStyle(
                             height: 1.0,
                           ),
