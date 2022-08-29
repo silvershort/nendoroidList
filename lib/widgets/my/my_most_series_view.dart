@@ -20,9 +20,6 @@ class MyMostSeriesView extends GetView<MyController> {
       } else {
         return Column(
           children: [
-            const SizedBox(
-              height: 20.0,
-            ),
             const Text(
               "가장 많이 가지고 있는 시리즈",
               style: TextStyle(
