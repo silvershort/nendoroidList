@@ -131,6 +131,19 @@ class MyController extends GetxController {
       // 보유한 넨도 리스트에서 같은 시리즈 이름을 가진 리스트를 뽑고 거기서 넨도 번호를 받아온다.
       List<String> tempHaveSetList = haveList.where((item) => (item.series.ko ?? "").contains(setData.setName)).map((e) => e.num).toList();
 
+      // TODO: 추후 사용자 선택에 따라서 파생제품까지 세트 컴플리트 조건으로 할지 결정하도록 수정
+      if (true) {
+        // 순수 숫자만 남기고 중복되는 숫자를 제거하여 DX같은 파생상품을 지운다
+        for (int i = 0; i < setData.list.length; i++) {
+          setData.list[i] = setData.list[i].replaceAll(RegExp(r"[^0-9]"), "");
+        }
+        for (int i = 0; i < tempHaveSetList.length; i++) {
+          tempHaveSetList[i] = tempHaveSetList[i].replaceAll(RegExp(r"[^0-9]"), "");
+        }
+        tempHaveSetList = tempHaveSetList.toSet().toList();
+        setData.list = setData.list.toSet().toList();
+      }
+
       // 리스트 비교를 위해 오름차순 정렬
       tempHaveSetList.sort();
       setData.list.sort();
@@ -140,7 +153,8 @@ class MyController extends GetxController {
         completeList.add(setData.setName);
       }
     }
-    return completeList;
+    // 혹시라도 중복해서 세트가 들어갔다면 중복 아이템을 제거
+    return completeList.toSet().toList();
   }
 
   // 이번달 출시예정인 구매 넨도

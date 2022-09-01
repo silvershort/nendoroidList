@@ -28,40 +28,42 @@ class ListNendoView extends GetView<NendoController> {
           }
           return true;
         },
-        child: ListView.separated(
-          // ios 스타일 오버스크롤
-          physics: const BouncingScrollPhysics(),
-          // 컨트롤러를 Scrollbar 위젯과 공유해야 오류가 안생김
-          controller: controller.scrollController,
-          padding: const EdgeInsets.only(top: 10.0),
-          scrollDirection: Axis.vertical,
-          itemCount: controller.nendoList.length + 1,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              if (dashboardController.searchMode) {
-                return Container(
-                  height: 24,
-                  padding: const EdgeInsets.only(left: 10.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "검색된 넨도로이드 수 : ${controller.nendoList.length}",
-                    style: const TextStyle(
-                      fontSize: 14.0,
+        child: Obx(() =>
+          ListView.separated(
+            // ios 스타일 오버스크롤
+            physics: const BouncingScrollPhysics(),
+            // 컨트롤러를 Scrollbar 위젯과 공유해야 오류가 안생김
+            controller: controller.scrollController,
+            padding: const EdgeInsets.only(top: 10.0),
+            scrollDirection: Axis.vertical,
+            itemCount: controller.nendoList.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                if (dashboardController.searchMode) {
+                  return Container(
+                    height: 24,
+                    padding: const EdgeInsets.only(left: 10.0),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "검색된 넨도로이드 수 : ${controller.nendoList.length}",
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  return const SizedBox();
+                }
               } else {
-                return const SizedBox();
+                return ListNendoItem(nendoData: controller.nendoList[index - 1]);
               }
-            } else {
-              return ListNendoItem(nendoData: controller.nendoList[index - 1]);
-            }
-          },
-          separatorBuilder: (context, index) {
-            return const Divider(
-              height: 5,
-            );
-          },
+            },
+            separatorBuilder: (context, index) {
+              return const Divider(
+                height: 5,
+              );
+            },
+          ),
         ),
       ),
     );
