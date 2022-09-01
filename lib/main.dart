@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:nendoroid_db/controllers/app_version_controller.dart';
 import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/controllers/notification_controller.dart';
@@ -77,7 +78,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: appTheme,
-      home: DashboardPage(),
+      home: const DashboardPage(),
     );
   }
 }
