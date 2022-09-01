@@ -8,22 +8,24 @@ class ListDownloadView extends GetView<NendoController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text("${controller.currentStep} / ${controller.totalStep}"),
-        const SizedBox(
-          height: 5.0,
-        ),
-        FractionallySizedBox(
-          widthFactor: 0.6,
-          child: LinearProgressIndicator(
-            value: controller.currentStep / controller.totalStep,
-            backgroundColor: Colors.grey,
+    return Obx(() =>
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text("${controller.currentStep} / ${controller.totalStep}"),
+          const SizedBox(
+            height: 5.0,
           ),
-        ),
-      ],
+          FractionallySizedBox(
+            widthFactor: 0.6,
+            child: LinearProgressIndicator(
+              value: controller.currentStep / controller.totalStep,
+              backgroundColor: Colors.grey,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

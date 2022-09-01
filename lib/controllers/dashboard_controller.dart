@@ -46,7 +46,7 @@ class DashboardController extends GetxController {
   // 검색창 관련
   final TextEditingController searchEditingController = TextEditingController();
   final FocusNode searchFocus = FocusNode();
-  final Debounce debounce = Debounce(milliseconds: 100);
+  final Debounce debounce = Debounce(milliseconds: 150);
 
   @override
   void onInit() async {
