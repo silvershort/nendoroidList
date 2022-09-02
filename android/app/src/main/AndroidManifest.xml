@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.silvershort.nendoroid_db">
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
    <application
         android:label="넨도로이드 DB"
         android:name="${applicationName}"
