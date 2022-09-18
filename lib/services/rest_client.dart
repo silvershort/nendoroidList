@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:nendoroid_db/models/exchange_rate_yen.dart';
-import 'package:retrofit/http.dart';
+import 'package:nendoroid_db/models/tweet_data.dart';
+import 'package:nendoroid_db/models/username_data.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/nendo_data.dart';
@@ -36,4 +37,18 @@ abstract class RestClient {
   // 환율 정보 받아오기
   @GET("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY")
   Future<List<ExchangeRateYen>> getExchangeRate();
+
+  // 트위터 타임라인 받아오기
+  @GET("https://api.twitter.com/2/users/{id}/tweets")
+  Future<TweetData?> getTwitterTimeline(
+    @Path("id") String id,
+    @Queries() Map<String, dynamic> queries,
+  );
+
+  // 유저 정보 받아오기
+  @GET("https://api.twitter.com/2/users")
+  Future<UsernameData> getTwitterUsername(
+    @Query("ids") String username,
+    @Query("user.fields") String userFields,
+  );
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/controllers/twitter_controller.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_appbar.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_body.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_bottom_navigation_bar.dart';
 
 import '../controllers/dashboard_controller.dart';
-import '../widgets/filter_bottom_sheet.dart';
 
 class DashboardPage extends GetView<DashboardController> {
   const DashboardPage({Key? key,}) : super(key: key);
@@ -45,7 +44,8 @@ class DashboardPage extends GetView<DashboardController> {
                   Icons.filter_alt,
                 ),
                 onPressed: () {
-                  Get.bottomSheet(FilterBottomSheet());
+                  // Get.bottomSheet(FilterBottomSheet());
+                  Get.find<TwitterController>().fetchTimeline(userId: Get.find<TwitterController>().goodSmileId);
                 },
               ),
             ),
