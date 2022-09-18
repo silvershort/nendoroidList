@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/controllers/news_controller.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_appbar.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_body.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_bottom_navigation_bar.dart';
@@ -39,14 +39,20 @@ class DashboardPage extends GetView<DashboardController> {
               ? const MainBottomNavigationBar() : null,
           floatingActionButton: Obx(() =>
             Visibility(
-              visible: controller.tabIndex == 0,
-              child: FloatingActionButton(
-                child: const Icon(
-                  Icons.filter_alt,
+              visible: controller.tabIndex == 0 || controller.tabIndex == 2,
+              child: Opacity(
+                opacity: controller.tabIndex == 0 ? 1.0 : 0.5,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    controller.tabIndex == 0
+                      ? Get.bottomSheet(FilterBottomSheet())
+                      : Get.find<NewsController>().scrollController.jumpTo(0);
+                  },
+                  mini: controller.tabIndex == 2 ? true : false,
+                  child: controller.tabIndex == 0
+                      ? const Icon(Icons.filter_alt,)
+                      : const Icon(Icons.arrow_drop_up,),
                 ),
-                onPressed: () {
-                  Get.bottomSheet(FilterBottomSheet());
-                },
               ),
             ),
           ),

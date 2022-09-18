@@ -17,6 +17,11 @@ class MainAppBar extends GetView<DashboardController> implements PreferredSizeWi
         case 2:
           return AppBar(
             centerTitle: true,
+            title: const Text("넨도로이드 소식"),
+          );
+        case 3:
+          return AppBar(
+            centerTitle: true,
             title: const Text("설정"),
           );
         case 0:
