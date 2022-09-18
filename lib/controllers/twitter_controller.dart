@@ -63,6 +63,7 @@ class TwitterController extends GetxController {
 
     for (int i = 0; i < tweetData.data.length; i++) {
       Data data = tweetData.data[i];
+      String id = data.id;
       String content = data.text;
       String createdAt = data.createdAt;
       List<String> attachList = [];
@@ -73,7 +74,8 @@ class TwitterController extends GetxController {
         }
       }
       informationList.add(NewsData(
-        type: InformationType.twitter,
+        type: NewsType.twitter,
+        id: id,
         author: userList.firstWhere((element) => element.id == userId),
         content: content,
         createdAt: createdAt,

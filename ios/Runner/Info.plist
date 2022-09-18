@@ -6,6 +6,11 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>LSApplicationQueriesSchemes</key>
+      <array>
+        <string>https</string>
+        <string>http</string>
+      </array>
 	<key>CFBundleDisplayName</key>
 	<string>넨도로이드 DB</string>
 	<key>CFBundleExecutable</key>
