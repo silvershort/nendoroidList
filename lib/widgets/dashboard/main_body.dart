@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
+import 'package:nendoroid_db/pages/news_page.dart';
 
 import '../../controllers/my_controller.dart';
 import '../../pages/list_page.dart';
@@ -53,6 +54,16 @@ class MainBody extends GetView<DashboardController> {
                   icon: Container(
                     margin: const EdgeInsets.only(bottom: 7),
                     child: const Icon(
+                      Icons.newspaper,
+                      size: 20.0,
+                    ),
+                  ),
+                  label: const Text("News"),
+                ),
+                NavigationRailDestination(
+                  icon: Container(
+                    margin: const EdgeInsets.only(bottom: 7),
+                    child: const Icon(
                       Icons.settings,
                       size: 20.0,
                     ),
@@ -78,6 +89,7 @@ class MainBody extends GetView<DashboardController> {
               children: [
                 const ListPage(),
                 MyPage(),
+                const NewsPage(),
                 SettingPage(),
               ],
             ),

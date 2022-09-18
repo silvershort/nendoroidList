@@ -11,6 +11,7 @@ class MainBottomNavigationBar extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Obx(() =>
       BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         showSelectedLabels: true,
         onTap: (index) {
@@ -44,6 +45,16 @@ class MainBottomNavigationBar extends GetView<DashboardController> {
               ),
             ),
             label: "My",
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
+              margin: const EdgeInsets.only(bottom: 7),
+              child: const Icon(
+                Icons.newspaper,
+                size: 20.0,
+              ),
+            ),
+            label: "News",
           ),
           BottomNavigationBarItem(
             icon: Container(
