@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:nendoroid_db/controllers/app_version_controller.dart';
 import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
+import 'package:nendoroid_db/controllers/news_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/controllers/notification_controller.dart';
 import 'package:nendoroid_db/controllers/setting_controller.dart';
@@ -55,7 +56,7 @@ void main() async {
   Get.put(DashboardController());
   Get.put(SettingController());
   Get.put(NotificationController());
-  Get.put(TwitterController());
+  Get.put(NewsController());
 
   if (kDebugMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);

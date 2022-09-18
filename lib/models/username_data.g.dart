@@ -17,14 +17,14 @@ Map<String, dynamic> _$UsernameDataToJson(UsernameData instance) =>
       'data': instance.data,
     };
 
-UserData _$DataFromJson(Map<String, dynamic> json) => UserData(
+UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       profileImageUrl: json['profile_image_url'] as String,
       id: json['id'] as String,
       name: json['name'] as String,
       username: json['username'] as String,
     );
 
-Map<String, dynamic> _$DataToJson(UserData instance) => <String, dynamic>{
+Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'profile_image_url': instance.profileImageUrl,
       'id': instance.id,
       'name': instance.name,

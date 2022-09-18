@@ -30,7 +30,7 @@ class UserData {
     required this.username,
   });
   
-  factory UserData.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DataToJson(this);
+  Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }

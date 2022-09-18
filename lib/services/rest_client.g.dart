@@ -88,20 +88,21 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<TweetData> getTwitterTimeline(id, queries) async {
+  Future<TweetData?> getTwitterTimeline(id, queries) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(queries);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<TweetData>(Options(
                 method: 'GET', headers: _headers, extra: _extra)
             .compose(
                 _dio.options, 'https://api.twitter.com/2/users/${id}/tweets',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TweetData.fromJson(_result.data!);
+    final value =
+        _result.data == null ? null : TweetData.fromJson(_result.data!);
     return value;
   }
 

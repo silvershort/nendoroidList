@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:io' hide HttpResponse;
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:nendoroid_db/models/information_data.dart';
+import 'package:nendoroid_db/models/news_data.dart';
 import 'package:nendoroid_db/models/tweet_data.dart';
 import 'package:nendoroid_db/models/username_data.dart';
 import 'package:nendoroid_db/services/rest_client.dart';
@@ -15,40 +13,31 @@ class TwitterController extends GetxController {
   final String goodSmileId = "68864104";
   final String goodSmileUSId = "755974370";
 
-  // API 호출 변수
-  late DateTime startTime;
-  late DateTime endTime;
-
   // 트위터 유저 정보
   List<UserData> userList = [];
-
-  // 날짜 형식
-  final DateFormat dateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
   @override
   void onInit() async {
     super.onInit();
+  }
+
+  Future<void> initData() async {
     await fetchUserdata("$goodSmileId,$goodSmileUSId");
-    initData();
   }
 
-  void initData() {
-    endTime = DateTime.now();
-    startTime = endTime.subtract(const Duration(days: 7));
-  }
-
-  Future<List<InformationData>?> fetchTimeline({required String userId, bool reset = false}) async {
-    if (reset) {
-      initData();
-    }
+  Future<List<NewsData>?> fetchTimeline({
+    required String userId,
+    required String startTime,
+    required String endTime,
+  }) async {
     TweetData? tweetData = await getRepoClient().getTwitterTimeline(
       userId,
       {
         "expansions": "attachments.media_keys",
         "user.fields": "url",
         "media.fields": "url",
-        "start_time": dateFormat.format(startTime),
-        "end_time": dateFormat.format(endTime),
+        "start_time": startTime,
+        "end_time": endTime,
         "tweet.fields": "created_at"
       },
     ).catchError((Object obj) {
@@ -69,7 +58,7 @@ class TwitterController extends GetxController {
       return null;
     }
 
-    List<InformationData> informationList = [];
+    List<NewsData> informationList = [];
     List<Media>? mediaList = tweetData.includes?.media;
 
     for (int i = 0; i < tweetData.data.length; i++) {
@@ -83,27 +72,24 @@ class TwitterController extends GetxController {
           attachList.add(mediaList.firstWhere((element) => element.mediaKey == mediaKey).url);
         }
       }
-      informationList.add(InformationData(
+      informationList.add(NewsData(
         type: InformationType.twitter,
-        author: userList.firstWhereOrNull((element) => element.id == userId)?.username ?? "유저정보없음",
+        author: userList.firstWhere((element) => element.id == userId),
         content: content,
         createdAt: createdAt,
         imageUrlList: attachList,
       ));
     }
-
-    for (InformationData data in informationList) {
-      print("@@@ data : ${data.createdAt}");
-      print("@@@ data : ${data.imageUrlList.toString()}");
-    }
     return informationList;
   }
 
   Future<void> fetchUserdata(String userId) async {
-    UsernameData usernameData = await getRepoClient().getTwitterUsername(
+    UsernameData usernameData = await getRepoClient()
+        .getTwitterUsername(
       userId,
       "profile_image_url",
-    ).catchError((Object obj) {
+    )
+        .catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
           final res = (obj as DioError).response;

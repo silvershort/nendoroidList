@@ -1,12 +1,14 @@
-class InformationData {
+import 'package:nendoroid_db/models/username_data.dart';
+
+class NewsData {
   InformationType type;
-  String author;
+  UserData author;
   String? title;
   String content;
   String createdAt;
   List<String> imageUrlList;
 
-  InformationData({
+  NewsData({
     required this.type,
     required this.author,
     this.title,
