@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/news_data.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
 import 'package:nendoroid_db/widgets/news/news_attach.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsTile extends StatelessWidget {
   const NewsTile({Key? key, required this.data}) : super(key: key);
@@ -53,6 +54,29 @@ class NewsTile extends StatelessWidget {
                   ],
                 ),
               ),
+              InkWell(
+                onTap: () {
+                  switch(data.type) {
+                    case NewsType.twitter:
+                      final url = Uri.parse("https://twitter.com/${data.author.username}/status/${data.id}");
+                      canLaunchUrl(url).then(
+                            (value) => launchUrl(url, mode: LaunchMode.externalApplication),
+                      );
+                      break;
+                    case NewsType.dc:
+                    default:
+                      break;
+                  }
+                },
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  alignment: Alignment.center,
+                  child: const Icon(
+                    Icons.arrow_forward,
+                  ),
+                ),
+              )
             ],
           ),
           const SizedBox(height: 10.0),
@@ -62,8 +86,7 @@ class NewsTile extends StatelessWidget {
             data.content,
             maxLines: 20,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-            ),
+            style: const TextStyle(),
           ),
           const SizedBox(height: 10.0),
           NewsAttach(attachList: data.imageUrlList),
