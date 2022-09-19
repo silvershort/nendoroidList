@@ -68,6 +68,9 @@ class AppVersionController extends GetxController{
       if (int.parse(localVersionSplit[i]) < int.parse( remoteVersionSplit[i])) {
         _needUpdate.value = true;
         return true;
+      } else if (int.parse(localVersionSplit[i]) > int.parse( remoteVersionSplit[i])) {
+        // 현재 버전이 리모트 버전보다 더 클경우 바로 리턴
+        return false;
       }
     }
     return false;
