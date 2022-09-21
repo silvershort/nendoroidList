@@ -12,6 +12,8 @@ class TwitterController extends GetxController {
   final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAFvaggEAAAAAWBnBTItA8zWx9KY%2BHxDTjwSvR5s%3DSyGdKaXNMawsGbat83kcXu84GSeGHl4GlXmhC58YWpATNsT9La";
   final String goodSmileId = "68864104";
   final String goodSmileUSId = "755974370";
+  final String goodSmileKRId = "1410541618805936129";
+  final String ninimalId = "3286303020";
 
   // 트위터 유저 정보
   List<UserData> userList = [];
@@ -22,7 +24,7 @@ class TwitterController extends GetxController {
   }
 
   Future<void> initData() async {
-    await fetchUserdata("$goodSmileId,$goodSmileUSId");
+    await fetchUserdata("$goodSmileId,$goodSmileUSId,$goodSmileKRId,$ninimalId");
   }
 
   Future<List<NewsData>?> fetchTimeline({
@@ -30,7 +32,7 @@ class TwitterController extends GetxController {
     required String startTime,
     required String endTime,
   }) async {
-    TweetData? tweetData = await getRepoClient().getTwitterTimeline(
+    TweetData tweetData = await getRepoClient().getTwitterTimeline(
       userId,
       {
         "expansions": "attachments.media_keys",
@@ -40,7 +42,7 @@ class TwitterController extends GetxController {
         "end_time": endTime,
         "tweet.fields": "created_at"
       },
-    ).catchError((Object obj) {
+    )/*.catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
           final res = (obj as DioError).response;
@@ -51,8 +53,8 @@ class TwitterController extends GetxController {
           break;
       }
     }).onError((error, stackTrace) {
-      return Future(() => null);
-    });
+      // return Future(() => null);
+    })*/;
 
     if (tweetData == null) {
       return null;
@@ -68,9 +70,19 @@ class TwitterController extends GetxController {
       String createdAt = data.createdAt;
       List<String> attachList = [];
 
+      // RT 제거
+      if (content.startsWith("RT @")) {
+        continue;
+      }
+
+      // 맨션 제거
+      if (content.startsWith("@")) {
+        continue;
+      }
+
       if (mediaList != null && data.attachments?.mediaKeys != null) {
         for (String mediaKey in data.attachments!.mediaKeys) {
-          attachList.add(mediaList.firstWhere((element) => element.mediaKey == mediaKey).url);
+          attachList.add(mediaList.firstWhere((element) => element.mediaKey == mediaKey).url ?? "");
         }
       }
       informationList.add(NewsData(
@@ -104,7 +116,6 @@ class TwitterController extends GetxController {
     }).onError((error, stackTrace) {
       return Future.value(UsernameData(data: []));
     });
-
     userList.addAll(usernameData.data);
     return;
   }

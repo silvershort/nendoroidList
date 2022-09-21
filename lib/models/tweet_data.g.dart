@@ -62,7 +62,7 @@ Map<String, dynamic> _$IncludesToJson(Includes instance) => <String, dynamic>{
 Media _$MediaFromJson(Map<String, dynamic> json) => Media(
       mediaKey: json['media_key'] as String,
       type: json['type'] as String,
-      url: json['url'] as String,
+      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$MediaToJson(Media instance) => <String, dynamic>{

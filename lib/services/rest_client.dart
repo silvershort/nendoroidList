@@ -40,7 +40,7 @@ abstract class RestClient {
 
   // 트위터 타임라인 받아오기
   @GET("https://api.twitter.com/2/users/{id}/tweets")
-  Future<TweetData?> getTwitterTimeline(
+  Future<TweetData> getTwitterTimeline(
     @Path("id") String id,
     @Queries() Map<String, dynamic> queries,
   );
