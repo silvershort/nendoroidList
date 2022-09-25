@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
+import 'package:nendoroid_db/controllers/news_controller.dart';
+import 'package:nendoroid_db/widgets/dialog/news_subscribe_dialog.dart';
 
 class MainAppBar extends GetView<DashboardController> implements PreferredSizeWidget {
   const MainAppBar({Key? key}) : super(key: key);
@@ -18,6 +20,25 @@ class MainAppBar extends GetView<DashboardController> implements PreferredSizeWi
           return AppBar(
             centerTitle: true,
             title: const Text("넨도로이드 소식"),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: IconButton(
+                  onPressed: () {
+                    if (Get.find<NewsController>().initFlag) {
+                      Get.find<NewsController>().backupSubscribe();
+                      Get.dialog(
+                        const NewsSubscribeDialog(),
+                        barrierDismissible: false,
+                      );
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.settings,
+                  ),
+                ),
+              ),
+            ],
           );
         case 3:
           return AppBar(
