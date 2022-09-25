@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/models/news_data.dart';
+import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/models/tweet_data.dart';
 import 'package:nendoroid_db/models/username_data.dart';
 import 'package:nendoroid_db/services/rest_client.dart';
@@ -12,6 +13,9 @@ class TwitterController extends GetxController {
   final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAFvaggEAAAAAWBnBTItA8zWx9KY%2BHxDTjwSvR5s%3DSyGdKaXNMawsGbat83kcXu84GSeGHl4GlXmhC58YWpATNsT9La";
   final String goodSmileId = "68864104";
   final String goodSmileUSId = "755974370";
+  final String goodSmileKRId = "1410541618805936129";
+  final String figureInfoId = "771024858897526785";
+  final String ninimalId = "3286303020";
 
   // 트위터 유저 정보
   List<UserData> userList = [];
@@ -21,8 +25,17 @@ class TwitterController extends GetxController {
     super.onInit();
   }
 
-  Future<void> initData() async {
-    await fetchUserdata("$goodSmileId,$goodSmileUSId");
+  Future<void> initData(TwitterSubscribe subscribe) async {
+    List<String> userIdList = [];
+    if (subscribe.goodSmileJP) userIdList.add(goodSmileId);
+    if (subscribe.goodSmileUS) userIdList.add(goodSmileUSId);
+    if (subscribe.goodSmileKR) userIdList.add(goodSmileKRId);
+    if (subscribe.ninimal) userIdList.add(ninimalId);
+    if (subscribe.figureInfo) userIdList.add(figureInfoId);
+    String userId = userIdList.join(",");
+    print("userId : $userId");
+
+    await fetchUserdata(userId);
   }
 
   Future<List<NewsData>?> fetchTimeline({
@@ -30,7 +43,7 @@ class TwitterController extends GetxController {
     required String startTime,
     required String endTime,
   }) async {
-    TweetData? tweetData = await getRepoClient().getTwitterTimeline(
+    TweetData tweetData = await getRepoClient().getTwitterTimeline(
       userId,
       {
         "expansions": "attachments.media_keys",
@@ -40,7 +53,7 @@ class TwitterController extends GetxController {
         "end_time": endTime,
         "tweet.fields": "created_at"
       },
-    ).catchError((Object obj) {
+    )/*.catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
           final res = (obj as DioError).response;
@@ -51,8 +64,8 @@ class TwitterController extends GetxController {
           break;
       }
     }).onError((error, stackTrace) {
-      return Future(() => null);
-    });
+      // return Future(() => null);
+    })*/;
 
     if (tweetData == null) {
       return null;
@@ -68,9 +81,19 @@ class TwitterController extends GetxController {
       String createdAt = data.createdAt;
       List<String> attachList = [];
 
+      // RT 제거
+      if (content.startsWith("RT @")) {
+        continue;
+      }
+
+      // 맨션 제거
+      if (content.startsWith("@")) {
+        continue;
+      }
+
       if (mediaList != null && data.attachments?.mediaKeys != null) {
         for (String mediaKey in data.attachments!.mediaKeys) {
-          attachList.add(mediaList.firstWhere((element) => element.mediaKey == mediaKey).url);
+          attachList.add(mediaList.firstWhere((element) => element.mediaKey == mediaKey).url ?? "");
         }
       }
       informationList.add(NewsData(
@@ -86,6 +109,9 @@ class TwitterController extends GetxController {
   }
 
   Future<void> fetchUserdata(String userId) async {
+    if (userId.isEmpty) {
+      return;
+    }
     UsernameData usernameData = await getRepoClient()
         .getTwitterUsername(
       userId,
@@ -104,8 +130,7 @@ class TwitterController extends GetxController {
     }).onError((error, stackTrace) {
       return Future.value(UsernameData(data: []));
     });
-
-    userList.addAll(usernameData.data);
+    userList = usernameData.data;
     return;
   }
 

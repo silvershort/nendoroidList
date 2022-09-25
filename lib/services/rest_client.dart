@@ -40,7 +40,7 @@ abstract class RestClient {
 
   // 트위터 타임라인 받아오기
   @GET("https://api.twitter.com/2/users/{id}/tweets")
-  Future<TweetData?> getTwitterTimeline(
+  Future<TweetData> getTwitterTimeline(
     @Path("id") String id,
     @Queries() Map<String, dynamic> queries,
   );
@@ -50,5 +50,32 @@ abstract class RestClient {
   Future<UsernameData> getTwitterUsername(
     @Query("ids") String username,
     @Query("user.fields") String userFields,
+  );
+
+  // 루리웹 피규어 정보 리스트
+  @GET("https://bbs.ruliweb.com/family/242/board/300017")
+  Future<HttpResponse> getRuliwebInfoList(
+    @Query("page") int page,
+  );
+
+  // 루리웹 피규어 갤러리 리스트
+  @GET("https://bbs.ruliweb.com/family/242/board/300087")
+  Future<HttpResponse> getRuliwebGalleryList(
+    @Query("page") int page,
+  );
+
+  // 루리웹 디테일
+  @GET("https://bbs.ruliweb.com/family/242/board/300017/read/{id}")
+  Future<HttpResponse> getRuliwebDetail(
+    @Path("id") String id,
+  );
+
+  // 넨갤 리스트
+  @GET("https://gall.dcinside.com/mgallery/board/lists/")
+  Future<HttpResponse> getDcinsideList(
+    @Query("id") String id,
+    @Query("sort_type") String sortType,
+    @Query("search_head") String searchHead,
+    @Query("page") int page,
   );
 }

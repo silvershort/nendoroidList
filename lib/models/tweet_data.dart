@@ -69,12 +69,12 @@ class Media {
   @JsonKey(name: "media_key")
   String mediaKey;
   String type;
-  String url;
+  String? url;
 
   Media({
     required this.mediaKey,
     required this.type,
-    required this.url,
+    this.url,
   });
 
   factory Media.fromJson(Map<String, dynamic> json) => _$MediaFromJson(json);

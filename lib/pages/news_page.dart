@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/news_controller.dart';
+import 'package:nendoroid_db/models/news_data.dart';
+import 'package:nendoroid_db/widgets/news/community_tile.dart';
 
-import '../widgets/news/news_tile.dart';
+import '../widgets/news/twitter_tile.dart';
 
 class NewsPage extends GetView<NewsController> {
   const NewsPage({Key? key}) : super(key: key);
@@ -10,7 +12,12 @@ class NewsPage extends GetView<NewsController> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => controller.initData(),
+      onRefresh: () async {
+        if (controller.initFlag && !controller.apiCall) {
+          await controller.initData();
+        }
+        return;
+      },
       child: Obx(() {
         if (!controller.initFlag
             || controller.apiCall && controller.newsDataList.isEmpty) {
@@ -58,7 +65,12 @@ class NewsPage extends GetView<NewsController> {
                   child: const CircularProgressIndicator(),
                 );
               }
-              return NewsTile(data: controller.newsDataList[index]);
+              NewsData data = controller.newsDataList[index];
+              if (data.type == NewsType.twitter) {
+                return TwitterTile(data: controller.newsDataList[index]);
+              } else {
+                return CommunityTile(data: controller.newsDataList[index]);
+              }
             },
           );
         }
