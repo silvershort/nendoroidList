@@ -50,6 +50,7 @@ class NewsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    subscribeBox = await Hive.openBox<SubscribeData>(HiveName.subscribeBoxName);
     twitterController = Get.put(TwitterController());
     ruliwebController = Get.put(RuliwebController());
     dcinsideController = Get.put(DcinsideController());
@@ -58,7 +59,6 @@ class NewsController extends GetxController {
   }
 
   Future<void> loadSubscribe() async {
-    subscribeBox = await Hive.openBox<SubscribeData>(HiveName.subscribeBoxName);
     SubscribeData? tempData = subscribeBox.get(HiveName.subscribeKey);
     if (tempData == null) {
       _subscribe = const SubscribeData(
@@ -71,11 +71,11 @@ class NewsController extends GetxController {
         ),
         dcinsideSubscribe: DcinsideSubscribe(
           information: true,
-          review: true,
+          review: false,
         ),
         ruliwebSubscribe: RuliwebSubscribe(
           information: true,
-          review: true,
+          review: false,
         ),
       ).obs;
       saveSubscribe();
@@ -87,7 +87,6 @@ class NewsController extends GetxController {
   }
 
   Future<void> saveSubscribe() async {
-    print("@@@ saveSubscribe : ${subscribe.twitterSubscribe.goodSmileUS}");
     await subscribeBox.put(HiveName.subscribeKey, subscribe);
     _subscribe.refresh();
     return;
@@ -99,9 +98,7 @@ class NewsController extends GetxController {
   }
 
   void updateSubscribe(SubscribeData data) {
-    print("@@@ update data : ${data.twitterSubscribe.goodSmileUS}");
     _subscribe.value = data;
-    print("@@@ update data2 : ${subscribe.twitterSubscribe.goodSmileUS}");
     _subscribe.refresh();
   }
 
