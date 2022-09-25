@@ -69,4 +69,13 @@ abstract class RestClient {
   Future<HttpResponse> getRuliwebDetail(
     @Path("id") String id,
   );
+
+  // 넨갤 리스트
+  @GET("https://gall.dcinside.com/mgallery/board/lists/")
+  Future<HttpResponse> getDcinsideList(
+    @Query("id") String id,
+    @Query("sort_type") String sortType,
+    @Query("search_head") String searchHead,
+    @Query("page") int page,
+  );
 }
