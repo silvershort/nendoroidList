@@ -65,7 +65,7 @@ class CommunityTile extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              IntlUtil.convertRuliwebDateFormat(data.createdAt),
+                              data.type == NewsType.ruliweb ? IntlUtil.convertRuliwebDateFormat(data.createdAt) : data.createdAt,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 13.0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nendoroid_db/controllers/dcinside_controller.dart';
 import 'package:nendoroid_db/controllers/ruliweb_controller.dart';
 import 'package:nendoroid_db/controllers/twitter_controller.dart';
 import 'package:nendoroid_db/models/news_data.dart';
@@ -32,6 +33,7 @@ class NewsController extends GetxController {
 
   late TwitterController twitterController;
   late RuliwebController ruliwebController;
+  late DcinsideController dcinsideController;
   final RxList<NewsData> newsDataList = <NewsData>[].obs;
 
   @override
@@ -39,7 +41,9 @@ class NewsController extends GetxController {
     super.onInit();
     twitterController = Get.put(TwitterController());
     ruliwebController = Get.put(RuliwebController());
+    dcinsideController = Get.put(DcinsideController());
     await twitterController.initData();
+    await dcinsideController.initData();
     await initData();
   }
 
@@ -64,6 +68,7 @@ class NewsController extends GetxController {
     List<NewsData> tempList = [];
     tempList.addAll(await fetchTwitter());
     tempList.addAll(await ruliwebController.getNewsList(startTime, endTime));
+    tempList.addAll(await dcinsideController.getNewsList(startTime, endTime));
 
     // 모든 데이터를 다 받아온 후 날짜순으로 정렬하고 리스트에 넣어주기
     newsDataList.addAll(tempList..sort(sortRules));

@@ -13,6 +13,7 @@ class TwitterController extends GetxController {
   final String goodSmileId = "68864104";
   final String goodSmileUSId = "755974370";
   final String goodSmileKRId = "1410541618805936129";
+  final String figureInfo = "771024858897526785";
   final String ninimalId = "3286303020";
 
   // 트위터 유저 정보
@@ -24,7 +25,7 @@ class TwitterController extends GetxController {
   }
 
   Future<void> initData() async {
-    await fetchUserdata("$goodSmileId,$goodSmileUSId,$goodSmileKRId,$ninimalId");
+    await fetchUserdata("$goodSmileId,$goodSmileUSId,$goodSmileKRId,$ninimalId,$figureInfo");
   }
 
   Future<List<NewsData>?> fetchTimeline({

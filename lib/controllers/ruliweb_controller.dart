@@ -61,16 +61,14 @@ class RuliwebController extends GetxController {
         return false;
       }
     }).toList();
-    tempList.addAll(
-        ruliwebGalleryList.where((element) {
-          DateTime currentTime = DateTime.parse(element.createdAt);
-          if (currentTime.isAfter(start) && currentTime.isBefore(end)) {
-            return true;
-          } else {
-            return false;
-          }
-        }).toList()
-    );
+    tempList.addAll(ruliwebGalleryList.where((element) {
+      DateTime currentTime = DateTime.parse(element.createdAt);
+      if (currentTime.isAfter(start) && currentTime.isBefore(end)) {
+        return true;
+      } else {
+        return false;
+      }
+    }).toList());
     return tempList;
   }
 
@@ -128,7 +126,10 @@ class RuliwebController extends GetxController {
       newsList.add(
         NewsData(
           type: NewsType.ruliweb,
-          author: UserData(name: author, profileImageUrl: "assets/logo/ruliweb_logo.png"),
+          author: UserData(
+            name: author,
+            profileImageUrl: "assets/logo/ruliweb_logo.png",
+          ),
           title: title,
           content: content,
           subject: "피규어 정보",
@@ -211,8 +212,7 @@ class RuliwebController extends GetxController {
     return;
   }
 
-
-  /*// 디테일한 날짜 구하기
+/*// 디테일한 날짜 구하기
   HttpResponse response = await RestClient(Dio()).getRuliwebDetail(id);
 
   Document document = parse(response.data);
