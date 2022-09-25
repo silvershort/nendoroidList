@@ -19,15 +19,15 @@ class UsernameData {
 class UserData {
   @JsonKey(name: "profile_image_url")
   String profileImageUrl;
-  String id;
+  String? id;
   String name;
-  String username;
+  String? username;
 
   UserData({
     required this.profileImageUrl,
-    required this.id,
+    this.id,
     required this.name,
-    required this.username,
+    this.username,
   });
   
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);

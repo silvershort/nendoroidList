@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nendoroid_db/controllers/ruliweb_controller.dart';
 import 'package:nendoroid_db/controllers/twitter_controller.dart';
 import 'package:nendoroid_db/models/news_data.dart';
 
@@ -9,7 +10,7 @@ class NewsController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   // 상수
-  final Duration week = const Duration(days: 7);
+  final Duration period = const Duration(days: 3);
 
   // API 호출 변수
   late DateTime startTime;
@@ -30,12 +31,14 @@ class NewsController extends GetxController {
   };
 
   late TwitterController twitterController;
+  late RuliwebController ruliwebController;
   final RxList<NewsData> newsDataList = <NewsData>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
     twitterController = Get.put(TwitterController());
+    ruliwebController = Get.put(RuliwebController());
     await twitterController.initData();
     await initData();
   }
@@ -43,8 +46,10 @@ class NewsController extends GetxController {
   Future<void> initData() async {
     _initFlag.value = false;
     endTime = DateTime.now();
-    startTime = endTime.subtract(week);
+    startTime = endTime.subtract(period);
     newsDataList.clear();
+    ruliwebController.resetData();
+    await ruliwebController.initData();
     await fetchData();
     _initFlag.value = true;
     _apiCall.value = false;
@@ -58,14 +63,15 @@ class NewsController extends GetxController {
 
     List<NewsData> tempList = [];
     tempList.addAll(await fetchTwitter());
+    tempList.addAll(await ruliwebController.getNewsList(startTime, endTime));
 
     // 모든 데이터를 다 받아온 후 날짜순으로 정렬하고 리스트에 넣어주기
     newsDataList.addAll(tempList..sort(sortRules));
     newsDataList.refresh();
 
-    // 다음검색을 위해서 일주일씩 빼줌
+    // 다음검색을 위해서 정해진 기간만큼빼줌
     endTime = startTime;
-    startTime = startTime.subtract(week);
+    startTime = startTime.subtract(period);
 
     if (initFlag) _apiCall.value = false;
 
@@ -81,7 +87,7 @@ class NewsController extends GetxController {
 
     for (int i = 0; i < twitterController.userList.length; i++) {
       List<NewsData>? resultList = await twitterController.fetchTimeline(
-        userId: twitterController.userList[i].id,
+        userId: twitterController.userList[i].id!,
         endTime: dateFormat.format(endTime),
         startTime: dateFormat.format(startTime),
       );

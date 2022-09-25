@@ -51,4 +51,22 @@ abstract class RestClient {
     @Query("ids") String username,
     @Query("user.fields") String userFields,
   );
+
+  // 루리웹 피규어 정보 리스트
+  @GET("https://bbs.ruliweb.com/family/242/board/300017")
+  Future<HttpResponse> getRuliwebInfoList(
+    @Query("page") int page,
+  );
+
+  // 루리웹 피규어 갤러리 리스트
+  @GET("https://bbs.ruliweb.com/family/242/board/300087")
+  Future<HttpResponse> getRuliwebGalleryList(
+    @Query("page") int page,
+  );
+
+  // 루리웹 디테일
+  @GET("https://bbs.ruliweb.com/family/242/board/300017/read/{id}")
+  Future<HttpResponse> getRuliwebDetail(
+    @Path("id") String id,
+  );
 }

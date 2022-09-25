@@ -7,8 +7,8 @@ import 'package:nendoroid_db/widgets/news/news_attach.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-class NewsTile extends StatelessWidget {
-  const NewsTile({Key? key, required this.data}) : super(key: key);
+class TwitterTile extends StatelessWidget {
+  const TwitterTile({Key? key, required this.data}) : super(key: key);
   final NewsData data;
 
   @override
@@ -36,7 +36,7 @@ class NewsTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.author.username,
+                      data.author.name,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 16.0,
@@ -84,7 +84,6 @@ class NewsTile extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 5.0),
               InkWell(
                 onTap: () {
                   switch (data.type) {
