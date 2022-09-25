@@ -5,6 +5,8 @@ class NewsData {
   UserData author;
   String? title;
   String? id;
+  String? link;
+  String? subject;
   String content;
   String createdAt;
   List<String> imageUrlList;
@@ -14,6 +16,8 @@ class NewsData {
     required this.author,
     this.title,
     this.id,
+    this.link,
+    this.subject,
     required this.content,
     required this.createdAt,
     required this.imageUrlList,
@@ -23,4 +27,5 @@ class NewsData {
 enum NewsType {
   twitter,
   dc,
+  ruliweb,
 }

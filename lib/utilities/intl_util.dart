@@ -20,6 +20,11 @@ class IntlUtil {
     return formatter.format(dateTime);
   }
 
+  static String convertRuliwebDateFormat(String time) {
+    DateFormat formatter = DateFormat("yyyy-MM-dd");
+    return formatter.format(DateTime.parse(time));
+  }
+
   static bool needUpdate(String serverDate, String localDate) {
     try {
       DateTime dateTime1 = DateTime.parse(serverDate);
