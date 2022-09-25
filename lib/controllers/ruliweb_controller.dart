@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:nendoroid_db/models/news_data.dart';
+import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/models/username_data.dart';
 import 'package:nendoroid_db/services/rest_client.dart';
 import 'package:retrofit/retrofit.dart';
@@ -15,6 +16,7 @@ class RuliwebController extends GetxController {
   List<NewsData> ruliwebInfoList = [];
   List<NewsData> ruliwebGalleryList = [];
   List<String> keyWordList = ["굿스마일", "굿 스마일", "넨도로이드", "넨도"];
+  late RuliwebSubscribe subscribe;
 
   void resetData() {
     _infoPage = 1;
@@ -23,7 +25,8 @@ class RuliwebController extends GetxController {
     ruliwebGalleryList.clear();
   }
 
-  Future<void> initData() async {
+  Future<void> initData(RuliwebSubscribe subscribe) async {
+    this.subscribe = subscribe;
     await fetchRuliwebInfo();
     await fetchRuliwebGallery();
   }
@@ -73,6 +76,9 @@ class RuliwebController extends GetxController {
   }
 
   Future<void> fetchRuliwebInfo() async {
+    if (!subscribe.information) {
+      return;
+    }
     List<NewsData> newsList = [];
     HttpResponse response = await RestClient(Dio()).getRuliwebInfoList(_infoPage);
     Document document = parse(response.data);
@@ -147,6 +153,9 @@ class RuliwebController extends GetxController {
   }
 
   Future<void> fetchRuliwebGallery() async {
+    if (!subscribe.review) {
+      return;
+    }
     List<NewsData> newsList = [];
     HttpResponse response = await RestClient(Dio()).getRuliwebGalleryList(_galleryPage);
     Document document = parse(response.data);

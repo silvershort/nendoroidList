@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart' hide HttpResponse;
 import 'package:get/get.dart' hide Node;
 import 'package:nendoroid_db/models/news_data.dart';
+import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/services/rest_client.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:html/parser.dart' show parse;
@@ -19,10 +20,13 @@ class DcinsideController extends GetxController {
   int _infoPage = 1;
   int _reviewPage = 1;
 
+  late DcinsideSubscribe subscribe;
+
   List<NewsData> dcInfoList = [];
   List<NewsData> dcReviewList = [];
 
-  Future<void> initData() async {
+  Future<void> initData(DcinsideSubscribe subscribe) async {
+    this.subscribe = subscribe;
     await fetchDcinsideInfoList();
     await fetchDcinsideReviewList();
   }
@@ -35,9 +39,6 @@ class DcinsideController extends GetxController {
   }
 
   Future<List<NewsData>> getNewsList(DateTime start, DateTime end) async {
-    print("@@@ getNewsList");
-    print("@@@ start : $start");
-    print("@@@ end : $end");
     if (dcInfoList.isEmpty) {
       await fetchDcinsideInfoList();
     } else {
@@ -56,7 +57,6 @@ class DcinsideController extends GetxController {
     tempList.addAll(
         dcInfoList.where((element) {
           DateTime currentTime = DateTime.parse(element.createdAt);
-          print("@@@ currentTime 11 : $currentTime");
           if (currentTime.isAfter(start) && currentTime.isBefore(end)) {
             return true;
           } else {
@@ -67,7 +67,6 @@ class DcinsideController extends GetxController {
     tempList.addAll(
         dcReviewList.where((element) {
           DateTime currentTime = DateTime.parse(element.createdAt);
-          print("@@@ currentTime 22 : $currentTime");
           if (currentTime.isAfter(start) && currentTime.isBefore(end)) {
             return true;
           } else {
@@ -79,6 +78,9 @@ class DcinsideController extends GetxController {
   }
 
   Future<void> fetchDcinsideReviewList() async {
+    if (!subscribe.review) {
+      return;
+    }
     HttpResponse response = await RestClient(Dio()).getDcinsideList(
       nendoGall,
       sortType,
@@ -122,6 +124,9 @@ class DcinsideController extends GetxController {
   }
 
   Future<void> fetchDcinsideInfoList() async {
+    if (!subscribe.information) {
+      return;
+    }
     HttpResponse response = await RestClient(Dio()).getDcinsideList(
       nendoGall,
       sortType,
@@ -133,7 +138,6 @@ class DcinsideController extends GetxController {
     List<Element> nodeList = document.getElementsByClassName("ub-content us-post");
     for (Element element in nodeList) {
       String subject = element.querySelector(".gall_subject")?.text ?? "";
-      print("@@@ subject : $subject");
       // 공지, 설문 등등 제거
       if (subject != "정보") {
         continue;
@@ -145,11 +149,6 @@ class DcinsideController extends GetxController {
       String writer = element.children.firstWhere((element) => element.className == "gall_writer ub-writer").attributes["data-nick"] ?? "";
       String date = element.children.firstWhere((element) => element.className == "gall_date").attributes["title"] ?? "";
       String link = "https://gall.dcinside.com/${element.children.firstWhere((element) => element.className == "gall_tit ub-word").getElementsByTagName("a")[0].attributes["href"]?.trim() ?? ""}";
-
-      print("@@@ title $title}");
-      print("@@@ writer $writer}");
-      print("@@@ date $date}");
-      print("@@@ link $link}");
 
       tempList.add(NewsData(
         type: NewsType.dc,

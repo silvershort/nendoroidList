@@ -12,7 +12,12 @@ class NewsPage extends GetView<NewsController> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => controller.initData(),
+      onRefresh: () async {
+        if (controller.initFlag && !controller.apiCall) {
+          await controller.initData();
+        }
+        return;
+      },
       child: Obx(() {
         if (!controller.initFlag
             || controller.apiCall && controller.newsDataList.isEmpty) {

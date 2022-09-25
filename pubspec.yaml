@@ -32,6 +32,7 @@ dependencies:
   photo_view: ^0.14.0
   flutter_html: ^3.0.0-alpha.5
   html: ^0.15.0
+  freezed_annotation:
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +43,7 @@ dev_dependencies:
   json_serializable: ^6.2.0
   hive_generator:
   change_app_package_name: ^1.1.0
+  freezed: ^2.1.0+1
 
 flutter:
   uses-material-design: true

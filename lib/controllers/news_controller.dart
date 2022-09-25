@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/dcinside_controller.dart';
 import 'package:nendoroid_db/controllers/ruliweb_controller.dart';
 import 'package:nendoroid_db/controllers/twitter_controller.dart';
 import 'package:nendoroid_db/models/news_data.dart';
+import 'package:nendoroid_db/models/subscribe_data.dart';
+import 'package:nendoroid_db/utilities/hive_name.dart';
 
 class NewsController extends GetxController {
   // 컨트롤러
@@ -17,8 +20,10 @@ class NewsController extends GetxController {
   late DateTime startTime;
   late DateTime endTime;
   final RxBool _initFlag = false.obs;
+
   bool get initFlag => _initFlag.value;
   final RxBool _apiCall = false.obs;
+
   bool get apiCall => _apiCall.value;
 
   // 날짜 형식
@@ -31,6 +36,12 @@ class NewsController extends GetxController {
     return bTime.compareTo(aTime);
   };
 
+  // 구독
+  late Rx<SubscribeData> _subscribe;
+  SubscribeData get subscribe => _subscribe.value;
+  late SubscribeData tempSubscribe;
+  late Box subscribeBox;
+
   late TwitterController twitterController;
   late RuliwebController ruliwebController;
   late DcinsideController dcinsideController;
@@ -39,12 +50,60 @@ class NewsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    subscribeBox = await Hive.openBox<SubscribeData>(HiveName.subscribeBoxName);
     twitterController = Get.put(TwitterController());
     ruliwebController = Get.put(RuliwebController());
     dcinsideController = Get.put(DcinsideController());
-    await twitterController.initData();
-    await dcinsideController.initData();
+    await loadSubscribe();
     await initData();
+  }
+
+  Future<void> loadSubscribe() async {
+    SubscribeData? tempData = subscribeBox.get(HiveName.subscribeKey);
+    if (tempData == null) {
+      _subscribe = const SubscribeData(
+        twitterSubscribe: TwitterSubscribe(
+          goodSmileJP: false,
+          goodSmileUS: false,
+          goodSmileKR: true,
+          ninimal: true,
+          figureInfo: true,
+        ),
+        dcinsideSubscribe: DcinsideSubscribe(
+          information: true,
+          review: false,
+        ),
+        ruliwebSubscribe: RuliwebSubscribe(
+          information: true,
+          review: false,
+        ),
+      ).obs;
+      saveSubscribe();
+    } else {
+      _subscribe = tempData.copyWith().obs;
+      _subscribe.refresh();
+    }
+    return;
+  }
+
+  Future<void> saveSubscribe() async {
+    await subscribeBox.put(HiveName.subscribeKey, subscribe);
+    _subscribe.refresh();
+    return;
+  }
+
+  Future<void> cancelSubscribe() async {
+    _subscribe.value = tempSubscribe.copyWith();
+    _subscribe.refresh();
+  }
+
+  void updateSubscribe(SubscribeData data) {
+    _subscribe.value = data;
+    _subscribe.refresh();
+  }
+
+  void backupSubscribe() {
+    tempSubscribe = subscribe.copyWith();
   }
 
   Future<void> initData() async {
@@ -53,7 +112,10 @@ class NewsController extends GetxController {
     startTime = endTime.subtract(period);
     newsDataList.clear();
     ruliwebController.resetData();
-    await ruliwebController.initData();
+    dcinsideController.resetData();
+    await twitterController.initData(subscribe.twitterSubscribe);
+    await ruliwebController.initData(subscribe.ruliwebSubscribe);
+    await dcinsideController.initData(subscribe.dcinsideSubscribe);
     await fetchData();
     _initFlag.value = true;
     _apiCall.value = false;

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/models/news_data.dart';
+import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/models/tweet_data.dart';
 import 'package:nendoroid_db/models/username_data.dart';
 import 'package:nendoroid_db/services/rest_client.dart';
@@ -13,7 +14,7 @@ class TwitterController extends GetxController {
   final String goodSmileId = "68864104";
   final String goodSmileUSId = "755974370";
   final String goodSmileKRId = "1410541618805936129";
-  final String figureInfo = "771024858897526785";
+  final String figureInfoId = "771024858897526785";
   final String ninimalId = "3286303020";
 
   // 트위터 유저 정보
@@ -24,8 +25,17 @@ class TwitterController extends GetxController {
     super.onInit();
   }
 
-  Future<void> initData() async {
-    await fetchUserdata("$goodSmileId,$goodSmileUSId,$goodSmileKRId,$ninimalId,$figureInfo");
+  Future<void> initData(TwitterSubscribe subscribe) async {
+    List<String> userIdList = [];
+    if (subscribe.goodSmileJP) userIdList.add(goodSmileId);
+    if (subscribe.goodSmileUS) userIdList.add(goodSmileUSId);
+    if (subscribe.goodSmileKR) userIdList.add(goodSmileKRId);
+    if (subscribe.ninimal) userIdList.add(ninimalId);
+    if (subscribe.figureInfo) userIdList.add(figureInfoId);
+    String userId = userIdList.join(",");
+    print("userId : $userId");
+
+    await fetchUserdata(userId);
   }
 
   Future<List<NewsData>?> fetchTimeline({
@@ -99,6 +109,9 @@ class TwitterController extends GetxController {
   }
 
   Future<void> fetchUserdata(String userId) async {
+    if (userId.isEmpty) {
+      return;
+    }
     UsernameData usernameData = await getRepoClient()
         .getTwitterUsername(
       userId,
@@ -117,7 +130,7 @@ class TwitterController extends GetxController {
     }).onError((error, stackTrace) {
       return Future.value(UsernameData(data: []));
     });
-    userList.addAll(usernameData.data);
+    userList = usernameData.data;
     return;
   }
 
