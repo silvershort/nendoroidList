@@ -69,6 +69,12 @@ class NendoController extends GetxController {
   final RxString _serverCommitDate = "".obs;
   String get serverCommitDate => _serverCommitDate.value;
 
+  // Commit SHA-1 Hash
+  final RxString _localCommitHash = "".obs;
+  String get localCommitHash => _localCommitHash.value;
+  final RxString _serverCommitHash = "".obs;
+  String get serverCommitHash => _serverCommitHash.value;
+
   // 다운로드 용량
   String dataSize = "0MB";
 
@@ -103,16 +109,99 @@ class NendoController extends GetxController {
       setList.value = setBox.values.toList() as List<SetData>;
       initNendoList();
       _downloadComplete.value = true;
-      try {
+      try {      
+        // Get server commit data
+        dynamic data = await fetchServerCommitData();
+
         // 서버에 있는 커밋날짜를 받아와준다.
-        _serverCommitDate.value = IntlUtil.convertDate(gmtTime: await fetchServerCommitDate());
+        _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
       } catch (e) {
         print(e);
       }
       // 로컬에 있는 커밋날짜를 받아와준다.
       _localCommitDate.value = settingBox.get(HiveName.localCommitDateKey);
+      _localCommitHash.value = settingBox.get(HiveName.localCommitHashKey) ?? "null";
     }
     _initComplete.value = true;
+  }
+
+  Future updateDB() async {
+    // 다운로드 관련 데이터 초기화
+    _downloadComplete.value = false;
+    _downloadLoading.value = true;
+    _downloadError.value = false;
+    _currentStep.value = 0;
+    _totalStep.value = 0;
+    List<NendoData> downloadedNendoList = [];
+    List<SetData> downloadedSetList = [];
+
+    try {
+      // Load commit hash
+      String remoteCommitHash = (await fetchServerCommitData())['commit']['sha'];
+
+      // Load commit diff
+      Dio dio = Dio()..options.headers["Authorization"] = githubToken;
+      final response = await dio.get("https://api.github.com/repos/KhoraLee/NendoroidDB/compare/$localCommitHash...$remoteCommitHash");
+
+      // Load file changes
+      List<dynamic> changedFiles = response.data['files'].map((e) => e['filename']).map((e) => e.replaceAll("Nendoroid/", "")).toList();
+      _totalStep.value = changedFiles.length;
+
+      // Fetch changed files
+      for (String file in changedFiles) {
+        if (file.startsWith("Set")) {
+          List<String> path = file.split("/");
+          SetData set = await getNendoClient().getSetData(path[0], path[1]);
+          downloadedSetList.add(set);
+        } else {
+          List<String> path = file.split("/");
+          NendoData nendo = await getNendoClient().getNendoData(path[0], path[1]);
+          NendoData? backupData = backupNendoList.firstWhereOrNull((e) => e.num == nendo.num);
+          // Restore backup data if exist
+          if (backupData != null) {
+            nendo.count = backupData.count;
+            nendo.have = backupData.have;
+            nendo.wish = backupData.wish;
+            nendo.myPrice = backupData.myPrice;
+            nendo.memo = backupData.memo?.toList();
+            backupNendoList.remove(backupData);
+          }
+          downloadedNendoList.add(nendo);
+        }
+        _currentStep.value++;
+      }
+
+      // Save commit data to local
+      settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
+      settingBox.put(HiveName.localCommitHashKey, remoteCommitHash);
+      _localCommitDate.value = IntlUtil.convertDate();
+    } catch (e) {
+      print(e);
+
+      _downloadComplete.value = false;
+      _downloadLoading.value = false;
+      _downloadError.value = true;
+      return;
+    }
+
+    // Apply changes
+    for (NendoData data in downloadedNendoList) {
+      await nendoBox.put(data.num, data);
+    }
+    for (SetData data in downloadedSetList) {
+      await setBox.put(data.setName, data);
+    }
+
+    // Reload data
+    setList.value = setBox.values.toList() as List<SetData>;
+    initNendoList();
+
+    // Sort
+    sortNendoList();
+
+    // 다운로드 완료 후 설정
+    _downloadComplete.value = true;
+    _downloadLoading.value = false;
   }
 
   Future fetchData() async {
@@ -128,9 +217,14 @@ class NendoController extends GetxController {
     nendoList.value = [];
 
     try {
+      // Get server commit data
+      dynamic data = await fetchServerCommitData();
+
       // 서버 커밋 날짜 가져오기
-      String commitDate = IntlUtil.convertDate(gmtTime: await fetchServerCommitDate());
+      String commitDate = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
+      String commitHash = data['commit']['sha'];
       _serverCommitDate.value = commitDate;
+      _serverCommitHash.value = commitHash;
 
       // 넨도로이드 폴더 목록 가져오기
       await fetchFolderNameList();
@@ -149,6 +243,8 @@ class NendoController extends GetxController {
 
       // 로컬 커밋날짜 저장
       settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
+      settingBox.put(HiveName.localCommitHashKey, commitHash);
+
       _localCommitDate.value = IntlUtil.convertDate();
     } catch (e) {
       nendoList.value = recoveryNendoList.toList();
@@ -446,12 +542,11 @@ class NendoController extends GetxController {
   }
 
   // DB 데이터의 마지막 업데이트(커밋) 날짜를 받아옴
-  Future<String> fetchServerCommitDate() async {
+  Future<dynamic> fetchServerCommitData() async {
     Dio dio = Dio()..options.headers["Authorization"] = githubToken;
     final response = await dio.get("https://api.github.com/repos/KhoraLee/NendoroidDB/branches/master");
-    String date = response.data['commit']['commit']['author']['date'];
-    return date;
-  }
+    return response.data;
+    }
 
   // 헤더에 Github API 호출을 위한 토큰값 추가
   RestClient getRepoClient() {
