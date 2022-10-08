@@ -6,6 +6,7 @@ class HiveName {
   static const String subscribeBoxName = "subscribeBox";
 
   static const String localCommitDateKey = "localCommitDate";
+  static const String localCommitHashKey = "localCommitHash";
   static const String serverCommitDateKey = "serverCommitDate";
   static const String githubTokenKey = "githubToken";
   static const String appThemeIndexKey = "appThemeIndex";
