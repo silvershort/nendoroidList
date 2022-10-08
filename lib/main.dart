@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -61,18 +61,20 @@ void main() async {
   Get.put(NotificationController());
   Get.put(NewsController());
 
-  if (kDebugMode) {
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    runApp(MyApp(appTheme: appTheme));
-  } else {
-    runZonedGuarded<Future<void>>(() async {
-      FlutterError.onError =
-          FirebaseCrashlytics.instance.recordFlutterFatalError;
-      FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  if (!kIsWeb) {
+    if (kDebugMode) {
+        await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+        runApp(MyApp(appTheme: appTheme));
+      } else {
+        runZonedGuarded<Future<void>>(() async {
+          FlutterError.onError =
+              FirebaseCrashlytics.instance.recordFlutterFatalError;
+          FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-      runApp(MyApp(appTheme: appTheme));
-    }, (error, stack) =>
-        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
+          runApp(MyApp(appTheme: appTheme));
+        }, (error, stack) =>
+            FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
+      }
   }
 }
 

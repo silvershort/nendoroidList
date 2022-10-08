@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -46,9 +47,9 @@ class AppVersionController extends GetxController{
     }
 
     await remoteConfig.fetchAndActivate();
-    if (Platform.isAndroid) {
+    if (!kIsWeb && Platform.isAndroid) {
       remoteAppVersion = remoteConfig.getString("aos_version");
-    } else {
+    } else if (!kIsWeb && Platform.isIOS) {
       remoteAppVersion = remoteConfig.getString("ios_version");
     }
 
