@@ -33,6 +33,7 @@ dependencies:
   flutter_html: ^3.0.0-alpha.5
   html: ^0.15.0
   freezed_annotation:
+  flutter_linkify: ^5.0.2
 
 dev_dependencies:
   flutter_test:
