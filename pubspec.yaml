@@ -1,7 +1,7 @@
 name: nendoroid_db
 description: A new Flutter project.
 publish_to: 'none'
-version: 2.2.0+13
+version: 2.3.0+14
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -33,6 +33,8 @@ dependencies:
   flutter_html: ^3.0.0-alpha.5
   html: ^0.15.0
   freezed_annotation:
+  flutter_linkify: ^5.0.2
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   flutter_test:

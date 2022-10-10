@@ -1,5 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:get/get.dart';
 import 'package:nendoroid_db/models/news_data.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
@@ -112,22 +114,28 @@ class TwitterTile extends StatelessWidget {
           const SizedBox(height: 10.0),
           const Divider(height: 0, thickness: 1.2),
           const SizedBox(height: 10.0),
-          Html(
-            data: data.content,
-            shrinkWrap: true,
-            style: {
-              "body": Style(
-                fontSize: const FontSize(15.0),
-                fontFamily: AppFont.oneMobile,
-              ),
+          SelectableLinkify(
+            onOpen: (link) async {
+              final Uri url = Uri.parse(link.url);
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              } else {
+                Get.showSnackbar(
+                  const GetSnackBar(
+                    message: "링크를 여는데 실패했습니다.",
+                    duration: Duration(seconds: 2),
+                    snackPosition: SnackPosition.BOTTOM,
+                  )
+                );
+              }
             },
+            text: data.content,
+            options: const LinkifyOptions(humanize: false),
+            style: const TextStyle(
+              fontSize: 15,
+              height: 1.35,
+            ),
           ),
-          /*Text(
-            data.content,
-            maxLines: 20,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(),
-          ),*/
           const SizedBox(height: 10.0),
           NewsAttach(attachList: data.imageUrlList),
         ],

@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/controllers/app_version_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AppUpdateDialog extends StatelessWidget {
+class AppUpdateDialog extends GetView<AppVersionController> {
   const AppUpdateDialog({Key? key}) : super(key: key);
 
   @override
@@ -13,7 +14,24 @@ class AppUpdateDialog extends StatelessWidget {
       title: const Text(
         "업데이트 알림",
       ),
-      content: const Text("새로운 버전이 출시되었어요!"),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text("새로운 버전이 출시되었어요!"),
+          Offstage(
+            offstage: controller.updateText.isEmpty,
+            child: Column(
+              children: [
+                const SizedBox(height: 15.0),
+                Text(
+                  controller.updateText,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
       actions: [
         TextButton(
           onPressed: () {

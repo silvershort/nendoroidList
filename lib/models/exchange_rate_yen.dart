@@ -12,6 +12,7 @@ class ExchangeRateYen {
   String? date;
   String? time;
   double? basePrice;
+  double? ttSellingPrice;
   String? modifiedAt;
   String? createdAt;
 
@@ -24,6 +25,7 @@ class ExchangeRateYen {
       this.date,
       this.time,
       this.basePrice,
+      this.ttSellingPrice,
       this.modifiedAt,
       this.createdAt});
 

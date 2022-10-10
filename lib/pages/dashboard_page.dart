@@ -66,12 +66,13 @@ class DashboardPage extends GetView<DashboardController> {
 
     if (controller.backPressTime == null || now.difference(controller.backPressTime!) > const Duration(seconds: 2)) {
       controller.backPressTime = now;
-      Get.snackbar(
-        "알림",
-        "뒤로 버튼을 한 번 더 누르시면 종료됩니다.",
-        animationDuration: const Duration(milliseconds: 500),
-        duration: const Duration(seconds: 2),
-        margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
+      Get.showSnackbar(
+          const GetSnackBar(
+            title: "알림",
+            message: "뒤로 버튼을 한 번 더 누르시면 종료됩니다.",
+            duration: Duration(seconds: 2),
+            snackPosition: SnackPosition.BOTTOM,
+          )
       );
       return Future.value(false);
     }

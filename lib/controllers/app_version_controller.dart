@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -18,6 +19,11 @@ class AppVersionController extends GetxController{
 
   final RxBool _needUpdate = false.obs;
   bool get needUpdate => _needUpdate.value;
+  
+  final RxString _updateText = "".obs;
+  String get updateText => _updateText.value;
+  final RxString _noticeText = "".obs;
+  String get noticeText => _noticeText.value;
 
   late PackageInfo packageInfo;
   late FirebaseRemoteConfig remoteConfig;
@@ -46,11 +52,15 @@ class AppVersionController extends GetxController{
     }
 
     await remoteConfig.fetchAndActivate();
-    if (Platform.isAndroid) {
+    if (!kIsWeb && Platform.isAndroid) {
       remoteAppVersion = remoteConfig.getString("aos_version");
-    } else {
+    } else if (!kIsWeb && Platform.isIOS) {
       remoteAppVersion = remoteConfig.getString("ios_version");
     }
+
+    // 개행문자 사용을 위해서 \n을 변환해준다
+    _updateText.value = remoteConfig.getString("update_text").replaceAll(r'\n', '\n');
+    _noticeText.value = remoteConfig.getString("notice_text").replaceAll(r'\n', '\n');
 
     if (remoteAppVersion == null || remoteAppVersion!.isEmpty || appVersion.isEmpty) {
       return false;

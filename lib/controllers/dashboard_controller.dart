@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/app_version_controller.dart';
 import 'package:nendoroid_db/widgets/dialog/app_update_dialog.dart';
+import 'package:nendoroid_db/widgets/dialog/notice_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utilities/debounce.dart';
@@ -55,6 +56,11 @@ class DashboardController extends GetxController {
     if (needUpdate) {
       Get.dialog(
         const AppUpdateDialog(),
+      );
+    }
+    if (appVersionController.noticeText.isNotEmpty) {
+      Get.dialog(
+        const NoticeDialog(),
       );
     }
   }

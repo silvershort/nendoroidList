@@ -6,8 +6,9 @@ import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/pages/detail_page.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
+import 'package:nendoroid_db/widgets/dialog/detail_dialog.dart';
+import 'package:nendoroid_db/widgets/list/list_nendo_memo_view.dart';
 
 import '../dialog/nendo_info_edit_dialog.dart';
 
@@ -43,7 +44,10 @@ class ListNendoItem extends StatelessWidget {
         onTap: () {
           int mode = modeController.modeIndex;
           if (mode == 0) {
-            Get.to(DetailPage(nendoData: nendoData));
+            Get.dialog(
+              DetailDialog(nendoData: nendoData),
+            );
+            // Get.to(NendoWebPage(nendoData: nendoData));
           } else if (mode == 1) {
             nendoController.updateHaveNendo(nendoData.num);
           } else if (mode == 2) {
@@ -170,11 +174,7 @@ class ListNendoItem extends StatelessWidget {
                               const SizedBox(height: 7.5),
                               Offstage(
                                 offstage: nendoData.memo == null,
-                                child: Wrap(
-                                  spacing: 5.0,
-                                  runSpacing: 2.5,
-                                  children: memoChipList(context, nendoData.memo!),
-                                ),
+                                child: ListNendoMemoView(memo: nendoData.memo!),
                               ),
                             ],
                           ),
@@ -209,24 +209,6 @@ class ListNendoItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  List<Widget> memoChipList(BuildContext context, List<String> memoList) {
-    List<Widget> widgetList = [];
-    for (String memo in memoList) {
-      widgetList.add(Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.5),
-        child: Text(
-          memo,
-          style: const TextStyle(fontSize: 11.0, color: Colors.white),
-        ),
-      ));
-    }
-    return widgetList;
   }
 
   Widget nendoPrice(BuildContext context) {

@@ -27,10 +27,12 @@ class SettingAppVersionView extends GetView<AppVersionController> {
           ),
         ),
         const SizedBox(height: 3.0),
-        Text(
-          "앱 버전 : ${controller.appVersion}",
-          style: const TextStyle(
-            fontSize: 18.0,
+        Obx(() =>
+          Text(
+            "앱 버전 : ${controller.appVersion}",
+            style: const TextStyle(
+              fontSize: 18.0,
+            ),
           ),
         ),
       ],
