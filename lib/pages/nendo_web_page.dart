@@ -7,15 +7,15 @@ import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key, required this.nendoData}) : super(key: key);
+class NendoWebPage extends StatefulWidget {
+  const NendoWebPage({Key? key, required this.nendoData}) : super(key: key);
   final NendoData nendoData;
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<NendoWebPage> createState() => _NendoWebPageState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _NendoWebPageState extends State<NendoWebPage> {
   NendoController nendoController = Get.find<NendoController>();
   WebViewController? _webViewController;
   final Completer<WebViewController> _completer = Completer<WebViewController>();
