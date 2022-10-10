@@ -16,6 +16,7 @@ ExchangeRateYen _$ExchangeRateYenFromJson(Map<String, dynamic> json) =>
       date: json['date'] as String?,
       time: json['time'] as String?,
       basePrice: (json['basePrice'] as num?)?.toDouble(),
+      ttSellingPrice: (json['ttSellingPrice'] as num?)?.toDouble(),
       modifiedAt: json['modifiedAt'] as String?,
       createdAt: json['createdAt'] as String?,
     );
@@ -30,6 +31,7 @@ Map<String, dynamic> _$ExchangeRateYenToJson(ExchangeRateYen instance) =>
       'date': instance.date,
       'time': instance.time,
       'basePrice': instance.basePrice,
+      'ttSellingPrice': instance.ttSellingPrice,
       'modifiedAt': instance.modifiedAt,
       'createdAt': instance.createdAt,
     };
