@@ -5,7 +5,7 @@ import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/gender_rate.dart';
 import 'package:nendoroid_db/models/most_series.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/pages/detail_page.dart';
+import 'package:nendoroid_db/pages/nendo_web_page.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
 import 'package:nendoroid_db/widgets/dialog/price_info_dialog.dart';
 import 'package:nendoroid_db/widgets/my/my_collection_view.dart';

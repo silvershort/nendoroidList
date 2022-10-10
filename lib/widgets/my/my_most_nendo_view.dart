@@ -4,7 +4,8 @@ import 'package:nendoroid_db/controllers/my_controller.dart';
 import 'package:nendoroid_db/widgets/my/accent_text.dart';
 
 import '../../models/nendo_data.dart';
-import '../../pages/detail_page.dart';
+import '../../pages/nendo_web_page.dart';
+import '../dialog/detail_dialog.dart';
 
 class MyMostNendoView extends GetView<MyController> {
   const MyMostNendoView({Key? key}) : super(key: key);
@@ -43,7 +44,9 @@ class MyMostNendoView extends GetView<MyController> {
                         fontSize: 16.0,
                       ),
                       onTap: () {
-                        Get.to(DetailPage(nendoData: mostList[index]));
+                        Get.dialog(
+                          DetailDialog(nendoData: mostList[index]),
+                        );
                       },
                     ),
                     const SizedBox(
