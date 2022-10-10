@@ -43,29 +43,23 @@ class TwitterController extends GetxController {
     required String startTime,
     required String endTime,
   }) async {
-    TweetData tweetData = await getRepoClient().getTwitterTimeline(
-      userId,
-      {
-        "expansions": "attachments.media_keys",
-        "user.fields": "url",
-        "media.fields": "url",
-        "start_time": startTime,
-        "end_time": endTime,
-        "tweet.fields": "created_at"
-      },
-    )/*.catchError((Object obj) {
-      switch (obj.runtimeType) {
-        case DioError:
-          final res = (obj as DioError).response;
-          print("error statusCode : ${res?.statusCode}");
-          print("error msg : ${res?.data.toString()}");
-          break;
-        default:
-          break;
-      }
-    }).onError((error, stackTrace) {
-      // return Future(() => null);
-    })*/;
+    TweetData? tweetData;
+
+    try {
+      tweetData = await getRepoClient().getTwitterTimeline(
+            userId,
+            {
+              "expansions": "attachments.media_keys",
+              "user.fields": "url",
+              "media.fields": "url",
+              "start_time": startTime,
+              "end_time": endTime,
+              "tweet.fields": "created_at"
+            },
+          );
+    } catch (e) {
+      print(e.toString());
+    }
 
     if (tweetData == null) {
       return null;
