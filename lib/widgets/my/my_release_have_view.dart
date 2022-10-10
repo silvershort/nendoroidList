@@ -4,7 +4,6 @@ import 'package:nendoroid_db/controllers/my_controller.dart';
 import 'package:nendoroid_db/widgets/my/accent_text.dart';
 
 import '../../models/nendo_data.dart';
-import '../../pages/nendo_web_page.dart';
 import '../dialog/detail_dialog.dart';
 
 class MyReleaseHaveView extends GetView<MyController> {

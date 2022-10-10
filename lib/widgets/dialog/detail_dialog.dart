@@ -39,7 +39,7 @@ class _DetailDialogState extends State<DetailDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(24.0))),
       insetPadding: const EdgeInsets.symmetric(
         horizontal: 20,
@@ -130,21 +130,21 @@ class _DetailDialogState extends State<DetailDialog> {
                       const SizedBox(height: 15.0),
                       RichText(
                         text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             fontFamily: AppFont.oneMobile,
                           ),
                           children: [
                             TextSpan(
                               text: "[${_nendoData.num}]  ",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.deepOrange,
                               ),
                             ),
                             TextSpan(
-                              text: "${_nendoData.name.ko}" ?? "",
-                              style: TextStyle(fontSize: 18.0, color: Colors.black),
+                              text: "${_nendoData.name.ko}",
+                              style: const TextStyle(fontSize: 18.0, color: Colors.black),
                             ),
                           ],
                         ),
@@ -152,14 +152,14 @@ class _DetailDialogState extends State<DetailDialog> {
                       const SizedBox(height: 10.0),
                       Text(
                         "시리즈 : ${_nendoData.series.ko}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15.0,
                         ),
                       ),
                       const SizedBox(height: 5.0),
                       Text(
                         "출시가격 : ${IntlUtil.comma(_nendoData.price)} 엔",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15.0,
                         ),
                       ),
@@ -170,7 +170,7 @@ class _DetailDialogState extends State<DetailDialog> {
                             const SizedBox(height: 5.0),
                             Text(
                               "구입가격 : ${IntlUtil.comma(_nendoroidController.getNendoData(_nendoData.num).myPrice ?? 0)} 원",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 15.0,
                               ),
                             ),
@@ -179,14 +179,14 @@ class _DetailDialogState extends State<DetailDialog> {
                       const SizedBox(height: 5.0),
                       Text(
                         '출시날짜 : ${_nendoData.releaseDate}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15.0,
                         ),
                       ),
                       const SizedBox(height: 5.0),
                       Text(
                         '성별 : ${_nendoData.gender ?? "데이터 없음"}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15.0,
                         ),
                       ),
@@ -197,7 +197,7 @@ class _DetailDialogState extends State<DetailDialog> {
                             const SizedBox(height: 5.0),
                             Text(
                               "보유개수 : ${_nendoroidController.getNendoData(_nendoData.num).count} 개",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 15.0,
                               ),
                             ),
@@ -236,7 +236,7 @@ class _DetailDialogState extends State<DetailDialog> {
                                   const SizedBox(width: 5.0),
                                   Opacity(
                                     opacity: _nendoroidController.getNendoData(_nendoData.num).have ? 1 : 0.5,
-                                    child: Text("보유"),
+                                    child: const Text("보유"),
                                   ),
                                 ],
                               ),
@@ -253,7 +253,7 @@ class _DetailDialogState extends State<DetailDialog> {
                                 children: [
                                   Opacity(
                                     opacity: _nendoroidController.getNendoData(_nendoData.num).wish ? 1 : 0.5,
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.favorite,
                                       size: 15.0,
                                       color: Colors.deepOrange,
@@ -262,7 +262,7 @@ class _DetailDialogState extends State<DetailDialog> {
                                   const SizedBox(width: 5.0),
                                   Opacity(
                                     opacity: _nendoroidController.getNendoData(_nendoData.num).wish ? 1 : 0.5,
-                                    child: Text("위시"),
+                                    child: const Text("위시"),
                                   ),
                                 ],
                               ),
@@ -280,7 +280,7 @@ class _DetailDialogState extends State<DetailDialog> {
                                 NendoInfoEditDialog(nendoData: _nendoData),
                               );
                             },
-                            child: Text("상세편집"),
+                            child: const Text("상세편집"),
                           ),
                         ),
                       ),

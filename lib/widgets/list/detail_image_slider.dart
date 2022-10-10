@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../pages/image_view_page.dart';
 
 class DetailImageSlider extends StatefulWidget {
-  DetailImageSlider({Key? key, required this.imageList, required this.thumbnailList}) : super(key: key);
+  const DetailImageSlider({Key? key, required this.imageList, required this.thumbnailList}) : super(key: key);
   final List<String> imageList;
   final List<String> thumbnailList;
 

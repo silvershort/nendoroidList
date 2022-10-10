@@ -6,10 +6,8 @@ import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/pages/nendo_web_page.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
 import 'package:nendoroid_db/widgets/dialog/detail_dialog.dart';
-import 'package:nendoroid_db/widgets/list/list_nendo_memo_list.dart';
 import 'package:nendoroid_db/widgets/list/list_nendo_memo_view.dart';
 
 import '../dialog/nendo_info_edit_dialog.dart';
