@@ -214,7 +214,7 @@ class MyController extends GetxController {
   void getTodayYen() async {
     try {
       List<ExchangeRateYen> list = await RestClient(Dio()).getExchangeRate();
-      _todayYen.value = list[0].basePrice?.toInt() ?? 0;
+      _todayYen.value = list[0].ttSellingPrice?.toInt() ?? 0;
     } catch (e) {
       print(e);
     }
