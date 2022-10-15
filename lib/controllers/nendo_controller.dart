@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:nendoroid_db/controllers/firestore_controller.dart';
+import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
@@ -200,6 +202,57 @@ class NendoController extends GetxController {
     sortNendoList();
 
     // 다운로드 완료 후 설정
+    _downloadComplete.value = true;
+    _downloadLoading.value = false;
+  }
+
+  Future<void> fetchDataInFirestore({String? documentID}) async {
+    _downloadComplete.value = false;
+    _downloadLoading.value = true;
+    _downloadError.value = false;
+    _currentStep.value = 0;
+    _totalStep.value = 1;
+
+    final FirestoreController controller = Get.find<FirestoreController>();
+    BackupData? initialData = await controller.getBackupNendoData(documentID: documentID ?? "initData");
+    if (initialData == null) {
+      _downloadComplete.value = false;
+      _downloadLoading.value = false;
+      _downloadError.value = true;
+      return Future.error("데이터를 가져오지 못했습니다.");
+    }
+
+    _currentStep.value++;
+    setList.addAll(initialData.setList);
+    nendoList.addAll(initialData.nendoList);
+
+    // 넨도데이터 로컬 DB에 저장
+    for (NendoData data in nendoList) {
+      await nendoBox.put(data.num, data);
+    }
+
+    // 세트데이터 로컬 DB에 저장
+    for (SetData data in setList) {
+      await setBox.put(data.setName, data);
+    }
+    
+    // 로컬 커밋날짜 저장
+    DateFormat formatter = DateFormat("yyyy-MM-dd HH:mm");
+    String localCommitDate = formatter.format(DateTime.parse(initialData.backupDate));
+
+    settingBox.put(HiveName.localCommitDateKey, localCommitDate);
+    settingBox.put(HiveName.localCommitHashKey, initialData.commitHash);
+    _localCommitDate.value = localCommitDate;
+
+    // 서버에 있는 커밋날짜를 받아와준다.
+    dynamic data = await fetchServerCommitData();
+    _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
+
+    // 정렬
+    sortNendoList();
+
+    // 다운로드 완료 후 설정
+    backupNendoList = [];
     _downloadComplete.value = true;
     _downloadLoading.value = false;
   }
@@ -546,7 +599,7 @@ class NendoController extends GetxController {
     Dio dio = Dio()..options.headers["Authorization"] = githubToken;
     final response = await dio.get("https://api.github.com/repos/KhoraLee/NendoroidDB/branches/master");
     return response.data;
-    }
+  }
 
   // 헤더에 Github API 호출을 위한 토큰값 추가
   RestClient getRepoClient() {
