@@ -82,7 +82,7 @@ class SettingUpdateView extends StatelessWidget {
         negativeText: "취소",
         positiveOnClick: () {
           Get.find<DashboardController>().tabIndex = 0;
-          nendoController.backupData();
+          nendoController.saveBackupData();
           if (nendoController.localCommitHash != "null") {
             nendoController.updateDB();                  
           } else {

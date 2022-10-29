@@ -11,7 +11,9 @@ class BackupData with _$BackupData {
   const factory BackupData({
     required List<NendoData> nendoList,
     required List<SetData> setList,
+    required String email,
     required String commitHash,
+    required String commitDate,
     required String backupDate,
   }) = _BackupData;
 

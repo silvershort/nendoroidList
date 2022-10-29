@@ -74,8 +74,6 @@ class NendoController extends GetxController {
   // Commit SHA-1 Hash
   final RxString _localCommitHash = "".obs;
   String get localCommitHash => _localCommitHash.value;
-  final RxString _serverCommitHash = "".obs;
-  String get serverCommitHash => _serverCommitHash.value;
 
   // 다운로드 용량
   String dataSize = "0MB";
@@ -214,7 +212,7 @@ class NendoController extends GetxController {
     _totalStep.value = 1;
 
     final FirestoreController controller = Get.find<FirestoreController>();
-    BackupData? initialData = await controller.getBackupNendoData(documentID: documentID ?? "initData");
+    BackupData? initialData = await controller.readData();
     if (initialData == null) {
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -277,7 +275,6 @@ class NendoController extends GetxController {
       String commitDate = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
       String commitHash = data['commit']['sha'];
       _serverCommitDate.value = commitDate;
-      _serverCommitHash.value = commitHash;
 
       // 넨도로이드 폴더 목록 가져오기
       await fetchFolderNameList();
@@ -384,9 +381,9 @@ class NendoController extends GetxController {
   }
 
   // DB 업데이트전에 데이터 백업
-  void backupData() {
+  void saveBackupData() {
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
-    backupNendoList = nendoList.where((item) => item.have || item.wish).toList();
+    backupNendoList = nendoList.where((item) => (item.have || item.wish) || item.memo != null).toList();
   }
 
   // 특정 규칙에 따라서 리스트를 필터링 해준다.
@@ -570,6 +567,25 @@ class NendoController extends GetxController {
       }
       nendoList.addAll(result);
     });
+  }
+
+  void restoreBackupList(BackupData backupData) {
+    _localCommitDate.value = backupData.commitDate;
+    _localCommitHash.value = backupData.commitHash;
+
+    for (int i = backupNendoList.length - 1; i >= 0; i--) {
+      NendoData backupData = backupNendoList[i];
+      NendoData? newNendoData = nendoList.firstWhereOrNull((newItem) => newItem.num == backupData.num);
+      if (newNendoData != null) {
+        newNendoData.count = backupData.count;
+        newNendoData.have = backupData.have;
+        newNendoData.wish = backupData.wish;
+        newNendoData.myPrice = backupData.myPrice;
+        newNendoData.memo = backupData.memo?.toList();
+        // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
+        backupNendoList.removeAt(i);
+      }
+    }
   }
 
   // 세트 리스트를 가져옴

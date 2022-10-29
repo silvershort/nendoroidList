@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nendoroid_db/controllers/sign_up_controller.dart';
-import 'package:nendoroid_db/pages/sign_up_page.dart';
+import 'package:nendoroid_db/controllers/auth_controller.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends GetView<AuthController> {
   LoginPage({Key? key}) : super(key: key);
   final TextEditingController textEditingController = TextEditingController();
 
@@ -12,7 +11,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("로그인"),
+        title: const Text("로그인 & 회원가입"),
       ),
       body: GestureDetector(
         onTap: () {
@@ -34,40 +33,40 @@ class LoginPage extends StatelessWidget {
                     labelText: "이메일 주소 입력",
                   ),
                   style: const TextStyle(fontSize: 18.0),
-                  onSubmitted: (str) {},
+                  onSubmitted: (str) {
+                    controller.showConfirmEmail(textEditingController.text.trim());
+                  },
                 ),
                 const SizedBox(height: 10.0),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      controller.showConfirmEmail(textEditingController.text.trim());
+                    },
                     child: const Text(
-                      "로그인",
+                      "로그인&회원가입",
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
                 ),
+                const SizedBox(height: 20.0),
+                const Text(
+                  "- 이메일 인증을 통해 회원가입이 가능합니다.\n- 이미 가입 했다면 이메일 인증으로 로그인이 가능합니다.",
+                  style: TextStyle(
+                    height: 1.3,
+                  ),
+                ),
                 const SizedBox(height: 30.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: const Text("이메일 주소 변경"),
+                Obx(
+                  () => Text(
+                    controller.notificationMessage,
+                    style: const TextStyle(
+                      height: 1.3,
+                      fontSize: 16,
                     ),
-                    const SizedBox(
-                      height: 20,
-                      child: VerticalDivider(thickness: 0.5),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.to(const SignUpPage(), binding: BindingsBuilder(() {
-                          Get.put(SignUpController());
-                        }));
-                      },
-                      child: const Text("회원가입"),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),

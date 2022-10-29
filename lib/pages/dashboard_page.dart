@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/controllers/auth_controller.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/controllers/news_controller.dart';
@@ -11,10 +14,22 @@ import 'package:nendoroid_db/widgets/dashboard/main_bottom_navigation_bar.dart';
 import '../controllers/dashboard_controller.dart';
 import '../widgets/filter_bottom_sheet.dart';
 
-class DashboardPage extends GetView<DashboardController> {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  final DashboardController controller = Get.find<DashboardController>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
