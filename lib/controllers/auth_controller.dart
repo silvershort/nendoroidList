@@ -93,6 +93,11 @@ class AuthController extends GetxService {
     return;
   }
 
+  Future<void> withdrawal() async {
+    await FirebaseAuth.instance.currentUser?.delete();
+    return;
+  }
+
   void wrongAuthentication(String content) {
     Get.snackbar(
       "잘못된 접근",

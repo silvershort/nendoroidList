@@ -31,8 +31,8 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: const Text(
+          const Center(
+            child: Text(
               "넨도로이드 DB 회원가입 안내",
               style: TextStyle(
                 fontSize: 21,
@@ -138,7 +138,7 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
                   child: ElevatedButton(
                     onPressed: _agree
                         ? () {
-                            // Get.find<SettingController>().setTermsAndConditionsAgree(true);
+                            Get.find<SettingController>().setTermsAndConditionsAgree(true);
                             Get.back();
                             Get.find<AuthController>().clearNotificationMessage();
                             Get.to(LoginPage());

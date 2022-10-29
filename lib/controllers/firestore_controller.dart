@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 
+import '../widgets/dialog/loading_dialog.dart';
+
 class FirestoreController extends GetxController {
   final String initCollectionName = 'InitData';
   final String userCollectionName = 'BackupData';
@@ -54,10 +56,15 @@ class FirestoreController extends GetxController {
   }
 
   Future<void> restoreData() async {
+    Get.dialog(const LoadingDialog());
     BackupData? backupData = await readData();
     if (backupData == null) {
+      Get.back();
       return Future.error('백업데이터를 불러왔으나 null 값입니다.');
     }
+    await Get.find<NendoController>().restoreBackupList(backupData);
+    Get.back();
+    return;
   }
 
   Future<BackupData?> readData() async {

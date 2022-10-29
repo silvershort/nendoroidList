@@ -569,7 +569,7 @@ class NendoController extends GetxController {
     });
   }
 
-  void restoreBackupList(BackupData backupData) {
+  Future<void> restoreBackupList(BackupData backupData) {
     _localCommitDate.value = backupData.commitDate;
     _localCommitHash.value = backupData.commitHash;
 
@@ -586,6 +586,7 @@ class NendoController extends GetxController {
         backupNendoList.removeAt(i);
       }
     }
+    return Future.value();
   }
 
   // 세트 리스트를 가져옴

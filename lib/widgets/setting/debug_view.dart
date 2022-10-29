@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
@@ -23,8 +24,8 @@ class DebugView extends StatelessWidget {
                   setList: nendoController.setList,
                   email: "silvershortdev@gmail.com",
                   commitHash: nendoController.localCommitHash,
-                  backupDate: nendoController.localCommitDate,
-                  commitDate: DateTime.now().toString(),
+                  backupDate: DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now()),
+                  commitDate: nendoController.localCommitDate,
                 ),
               )
               .then((value) => print("@@@ 업로드 성공"))

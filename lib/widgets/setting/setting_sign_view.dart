@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/auth_controller.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
 import 'package:nendoroid_db/controllers/setting_controller.dart';
@@ -156,11 +157,17 @@ class SettingSignView extends StatelessWidget {
                               );
                             } else {
                               Get.dialog(
-                                const CommonDialog(
-                                  content: "정말 데이터 복구를 진행하시겠습니까?",
-                                  positiveOnClick: () {
-                                    firestoreController.restoreData();
+                                CommonDialog(
+                                  content: "정말 데이터 복구를 진행하시겠습니까?\n\n(백업데이터와 현재데이터가 다를경우 백업데이터로 대체됩니다.)",
+                                  positiveOnClick: () async {
+                                    if (authController.user == null) {
+                                      authController.wrongAuthentication("로그인 정보가 없습니다.");
+                                      return;
+                                    }
+                                    firestoreController.initUserSetting(documentID: authController.user!.uid);
+                                    await firestoreController.restoreData();
                                   },
+                                  negativeText: "취소",
                                 ),
                               );
                             }
@@ -196,8 +203,8 @@ class SettingSignView extends StatelessWidget {
                                     setList: [],
                                     email: authController.user!.email!,
                                     commitHash: nendoController.localCommitHash,
-                                    backupDate: nendoController.localCommitDate,
-                                    commitDate: DateTime.now().toString(),
+                                    backupDate: DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now()),
+                                    commitDate: nendoController.localCommitDate,
                                   ),
                                 )
                                 .then((value) => firestoreController.successCreate())
