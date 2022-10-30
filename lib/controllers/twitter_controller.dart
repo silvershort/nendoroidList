@@ -115,8 +115,6 @@ class TwitterController extends GetxController {
       switch (obj.runtimeType) {
         case DioError:
           final res = (obj as DioError).response;
-          print("@@@ error statusCode : ${res?.statusCode}");
-          print("@@@ error msg : ${res?.data.toString()}");
           break;
         default:
           break;

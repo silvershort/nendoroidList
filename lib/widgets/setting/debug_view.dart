@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
+import 'package:nendoroid_db/widgets/dialog/common_dialog.dart';
 
 class DebugView extends StatelessWidget {
   DebugView({Key? key}) : super(key: key);
@@ -28,8 +29,8 @@ class DebugView extends StatelessWidget {
                   commitDate: nendoController.localCommitDate,
                 ),
               )
-              .then((value) => print("@@@ 업로드 성공"))
-              .catchError((error, stackTrace) => print("@@@ 업로드 실패 : ${error.toString()}"));
+              .then((value) => Get.dialog(const CommonDialog(content: "업로드 성공")))
+              .catchError((error, stackTrace) => Get.dialog(CommonDialog(content: "업로드 실패\n\n(error : ${error.toString()})")));
         },
         child: const Text(
           "넨도 초기 데이터 업로드",
