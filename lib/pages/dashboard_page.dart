@@ -64,8 +64,15 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: FloatingActionButton(
                   onPressed: () {
                     controller.tabIndex == 0
-                      ? Get.bottomSheet(FilterBottomSheet())
-                      : Get.find<NewsController>().scrollController.jumpTo(0);
+                        ? Get.bottomSheet(
+                            Wrap(
+                              children: [
+                                FilterBottomSheet(),
+                              ],
+                            ),
+                            isScrollControlled: true,
+                          )
+                        : Get.find<NewsController>().scrollController.jumpTo(0);
                   },
                   mini: controller.tabIndex == 2 ? true : false,
                   child: controller.tabIndex == 0

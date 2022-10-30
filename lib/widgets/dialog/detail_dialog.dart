@@ -143,7 +143,7 @@ class _DetailDialogState extends State<DetailDialog> {
                             ),
                             TextSpan(
                               text: "${_nendoData.name.ko}",
-                              style: const TextStyle(fontSize: 18.0, color: Colors.black),
+                              style: DefaultTextStyle.of(context).style.copyWith(fontSize: 18.0),
                             ),
                           ],
                         ),

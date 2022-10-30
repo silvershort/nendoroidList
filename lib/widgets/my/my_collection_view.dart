@@ -40,6 +40,7 @@ class MyCollectionView extends GetView<MyController> {
               foregroundPainter: MyCollectionPainter(
                   lineColor: Theme.of(context).colorScheme.background,
                   completeColor: Theme.of(context).colorScheme.primary,
+                  textColor: DefaultTextStyle.of(context).style.color ?? Colors.black,
                   completePercent: controller.getHaveRate(),
                   width: 8.0),
             ),
