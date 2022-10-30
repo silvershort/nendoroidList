@@ -43,19 +43,20 @@ class _DetailImageSliderState extends State<DetailImageSlider> {
               );
             },
             options: CarouselOptions(
+              height: 180,
               enableInfiniteScroll: true,
               reverse: false,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 3),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
-              viewportFraction: 0.7,
+              viewportFraction: 1.0,
               enlargeCenterPage: true,
             ),
           ),
           const SizedBox(height: 20.0),
           SizedBox(
-            height: 70,
+            height: 48,
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
@@ -69,8 +70,8 @@ class _DetailImageSliderState extends State<DetailImageSlider> {
                   },
                   child: ExtendedImage.network(
                     widget.imageList[index],
-                    width: 70.0,
-                    height: 70.0,
+                    width: 48.0,
+                    height: 48.0,
                     fit: BoxFit.cover,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(8.0),

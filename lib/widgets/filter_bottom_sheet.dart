@@ -244,6 +244,7 @@ class FilterBottomSheet extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20.0),
               ],
             ),
           ),

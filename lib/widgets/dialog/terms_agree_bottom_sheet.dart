@@ -46,7 +46,7 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
               children: [
                 TextSpan(
                   text: "백업기능을 사용하기 위해서는 회원가입이 필요하며, 간편한 절차와 보안을 위해 회원가입은 ",
-                  style: DefaultTextStyle.of(context).style,
+                  style: DefaultTextStyle.of(context).style.copyWith(height: 1.3),
                 ),
                 const TextSpan(
                     text: "이메일 주소 하나로 진행",
@@ -57,7 +57,7 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
                 ),
                 TextSpan(
                   text: "됩니다.",
-                  style: DefaultTextStyle.of(context).style,
+                  style: DefaultTextStyle.of(context).style.copyWith(height: 1.3),
                 ),
               ]
             ),
@@ -67,6 +67,9 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
                 "\n\n다만, 다음의 경우 사용에 대한 제재(이용정지, 강제탈퇴 등)을 가할 수 있습니다." +
                 "\n\n1. 1회용 이메일, 타인명의의 이메일 등 본인 소유가 아닌 이메일을 사용한 경우" +
                 "\n2. 한 사람이 여러개의 이메일의 계정을 등록하는 경우",
+            style: TextStyle(
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 20.0),
           const Text(
