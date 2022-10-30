@@ -1,6 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/controllers/auth_controller.dart';
+import 'package:nendoroid_db/controllers/firestore_controller.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/controllers/news_controller.dart';
+import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_appbar.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_body.dart';
 import 'package:nendoroid_db/widgets/dashboard/main_bottom_navigation_bar.dart';
@@ -8,8 +14,22 @@ import 'package:nendoroid_db/widgets/dashboard/main_bottom_navigation_bar.dart';
 import '../controllers/dashboard_controller.dart';
 import '../widgets/filter_bottom_sheet.dart';
 
-class DashboardPage extends GetView<DashboardController> {
-  const DashboardPage({Key? key,}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  final DashboardController controller = Get.find<DashboardController>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +55,33 @@ class DashboardPage extends GetView<DashboardController> {
         child: Scaffold(
           appBar: const MainAppBar(),
           body: const MainBody(),
-          bottomNavigationBar: MediaQuery.of(context).size.width < 640
-              ? const MainBottomNavigationBar() : null,
-          floatingActionButton: Obx(() =>
-            Visibility(
+          bottomNavigationBar: MediaQuery.of(context).size.width < 640 ? const MainBottomNavigationBar() : null,
+          floatingActionButton: Obx(
+            () => Visibility(
               visible: controller.tabIndex == 0 || controller.tabIndex == 2,
               child: Opacity(
                 opacity: controller.tabIndex == 0 ? 1.0 : 0.5,
                 child: FloatingActionButton(
                   onPressed: () {
                     controller.tabIndex == 0
-                      ? Get.bottomSheet(FilterBottomSheet())
-                      : Get.find<NewsController>().scrollController.jumpTo(0);
+                        ? Get.bottomSheet(
+                            Wrap(
+                              children: [
+                                FilterBottomSheet(),
+                              ],
+                            ),
+                            isScrollControlled: true,
+                          )
+                        : Get.find<NewsController>().scrollController.jumpTo(0);
                   },
                   mini: controller.tabIndex == 2 ? true : false,
                   child: controller.tabIndex == 0
-                      ? const Icon(Icons.filter_alt,)
-                      : const Icon(Icons.arrow_drop_up,),
+                      ? const Icon(
+                          Icons.filter_alt,
+                        )
+                      : const Icon(
+                          Icons.arrow_drop_up,
+                        ),
                 ),
               ),
             ),
@@ -66,14 +96,12 @@ class DashboardPage extends GetView<DashboardController> {
 
     if (controller.backPressTime == null || now.difference(controller.backPressTime!) > const Duration(seconds: 2)) {
       controller.backPressTime = now;
-      Get.showSnackbar(
-          const GetSnackBar(
-            title: "알림",
-            message: "뒤로 버튼을 한 번 더 누르시면 종료됩니다.",
-            duration: Duration(seconds: 2),
-            snackPosition: SnackPosition.BOTTOM,
-          )
-      );
+      Get.showSnackbar(const GetSnackBar(
+        title: "알림",
+        message: "뒤로 버튼을 한 번 더 누르시면 종료됩니다.",
+        duration: Duration(seconds: 2),
+        snackPosition: SnackPosition.BOTTOM,
+      ));
       return Future.value(false);
     }
     return Future.value(true);

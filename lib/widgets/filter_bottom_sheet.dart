@@ -19,6 +19,7 @@ class FilterBottomSheet extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 20.0),
           Text(
@@ -243,6 +244,7 @@ class FilterBottomSheet extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20.0),
               ],
             ),
           ),

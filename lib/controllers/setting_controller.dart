@@ -10,11 +10,19 @@ import '../utilities/hive_name.dart';
 class SettingController extends GetxController {
   final NendoController nendoController = Get.find<NendoController>();
   late Box appThemeBox;
+  late Box termsBox;
+  final RxInt _debugViewCount = 0.obs;
+  int get debugViewCount => _debugViewCount.value;
 
   @override
   void onInit() async {
     super.onInit();
     appThemeBox = await Hive.openBox<int>(HiveName.appThemeBoxName);
+    termsBox = await Hive.openBox<bool>(HiveName.termsBoxName);
+  }
+
+  void incrementDebugViewCount() {
+    _debugViewCount.value++;
   }
 
   // 개인용 깃허브 API 키를 등록해줌
@@ -33,6 +41,17 @@ class SettingController extends GetxController {
     setGithubTokenKey("");
   }
 
+  // 약관 동의여부 확인
+  bool getTermsAndConditionsAgree() {
+    return termsBox.get(HiveName.termsAgreeKey, defaultValue: false);
+  }
+
+  void setTermsAndConditionsAgree(bool agree) async {
+    await termsBox.put(HiveName.termsAgreeKey, agree);
+    return;
+  }
+
+  // 앱테마 변경
   void setAppTheme(int index) async {
     if (index == AppColor.themeColors.length) {
       Get.changeTheme(ThemeData(

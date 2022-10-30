@@ -39,8 +39,7 @@ class _DetailDialogState extends State<DetailDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(24.0))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24.0))),
       insetPadding: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 60,
@@ -144,7 +143,7 @@ class _DetailDialogState extends State<DetailDialog> {
                             ),
                             TextSpan(
                               text: "${_nendoData.name.ko}",
-                              style: const TextStyle(fontSize: 18.0, color: Colors.black),
+                              style: DefaultTextStyle.of(context).style.copyWith(fontSize: 18.0),
                             ),
                           ],
                         ),
@@ -319,7 +318,15 @@ class _DetailDialogState extends State<DetailDialog> {
       return null;
     } else {
       // url 생성시 영문명에서 특수문자를 제외하고 공백을 +로 바꿔준다.
-      String nendoName = nendoData.name.en!.replaceAll(":", "").replaceAll(".", "").replaceAll(" ", "+");
+      String nendoName = nendoData.name.en!
+          .replaceAll(":", "")
+          .replaceAll(".", "")
+          .replaceAll(" ", "+")
+          .replaceAll("/", "")
+          .replaceAll("(", "")
+          .replaceAll(")", "")
+          .replaceAll("[", "")
+          .replaceAll("]", "");
       String url = "https://www.goodsmile.info/en/product/${nendoData.gscProductNum}/Nendoroid+$nendoName.html";
       return url;
     }

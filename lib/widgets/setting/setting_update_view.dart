@@ -45,7 +45,7 @@ class SettingUpdateView extends StatelessWidget {
                   fontSize: 18.0,
                 ),
               ),
-              const SizedBox(width: 5.0),
+              /*const SizedBox(width: 5.0),
               InkWell(
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 2.0),
@@ -58,7 +58,7 @@ class SettingUpdateView extends StatelessWidget {
                 onTap: () {
                   showUpdateDialog();
                 },
-              ),
+              ),*/
             ],
           ),
           const SizedBox(height: 3.0),
@@ -74,18 +74,16 @@ class SettingUpdateView extends StatelessWidget {
   }
 
   void showUpdateDialog() {
-    bool updateNeeds = IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate);
+    // bool updateNeeds = IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate);
     Get.dialog(
       CommonDialog(
         title: "DB 업데이트",
-        content: updateNeeds
-            ? "DB 업데이트를 진행하시겠습니까?\n다운로드 도중 앱 종료시 저장된 데이터가 삭제될 수 있습니다."
-            : "이미 최신버전입니다.\n강제 업데이트를 진행할까요?",
+        content: "DB 업데이트를 진행하시겠습니까?\n다운로드 도중 앱 종료시 저장된 데이터가 삭제될 수 있습니다.",
         negativeText: "취소",
         positiveOnClick: () {
           Get.find<DashboardController>().tabIndex = 0;
-          nendoController.backupData();
-          if (updateNeeds && nendoController.localCommitHash != "null") {
+          nendoController.saveBackupData();
+          if (nendoController.localCommitHash != "null") {
             nendoController.updateDB();                  
           } else {
             nendoController.fetchData();

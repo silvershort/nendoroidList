@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class MyCollectionPainter extends CustomPainter {
   Color lineColor;
   Color completeColor;
+  Color textColor;
   double completePercent;
   double width;
 
   MyCollectionPainter({
     required this.lineColor,
     required this.completeColor,
+    required this.textColor,
     required this.completePercent,
     required this.width,
   });
@@ -53,7 +55,7 @@ class MyCollectionPainter extends CustomPainter {
       style: TextStyle(
         fontSize: fontSize,
         fontWeight: FontWeight.w400,
-        color: Colors.black,
+        color: textColor,
       ),
       text: text,
     );
