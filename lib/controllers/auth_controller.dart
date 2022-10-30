@@ -94,8 +94,13 @@ class AuthController extends GetxService {
   }
 
   Future<void> withdrawal() async {
-    await FirebaseAuth.instance.currentUser?.delete();
-    return;
+    try {
+      await FirebaseAuth.instance.currentUser?.delete();
+      await signOut();
+      return;
+    } catch (e) {
+      return Future.error(e.toString());
+    }
   }
 
   void wrongAuthentication(String content) {

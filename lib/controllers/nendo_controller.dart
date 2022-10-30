@@ -212,12 +212,13 @@ class NendoController extends GetxController {
     _totalStep.value = 1;
 
     final FirestoreController controller = Get.find<FirestoreController>();
+    controller.initDefaultSetting();
     BackupData? initialData = await controller.readData();
     if (initialData == null) {
       _downloadComplete.value = false;
       _downloadLoading.value = false;
       _downloadError.value = true;
-      return Future.error("데이터를 가져오지 못했습니다.");
+      return;
     }
 
     _currentStep.value++;
@@ -253,6 +254,7 @@ class NendoController extends GetxController {
     backupNendoList = [];
     _downloadComplete.value = true;
     _downloadLoading.value = false;
+    return;
   }
 
   Future fetchData() async {
@@ -569,24 +571,34 @@ class NendoController extends GetxController {
     });
   }
 
+  // 파이어스토어에 저장된 데이터를 복구한다.
   Future<void> restoreBackupList(BackupData backupData) {
     _localCommitDate.value = backupData.commitDate;
     _localCommitHash.value = backupData.commitHash;
+    // 깊은 복사를 해야 'Cannot remove from an unmodifiable list' 에러를 피할 수 있음.
+    backupNendoList = backupData.nendoList.toList();
 
-    for (int i = backupNendoList.length - 1; i >= 0; i--) {
-      NendoData backupData = backupNendoList[i];
-      NendoData? newNendoData = nendoList.firstWhereOrNull((newItem) => newItem.num == backupData.num);
-      if (newNendoData != null) {
-        newNendoData.count = backupData.count;
-        newNendoData.have = backupData.have;
-        newNendoData.wish = backupData.wish;
-        newNendoData.myPrice = backupData.myPrice;
-        newNendoData.memo = backupData.memo?.toList();
-        // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
-        backupNendoList.removeAt(i);
-      }
+    try {
+      for (int i = backupNendoList.length - 1; i >= 0; i--) {
+            NendoData backupData = backupNendoList[i];
+            NendoData? nendoData = nendoList.firstWhereOrNull((newItem) => newItem.num == backupData.num);
+            if (nendoData != null) {
+              nendoData.count = backupData.count;
+              nendoData.have = backupData.have;
+              nendoData.wish = backupData.wish;
+              nendoData.myPrice = backupData.myPrice;
+              nendoData.memo = backupData.memo?.toList();
+
+              nendoBox.put(nendoData.num, nendoData);
+              // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
+              backupNendoList.removeAt(i);
+            }
+            nendoList.refresh();
+          }
+      return Future.value();
+    } catch (e) {
+      return Future.error(e.toString());
     }
-    return Future.value();
   }
 
   // 세트 리스트를 가져옴

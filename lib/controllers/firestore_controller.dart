@@ -5,6 +5,7 @@ import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
+import 'package:nendoroid_db/widgets/dialog/common_dialog.dart';
 
 import '../widgets/dialog/loading_dialog.dart';
 
@@ -35,26 +36,6 @@ class FirestoreController extends GetxController {
     _documentID = initDocumentName;
   }
 
-  void successCreate() {
-    Get.snackbar(
-      "알림",
-      "데이터 백업이 완료되었습니다!",
-      snackPosition: SnackPosition.TOP,
-      forwardAnimationCurve: Curves.elasticInOut,
-      reverseAnimationCurve: Curves.easeOut,
-    );
-  }
-
-  void failCreate() {
-    Get.snackbar(
-      "오류",
-      "데이터 백업에 실패했습니다.",
-      snackPosition: SnackPosition.TOP,
-      forwardAnimationCurve: Curves.elasticInOut,
-      reverseAnimationCurve: Curves.easeOut,
-    );
-  }
-
   Future<void> restoreData() async {
     Get.dialog(const LoadingDialog());
     BackupData? backupData = await readData();
@@ -62,8 +43,13 @@ class FirestoreController extends GetxController {
       Get.back();
       return Future.error('백업데이터를 불러왔으나 null 값입니다.');
     }
-    await Get.find<NendoController>().restoreBackupList(backupData);
-    Get.back();
+    Get.find<NendoController>().restoreBackupList(backupData).then((value) {
+      Get.back();
+      Get.dialog(CommonDialog(content: "[${backupData.backupDate}]에 저장된 데이터를 성공적으로 불러왔습니다."));
+    }).onError((error, stackTrace) {
+      Get.back();
+      Get.dialog(CommonDialog(content: "데이터백업에 실패했습니다.\n\n(error : ${error.toString()})"));
+    });
     return;
   }
 

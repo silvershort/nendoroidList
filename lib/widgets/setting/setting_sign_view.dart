@@ -207,15 +207,23 @@ class SettingSignView extends StatelessWidget {
                                     commitDate: nendoController.localCommitDate,
                                   ),
                                 )
-                                .then((value) => firestoreController.successCreate())
-                                .onError((error, stackTrace) => firestoreController.failCreate());
+                                .then((value) => Get.dialog(const CommonDialog(content: "데이터 백업에 성공하였습니다 !")))
+                                .onError((error, stackTrace) => Get.dialog(CommonDialog(content: "데이터 백업에 실패했습니다.\n\n(error : ${error.toString()})")));
                           },
-                          child: const Text(
-                            "데이터 백업",
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          ),
+                          child: Obx(() {
+                            if (firestoreController.state == FirestoreState.loading) {
+                              return LinearProgressIndicator(
+                                color: Theme.of(context).backgroundColor,
+                              );
+                            } else {
+                              return const Text(
+                                "데이터 백업",
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                              );
+                            }
+                          })
                         ),
                       ),
                     ),

@@ -12,7 +12,7 @@ class SettingLicenseView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "앱 및 라이센스 정보 : ",
+          "앱 상세정보 : ",
           style: TextStyle(fontSize: 18.0),
         ),
         const SizedBox(
@@ -28,7 +28,7 @@ class SettingLicenseView extends StatelessWidget {
                 Get.to(const LicenseInfoPage());
               },
               child: const Text(
-                  "앱 및 오픈소스 라이센스 정보"
+                  "앱 상세정보"
               ),
             ),
           ),

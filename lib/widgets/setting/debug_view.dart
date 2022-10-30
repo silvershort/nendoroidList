@@ -20,7 +20,7 @@ class DebugView extends StatelessWidget {
           firestoreController
               .createData(
                 backupData: BackupData(
-                  nendoList: nendoController.backupNendoList,
+                  nendoList: nendoController.nendoList,
                   setList: nendoController.setList,
                   email: "silvershortdev@gmail.com",
                   commitHash: nendoController.localCommitHash,

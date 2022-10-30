@@ -62,6 +62,9 @@ class LicenseInfoPage extends StatelessWidget {
               child: const Text("오픈소스 라이센스 정보"),
             ),
           ),
+          const SizedBox(
+            height: 10.0,
+          ),
           const Text(
             "- 회원탈퇴",
             style: TextStyle(),
@@ -74,16 +77,20 @@ class LicenseInfoPage extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 User? user = Get.find<AuthController>().user;
-                if (user != null) {
+                if (user == null) {
                   Get.dialog(const CommonDialog(content: "로그인 정보가 없습니다."));
                 } else {
                   Get.dialog(CommonDialog(
                     content: "정말로 회원 탈퇴하시겠습니까?\n\n(백업된 데이터는 자동으로 삭제됩니다.)",
                     negativeText: "취소",
                     positiveOnClick: () async {
-                      Get.find<FirestoreController>().initUserSetting(documentID: user!.uid);
+                      Get.find<FirestoreController>().initUserSetting(documentID: user.uid);
                       await Get.find<FirestoreController>().deleteData();
-                      await Get.find<AuthController>().withdrawal();
+                      Get.find<AuthController>().withdrawal().then((value) {
+                        Get.dialog(const CommonDialog(content: "회원탈퇴가 완료되었습니다."));
+                      }).onError((error, stackTrace) {
+                        Get.dialog(const CommonDialog(content: "회원탈퇴에 실패했습니다.\n회원탈퇴를 위해서는 로그아웃 후 메일인증을 통한 로그인을 한 이후에 회원탈퇴를 진행해주세요."));
+                      });
                     },
                   ));
                 }
