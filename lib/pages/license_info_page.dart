@@ -5,6 +5,8 @@ import 'package:nendoroid_db/controllers/auth_controller.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
 import 'package:nendoroid_db/widgets/dialog/common_dialog.dart';
 
+import '../widgets/dialog/terms_agree_bottom_sheet.dart';
+
 class LicenseInfoPage extends StatelessWidget {
   const LicenseInfoPage({Key? key}) : super(key: key);
 
@@ -54,7 +56,7 @@ class LicenseInfoPage extends StatelessWidget {
             height: 5.0,
           ),
           FractionallySizedBox(
-            widthFactor: 0.8,
+            widthFactor: 0.7,
             child: ElevatedButton(
               onPressed: () {
                 Get.to(const LicensePage());
@@ -73,7 +75,7 @@ class LicenseInfoPage extends StatelessWidget {
             height: 5.0,
           ),
           FractionallySizedBox(
-            widthFactor: 0.8,
+            widthFactor: 0.7,
             child: ElevatedButton(
               onPressed: () {
                 User? user = Get.find<AuthController>().user;
@@ -96,6 +98,32 @@ class LicenseInfoPage extends StatelessWidget {
                 }
               },
               child: const Text("탈퇴 하기"),
+            ),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          const Text(
+            "- 이용약관",
+            style: TextStyle(),
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          FractionallySizedBox(
+            widthFactor: 0.7,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.bottomSheet(
+                  Wrap(
+                    children: const [
+                      TermsAgreeBottomSheet(agreeable: false),
+                    ],
+                  ),
+                  isScrollControlled: true,
+                );
+              },
+              child: const Text("넨도로이드DB 이용약관"),
             ),
           ),
         ],

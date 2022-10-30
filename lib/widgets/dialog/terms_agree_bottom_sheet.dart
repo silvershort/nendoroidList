@@ -7,7 +7,8 @@ import 'package:nendoroid_db/utilities/app_font.dart';
 import '../../pages/login_page.dart';
 
 class TermsAgreeBottomSheet extends StatefulWidget {
-  const TermsAgreeBottomSheet({Key? key}) : super(key: key);
+  const TermsAgreeBottomSheet({Key? key, this.agreeable = true}) : super(key: key);
+  final bool agreeable;
 
   @override
   State<TermsAgreeBottomSheet> createState() => _TermsAgreeBottomSheetState();
@@ -33,7 +34,7 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
         children: [
           const Center(
             child: Text(
-              "넨도로이드 DB 회원가입 안내",
+              "넨도로이드 DB 이용약관 안내",
               style: TextStyle(
                 fontSize: 21,
               ),
@@ -87,6 +88,7 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
             "3. 보유기간 : 회원탈퇴시까지",
           ),
           const SizedBox(height: 20.0),
+          if (widget.agreeable)...[
           InkWell(
             onTap: () {
               setState(() {
@@ -154,7 +156,7 @@ class _TermsAgreeBottomSheetState extends State<TermsAgreeBottomSheet> {
                 ),
               ],
             ),
-          )
+          ),]
         ],
       ),
     );
