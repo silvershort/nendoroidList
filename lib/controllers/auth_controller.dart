@@ -69,7 +69,6 @@ class AuthController extends GetxService {
   }
 
   void signup(String email) {
-    print("@@@ signup email : ${email}");
     FirebaseAuth.instance
         .sendSignInLinkToEmail(
           email: email.trim(),
@@ -129,9 +128,6 @@ class AuthController extends GetxService {
 
   Future<void> initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) async {
-      print("@@@ path : ${dynamicLinkData.link.path}");
-      print("@@@ path : ${dynamicLinkData.link.toString()}");
-
       if (FirebaseAuth.instance.isSignInWithEmailLink(dynamicLinkData.link.toString())) {
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
           email: settingBox.get(HiveName.emailKey),
@@ -142,12 +138,10 @@ class AuthController extends GetxService {
 
       }
     }).onError((error) {
-      print("@@@ dynamiclink error : ${error.toString()}");
     });
 
     // get any initial links
     final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
-    print("@@@ link : ${initialLink?.link}");
     if (initialLink != null) {
       if (FirebaseAuth.instance.isSignInWithEmailLink(initialLink.link.toString())) {
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
@@ -155,8 +149,6 @@ class AuthController extends GetxService {
           emailLink: initialLink.link.toString(),
         );
         _user.value = userCredential.user;
-        print("@@@ user = ${userCredential.user?.email}");
-        print("@@@ user = ${userCredential.user?.uid}");
 
         Get.snackbar(
           "로그인 완료",
