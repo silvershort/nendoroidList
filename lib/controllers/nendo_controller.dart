@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:nendoroid_db/controllers/firestore_controller.dart';
+import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
@@ -72,8 +74,6 @@ class NendoController extends GetxController {
   // Commit SHA-1 Hash
   final RxString _localCommitHash = "".obs;
   String get localCommitHash => _localCommitHash.value;
-  final RxString _serverCommitHash = "".obs;
-  String get serverCommitHash => _serverCommitHash.value;
 
   // 다운로드 용량
   String dataSize = "0MB";
@@ -204,6 +204,59 @@ class NendoController extends GetxController {
     _downloadLoading.value = false;
   }
 
+  Future<void> fetchDataInFirestore({String? documentID}) async {
+    _downloadComplete.value = false;
+    _downloadLoading.value = true;
+    _downloadError.value = false;
+    _currentStep.value = 0;
+    _totalStep.value = 1;
+
+    final FirestoreController controller = Get.find<FirestoreController>();
+    controller.initDefaultSetting();
+    BackupData? initialData = await controller.readData();
+    if (initialData == null) {
+      _downloadComplete.value = false;
+      _downloadLoading.value = false;
+      _downloadError.value = true;
+      return;
+    }
+
+    _currentStep.value++;
+    setList.addAll(initialData.setList);
+    nendoList.addAll(initialData.nendoList);
+
+    // 넨도데이터 로컬 DB에 저장
+    for (NendoData data in nendoList) {
+      await nendoBox.put(data.num, data);
+    }
+
+    // 세트데이터 로컬 DB에 저장
+    for (SetData data in setList) {
+      await setBox.put(data.setName, data);
+    }
+    
+    // 로컬 커밋날짜 저장
+    DateFormat formatter = DateFormat("yyyy-MM-dd HH:mm");
+    String localCommitDate = formatter.format(DateTime.parse(initialData.backupDate));
+
+    settingBox.put(HiveName.localCommitDateKey, localCommitDate);
+    settingBox.put(HiveName.localCommitHashKey, initialData.commitHash);
+    _localCommitDate.value = localCommitDate;
+
+    // 서버에 있는 커밋날짜를 받아와준다.
+    dynamic data = await fetchServerCommitData();
+    _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
+
+    // 정렬
+    sortNendoList();
+
+    // 다운로드 완료 후 설정
+    backupNendoList = [];
+    _downloadComplete.value = true;
+    _downloadLoading.value = false;
+    return;
+  }
+
   Future fetchData() async {
     // 다운로드 관련 데이터 초기화
     _downloadComplete.value = false;
@@ -224,7 +277,6 @@ class NendoController extends GetxController {
       String commitDate = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
       String commitHash = data['commit']['sha'];
       _serverCommitDate.value = commitDate;
-      _serverCommitHash.value = commitHash;
 
       // 넨도로이드 폴더 목록 가져오기
       await fetchFolderNameList();
@@ -331,9 +383,9 @@ class NendoController extends GetxController {
   }
 
   // DB 업데이트전에 데이터 백업
-  void backupData() {
+  void saveBackupData() {
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
-    backupNendoList = nendoList.where((item) => item.have || item.wish).toList();
+    backupNendoList = nendoList.where((item) => (item.have || item.wish) || item.memo != null).toList();
   }
 
   // 특정 규칙에 따라서 리스트를 필터링 해준다.
@@ -519,6 +571,36 @@ class NendoController extends GetxController {
     });
   }
 
+  // 파이어스토어에 저장된 데이터를 복구한다.
+  Future<void> restoreBackupList(BackupData backupData) {
+    _localCommitDate.value = backupData.commitDate;
+    _localCommitHash.value = backupData.commitHash;
+    // 깊은 복사를 해야 'Cannot remove from an unmodifiable list' 에러를 피할 수 있음.
+    backupNendoList = backupData.nendoList.toList();
+
+    try {
+      for (int i = backupNendoList.length - 1; i >= 0; i--) {
+            NendoData backupData = backupNendoList[i];
+            NendoData? nendoData = nendoList.firstWhereOrNull((newItem) => newItem.num == backupData.num);
+            if (nendoData != null) {
+              nendoData.count = backupData.count;
+              nendoData.have = backupData.have;
+              nendoData.wish = backupData.wish;
+              nendoData.myPrice = backupData.myPrice;
+              nendoData.memo = backupData.memo?.toList();
+
+              nendoBox.put(nendoData.num, nendoData);
+              // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
+              backupNendoList.removeAt(i);
+            }
+            nendoList.refresh();
+          }
+      return Future.value();
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
   // 세트 리스트를 가져옴
   Future fetchSetList({required Future<List<String>> nameList}) async {
     await nameList.then((value) async {
@@ -546,7 +628,7 @@ class NendoController extends GetxController {
     Dio dio = Dio()..options.headers["Authorization"] = githubToken;
     final response = await dio.get("https://api.github.com/repos/KhoraLee/NendoroidDB/branches/master");
     return response.data;
-    }
+  }
 
   // 헤더에 Github API 호출을 위한 토큰값 추가
   RestClient getRepoClient() {

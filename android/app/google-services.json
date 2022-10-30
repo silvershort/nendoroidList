@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "647472862543",
+    "firebase_url": "https://nendoroidlist-default-rtdb.firebaseio.com",
     "project_id": "nendoroidlist",
     "storage_bucket": "nendoroidlist.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "647472862543-t6l9nvcp7ub92qkcsmn2q42hicvlmvdi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.silvershort.nendoroid_db",
+            "certificate_hash": "67ab33f2cb90164f61871256978b4299006ea358"
+          }
+        },
         {
           "client_id": "647472862543-avmug28c545vnd2ohafvee91kl8405fg.apps.googleusercontent.com",
           "client_type": 3
@@ -31,10 +40,11 @@
               "client_type": 3
             },
             {
-              "client_id": "647472862543-1ocbilhov6mch8odljv25fogq82csmhp.apps.googleusercontent.com",
+              "client_id": "647472862543-0hle0bumlug85u5ic2p6fiua6ojh991t.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.silvershort.nendoroiddb"
+                "bundle_id": "com.silvershort.nendoroiddb",
+                "app_store_id": "1634111114"
               }
             }
           ]

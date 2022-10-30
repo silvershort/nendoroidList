@@ -7,7 +7,9 @@ import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:nendoroid_db/controllers/auth_controller.dart';
 import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
+import 'package:nendoroid_db/controllers/firestore_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/controllers/news_controller.dart';
 import 'package:nendoroid_db/controllers/notification_controller.dart';
@@ -60,6 +62,8 @@ void main() async {
   Get.put(SettingController());
   Get.put(NotificationController());
   Get.put(NewsController());
+  Get.put(FirestoreController());
+  Get.put(AuthController());
 
   if (!kIsWeb) {
     if (kDebugMode) {

@@ -18,11 +18,13 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   get: ^4.6.5
-  firebase_core: ^1.21.1
-  firebase_messaging: ^13.0.0
-  firebase_crashlytics: ^2.8.9
-  firebase_remote_config: ^2.0.16
-  firebase_analytics: ^9.3.3
+  firebase_core: ^1.24.0
+  firebase_messaging: ^13.1.0
+  firebase_crashlytics: ^2.9.0
+  firebase_remote_config: ^2.0.20
+  firebase_analytics: ^9.3.8
+  firebase_auth: ^3.11.2
+  firebase_dynamic_links: ^4.3.11
   flutter_local_notifications: ^9.6.1
   webview_flutter: ^3.0.4
   flutter_native_splash: ^2.2.4
@@ -35,6 +37,8 @@ dependencies:
   freezed_annotation:
   flutter_linkify: ^5.0.2
   carousel_slider: ^4.1.1
+  cloud_firestore: ^3.5.1
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
