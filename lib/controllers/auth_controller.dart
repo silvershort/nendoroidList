@@ -81,7 +81,7 @@ class AuthController extends GetxService {
       (value) {
         // 앱이 재시작될수도 있으므로 이메일을 저장해둔다.
         settingBox.put(HiveName.emailKey, email.trim());
-        _notificationMessage.value = "메일이 전송되었습니다.\n메일 내용에 있는 링크를 누르면 회원가입 및 로그인이 완료됩니다. 시간이 지나도 메일이 보이지 않는다면 스팸 메일함을 확인해주세요.";
+        _notificationMessage.value = "메일이 전송되었습니다.\n앱이 설치된 기기에서 메일 내용에 있는 링크를 누르면 회원가입 및 로그인이 완료됩니다. 시간이 지나도 메일이 보이지 않는다면 스팸 메일함을 확인해주세요.";
       },
     );
   }

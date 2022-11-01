@@ -242,6 +242,7 @@ class NendoController extends GetxController {
     settingBox.put(HiveName.localCommitDateKey, localCommitDate);
     settingBox.put(HiveName.localCommitHashKey, initialData.commitHash);
     _localCommitDate.value = localCommitDate;
+    _localCommitHash.value = initialData.commitHash;
 
     // 서버에 있는 커밋날짜를 받아와준다.
     dynamic data = await fetchServerCommitData();
@@ -298,6 +299,7 @@ class NendoController extends GetxController {
       settingBox.put(HiveName.localCommitHashKey, commitHash);
 
       _localCommitDate.value = IntlUtil.convertDate();
+      _localCommitHash.value = commitHash;
     } catch (e) {
       nendoList.value = recoveryNendoList.toList();
       _downloadComplete.value = false;
