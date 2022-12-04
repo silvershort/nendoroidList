@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../pages/license_info_page.dart';
+import '../../pages/app_info_page.dart';
 
 class SettingLicenseView extends StatelessWidget {
   const SettingLicenseView({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class SettingLicenseView extends StatelessWidget {
             widthFactor: 0.7,
             child: ElevatedButton(
               onPressed: () {
-                Get.to(const LicenseInfoPage());
+                Get.to(const AppInfoPage());
               },
               child: const Text(
                   "앱 상세정보"
