@@ -31,6 +31,7 @@ class MyCompleteSetView extends GetView<MyController> {
           height: 10.0,
         ),
         const MyCompleteSetList(),
+        const SizedBox(height: 20.0),
       ],
     );
   }

@@ -49,6 +49,7 @@ class MyTotalPriceView extends GetView<MyController> {
             fontSize: 18.0,
           ),
         ),
+        const SizedBox(height: 20.0),
       ],
     );
   }
