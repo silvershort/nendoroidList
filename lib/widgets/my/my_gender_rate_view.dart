@@ -45,6 +45,7 @@ class MyGenderRateView extends GetView<MyController> {
               );
             },
           ),
+          const SizedBox(height: 20.0),
         ],
       );
     });

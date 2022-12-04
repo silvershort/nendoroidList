@@ -13,7 +13,7 @@ class MyMostSeriesView extends GetView<MyController> {
     return Obx(() {
       MostSeries? mostSeries = controller.getMostHaveSeries();
 
-      if (mostSeries == null) {
+      if (mostSeries == null || mostSeries.count == 0) {
         return const SizedBox(
           height: 0.0,
         );
@@ -34,6 +34,7 @@ class MyMostSeriesView extends GetView<MyController> {
               normalWord: " (${mostSeries.count}개)",
               fontSize: 18.0,
             ),
+            SizedBox(height: 20.0),
           ],
         );
       }
