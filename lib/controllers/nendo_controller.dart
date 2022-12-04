@@ -212,6 +212,7 @@ class NendoController extends GetxController {
     _totalStep.value = 1;
 
     final FirestoreController controller = Get.find<FirestoreController>();
+
     controller.initDefaultSetting();
     BackupData? initialData = await controller.readData();
     if (initialData == null) {
