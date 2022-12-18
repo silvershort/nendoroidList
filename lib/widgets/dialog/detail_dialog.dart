@@ -6,6 +6,7 @@ import 'package:html/parser.dart' show parse;
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
+import 'package:nendoroid_db/utilities/url_parser.dart';
 import 'package:nendoroid_db/widgets/list/detail_image_slider.dart';
 
 import '../../models/nendo_data.dart';
@@ -297,7 +298,7 @@ class _DetailDialogState extends State<DetailDialog> {
   }
 
   Future<void> getImageList() async {
-    final String? webUrl = getUrl(widget.nendoData);
+    final String? webUrl = parseNendoUrl(widget.nendoData);
     if (webUrl == null) {
       return Future.error("url을 받아오지 못했습니다.");
     } else {
@@ -310,25 +311,6 @@ class _DetailDialogState extends State<DetailDialog> {
           .toList();
       _thumbnailList = nodeList.getElementsByClassName("iconZoom").map((e) => "https:${e.attributes["src"] ?? ""}").toList();
       return Future.value();
-    }
-  }
-
-  String? getUrl(NendoData nendoData) {
-    if (nendoData.name.en == null) {
-      return null;
-    } else {
-      // url 생성시 영문명에서 특수문자를 제외하고 공백을 +로 바꿔준다.
-      String nendoName = nendoData.name.en!
-          .replaceAll(":", "")
-          .replaceAll(".", "")
-          .replaceAll(" ", "+")
-          .replaceAll("/", "")
-          .replaceAll("(", "")
-          .replaceAll(")", "")
-          .replaceAll("[", "")
-          .replaceAll("]", "");
-      String url = "https://www.goodsmile.info/en/product/${nendoData.gscProductNum}/Nendoroid+$nendoName.html";
-      return url;
     }
   }
 }

@@ -7,6 +7,8 @@ import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../utilities/url_parser.dart';
+
 class NendoWebPage extends StatefulWidget {
   const NendoWebPage({Key? key, required this.nendoData}) : super(key: key);
   final NendoData nendoData;
@@ -23,9 +25,16 @@ class _NendoWebPageState extends State<NendoWebPage> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) {
-      WebView.platform = SurfaceAndroidWebView();
-    }
+    _webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+
+          },
+        )
+      )
+      ..loadRequest(Uri.parse(parseNendoUrl(widget.nendoData) ?? "http://www.google.co.kr/search?complete=1&hl=ko&q=${widget.nendoData.name.ko}"));
   }
 
   @override
@@ -41,15 +50,7 @@ class _NendoWebPageState extends State<NendoWebPage> {
         onWillPop: () => _goBack(context),
         child: SafeArea(
           child: Scaffold(
-            body: WebView(
-              onWebViewCreated: (WebViewController webViewController) {
-                _completer.future.then((value) => _webViewController = value);
-                _completer.complete(webViewController);
-              },
-              // 굿스마일 공식 홈페이지를 보여주고 만약 영문이름을 받아오지 못했다면 그냥 구글검색을 해줌
-              initialUrl: getUrl(widget.nendoData) ?? "http://www.google.co.kr/search?complete=1&hl=ko&q=${widget.nendoData.name.ko}",
-              javascriptMode: JavascriptMode.unrestricted,
-            ),
+            body: WebViewWidget(controller: _webViewController!),
           ),
         ),
       ),
@@ -64,20 +65,6 @@ class _NendoWebPageState extends State<NendoWebPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
-  }
-
-  String? getUrl(NendoData nendoData) {
-   if (nendoData.name.en == null) {
-     return null;
-   } else {
-     // url 생성시 영문명에서 특수문자를 제외하고 공백을 +로 바꿔준다.
-     String nendoName = widget.nendoData.name.en!
-         .replaceAll(":", "")
-         .replaceAll(".", "")
-         .replaceAll(" ", "+");
-     String url = "https://www.goodsmile.info/en/product/${widget.nendoData.gscProductNum}/Nendoroid+$nendoName.html";
-     return url;
-   }
   }
 
   // 웹뷰 뒤로가기 기능
