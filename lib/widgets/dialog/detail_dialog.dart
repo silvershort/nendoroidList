@@ -298,19 +298,15 @@ class _DetailDialogState extends State<DetailDialog> {
   }
 
   Future<void> getImageList() async {
-    final String? webUrl = parseNendoUrl(widget.nendoData);
-    if (webUrl == null) {
-      return Future.error("url을 받아오지 못했습니다.");
-    } else {
-      final response = await Dio().get(webUrl);
-      Document document = parse(response.data);
-      Element nodeList = document.getElementsByClassName("itemPhotos").first;
-      _imageList = nodeList
-          .getElementsByClassName("inline_fix")
-          .map((e) => "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
-          .toList();
-      _thumbnailList = nodeList.getElementsByClassName("iconZoom").map((e) => "https:${e.attributes["src"] ?? ""}").toList();
-      return Future.value();
-    }
+    final String webUrl = parseNendoUrl(widget.nendoData);
+    final response = await Dio().get(webUrl);
+    Document document = parse(response.data);
+    Element nodeList = document.getElementsByClassName("itemPhotos").first;
+    _imageList = nodeList
+        .getElementsByClassName("inline_fix")
+        .map((e) => "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
+        .toList();
+    _thumbnailList = nodeList.getElementsByClassName("iconZoom").map((e) => "https:${e.attributes["src"] ?? ""}").toList();
+    return Future.value();
   }
 }

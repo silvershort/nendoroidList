@@ -19,18 +19,16 @@ class SettingUpdateView extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              if (IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate)) {
-                showUpdateDialog();
-              }
+              showUpdateDialog();
             },
             child: Row(
               children: [
                 Text(
                   nendoController.serverCommitDate.isEmpty
-                      ? "업데이트 데이터가 없습니다."
+                      ? "업데이트 데이터가 없습니다. (탭 해서 강제 업데이트)"
                       : IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate)
                       ? "DB업데이트가 필요합니다. (탭 해서 업데이트)"
-                      : "최신버전입니다.",
+                      : "최신버전입니다. (탭 해서 강제 업데이트)",
                   style: const TextStyle(fontSize: 13.0, color: Colors.deepOrangeAccent),
                 )
               ],
@@ -84,9 +82,11 @@ class SettingUpdateView extends StatelessWidget {
           Get.find<DashboardController>().tabIndex = 0;
           nendoController.saveBackupData();
           if (nendoController.localCommitHash != "null") {
-            nendoController.updateDB();                  
+            // 임시적으로 파베에서 데이터를 받도록 수정
+            nendoController.fetchDataInFirestore();
+            // nendoController.updateDB();
           } else {
-            nendoController.fetchData();
+            nendoController.fetchDataInFirestore();
           }
         },
       ),

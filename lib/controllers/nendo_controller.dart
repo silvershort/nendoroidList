@@ -213,6 +213,8 @@ class NendoController extends GetxController {
 
     final FirestoreController controller = Get.find<FirestoreController>();
 
+    saveBackupData();
+
     controller.initDefaultSetting();
     BackupData? initialData = await controller.readData();
     if (initialData == null) {
@@ -222,9 +224,21 @@ class NendoController extends GetxController {
       return;
     }
 
+    nendoList.value = [];
+
     _currentStep.value++;
     setList.addAll(initialData.setList);
     nendoList.addAll(initialData.nendoList);
+
+    if (backupNendoList.isNotEmpty) {
+      for (int i = backupNendoList.length - 1; i >= 0; i--) {
+        NendoData backupData = backupNendoList[i];
+        int index = nendoList.indexWhere((newItem) => newItem.num == backupData.num);
+        if (index >= 0) {
+          nendoList[index] = backupData.copyWith();
+        }
+      }
+    }
 
     // 넨도데이터 로컬 DB에 저장
     for (NendoData data in nendoList) {
@@ -246,8 +260,10 @@ class NendoController extends GetxController {
     _localCommitHash.value = initialData.commitHash;
 
     // 서버에 있는 커밋날짜를 받아와준다.
-    dynamic data = await fetchServerCommitData();
-    _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
+    try {
+      dynamic data = await fetchServerCommitData();
+      _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
+    } catch (e) {}
 
     // 정렬
     sortNendoList();

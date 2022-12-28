@@ -34,7 +34,7 @@ class _NendoWebPageState extends State<NendoWebPage> {
           },
         )
       )
-      ..loadRequest(Uri.parse(parseNendoUrl(widget.nendoData) ?? "http://www.google.co.kr/search?complete=1&hl=ko&q=${widget.nendoData.name.ko}"));
+      ..loadRequest(Uri.parse(parseNendoUrl(widget.nendoData)));
   }
 
   @override
