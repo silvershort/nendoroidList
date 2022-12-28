@@ -282,13 +282,16 @@ class NendoController extends GetxController {
 
       // 넨도로이드 폴더 목록 가져오기
       await fetchFolderNameList();
+
       // 세트리스트 가져오기
-      await fetchSetList(nameList: fetchSetNameList());
+      List<String> nameList = await fetchSetNameList();
+      await fetchSetList(nameList: nameList);
 
       // 넨도 폴더리스트를 순차적으로 돌면서 json 파싱
       for (int currentIndex = 0; currentIndex < folderNameList.length; currentIndex++) {
+        List<String> jsonNameList = await fetchJsonNameList(currentIndex: currentIndex);
         await fetchNendoList(
-          nameList: fetchJsonNameList(currentIndex: currentIndex),
+          jsonList: jsonNameList,
           currentIndex: currentIndex,
         );
         // 다운로드 진행 상태 +1
@@ -301,7 +304,7 @@ class NendoController extends GetxController {
 
       _localCommitDate.value = IntlUtil.convertDate();
       _localCommitHash.value = commitHash;
-    } catch (e) {
+    } catch (e, trace) {
       nendoList.value = recoveryNendoList.toList();
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -546,11 +549,10 @@ class NendoController extends GetxController {
   }
 
   // json 이름이 적힌 리스트를 받아서 넨도로이드 json 을 디코딩한뒤 리스트로 저장한다.
-  Future fetchNendoList({required Future<List<String>> nameList, required int currentIndex}) async {
-    await nameList.then((value) async {
+  Future fetchNendoList({required List<String> jsonList, required int currentIndex}) async {
       FutureGroup<NendoData> futureGroup = FutureGroup();
-      for (int i = 0; i < value.length; i++) {
-        futureGroup.add(getNendoClient().getNendoData(folderNameList[currentIndex], value[i]));
+      for (int i = 0; i < jsonList.length; i++) {
+        futureGroup.add(getNendoClient().getNendoData(folderNameList[currentIndex], jsonList[i]));
       }
       futureGroup.close();
       final List<NendoData> result = await futureGroup.future;
@@ -571,7 +573,6 @@ class NendoController extends GetxController {
         }
       }
       nendoList.addAll(result);
-    });
   }
 
   // 파이어스토어에 저장된 데이터를 복구한다.
@@ -605,16 +606,14 @@ class NendoController extends GetxController {
   }
 
   // 세트 리스트를 가져옴
-  Future fetchSetList({required Future<List<String>> nameList}) async {
-    await nameList.then((value) async {
-      FutureGroup<SetData> futureGroup = FutureGroup();
-      for (int i = 0; i < value.length; i++) {
-        futureGroup.add(getNendoClient().getSetData("Set", value[i]));
-      }
-      futureGroup.close();
-      final List<SetData> result = await futureGroup.future;
-      setList.addAll(result);
-    });
+  Future fetchSetList({required List<String> nameList}) async {
+    FutureGroup<SetData> futureGroup = FutureGroup();
+    for (int i = 0; i < nameList.length; i++) {
+      futureGroup.add(getNendoClient().getSetData("Set", nameList[i]));
+    }
+    futureGroup.close();
+    final List<SetData> result = await futureGroup.future;
+    setList.addAll(result);
   }
 
   // 넨도 데이터 다운로드가 필요한지 확인
