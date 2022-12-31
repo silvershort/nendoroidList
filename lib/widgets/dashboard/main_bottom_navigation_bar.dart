@@ -10,7 +10,36 @@ class MainBottomNavigationBar extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() =>
-      BottomNavigationBar(
+      NavigationBar(
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.list),
+            label: "List",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person),
+            label: "My",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.newspaper),
+            label: "News",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings),
+            label: "Setting",
+          ),
+        ],
+        selectedIndex: controller.tabIndex,
+        onDestinationSelected: (index) {
+          Get.find<MyController>().setMyNendoList();
+          controller.pageQueue.addPage(controller.tabIndex);
+          controller.tabIndex = index;
+          controller.pageQueue.removePage(controller.tabIndex);
+        },
+      ),
+    );
+    return Obx(
+      () => BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         showSelectedLabels: true,

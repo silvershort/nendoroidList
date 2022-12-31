@@ -33,8 +33,6 @@ class SettingPage extends StatelessWidget {
         const SizedBox(height: 20.0),
         const SettingLicenseView(),
         const SizedBox(height: 20.0),
-        SettingPersonalTokenView(),
-        const SizedBox(height: 20.0),
         Obx(() {
           if (settingController.debugViewCount > 10 && kDebugMode) {
             return DebugView();

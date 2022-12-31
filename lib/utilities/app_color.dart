@@ -11,6 +11,7 @@ class AppColor {
     Colors.lime,
     Colors.green,
     Colors.teal,
+    Colors.cyan,
     Colors.blue,
     Colors.indigo,
     Colors.purple,

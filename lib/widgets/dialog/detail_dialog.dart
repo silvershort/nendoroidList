@@ -3,6 +3,8 @@ import 'package:flutter/material.dart' hide Element;
 import 'package:get/get.dart' hide Node;
 import 'package:html/dom.dart' hide Text;
 import 'package:html/parser.dart' show parse;
+import 'package:nendoroid_db/component/check_icon.dart';
+import 'package:nendoroid_db/component/wish_icon.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
@@ -227,11 +229,7 @@ class _DetailDialogState extends State<DetailDialog> {
                                 children: [
                                   Opacity(
                                     opacity: _nendoroidController.getNendoData(_nendoData.num).have ? 1 : 0.5,
-                                    child: Icon(
-                                      Icons.check,
-                                      size: 15.0,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
+                                    child: CheckIcon(size: 15),
                                   ),
                                   const SizedBox(width: 5.0),
                                   Opacity(
@@ -253,11 +251,7 @@ class _DetailDialogState extends State<DetailDialog> {
                                 children: [
                                   Opacity(
                                     opacity: _nendoroidController.getNendoData(_nendoData.num).wish ? 1 : 0.5,
-                                    child: const Icon(
-                                      Icons.favorite,
-                                      size: 15.0,
-                                      color: Colors.deepOrange,
-                                    ),
+                                    child: const WishIcon(size: 15),
                                   ),
                                   const SizedBox(width: 5.0),
                                   Opacity(

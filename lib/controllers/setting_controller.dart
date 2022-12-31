@@ -4,7 +4,6 @@ import 'package:hive/hive.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/utilities/app_color.dart';
 
-import '../utilities/app_font.dart';
 import '../utilities/hive_name.dart';
 
 class SettingController extends GetxController {
@@ -12,13 +11,20 @@ class SettingController extends GetxController {
   late Box appThemeBox;
   late Box termsBox;
   final RxInt _debugViewCount = 0.obs;
+
+  final Rx<MaterialColor> _seedColor = Colors.green.obs;
+  MaterialColor get seedColor => _seedColor.value;
+  final Rx<Brightness> _brightness = Brightness.light.obs;
+  Brightness get brightness => _brightness.value;
+
   int get debugViewCount => _debugViewCount.value;
 
-  @override
-  void onInit() async {
-    super.onInit();
+  Future<void> settingInit() async {
     appThemeBox = await Hive.openBox<int>(HiveName.appThemeBoxName);
     termsBox = await Hive.openBox<bool>(HiveName.termsBoxName);
+
+    _seedColor.value = AppColor.themeColors[appThemeBox.get(HiveName.appColorIndexKey) ?? AppColor.defaultIndex];
+    _brightness.value = appThemeBox.get(HiveName.appBrightnessIndexKey) == 1 ? Brightness.dark : Brightness.light;
   }
 
   void incrementDebugViewCount() {
@@ -51,20 +57,19 @@ class SettingController extends GetxController {
     return;
   }
 
-  // 앱테마 변경
+  // 앱 테마 변경
   void setAppTheme(int index) async {
-    if (index == AppColor.themeColors.length) {
-      Get.changeTheme(ThemeData(
-        brightness: Brightness.dark,
-        fontFamily: AppFont.oneMobile,
-      ));
-      appThemeBox.put(HiveName.appThemeIndexKey, -1);
-    } else {
-      Get.changeTheme(ThemeData(
-        primarySwatch: AppColor.themeColors[index],
-        fontFamily: AppFont.oneMobile,
-      ));
-      appThemeBox.put(HiveName.appThemeIndexKey, index);
-    }
+    _seedColor.value = AppColor.themeColors[index];
+    appThemeBox.put(HiveName.appColorIndexKey, index);
+  }
+
+  // 앱 다크모드 여부 변경
+  void setDarkMode(bool darkMode) async {
+    _brightness.value = darkMode ? Brightness.dark : Brightness.light;
+    appThemeBox.put(HiveName.appBrightnessIndexKey, darkMode ? 1 : 0);
+  }
+
+  bool isUsedDarkMode() {
+    return brightness == Brightness.light ? false : true;
   }
 }

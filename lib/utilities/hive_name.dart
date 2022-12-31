@@ -10,7 +10,8 @@ class HiveName {
   static const String localCommitHashKey = "localCommitHash";
   static const String serverCommitDateKey = "serverCommitDate";
   static const String githubTokenKey = "githubToken";
-  static const String appThemeIndexKey = "appThemeIndex";
+  static const String appColorIndexKey = "appColorIndex";
+  static const String appBrightnessIndexKey = "appBrightnessIndex";
   static const String subscribeKey = "subscribeKey";
   static const String emailKey = "emailKey";
   static const String termsAgreeKey = "termsAgreeKey";
