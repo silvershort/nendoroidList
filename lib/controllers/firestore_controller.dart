@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
-import 'package:nendoroid_db/widgets/dialog/common_dialog.dart';
-
-import '../widgets/dialog/loading_dialog.dart';
+import 'package:nendoroid_db/views_common/dialog/common_dialog.dart';
+import 'package:nendoroid_db/views_common/dialog/loading_dialog.dart';
 
 class FirestoreController extends GetxController {
   static const String initCollectionName = 'InitData';

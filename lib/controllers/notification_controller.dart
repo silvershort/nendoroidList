@@ -4,10 +4,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
+import 'package:nendoroid_db/main.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message ${message.messageId}');
+  logger.i('Handling a background message ${message.messageId}');
 }
 
 class NotificationController extends GetxController {
@@ -55,7 +56,7 @@ class NotificationController extends GetxController {
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       String? token = await _messaging.getToken();
-      print("@@@ The token is $token");
+      logger.i("The token is $token");
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         String title = message.notification?.title ?? "";
         String body = message.notification?.body ?? "";
@@ -111,8 +112,8 @@ class NotificationController extends GetxController {
           }
           Get.find<DashboardController>().tabIndex = index;
         }
-      } catch (e) {
-        print(e);
+      } catch (error, stackTrace) {
+        logger.e(error, stackTrace);
       }
     }
   }

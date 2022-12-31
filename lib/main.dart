@@ -17,14 +17,17 @@ import 'package:nendoroid_db/controllers/setting_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
-import 'package:nendoroid_db/pages/dashboard_page.dart';
-import 'package:nendoroid_db/utilities/app_color.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
-import 'package:nendoroid_db/utilities/hive_name.dart';
+import 'package:nendoroid_db/views/dashboard/page/dashboard_page.dart';
+import 'package:logger/logger.dart';
 
 import 'controllers/dashboard_controller.dart';
 import 'controllers/my_controller.dart';
 import 'firebase_options.dart';
+
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,13 +56,13 @@ void main() async {
   if (!kIsWeb) {
     if (kDebugMode) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-      runApp(MyApp());
+      runApp(const MyApp());
     } else {
       runZonedGuarded<Future<void>>(() async {
         FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-        FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+        FirebaseAnalytics.instance;
 
-        runApp(MyApp());
+        runApp(const MyApp());
       }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
     }
   }

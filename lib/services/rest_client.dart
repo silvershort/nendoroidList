@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:nendoroid_db/models/exchange_rate_yen.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/repo.dart';
+import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/tweet_data.dart';
 import 'package:nendoroid_db/models/username_data.dart';
 import 'package:retrofit/retrofit.dart';
-
-import '../models/nendo_data.dart';
-import '../models/repo.dart';
-import '../models/set_data.dart';
 
 part 'rest_client.g.dart';
 

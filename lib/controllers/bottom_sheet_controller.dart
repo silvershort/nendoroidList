@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
+import 'package:nendoroid_db/models/sort_data.dart';
 
-import '../models/sort_data.dart';
 import 'nendo_controller.dart';
 
 class BottomSheetController extends GetxController {

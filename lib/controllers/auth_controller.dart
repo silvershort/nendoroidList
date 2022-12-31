@@ -3,9 +3,8 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-
-import '../utilities/hive_name.dart';
-import '../widgets/dialog/common_dialog.dart';
+import 'package:nendoroid_db/utilities/hive_name.dart';
+import 'package:nendoroid_db/views_common/dialog/common_dialog.dart';
 
 class AuthController extends GetxService {
   late ActionCodeSettings acs;
