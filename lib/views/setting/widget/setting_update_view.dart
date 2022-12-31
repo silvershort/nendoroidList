@@ -16,31 +16,31 @@ class SettingUpdateView extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: () {
               showUpdateDialog();
             },
             child: Row(
               children: [
-                Text(
-                  nendoController.serverCommitDate.isEmpty
-                      ? "업데이트 데이터가 없습니다. (탭 해서 강제 업데이트)"
-                      : IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate)
-                      ? "DB업데이트가 필요합니다. (탭 해서 업데이트)"
-                      : "최신버전입니다. (탭 해서 강제 업데이트)",
-                  style: const TextStyle(fontSize: 13.0, color: Colors.deepOrangeAccent),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 3.0, top: 3.0, right: 3.0),
+                  child: Text(
+                    nendoController.serverCommitDate.isEmpty
+                        ? "업데이트 데이터가 없습니다. (탭 해서 강제 업데이트)"
+                        : IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate)
+                        ? "DB업데이트가 필요합니다. (탭 해서 업데이트)"
+                        : "최신버전입니다. (탭 해서 강제 업데이트)",
+                    style: Theme.of(context).textTheme.caption,
+                  ),
                 )
               ],
             ),
           ),
-          const SizedBox(height: 3.0),
           Row(
             children: [
               Text(
                 nendoController.serverCommitDate.isEmpty ? "DB 업데이트 : 데이터가 없습니다." : "DB 업데이트 : ${nendoController.serverCommitDate}",
-                style: const TextStyle(
-                  fontSize: 18.0,
-                ),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               /*const SizedBox(width: 5.0),
               InkWell(
@@ -61,9 +61,7 @@ class SettingUpdateView extends StatelessWidget {
           const SizedBox(height: 3.0),
           Text(
             nendoController.localCommitDate.isEmpty ? "로컬 업데이트 : 데이터가 없습니다." : "로컬 업데이트 : ${nendoController.localCommitDate}",
-            style: const TextStyle(
-              fontSize: 18.0,
-            ),
+            style: Theme.of(context).textTheme.subtitle1,
           ),
         ],
       );

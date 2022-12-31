@@ -38,10 +38,7 @@ class TwitterTile extends StatelessWidget {
                     Text(
                       data.author.name,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.subtitle2?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 5.0),
                     Opacity(
@@ -49,9 +46,7 @@ class TwitterTile extends StatelessWidget {
                       child: Text(
                         IntlUtil.convertDate(gmtTime: data.createdAt),
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 13.0,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 13.0),
                       ),
                     ),
                   ],
@@ -129,10 +124,7 @@ class TwitterTile extends StatelessWidget {
             },
             text: data.content,
             options: const LinkifyOptions(humanize: false),
-            style: const TextStyle(
-              fontSize: 15,
-              height: 1.35,
-            ),
+            style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15.0),
           ),
           const SizedBox(height: 10.0),
           NewsAttach(attachList: data.imageUrlList),

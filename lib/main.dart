@@ -71,7 +71,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final SettingController settingController = Get.find<SettingController>();
@@ -84,17 +83,36 @@ class MyApp extends StatelessWidget {
           );
         },
         theme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: settingController.seedColor,
-            brightness: settingController.brightness,
-            fontFamily: AppFont.oneMobile,
-            appBarTheme: AppBarTheme(
-              backgroundColor: ColorScheme.fromSeed(
-                seedColor: settingController.seedColor,
-                brightness: settingController.brightness,
-              ).surfaceVariant.withAlpha(100),
-              surfaceTintColor: Colors.white,
-            )),
+          useMaterial3: true,
+          colorSchemeSeed: settingController.seedColor,
+          brightness: settingController.brightness,
+          fontFamily: AppFont.oneMobile,
+          textTheme: TextTheme(
+            subtitle1: const TextStyle(
+                  fontSize: 18,
+                  fontFamily: AppFont.oneMobile,
+                  letterSpacing: 0.5,
+                  height: 1.2,
+                ),
+            subtitle2: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: AppFont.oneMobile,
+                  letterSpacing: 0.5,
+                  height: 1.2,
+                ),
+            caption: Theme.of(context).textTheme.caption?.copyWith(
+                  fontFamily: AppFont.oneMobile,
+                  color: Colors.deepOrange,
+                ),
+          ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: ColorScheme.fromSeed(
+              seedColor: settingController.seedColor,
+              brightness: settingController.brightness,
+            ).surfaceVariant.withAlpha(100),
+            surfaceTintColor: Colors.white,
+          ),
+        ),
         home: const DashboardPage(),
       ),
     );

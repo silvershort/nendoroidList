@@ -18,11 +18,9 @@ class MyReleaseWishView extends GetView<MyController> {
       } else {
         return Column(
           children: [
-            const Text(
+            Text(
               "이번달 출시 예정인 위시 넨도로이드",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             const SizedBox(
               height: 5.0,
@@ -37,9 +35,10 @@ class MyReleaseWishView extends GetView<MyController> {
                   children: [
                     InkWell(
                       child: AccentText(
+                        context: context,
                         accentWord: "[${nendoList[index].num}]",
                         normalWord: " ${nendoList[index].name.ko}",
-                        fontSize: 16.0,
+                        fontSize: 18.0,
                       ),
                       onTap: () {
                         Get.dialog(

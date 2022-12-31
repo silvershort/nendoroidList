@@ -44,10 +44,7 @@ class CommunityTile extends StatelessWidget {
                         data.title ?? "",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.subtitle2?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 5.0),
                       Opacity(
@@ -57,16 +54,12 @@ class CommunityTile extends StatelessWidget {
                             Text(
                               "${data.subject} | ",
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 13.0,
-                              ),
+                              style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 13.0),
                             ),
                             Text(
                               data.type == NewsType.ruliweb ? IntlUtil.convertRuliwebDateFormat(data.createdAt) : data.createdAt,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 13.0,
-                              ),
+                              style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 13.0),
                             ),
                           ],
                         ),

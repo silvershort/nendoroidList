@@ -18,11 +18,9 @@ class MyMostNendoView extends GetView<MyController> {
       } else {
         return Column(
           children: [
-            const Text(
+            Text(
               "가장 많이 가지고 있는 넨도로이드",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             const SizedBox(
               height: 5.0,
@@ -37,9 +35,10 @@ class MyMostNendoView extends GetView<MyController> {
                   children: [
                     InkWell(
                       child: AccentText(
+                        context: context,
                         accentWord: "[${mostList[index].num}] ${mostList[index].name.ko}",
                         normalWord: " (${mostList[index].count}개)",
-                        fontSize: 16.0,
+                        fontSize: 18.0,
                       ),
                       onTap: () {
                         Get.dialog(

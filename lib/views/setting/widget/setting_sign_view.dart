@@ -22,16 +22,15 @@ class SettingSignView extends StatelessWidget {
     return Column(
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () {
                 Get.find<SettingController>().incrementDebugViewCount();
               },
-              child: const Text(
+              child: Text(
                 "로그인 정보",
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
             const SizedBox(width: 5.0),
@@ -52,11 +51,10 @@ class SettingSignView extends StatelessWidget {
                 return const SizedBox();
               }
             }),
-            const Text(
-              " :",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
+            const SizedBox(width: 5.0),
+            Text(
+              ":",
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             const SizedBox(width: 10.0),
             Expanded(
@@ -80,11 +78,11 @@ class SettingSignView extends StatelessWidget {
                           );
                         }
                       },
-                      child: const Text(
+                      child: Text(
                         "로그인 & 회원가입",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
                       ),
                     ),
                   );
@@ -166,11 +164,9 @@ class SettingSignView extends StatelessWidget {
                               );
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             "데이터 복구",
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -208,11 +204,9 @@ class SettingSignView extends StatelessWidget {
                               color: Theme.of(context).backgroundColor,
                             );
                           } else {
-                            return const Text(
+                            return Text(
                               "데이터 백업",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                              ),
+                              style: Theme.of(context).textTheme.bodyText1,
                             );
                           }
                         })),

@@ -60,6 +60,7 @@ flutter:
     - family: oneMobile
       fonts:
         - asset: fonts/one_mobile_light.otf
+          weight: 300
         - asset: fonts/one_mobile_regular.otf
           weight: 400
         - asset: fonts/one_mobile_bold.otf

@@ -14,11 +14,9 @@ class MyGenderRateView extends GetView<MyController> {
 
       return Column(
         children: [
-          const Text(
+          Text(
             "보유 넨도로이드 성별 비율",
-            style: TextStyle(
-              fontSize: 18.0,
-            ),
+              style: Theme.of(context).textTheme.subtitle1,
           ),
           const SizedBox(
             height: 5.0,
@@ -32,6 +30,7 @@ class MyGenderRateView extends GetView<MyController> {
               return Column(
                 children: [
                   AccentText(
+                    context: context,
                     accentWord: " ${genderList[index].rate.toStringAsFixed(1)}% (${genderList[index].count}개)",
                     normalWord: genderList[index].gender,
                     fontSize: 18.0,

@@ -25,9 +25,7 @@ class MyCompleteSetList extends GetView<MyController> {
               ),
               Text(
                 setList[index],
-                style: const TextStyle(
-                  fontSize: 16.0,
-                ),
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ],
           );

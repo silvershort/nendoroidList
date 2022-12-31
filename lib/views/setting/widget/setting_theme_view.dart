@@ -15,9 +15,9 @@ class SettingThemeView extends GetView<SettingController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+             Text(
               "테마 적용 : ",
-              style: TextStyle(fontSize: 18.0),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             Obx(() =>
               Switch(
