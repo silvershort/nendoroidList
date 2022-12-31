@@ -14,7 +14,7 @@ class SettingThemeItem extends GetView<SettingController> {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: primarySwatches.length + 1,
+      itemCount: primarySwatches.length,
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 48,
         childAspectRatio: 1,
@@ -24,7 +24,7 @@ class SettingThemeItem extends GetView<SettingController> {
       itemBuilder: (context, index) {
         return InkWell(
           child: Container(
-            color: index == primarySwatches.length ? Colors.black : primarySwatches[index],
+            color: primarySwatches[index],
           ),
           onTap: () {
             controller.setAppTheme(index);

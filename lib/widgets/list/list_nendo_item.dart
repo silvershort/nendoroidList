@@ -2,6 +2,8 @@ import 'package:badges/badges.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/component/check_icon.dart';
+import 'package:nendoroid_db/component/wish_icon.dart';
 import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
@@ -119,11 +121,7 @@ class ListNendoItem extends StatelessWidget {
                                   ),
                                 ),
                                 position: BadgePosition.bottomStart(),
-                                child: Icon(
-                                  Icons.check,
-                                  color: Theme.of(context).primaryColor,
-                                  size: 16,
-                                ),
+                                child: const CheckIcon(),
                               ),
                             ),
                             const SizedBox(
@@ -131,12 +129,7 @@ class ListNendoItem extends StatelessWidget {
                             ),
                             Visibility(
                               visible: nendoData.wish,
-                              child: const Icon(
-                                Icons.favorite,
-                                color: Colors.deepOrange,
-                                size: 16,
-                              ),
-                            ),
+                              child: const WishIcon()),
                           ],
                         ),
                         const SizedBox(height: 7.5),

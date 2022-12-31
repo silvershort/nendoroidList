@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nendoroid_db/component/help_icon.dart';
 import 'package:nendoroid_db/controllers/auth_controller.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
 import 'package:nendoroid_db/controllers/setting_controller.dart';
@@ -34,12 +35,11 @@ class SettingSignView extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(width: 5.0),
             Obx(() {
               if (authController.user == null) {
-                return IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  onPressed: () {
+                return HelpIcon(
+                  onTap: () {
                     Get.dialog(
                       const CommonDialog(
                         title: "로그인 안내",
@@ -48,11 +48,6 @@ class SettingSignView extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: Icon(
-                    Icons.help_outline,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
                 );
               } else {
                 return const SizedBox();
@@ -184,47 +179,44 @@ class SettingSignView extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (authController.user == null) {
-                              authController.wrongAuthentication("로그인 정보가 없습니다.");
-                              return;
-                            }
-                            if (authController.user!.email == null) {
-                              authController.wrongAuthentication("이메일 정보가 없습니다.");
-                              return;
-                            }
-                            firestoreController.initUserSetting(documentID: authController.user!.uid);
-                            nendoController.saveBackupData();
-                            firestoreController
-                                .createData(
-                                  backupData: BackupData(
-                                    nendoList: nendoController.backupNendoList,
-                                    setList: [],
-                                    email: authController.user!.email!,
-                                    commitHash: nendoController.localCommitHash,
-                                    backupDate: DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now()),
-                                    commitDate: nendoController.localCommitDate,
-                                  ),
-                                )
-                                .then((value) => Get.dialog(const CommonDialog(content: "데이터 백업에 성공하였습니다 !")))
-                                .onError((error, stackTrace) => Get.dialog(CommonDialog(content: "데이터 백업에 실패했습니다.\n\n(error : ${error.toString()})")));
-                          },
-                          child: Obx(() {
-                            if (firestoreController.state == FirestoreState.loading) {
-                              return LinearProgressIndicator(
-                                color: Theme.of(context).backgroundColor,
-                              );
-                            } else {
-                              return const Text(
-                                "데이터 백업",
-                                style: TextStyle(
-                                  fontSize: 15.0,
+                        child: ElevatedButton(onPressed: () {
+                          if (authController.user == null) {
+                            authController.wrongAuthentication("로그인 정보가 없습니다.");
+                            return;
+                          }
+                          if (authController.user!.email == null) {
+                            authController.wrongAuthentication("이메일 정보가 없습니다.");
+                            return;
+                          }
+                          firestoreController.initUserSetting(documentID: authController.user!.uid);
+                          nendoController.saveBackupData();
+                          firestoreController
+                              .createData(
+                                backupData: BackupData(
+                                  nendoList: nendoController.backupNendoList,
+                                  setList: [],
+                                  email: authController.user!.email!,
+                                  commitHash: nendoController.localCommitHash,
+                                  backupDate: DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now()),
+                                  commitDate: nendoController.localCommitDate,
                                 ),
-                              );
-                            }
-                          })
-                        ),
+                              )
+                              .then((value) => Get.dialog(const CommonDialog(content: "데이터 백업에 성공하였습니다 !")))
+                              .onError((error, stackTrace) => Get.dialog(CommonDialog(content: "데이터 백업에 실패했습니다.\n\n(error : ${error.toString()})")));
+                        }, child: Obx(() {
+                          if (firestoreController.state == FirestoreState.loading) {
+                            return LinearProgressIndicator(
+                              color: Theme.of(context).backgroundColor,
+                            );
+                          } else {
+                            return const Text(
+                              "데이터 백업",
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              ),
+                            );
+                          }
+                        })),
                       ),
                     ),
                   ],

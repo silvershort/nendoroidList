@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/component/help_icon.dart';
 import 'package:nendoroid_db/controllers/my_controller.dart';
 import 'package:nendoroid_db/widgets/dialog/price_info_dialog.dart';
 import 'package:nendoroid_db/widgets/my/accent_text.dart';
@@ -25,18 +26,9 @@ class MyTotalPriceView extends GetView<MyController> {
             const SizedBox(
               width: 5.0,
             ),
-            IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                Get.dialog(const PriceInfoDialog());
-              },
-              icon: Icon(
-                Icons.help_outline,
-                size: 16,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
+            HelpIcon(onTap: () {
+              Get.dialog(const PriceInfoDialog());
+            }),
           ],
         ),
         const SizedBox(

@@ -49,6 +49,7 @@ class MainAppBar extends GetView<DashboardController> implements PreferredSizeWi
         default:
           if (controller.searchMode) {
             return AppBar(
+              scrolledUnderElevation: 0.0,
               centerTitle: true,
               title: Row(
                 children: [

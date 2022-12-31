@@ -39,27 +39,12 @@ void main() async {
   Hive.registerAdapter(TwitterSubscribeAdapter());
   Hive.registerAdapter(RuliwebSubscribeAdapter());
   Hive.registerAdapter(DcinsideSubscribeAdapter());
-  Box appThemeBox = await Hive.openBox<int>(HiveName.appThemeBoxName);
-  int? index = appThemeBox.get(HiveName.appThemeIndexKey);
-  late ThemeData appTheme;
-
-  if (index == -1) {
-    appTheme = ThemeData(
-      brightness: Brightness.dark,
-      fontFamily: AppFont.oneMobile,
-    );
-  } else {
-    appTheme = ThemeData(
-      primarySwatch: AppColor.themeColors[index ?? AppColor.defaultIndex],
-      fontFamily: AppFont.oneMobile,
-    );
-  }
 
   Get.put(NendoController());
   Get.put(MyController());
   Get.put(BottomSheetController());
   Get.put(DashboardController());
-  Get.put(SettingController());
+  await Get.put(SettingController()).settingInit();
   Get.put(NotificationController());
   Get.put(NewsController());
   Get.put(FirestoreController());
@@ -67,37 +52,48 @@ void main() async {
 
   if (!kIsWeb) {
     if (kDebugMode) {
-        await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-        runApp(MyApp(appTheme: appTheme));
-      } else {
-        runZonedGuarded<Future<void>>(() async {
-          FlutterError.onError =
-              FirebaseCrashlytics.instance.recordFlutterFatalError;
-          FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+      runApp(MyApp());
+    } else {
+      runZonedGuarded<Future<void>>(() async {
+        FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+        FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-          runApp(MyApp(appTheme: appTheme));
-        }, (error, stack) =>
-            FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
-      }
+        runApp(MyApp());
+      }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
+    }
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.appTheme}) : super(key: key);
-  final ThemeData appTheme;
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: child!,
-        );
-      },
-      theme: appTheme,
-      home: const DashboardPage(),
+    final SettingController settingController = Get.find<SettingController>();
+    return Obx(
+      () => GetMaterialApp(
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: child!,
+          );
+        },
+        theme: ThemeData(
+            useMaterial3: true,
+            colorSchemeSeed: settingController.seedColor,
+            brightness: settingController.brightness,
+            fontFamily: AppFont.oneMobile,
+            appBarTheme: AppBarTheme(
+              backgroundColor: ColorScheme.fromSeed(
+                seedColor: settingController.seedColor,
+                brightness: settingController.brightness,
+              ).surfaceVariant.withAlpha(100),
+              surfaceTintColor: Colors.white,
+            )),
+        home: const DashboardPage(),
+      ),
     );
   }
 }
