@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/main.dart';
 
 import '../models/exchange_rate_yen.dart';
 import '../models/gender_rate.dart';
@@ -215,8 +216,8 @@ class MyController extends GetxController {
     try {
       List<ExchangeRateYen> list = await RestClient(Dio()).getExchangeRate();
       _todayYen.value = list[0].ttSellingPrice?.toInt() ?? 0;
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
     }
   }
 }

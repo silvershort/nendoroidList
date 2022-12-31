@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/utilities/app_color.dart';
-
-import '../utilities/hive_name.dart';
+import 'package:nendoroid_db/utilities/hive_name.dart';
 
 class SettingController extends GetxController {
   final NendoController nendoController = Get.find<NendoController>();

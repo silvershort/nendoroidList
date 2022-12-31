@@ -8,16 +8,17 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/repo.dart';
+import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/services/rest_client.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
 
-import '../models/nendo_data.dart';
-import '../models/repo.dart';
-import '../models/set_data.dart';
-import '../services/rest_client.dart';
 import 'bottom_sheet_controller.dart';
 
 /// 넨도데이터를 저장하고, 공용으로 사용하는 넨도 관련 메소드를 관리하는 컨트롤러
@@ -115,8 +116,8 @@ class NendoController extends GetxController {
 
         // 서버에 있는 커밋날짜를 받아와준다.
         _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
-      } catch (e) {
-        print(e);
+      } catch (error, stackTrace) {
+        logger.e(error, stackTrace);
       }
       // 로컬에 있는 커밋날짜를 받아와준다.
       _localCommitDate.value = settingBox.get(HiveName.localCommitDateKey);
@@ -175,8 +176,8 @@ class NendoController extends GetxController {
       settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
       settingBox.put(HiveName.localCommitHashKey, remoteCommitHash);
       _localCommitDate.value = IntlUtil.convertDate();
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
 
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -263,7 +264,9 @@ class NendoController extends GetxController {
     try {
       dynamic data = await fetchServerCommitData();
       _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
-    } catch (e) {}
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
+    }
 
     // 정렬
     sortNendoList();
@@ -320,7 +323,8 @@ class NendoController extends GetxController {
 
       _localCommitDate.value = IntlUtil.convertDate();
       _localCommitHash.value = commitHash;
-    } catch (e, trace) {
+    } catch (error, stackTrace) {
+      logger.d(error, stackTrace);
       nendoList.value = recoveryNendoList.toList();
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -674,8 +678,8 @@ class NendoController extends GetxController {
       int data = response.data['size'];
       double mbSize = data / 1000;
       dataSize = "${mbSize.toStringAsFixed(2)}MB";
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      logger.d(error, stackTrace);
       dataSize = "2MB";
     }
   }

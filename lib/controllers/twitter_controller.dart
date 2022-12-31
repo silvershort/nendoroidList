@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/news_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/models/tweet_data.dart';
@@ -20,11 +21,6 @@ class TwitterController extends GetxController {
   // 트위터 유저 정보
   List<UserData> userList = [];
 
-  @override
-  void onInit() async {
-    super.onInit();
-  }
-
   Future<void> initData(TwitterSubscribe subscribe) async {
     List<String> userIdList = [];
     if (subscribe.goodSmileJP) userIdList.add(goodSmileId);
@@ -33,7 +29,6 @@ class TwitterController extends GetxController {
     if (subscribe.ninimal) userIdList.add(ninimalId);
     if (subscribe.figureInfo) userIdList.add(figureInfoId);
     String userId = userIdList.join(",");
-    print("userId : $userId");
 
     await fetchUserdata(userId);
   }
@@ -47,18 +42,18 @@ class TwitterController extends GetxController {
 
     try {
       tweetData = await getRepoClient().getTwitterTimeline(
-            userId,
-            {
-              "expansions": "attachments.media_keys",
-              "user.fields": "url",
-              "media.fields": "url",
-              "start_time": startTime,
-              "end_time": endTime,
-              "tweet.fields": "created_at"
-            },
-          );
-    } catch (e) {
-      print(e.toString());
+        userId,
+        {
+          "expansions": "attachments.media_keys",
+          "user.fields": "url",
+          "media.fields": "url",
+          "start_time": startTime,
+          "end_time": endTime,
+          "tweet.fields": "created_at"
+        },
+      );
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
     }
 
     if (tweetData == null) {
@@ -114,7 +109,7 @@ class TwitterController extends GetxController {
         .catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
-          final res = (obj as DioError).response;
+          // final res = (obj as DioError).response;
           break;
         default:
           break;
