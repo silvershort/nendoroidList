@@ -58,14 +58,8 @@ class MainAppBar extends GetView<DashboardController> implements PreferredSizeWi
                       controller: controller.searchEditingController,
                       showCursor: true,
                       focusNode: controller.searchFocus,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
                       decoration: InputDecoration(
                         hintText: "이름, 작품, 번호로 검색",
-                        hintStyle: const TextStyle(
-                          color: Color.fromRGBO(255, 255, 255, 0.7),
-                        ),
                         // 텍스트 필드의 기본 밑줄 제거
                         border: InputBorder.none,
                         // 텍스트 필드의 텍스트가 위쪽으로 쏠린것을 막기 위해서 기본패딩을 재설정해줌
@@ -77,7 +71,6 @@ class MainAppBar extends GetView<DashboardController> implements PreferredSizeWi
                           child: IconButton(
                             icon: const Icon(
                               Icons.clear,
-                              color: Colors.white,
                               size: 18.0,
                             ),
                             onPressed: () {
@@ -103,9 +96,6 @@ class MainAppBar extends GetView<DashboardController> implements PreferredSizeWi
                       },
                       child: const Text(
                         "취소",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
                       ))
                 ],
               ),
