@@ -15,25 +15,33 @@ class MyCollectionView extends GetView<MyController> {
       children: [
         Column(
           children: [
-            const Text("수집한 넨도로이드",
-                style: TextStyle(
-                  fontSize: 18,
-                )),
-            const SizedBox(
-              height: 10.0,
+            Text(
+              "수집한 넨도로이드",
+              style: Theme.of(context).textTheme.subtitle1,
             ),
-            Obx(() => AccentText(
-                  accentWord: "${controller.getHaveNendo()}",
-                  normalWord: " / ${controller.myNendoList.length}",
-                  fontSize: 18.0,
-                )),
+            const SizedBox(height: 10.0),
+            Obx(
+              () => AccentText(
+                context: context,
+                accentWord: "${controller.getHaveNendo()}",
+                normalWord: " / ${controller.myNendoList.length}",
+                fontSize: 18.0,
+              ),
+            ),
+            const SizedBox(height: 5.0),
+            Obx(() =>
+              Text(
+                "(중복포함 넨도개수 : ${controller.getTotalCount()}개)",
+                style: Theme.of(context).textTheme.subtitle1?.copyWith(fontSize: 13.0),
+              ),
+            ),
           ],
         ),
         const SizedBox(
           width: 20.0,
         ),
-        Obx(() =>
-          SizedBox(
+        Obx(
+          () => SizedBox(
             height: 70.0,
             width: 70.0,
             child: CustomPaint(

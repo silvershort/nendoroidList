@@ -20,30 +20,36 @@ class AppInfoPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
         children: [
-          const Text(
+          Text(
             "- DB제공",
-            style: TextStyle(),
+            style: Theme.of(context).textTheme.subtitle2,
           ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          const Text(
-            "https://github.com/KhoraLee/NendoroidDB",
-            style: TextStyle(),
+          const SizedBox(height: 5.0),
+          InkWell(
+            onTap: () {
+              final url = Uri.parse("https://github.com/KhoraLee/NendoroidDB");
+              canLaunchUrl(url).then((value) => launchUrl(url, mode: LaunchMode.externalApplication));
+            },
+            child: Text(
+              "https://github.com/KhoraLee/NendoroidDB",
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    color: Colors.blue,
+                  ),
+            ),
           ),
           const SizedBox(
             height: 10.0,
           ),
-          const Text(
+          Text(
             "- 폰트정보",
-            style: TextStyle(),
+            style: Theme.of(context).textTheme.subtitle2,
           ),
           const SizedBox(
             height: 5.0,
           ),
-          const Text(
+          Text(
             "OneMobile, 마비노기옛체",
-            style: TextStyle(),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           _TitleAndButton(
             title: "오픈소스 라이센스 고지",
@@ -131,6 +137,7 @@ class _TitleAndButton extends StatelessWidget {
           alignment: AlignmentDirectional.centerStart,
           child: Text(
             "- $title",
+            style: Theme.of(context).textTheme.subtitle2,
           ),
         ),
         const SizedBox(
@@ -140,7 +147,9 @@ class _TitleAndButton extends StatelessWidget {
           widthFactor: 0.7,
           child: ElevatedButton(
             onPressed: onClick,
-            child: Text(buttonTitle),
+            child: Text(
+              buttonTitle,
+            ),
           ),
         ),
       ],

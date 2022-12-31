@@ -11,9 +11,9 @@ class SettingLicenseView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "앱 상세정보 : ",
-          style: TextStyle(fontSize: 18.0),
+          style: Theme.of(context).textTheme.subtitle1,
         ),
         const SizedBox(
           height: 5.0,
@@ -27,9 +27,7 @@ class SettingLicenseView extends StatelessWidget {
               onPressed: () {
                 Get.to(const AppInfoPage());
               },
-              child: const Text(
-                  "앱 상세정보"
-              ),
+              child: const Text("앱 상세정보"),
             ),
           ),
         ),

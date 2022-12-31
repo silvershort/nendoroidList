@@ -24,7 +24,8 @@ class CommonDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(title),
-      content: Text(content,
+      content: Text(
+        content,
         style: contentStyle,
       ),
       actions: [

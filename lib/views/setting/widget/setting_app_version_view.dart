@@ -21,7 +21,7 @@ class SettingAppVersionView extends GetView<AppVersionController> {
             child: Text(
               controller.needUpdate ? "새로운 버전이 출시되었습니다."
                   : "최신 버전입니다.",
-              style: const TextStyle(fontSize: 13.0, color: Colors.deepOrangeAccent),
+              style: Theme.of(context).textTheme.caption,
             ),
           ),
         ),
@@ -29,9 +29,7 @@ class SettingAppVersionView extends GetView<AppVersionController> {
         Obx(() =>
           Text(
             "앱 버전 : ${controller.appVersion}",
-            style: const TextStyle(
-              fontSize: 18.0,
-            ),
+            style: Theme.of(context).textTheme.subtitle1,
           ),
         ),
       ],

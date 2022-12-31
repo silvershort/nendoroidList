@@ -45,7 +45,7 @@ class NewsPage extends GetView<NewsController> {
         } else {
           return ListView.builder(
             controller: controller.scrollController,
-            physics: const BouncingScrollPhysics(),
+            physics: const RangeMaintainingScrollPhysics(),
             padding: const EdgeInsets.only(top: 10),
             itemCount: controller.newsDataList.length + 1,
             itemBuilder: (context, index) {

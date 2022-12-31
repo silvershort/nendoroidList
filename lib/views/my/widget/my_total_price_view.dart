@@ -16,11 +16,9 @@ class MyTotalPriceView extends GetView<MyController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "     구매한 넨도로이드 가격 총합",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
+            Text(
+              "  구매한 넨도로이드 가격 총합",
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             const SizedBox(
               width: 5.0,
@@ -35,6 +33,7 @@ class MyTotalPriceView extends GetView<MyController> {
         ),
         Obx(
           () => AccentText(
+            context: context,
             accentWord: IntlUtil.comma(controller.getSumPrice()),
             normalWord: "원",
             fontSize: 18.0,

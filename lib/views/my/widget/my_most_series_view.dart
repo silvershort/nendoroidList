@@ -19,16 +19,15 @@ class MyMostSeriesView extends GetView<MyController> {
       } else {
         return Column(
           children: [
-            const Text(
+            Text(
               "가장 많이 가지고 있는 시리즈",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             const SizedBox(
               height: 5.0,
             ),
             AccentText(
+              context: context,
               accentWord: mostSeries.series,
               normalWord: " (${mostSeries.count}개)",
               fontSize: 18.0,

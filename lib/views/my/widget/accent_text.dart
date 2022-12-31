@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class AccentText extends StatelessWidget {
   const AccentText({
     Key? key,
+    required this.context,
     required this.accentWord,
     required this.normalWord,
     required this.fontSize,
     this.leading = true,
   }) : super(key: key);
 
+  final BuildContext context;
   final String accentWord;
   final String normalWord;
   final double fontSize;
@@ -27,7 +29,7 @@ class AccentText extends StatelessWidget {
   TextSpan accentText() {
     return TextSpan(
       text: accentWord,
-      style: TextStyle(
+      style: Theme.of(context).textTheme.subtitle1?.copyWith(
         color: Colors.deepOrangeAccent,
         fontSize: fontSize,
       ),
@@ -36,7 +38,7 @@ class AccentText extends StatelessWidget {
   TextSpan normalText() {
     return TextSpan(
         text: normalWord,
-        style: TextStyle(
+        style: Theme.of(context).textTheme.subtitle1?.copyWith(
           fontSize: fontSize,
         )
     );

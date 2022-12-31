@@ -11,17 +11,16 @@ class MyCompleteSetView extends GetView<MyController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
+        Text(
           "완성한 넨도로이드 세트",
-          style: TextStyle(
-            fontSize: 18.0,
-          ),
+            style: Theme.of(context).textTheme.subtitle1,
         ),
         const SizedBox(
           height: 5.0,
         ),
         Obx(() =>
           AccentText(
+            context: context,
             accentWord: "${controller.getCompleteSetList().length}",
             normalWord: "세트",
             fontSize: 18.0,

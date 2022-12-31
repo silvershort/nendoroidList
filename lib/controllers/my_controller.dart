@@ -210,6 +210,13 @@ class MyController extends GetxController {
     genderRateList.sort((a, b) => b.rate.compareTo(a.rate));
     return genderRateList;
   }
+  
+  int getTotalCount() {
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
+    print("@@@ have List : ${haveList.toString()}");
+    print("@@@ have List : ${haveList.length}");
+    return myNendoList.fold(0, (previousValue, element) => previousValue + element.count);
+  }
 
   // 환율 정보를 받아옴
   void getTodayYen() async {
