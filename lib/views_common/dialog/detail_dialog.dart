@@ -8,7 +8,7 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
 import 'package:nendoroid_db/utilities/url_parser.dart';
-import 'package:nendoroid_db/views/dialog/nendo_info_edit_dialog.dart';
+import 'package:nendoroid_db/views/list/dialog/nendo_info_edit_dialog.dart';
 import 'package:nendoroid_db/views/list/widget/detail_image_slider.dart';
 import 'package:nendoroid_db/views/list/widget/list_nendo_memo_view.dart';
 import 'package:nendoroid_db/views_common/component/check_icon.dart';
@@ -210,7 +210,7 @@ class _DetailDialogState extends State<DetailDialog> {
                             const SizedBox(height: 10.0),
                             ListNendoMemoView(
                               memo: _nendoroidController.getNendoData(_nendoData.num).memo!,
-                              fontSize: 15.0,
+                              fontSize: 12.0,
                             ),
                           ],
                         ),
