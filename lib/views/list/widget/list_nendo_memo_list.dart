@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 
 class ListNendoMemoList extends GetView<NendoController> {
@@ -11,10 +12,8 @@ class ListNendoMemoList extends GetView<NendoController> {
     return Obx(() => Column(
       children: [
         Wrap(
-          direction: Axis.horizontal,
-          alignment: WrapAlignment.start,
-          spacing: 10.0,
-          runSpacing: 5.0,
+          spacing: 5.0,
+          runSpacing: 2.5,
           children: memoTag(context, controller.getNendoData(num).memo ?? []),
         ),
       ],
@@ -22,6 +21,40 @@ class ListNendoMemoList extends GetView<NendoController> {
   }
 
   List<Widget> memoTag(BuildContext context, List<String> memoList) {
+    return memoList.map((memo) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Theme.of(context).primaryColor,
+            width: 0.5,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              memo,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(width: 5.0),
+            GestureDetector(
+              onTap: () {
+                controller.deleteNendoMemo(num, memo);
+              },
+              child: const Icon(
+                Icons.clear,
+                size: 12.0,
+              ),
+            )
+          ],
+        ),
+      );
+    }).toList();
     List<Widget> tagList = [];
     for (String memo in memoList) {
       Widget tag = Chip(
@@ -35,13 +68,13 @@ class ListNendoMemoList extends GetView<NendoController> {
         ),
         label: Text(memo),
         labelStyle: const TextStyle(
-          fontSize: 12.0,
+          fontSize: 10.0,
         ),
         labelPadding: const EdgeInsets.only(left: 10.0),
         padding: const EdgeInsets.all(0),
         deleteIcon: const Icon(
           Icons.clear,
-          size: 14.0,
+          size: 12.0,
         ),
         onDeleted: () {
           controller.deleteNendoMemo(num, memo);

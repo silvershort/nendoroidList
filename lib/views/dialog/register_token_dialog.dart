@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/setting_controller.dart';
 import 'package:nendoroid_db/views_common/dialog/common_dialog.dart';
 
+@Deprecated("더이상 사용되지 않는 위젯")
 class RegisterTokenDialog extends GetView<SettingController> {
   const RegisterTokenDialog({Key? key}) : super(key: key);
 

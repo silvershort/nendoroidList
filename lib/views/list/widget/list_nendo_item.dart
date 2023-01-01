@@ -7,7 +7,7 @@ import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
-import 'package:nendoroid_db/views/dialog/nendo_info_edit_dialog.dart';
+import 'package:nendoroid_db/views/list/dialog/nendo_info_edit_dialog.dart';
 import 'package:nendoroid_db/views/list/widget/list_nendo_memo_view.dart';
 import 'package:nendoroid_db/views_common/component/check_icon.dart';
 import 'package:nendoroid_db/views_common/component/wish_icon.dart';
