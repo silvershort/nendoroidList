@@ -8,6 +8,7 @@ class FilterBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color selectedColor = Theme.of(context).colorScheme.tertiary.withAlpha(80);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -37,7 +38,7 @@ class FilterBottomSheet extends StatelessWidget {
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           backgroundColor: controller.modeIndex == 0
-                              ? Theme.of(context).colorScheme.background.withAlpha(80)
+                              ? selectedColor
                               : Theme.of(context).colorScheme.surface),
                       onPressed: () => controller.changeMode(0),
                       child: const Text(
@@ -51,7 +52,7 @@ class FilterBottomSheet extends StatelessWidget {
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.modeIndex == 1
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () => controller.changeMode(1),
                         child: const Text(
@@ -64,7 +65,7 @@ class FilterBottomSheet extends StatelessWidget {
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.modeIndex == 2
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () => controller.changeMode(2),
                         child: const Text(
@@ -90,7 +91,7 @@ class FilterBottomSheet extends StatelessWidget {
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           backgroundColor: controller.sortData.sortingMethod == BottomSheetController.num
-                              ? Theme.of(context).colorScheme.background.withAlpha(80)
+                              ? selectedColor
                               : Theme.of(context).colorScheme.surface),
                       onPressed: () => controller.setNameSort(),
                       child: Text(
@@ -106,7 +107,7 @@ class FilterBottomSheet extends StatelessWidget {
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.sortData.sortingMethod == BottomSheetController.release
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () => controller.setReleaseSort(),
                         child: Text(
@@ -139,7 +140,7 @@ class FilterBottomSheet extends StatelessWidget {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.haveFilter
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.haveFilter);
@@ -155,7 +156,7 @@ class FilterBottomSheet extends StatelessWidget {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.notHaveFilter
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.notHaveFilter);
@@ -177,7 +178,7 @@ class FilterBottomSheet extends StatelessWidget {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.wishFilter
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.wishFilter);
@@ -193,7 +194,7 @@ class FilterBottomSheet extends StatelessWidget {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.expectedFilter
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.expectedFilter);
@@ -215,7 +216,7 @@ class FilterBottomSheet extends StatelessWidget {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.femaleFilter
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.femaleFilter);
@@ -231,7 +232,7 @@ class FilterBottomSheet extends StatelessWidget {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.maleFilter
-                                ? Theme.of(context).colorScheme.background.withAlpha(80)
+                                ? selectedColor
                                 : Theme.of(context).colorScheme.surface),
                         onPressed: () {
                           controller.setNendoFilterIndex(BottomSheetController.maleFilter);
