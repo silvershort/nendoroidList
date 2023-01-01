@@ -213,8 +213,6 @@ class MyController extends GetxController {
   
   int getTotalCount() {
     List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
-    print("@@@ have List : ${haveList.toString()}");
-    print("@@@ have List : ${haveList.length}");
     return myNendoList.fold(0, (previousValue, element) => previousValue + element.count);
   }
 

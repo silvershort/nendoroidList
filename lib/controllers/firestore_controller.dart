@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/views_common/dialog/common_dialog.dart';
 import 'package:nendoroid_db/views_common/dialog/loading_dialog.dart';
@@ -79,8 +80,8 @@ class FirestoreController extends GetxController {
         }
       }
       return backupData;
-    } catch (e) {
-      debugPrint("@@@ readData error : ${e.toString()}");
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
       return null;
     }
   }
@@ -89,19 +90,16 @@ class FirestoreController extends GetxController {
     if (state == FirestoreState.loading) return;
     _state.value = FirestoreState.loading;
     try {
-      debugPrint("@@@ length : ${jsonEncode(backupData.toJson()).length}");
       // 데이터길이가 길면 파이어스토어에 저장하지 못함. (리미트는 980000~990000 정도로 추정)
       // 따라서 데이터가 일정량을 초과할경우 넨도리스트 1500개를 기준으로 반갈죽해서 저장해준다.
       final int dataLength = jsonEncode(backupData.toJson()).length;
       if (dataLength > limitLength) {
         final int divideCount = (dataLength ~/ limitLength) + 1;
-        debugPrint("@@@ divideCount : $divideCount");
         for (int i = 0; i < divideCount; i++) {
           late BackupData data;
           if (i == divideCount - 1) {
             data = backupData.copyWith(nendoList: backupData.nendoList.sublist(splitCount * i));
           } else {
-            debugPrint("@@@ splitCount : ${splitCount * i}");
             data = backupData.copyWith(nendoList: backupData.nendoList.sublist(splitCount * i, splitCount * (i + 1)));
           }
           // 첫번째 도큐먼트 이름은 숫자를 붙이지 않는다 (기존 데이터 호환문제)

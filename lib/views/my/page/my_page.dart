@@ -26,7 +26,7 @@ class MyPage extends StatelessWidget {
         child: Column(
           children: const [
             MyCollectionView(),
-            SizedBox(height: 20.0),
+            SizedBox(height: 24.0),
             MyTotalPriceView(),
             MyCompleteSetView(),
             MyGenderRateView(),
