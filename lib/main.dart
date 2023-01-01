@@ -74,8 +74,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingController settingController = Get.find<SettingController>();
-    return Obx(
-      () => GetMaterialApp(
+    return Obx(() => GetMaterialApp(
         builder: (context, child) {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
@@ -109,7 +108,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: ColorScheme.fromSeed(
               seedColor: settingController.seedColor,
               brightness: settingController.brightness,
-            ).surfaceVariant.withAlpha(100),
+            ).surfaceVariant,
             surfaceTintColor: Colors.white,
           ),
         ),

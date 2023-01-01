@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/controllers/news_controller.dart';
 import 'package:nendoroid_db/views/dashboard/widget/main_appbar.dart';
 import 'package:nendoroid_db/views/dashboard/widget/main_body.dart';
 import 'package:nendoroid_db/views/dashboard/widget/main_bottom_navigation_bar.dart';
 import 'package:nendoroid_db/views/list/widget/filter_bottom_sheet.dart';
+import 'package:nendoroid_db/views_common/widget/scroll_to_opacity_widget.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({
@@ -30,7 +32,6 @@ class _DashboardPageState extends State<DashboardPage> {
       child: WillPopScope(
         onWillPop: () {
           int index = controller.pageQueue.previousPage();
-
           // index 가 -1일 경우 더이상 이동할 화면이 없다는 뜻
           if (index == -1) {
             // 리스트 화면을 보고 있을 경우 종료 팝업을 띄워주고 아니라면 리스트 화면으로 이동
@@ -45,15 +46,18 @@ class _DashboardPageState extends State<DashboardPage> {
             return Future(() => false);
           }
         },
-        child: Scaffold(
-          appBar: const MainAppBar(),
-          body: const MainBody(),
-          bottomNavigationBar: MediaQuery.of(context).size.width < 640 ? const MainBottomNavigationBar() : null,
-          floatingActionButton: Obx(
-            () => Visibility(
+        child: Obx(() =>
+          Scaffold(
+            appBar: controller.tabIndex == 0 ? null : const MainAppBar(),
+            body: const SafeArea(
+              top: false,
+              child: MainBody(),
+            ),
+            bottomNavigationBar: MediaQuery.of(context).size.width < 640 ? const MainBottomNavigationBar() : null,
+            floatingActionButton: Visibility(
               visible: controller.tabIndex == 0 || controller.tabIndex == 2,
-              child: Opacity(
-                opacity: controller.tabIndex == 0 ? 1.0 : 0.5,
+              child: ScrollToOpacityWidget(
+                controller: Get.find<NendoController>().scrollController,
                 child: FloatingActionButton(
                   onPressed: () {
                     controller.tabIndex == 0

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/controllers/my_controller.dart';
+import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/views_common/widget/scroll_to_hide_widget.dart';
 
 class MainBottomNavigationBar extends GetView<DashboardController> {
   const MainBottomNavigationBar({Key? key}) : super(key: key);
@@ -9,32 +11,35 @@ class MainBottomNavigationBar extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() =>
-      NavigationBar(
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.list),
-            label: "List",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "My",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.newspaper),
-            label: "News",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: "Setting",
-          ),
-        ],
-        selectedIndex: controller.tabIndex,
-        onDestinationSelected: (index) {
-          Get.find<MyController>().setMyNendoList();
-          controller.pageQueue.addPage(controller.tabIndex);
-          controller.tabIndex = index;
-          controller.pageQueue.removePage(controller.tabIndex);
-        },
+      ScrollToHideWidget(
+        controller: Get.find<NendoController>().scrollController,
+        child: NavigationBar(
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.list),
+              label: "List",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person),
+              label: "My",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.newspaper),
+              label: "News",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.settings),
+              label: "Setting",
+            ),
+          ],
+          selectedIndex: controller.tabIndex,
+          onDestinationSelected: (index) {
+            Get.find<MyController>().setMyNendoList();
+            controller.pageQueue.addPage(controller.tabIndex);
+            controller.tabIndex = index;
+            controller.pageQueue.removePage(controller.tabIndex);
+          },
+        ),
       ),
     );
   }
