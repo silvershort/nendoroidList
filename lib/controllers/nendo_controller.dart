@@ -628,12 +628,18 @@ class NendoController extends GetxController {
   // 세트 리스트를 가져옴
   Future fetchSetList({required List<String> nameList}) async {
     FutureGroup<SetData> futureGroup = FutureGroup();
-    for (int i = 0; i < nameList.length; i++) {
-      futureGroup.add(getNendoClient().getSetData("Set", nameList[i]));
+    int loopCount = nameList.length ~/ 100 + 1;
+    for (int j = 0; j < loopCount; j++) {
+      for (int i = j * 100; i < (j + 1) * loopCount; i++) {
+        if (i == nameList.length) {
+          break;
+        }
+        futureGroup.add(getNendoClient().getSetData("Set", nameList[i]));
+      }
+      futureGroup.close();
+      final List<SetData> result = await futureGroup.future;
+      setList.addAll(result);
     }
-    futureGroup.close();
-    final List<SetData> result = await futureGroup.future;
-    setList.addAll(result);
   }
 
   // 넨도 데이터 다운로드가 필요한지 확인
