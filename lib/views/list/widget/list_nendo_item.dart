@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,10 +108,12 @@ class ListNendoItem extends StatelessWidget {
                             ),
                             Visibility(
                               visible: nendoData.have,
-                              child: Badge(
+                              child: badges.Badge(
                                 showBadge: nendoData.count > 1,
-                                padding: const EdgeInsets.all(3.8),
-                                badgeColor: Colors.deepOrange,
+                                badgeStyle: const badges.BadgeStyle(
+                                  padding: EdgeInsets.all(3.8),
+                                  badgeColor: Colors.deepOrange,
+                                ),
                                 badgeContent: Text(
                                   nendoData.count.toString(),
                                   style: const TextStyle(
@@ -119,7 +121,7 @@ class ListNendoItem extends StatelessWidget {
                                     color: Colors.white
                                   ),
                                 ),
-                                position: BadgePosition.bottomStart(),
+                                position: badges.BadgePosition.bottomStart(),
                                 child: const CheckIcon(),
                               ),
                             ),
