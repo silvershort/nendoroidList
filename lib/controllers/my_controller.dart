@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
+import 'package:nendoroid_db/main.dart';
 
 import '../models/exchange_rate_yen.dart';
 import '../models/gender_rate.dart';
@@ -209,14 +210,19 @@ class MyController extends GetxController {
     genderRateList.sort((a, b) => b.rate.compareTo(a.rate));
     return genderRateList;
   }
+  
+  int getTotalCount() {
+    List<NendoData> haveList = myNendoList.where((item) => item.have).toList();
+    return myNendoList.fold(0, (previousValue, element) => previousValue + element.count);
+  }
 
   // 환율 정보를 받아옴
   void getTodayYen() async {
     try {
       List<ExchangeRateYen> list = await RestClient(Dio()).getExchangeRate();
       _todayYen.value = list[0].ttSellingPrice?.toInt() ?? 0;
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
+import 'package:nendoroid_db/models/sort_data.dart';
 
-import '../models/sort_data.dart';
 import 'nendo_controller.dart';
 
 class BottomSheetController extends GetxController {
@@ -20,6 +20,7 @@ class BottomSheetController extends GetxController {
   static const int expectedFilter = 3;
   static const int maleFilter = 4;
   static const int femaleFilter = 5;
+  static const int etcFilter = 6;
 
   final RxInt _modeIndex = 0.obs;
   int get modeIndex => _modeIndex.value;
@@ -73,9 +74,8 @@ class BottomSheetController extends GetxController {
         }
         break;
       case maleFilter:
-        if (filterData.femaleFilter) {
-          filterData.femaleFilter = false;
-        }
+        filterData.femaleFilter = false;
+        filterData.etcFilter = false;
         if (filterData.maleFilter) {
           filterData.maleFilter = false;
         } else {
@@ -83,13 +83,21 @@ class BottomSheetController extends GetxController {
         }
         break;
       case femaleFilter:
-        if (filterData.maleFilter) {
-          filterData.maleFilter = false;
-        }
+        filterData.maleFilter = false;
+        filterData.etcFilter = false;
         if (filterData.femaleFilter) {
           filterData.femaleFilter = false;
         } else {
           filterData.femaleFilter = true;
+        }
+        break;
+      case etcFilter:
+        filterData.maleFilter = false;
+        filterData.femaleFilter = false;
+        if (filterData.etcFilter) {
+          filterData.etcFilter = false;
+        } else {
+          filterData.etcFilter = true;
         }
         break;
     }

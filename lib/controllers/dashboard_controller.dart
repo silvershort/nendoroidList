@@ -1,15 +1,11 @@
-import 'dart:io';
-
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/app_version_controller.dart';
-import 'package:nendoroid_db/widgets/dialog/app_update_dialog.dart';
-import 'package:nendoroid_db/widgets/dialog/notice_dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:nendoroid_db/utilities/debounce.dart';
+import 'package:nendoroid_db/utilities/page_queue.dart';
+import 'package:nendoroid_db/views/dialog/notice_dialog.dart';
+import 'package:nendoroid_db/views_common/dialog/app_update_dialog.dart';
 
-import '../utilities/debounce.dart';
-import '../utilities/page_queue.dart';
 import 'bottom_sheet_controller.dart';
 import 'my_controller.dart';
 import 'nendo_controller.dart';

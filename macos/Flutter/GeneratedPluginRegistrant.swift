@@ -13,8 +13,8 @@ import firebase_crashlytics
 import firebase_messaging
 import firebase_remote_config
 import flutter_local_notifications
-import package_info_plus_macos
-import path_provider_macos
+import package_info_plus
+import path_provider_foundation
 import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {

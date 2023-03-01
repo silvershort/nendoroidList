@@ -8,16 +8,17 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:nendoroid_db/controllers/firestore_controller.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/repo.dart';
+import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/services/rest_client.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:nendoroid_db/utilities/intl_util.dart';
 
-import '../models/nendo_data.dart';
-import '../models/repo.dart';
-import '../models/set_data.dart';
-import '../services/rest_client.dart';
 import 'bottom_sheet_controller.dart';
 
 /// 넨도데이터를 저장하고, 공용으로 사용하는 넨도 관련 메소드를 관리하는 컨트롤러
@@ -115,8 +116,8 @@ class NendoController extends GetxController {
 
         // 서버에 있는 커밋날짜를 받아와준다.
         _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
-      } catch (e) {
-        print(e);
+      } catch (error, stackTrace) {
+        logger.e(error, stackTrace);
       }
       // 로컬에 있는 커밋날짜를 받아와준다.
       _localCommitDate.value = settingBox.get(HiveName.localCommitDateKey);
@@ -175,8 +176,8 @@ class NendoController extends GetxController {
       settingBox.put(HiveName.localCommitDateKey, IntlUtil.convertDate());
       settingBox.put(HiveName.localCommitHashKey, remoteCommitHash);
       _localCommitDate.value = IntlUtil.convertDate();
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
 
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -212,6 +213,9 @@ class NendoController extends GetxController {
     _totalStep.value = 1;
 
     final FirestoreController controller = Get.find<FirestoreController>();
+
+    saveBackupData();
+
     controller.initDefaultSetting();
     BackupData? initialData = await controller.readData();
     if (initialData == null) {
@@ -221,9 +225,21 @@ class NendoController extends GetxController {
       return;
     }
 
+    nendoList.value = [];
+
     _currentStep.value++;
     setList.addAll(initialData.setList);
     nendoList.addAll(initialData.nendoList);
+
+    if (backupNendoList.isNotEmpty) {
+      for (int i = backupNendoList.length - 1; i >= 0; i--) {
+        NendoData backupData = backupNendoList[i];
+        int index = nendoList.indexWhere((newItem) => newItem.num == backupData.num);
+        if (index >= 0) {
+          nendoList[index] = backupData.copyWith();
+        }
+      }
+    }
 
     // 넨도데이터 로컬 DB에 저장
     for (NendoData data in nendoList) {
@@ -242,10 +258,15 @@ class NendoController extends GetxController {
     settingBox.put(HiveName.localCommitDateKey, localCommitDate);
     settingBox.put(HiveName.localCommitHashKey, initialData.commitHash);
     _localCommitDate.value = localCommitDate;
+    _localCommitHash.value = initialData.commitHash;
 
     // 서버에 있는 커밋날짜를 받아와준다.
-    dynamic data = await fetchServerCommitData();
-    _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
+    try {
+      dynamic data = await fetchServerCommitData();
+      _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
+    } catch (error, stackTrace) {
+      logger.e(error, stackTrace);
+    }
 
     // 정렬
     sortNendoList();
@@ -280,13 +301,16 @@ class NendoController extends GetxController {
 
       // 넨도로이드 폴더 목록 가져오기
       await fetchFolderNameList();
+
       // 세트리스트 가져오기
-      await fetchSetList(nameList: fetchSetNameList());
+      List<String> nameList = await fetchSetNameList();
+      await fetchSetList(nameList: nameList);
 
       // 넨도 폴더리스트를 순차적으로 돌면서 json 파싱
       for (int currentIndex = 0; currentIndex < folderNameList.length; currentIndex++) {
+        List<String> jsonNameList = await fetchJsonNameList(currentIndex: currentIndex);
         await fetchNendoList(
-          nameList: fetchJsonNameList(currentIndex: currentIndex),
+          jsonList: jsonNameList,
           currentIndex: currentIndex,
         );
         // 다운로드 진행 상태 +1
@@ -298,7 +322,9 @@ class NendoController extends GetxController {
       settingBox.put(HiveName.localCommitHashKey, commitHash);
 
       _localCommitDate.value = IntlUtil.convertDate();
-    } catch (e) {
+      _localCommitHash.value = commitHash;
+    } catch (error, stackTrace) {
+      logger.d(error, stackTrace);
       nendoList.value = recoveryNendoList.toList();
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -422,23 +448,56 @@ class NendoController extends GetxController {
       nendoList.value = nendoList.where((item) => item.gender == "F").toList();
     } else if (filterData.maleFilter) {
       nendoList.value = nendoList.where((item) => item.gender == "M").toList();
+    } else if (filterData.etcFilter) {
+      nendoList.value = nendoList.where((item) => item.gender != "F" && item.gender != "M").toList();
     }
   }
 
   // 입력받은 단어에 일치하는 리스트를 필터링해준다
   void searchInWord(String word) {
     lastWord = word;
+
     if (word.isEmpty) {
       initNendoList();
       return;
     }
-    List<NendoData> tempList = getLocalNendoList()
-        .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
-        || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
-        || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
-        || (item.num) == word)
-        .toList();
-    nendoList.value = tempList;
+
+    RegExp digitPattern = RegExp(r'\d+');
+
+    // 숫자와 ~가 있을때만 ~검색 사용
+    if (word.contains("~") && digitPattern.hasMatch(word)) {
+      String startString = word.split("~").first.trim();
+      String endString = word.split("~").last.trim();
+
+      if (startString.isEmpty) {
+        startString = "0";
+      }
+      if (endString.isEmpty) {
+        endString = "9999999";
+      }
+
+      int start = int.parse(startString.replaceAll(RegExp(r"[^0-9]"), ""));
+      int end = int.parse(endString.replaceAll(RegExp(r"[^0-9]"), ""));
+
+      List<NendoData> tempList = getLocalNendoList()
+          .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (start <= int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), ""))
+              && int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) <= end))
+          .toList();
+      nendoList.value = tempList;
+
+    } else {
+      List<NendoData> tempList = getLocalNendoList()
+          .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.num) == word)
+          .toList();
+      nendoList.value = tempList;
+    }
+
     filteringList(false);
   }
 
@@ -543,11 +602,10 @@ class NendoController extends GetxController {
   }
 
   // json 이름이 적힌 리스트를 받아서 넨도로이드 json 을 디코딩한뒤 리스트로 저장한다.
-  Future fetchNendoList({required Future<List<String>> nameList, required int currentIndex}) async {
-    await nameList.then((value) async {
+  Future fetchNendoList({required List<String> jsonList, required int currentIndex}) async {
       FutureGroup<NendoData> futureGroup = FutureGroup();
-      for (int i = 0; i < value.length; i++) {
-        futureGroup.add(getNendoClient().getNendoData(folderNameList[currentIndex], value[i]));
+      for (int i = 0; i < jsonList.length; i++) {
+        futureGroup.add(getNendoClient().getNendoData(folderNameList[currentIndex], jsonList[i]));
       }
       futureGroup.close();
       final List<NendoData> result = await futureGroup.future;
@@ -568,7 +626,6 @@ class NendoController extends GetxController {
         }
       }
       nendoList.addAll(result);
-    });
   }
 
   // 파이어스토어에 저장된 데이터를 복구한다.
@@ -602,16 +659,20 @@ class NendoController extends GetxController {
   }
 
   // 세트 리스트를 가져옴
-  Future fetchSetList({required Future<List<String>> nameList}) async {
-    await nameList.then((value) async {
-      FutureGroup<SetData> futureGroup = FutureGroup();
-      for (int i = 0; i < value.length; i++) {
-        futureGroup.add(getNendoClient().getSetData("Set", value[i]));
+  Future fetchSetList({required List<String> nameList}) async {
+    FutureGroup<SetData> futureGroup = FutureGroup();
+    int loopCount = nameList.length ~/ 100 + 1;
+    for (int j = 0; j < loopCount; j++) {
+      for (int i = j * 100; i < (j + 1) * loopCount; i++) {
+        if (i == nameList.length) {
+          break;
+        }
+        futureGroup.add(getNendoClient().getSetData("Set", nameList[i]));
       }
       futureGroup.close();
       final List<SetData> result = await futureGroup.future;
       setList.addAll(result);
-    });
+    }
   }
 
   // 넨도 데이터 다운로드가 필요한지 확인
@@ -637,15 +698,17 @@ class NendoController extends GetxController {
 
   // 넨도 json rawFile 을 읽었을때 json 이 아닌 text/plain 으로 읽어오기 때문에 json 으로 디코딩해주는 작업이 필요
   // 넨도 json 파일을 읽을때는 깃허브 API 권한이 필요없기 때문에 헤더값에 토큰값은 넣지 않음
+  // 23/03/01 dio 버전 업데이트 이후에 바로 json으로 인식 되는듯?.... 오히려 변환시키면 Map타입을 String 타입으로 바꿀 수 없다고 에러가 발생함.
   RestClient getNendoClient() {
     return RestClient(Dio()
-      ..interceptors.add(InterceptorsWrapper(onResponse: (res, handler) async {
+      /*..interceptors.add(InterceptorsWrapper(onResponse: (res, handler) async {
+        logger.i('res : ${res.data.toString()}');
         if (res.headers.map[Headers.contentTypeHeader]?.first.startsWith('text') == true) {
           res.data = jsonDecode(res.data as String);
           return handler.next(res);
         }
         return handler.next(res);
-      })));
+      }))*/);
   }
 
   // DB 데이터의 총 용량을 받아옴
@@ -656,8 +719,8 @@ class NendoController extends GetxController {
       int data = response.data['size'];
       double mbSize = data / 1000;
       dataSize = "${mbSize.toStringAsFixed(2)}MB";
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      logger.d(error, stackTrace);
       dataSize = "2MB";
     }
   }

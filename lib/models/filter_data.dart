@@ -5,6 +5,7 @@ class FilterData {
   bool expectedFilter;
   bool femaleFilter;
   bool maleFilter;
+  bool etcFilter;
 
   bool noFilter() {
     return !haveFilter
@@ -12,7 +13,8 @@ class FilterData {
         && !wishFilter
         && !expectedFilter
         && !femaleFilter
-        && !maleFilter;
+        && !maleFilter
+        && !etcFilter;
   }
 
   FilterData({
@@ -22,5 +24,6 @@ class FilterData {
     this.expectedFilter = false,
     this.femaleFilter = false,
     this.maleFilter = false,
+    this.etcFilter = false,
   });
 }

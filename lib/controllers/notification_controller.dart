@@ -1,15 +1,14 @@
 import 'dart:convert';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
+import 'package:nendoroid_db/main.dart';
 
-import '../firebase_options.dart';
-
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message ${message.messageId}');
+  logger.i('Handling a background message ${message.messageId}');
 }
 
 class NotificationController extends GetxController {
@@ -23,7 +22,7 @@ class NotificationController extends GetxController {
     enableVibration: true,
   );
   AndroidInitializationSettings initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
-  IOSInitializationSettings initializationSettingsIOS = const IOSInitializationSettings();
+  DarwinInitializationSettings initializationSettingsIOS = const DarwinInitializationSettings();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   @override
@@ -31,6 +30,7 @@ class NotificationController extends GetxController {
     super.onInit();
     _initNotification();
   }
+
   void _initNotification() async {
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -43,7 +43,7 @@ class NotificationController extends GetxController {
     var details = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     if (details != null) {
       if (details.didNotificationLaunchApp) {
-        onSelectNotification(details.payload);
+        onSelectNotification(details.notificationResponse?.payload);
       }
     }
 
@@ -56,16 +56,19 @@ class NotificationController extends GetxController {
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       String? token = await _messaging.getToken();
-      print("The token is $token");
+      logger.i("The token is $token");
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         String title = message.notification?.title ?? "";
         String body = message.notification?.body ?? "";
 
-        flutterLocalNotificationsPlugin.initialize(InitializationSettings(
-          android: initializationSettingsAndroid,
-          iOS: initializationSettingsIOS,
-        ),
-          onSelectNotification: onSelectNotification,
+        flutterLocalNotificationsPlugin.initialize(
+          InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS,
+          ),
+          onDidReceiveNotificationResponse: (details) {
+            onSelectNotification(details.payload);
+          },
         );
 
         flutterLocalNotificationsPlugin.show(
@@ -80,7 +83,7 @@ class NotificationController extends GetxController {
               channelDescription: channel.description,
               icon: '@mipmap/ic_launcher',
             ),
-            iOS: const IOSNotificationDetails(
+            iOS: const DarwinNotificationDetails(
               badgeNumber: 1,
               subtitle: 'the subtitle',
               sound: 'slow_spring_board.aiff',
@@ -109,8 +112,8 @@ class NotificationController extends GetxController {
           }
           Get.find<DashboardController>().tabIndex = index;
         }
-      } catch (e) {
-        print(e);
+      } catch (error, stackTrace) {
+        logger.e(error, stackTrace);
       }
     }
   }

@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart' hide HttpResponse;
+import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Node;
 import 'package:nendoroid_db/models/news_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';

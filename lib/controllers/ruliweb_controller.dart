@@ -84,7 +84,7 @@ class RuliwebController extends GetxController {
     Document document = parse(response.data);
     List<Element> elementList = document.getElementsByClassName('table_body blocktarget');
     for (Element element in elementList) {
-      String id = "";
+      // String id = "";
       String title = "";
       String content = "";
       String link = "";
@@ -93,7 +93,7 @@ class RuliwebController extends GetxController {
 
       Element? relative = element.querySelector(".relative");
       Element? writer = element.querySelector(".writer text_over");
-      Element? idElement = element.querySelector(".id");
+      // Element? idElement = element.querySelector(".id");
       Element? time = element.querySelector(".time");
 
       if (time == null) {
@@ -103,7 +103,7 @@ class RuliwebController extends GetxController {
       title = relative?.getElementsByTagName("a")[0].text ?? "";
       link = relative?.getElementsByTagName("a")[0].attributes["href"] ?? "";
       author = writer?.getElementsByTagName("a")[0].text ?? "";
-      id = idElement?.text.trim() ?? "";
+      // id = idElement?.text.trim() ?? "";
       createdAt = time.text.trim();
 
       // 일본 소식만 가져오기
@@ -161,7 +161,7 @@ class RuliwebController extends GetxController {
     Document document = parse(response.data);
     List<Element> elementList = document.getElementsByClassName('table_body blocktarget');
     for (Element element in elementList) {
-      String id = "";
+      // String id = "";
       String title = "";
       String content = "";
       String link = "";
@@ -170,7 +170,7 @@ class RuliwebController extends GetxController {
 
       Element? relative = element.querySelector(".relative");
       Element? writer = element.querySelector(".writer text_over");
-      Element? idElement = element.querySelector(".id");
+      // Element? idElement = element.querySelector(".id");
       Element? time = element.querySelector(".time");
 
       if (time == null) {
@@ -180,7 +180,7 @@ class RuliwebController extends GetxController {
       title = relative?.getElementsByTagName("a")[0].text ?? "";
       link = relative?.getElementsByTagName("a")[0].attributes["href"] ?? "";
       author = writer?.getElementsByTagName("a")[0].text ?? "";
-      id = idElement?.text.trim() ?? "";
+      // id = idElement?.text.trim() ?? "";
       createdAt = time.text.trim();
 
       // 특정단어를 포함하지 않을경우 가져오지 않는다.
