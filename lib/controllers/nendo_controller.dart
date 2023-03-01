@@ -448,6 +448,8 @@ class NendoController extends GetxController {
       nendoList.value = nendoList.where((item) => item.gender == "F").toList();
     } else if (filterData.maleFilter) {
       nendoList.value = nendoList.where((item) => item.gender == "M").toList();
+    } else if (filterData.etcFilter) {
+      nendoList.value = nendoList.where((item) => item.gender != "F" && item.gender != "M").toList();
     }
   }
 

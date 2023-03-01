@@ -11,6 +11,7 @@ class FilterBottomSheet extends StatelessWidget {
     Color selectedColor = Theme.of(context).colorScheme.surfaceVariant;
     return Container(
       width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -31,10 +32,10 @@ class FilterBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           Obx(() => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
+                    width: MediaQuery.of(context).size.width * 0.275,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           backgroundColor: controller.modeIndex == 0
@@ -48,7 +49,7 @@ class FilterBottomSheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
+                    width: MediaQuery.of(context).size.width * 0.275,
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.modeIndex == 1
@@ -61,7 +62,7 @@ class FilterBottomSheet extends StatelessWidget {
                         )),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
+                    width: MediaQuery.of(context).size.width * 0.275,
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.modeIndex == 2
@@ -84,10 +85,10 @@ class FilterBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           Obx(() => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.425,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           backgroundColor: controller.sortData.sortingMethod == BottomSheetController.num
@@ -103,7 +104,7 @@ class FilterBottomSheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.425,
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.sortData.sortingMethod == BottomSheetController.release
@@ -132,11 +133,11 @@ class FilterBottomSheet extends StatelessWidget {
             builder: (controller) => Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.425,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.haveFilter
@@ -152,7 +153,7 @@ class FilterBottomSheet extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.425,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.notHaveFilter
@@ -170,11 +171,11 @@ class FilterBottomSheet extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.425,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.wishFilter
@@ -190,7 +191,7 @@ class FilterBottomSheet extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.425,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.expectedFilter
@@ -208,11 +209,11 @@ class FilterBottomSheet extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.275,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.femaleFilter
@@ -228,7 +229,7 @@ class FilterBottomSheet extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.275,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: controller.filterData.maleFilter
@@ -239,6 +240,22 @@ class FilterBottomSheet extends StatelessWidget {
                         },
                         child: const Text(
                           "남성",
+                          style: TextStyle(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.275,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            backgroundColor: controller.filterData.etcFilter
+                                ? selectedColor
+                                : Theme.of(context).colorScheme.surface),
+                        onPressed: () {
+                          controller.setNendoFilterIndex(BottomSheetController.etcFilter);
+                        },
+                        child: const Text(
+                          "기타",
                           style: TextStyle(),
                         ),
                       ),
