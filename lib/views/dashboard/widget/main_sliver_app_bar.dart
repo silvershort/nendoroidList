@@ -27,7 +27,7 @@ class MainSliverAppBar extends GetView<DashboardController> implements Preferred
                     border: InputBorder.none,
                     // 텍스트 필드의 텍스트가 위쪽으로 쏠린것을 막기 위해서 기본패딩을 재설정해줌
                     isDense: true,
-                    contentPadding: const EdgeInsets.only(top: 15.0),
+                    contentPadding: const EdgeInsets.only(top: 12.5),
                     // 검색어를 입력했을때 검색어를 전체 삭제해주는 아이콘을 생성한다.
                     suffixIcon: Visibility(
                       visible: controller.searchText.isNotEmpty,
