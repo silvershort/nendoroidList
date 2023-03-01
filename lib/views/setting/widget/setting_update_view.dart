@@ -29,10 +29,10 @@ class SettingUpdateView extends StatelessWidget {
                         ? "업데이트 데이터가 없습니다. (탭 해서 강제 업데이트)"
                         : IntlUtil.needUpdate(nendoController.serverCommitDate, nendoController.localCommitDate)
                         ? "DB업데이트가 필요합니다. (탭 해서 업데이트)"
-                        : "최신버전입니다. (탭 해서 강제 업데이트)",
-                    style: Theme.of(context).textTheme.caption,
+                        : "최신 버전입니다. (탭 해서 강제 업데이트)",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.deepOrange),
                   ),
-                )
+                )ㅇ
               ],
             ),
           ),

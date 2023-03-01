@@ -21,7 +21,7 @@ class SettingAppVersionView extends GetView<AppVersionController> {
             child: Text(
               controller.needUpdate ? "새로운 버전이 출시되었습니다."
                   : "최신 버전입니다.",
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.deepOrange),
             ),
           ),
         ),
