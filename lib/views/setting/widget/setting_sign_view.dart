@@ -164,9 +164,8 @@ class SettingSignView extends StatelessWidget {
                               );
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             "데이터 복구",
-                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -201,12 +200,11 @@ class SettingSignView extends StatelessWidget {
                         }, child: Obx(() {
                           if (firestoreController.state == FirestoreState.loading) {
                             return LinearProgressIndicator(
-                              color: Theme.of(context).backgroundColor,
+                              color: Theme.of(context).colorScheme.background,
                             );
                           } else {
-                            return Text(
+                            return const Text(
                               "데이터 백업",
-                              style: Theme.of(context).textTheme.bodyText1,
                             );
                           }
                         })),
