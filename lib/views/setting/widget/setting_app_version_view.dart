@@ -29,7 +29,7 @@ class SettingAppVersionView extends GetView<AppVersionController> {
         Obx(() =>
           Text(
             "앱 버전 : ${controller.appVersion}",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ],

@@ -40,7 +40,7 @@ class SettingUpdateView extends StatelessWidget {
             children: [
               Text(
                 nendoController.serverCommitDate.isEmpty ? "DB 업데이트 : 데이터가 없습니다." : "DB 업데이트 : ${nendoController.serverCommitDate}",
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               /*const SizedBox(width: 5.0),
               InkWell(
@@ -61,7 +61,7 @@ class SettingUpdateView extends StatelessWidget {
           const SizedBox(height: 3.0),
           Text(
             nendoController.localCommitDate.isEmpty ? "로컬 업데이트 : 데이터가 없습니다." : "로컬 업데이트 : ${nendoController.localCommitDate}",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ],
       );

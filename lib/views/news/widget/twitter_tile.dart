@@ -38,7 +38,7 @@ class TwitterTile extends StatelessWidget {
                     Text(
                       data.author.name,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.subtitle2?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 5.0),
                     Opacity(

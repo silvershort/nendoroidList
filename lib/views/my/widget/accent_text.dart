@@ -29,7 +29,7 @@ class AccentText extends StatelessWidget {
   TextSpan accentText() {
     return TextSpan(
       text: accentWord,
-      style: Theme.of(context).textTheme.subtitle1?.copyWith(
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
         color: Colors.deepOrangeAccent,
         fontSize: fontSize,
       ),
@@ -38,7 +38,7 @@ class AccentText extends StatelessWidget {
   TextSpan normalText() {
     return TextSpan(
         text: normalWord,
-        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
           fontSize: fontSize,
         )
     );

@@ -18,7 +18,7 @@ class MyTotalPriceView extends GetView<MyController> {
           children: [
             Text(
               "  구매한 넨도로이드 가격 총합",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               width: 5.0,

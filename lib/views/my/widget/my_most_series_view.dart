@@ -21,7 +21,7 @@ class MyMostSeriesView extends GetView<MyController> {
           children: [
             Text(
               "가장 많이 가지고 있는 시리즈",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               height: 5.0,

@@ -13,7 +13,7 @@ class MyCompleteSetView extends GetView<MyController> {
       children: [
         Text(
           "완성한 넨도로이드 세트",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
           height: 5.0,

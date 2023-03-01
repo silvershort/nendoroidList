@@ -16,7 +16,7 @@ class MyGenderRateView extends GetView<MyController> {
         children: [
           Text(
             "보유 넨도로이드 성별 비율",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(
             height: 5.0,
