@@ -456,17 +456,48 @@ class NendoController extends GetxController {
   // 입력받은 단어에 일치하는 리스트를 필터링해준다
   void searchInWord(String word) {
     lastWord = word;
+
     if (word.isEmpty) {
       initNendoList();
       return;
     }
-    List<NendoData> tempList = getLocalNendoList()
-        .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
-        || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
-        || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
-        || (item.num) == word)
-        .toList();
-    nendoList.value = tempList;
+
+    RegExp digitPattern = RegExp(r'\d+');
+
+    // 숫자와 ~가 있을때만 ~검색 사용
+    if (word.contains("~") && digitPattern.hasMatch(word)) {
+      String startString = word.split("~").first.trim();
+      String endString = word.split("~").last.trim();
+
+      if (startString.isEmpty) {
+        startString = "0";
+      }
+      if (endString.isEmpty) {
+        endString = "9999999";
+      }
+
+      int start = int.parse(startString.replaceAll(RegExp(r"[^0-9]"), ""));
+      int end = int.parse(endString.replaceAll(RegExp(r"[^0-9]"), ""));
+
+      List<NendoData> tempList = getLocalNendoList()
+          .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (start <= int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), ""))
+              && int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) <= end))
+          .toList();
+      nendoList.value = tempList;
+
+    } else {
+      List<NendoData> tempList = getLocalNendoList()
+          .where((item) => (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase())
+          || (item.num) == word)
+          .toList();
+      nendoList.value = tempList;
+    }
+
     filteringList(false);
   }
 
