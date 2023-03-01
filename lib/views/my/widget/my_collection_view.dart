@@ -17,7 +17,7 @@ class MyCollectionView extends GetView<MyController> {
           children: [
             Text(
               "수집한 넨도로이드",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 10.0),
             Obx(
@@ -32,7 +32,7 @@ class MyCollectionView extends GetView<MyController> {
             Obx(() =>
               Text(
                 "(중복포함 넨도개수 : ${controller.getTotalCount()}개)",
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(fontSize: 13.0),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 13.0),
               ),
             ),
           ],

@@ -86,23 +86,19 @@ class MyApp extends StatelessWidget {
           colorSchemeSeed: settingController.seedColor,
           brightness: settingController.brightness,
           fontFamily: AppFont.oneMobile,
-          textTheme: TextTheme(
-            subtitle1: const TextStyle(
-                  fontSize: 18,
-                  fontFamily: AppFont.oneMobile,
-                  letterSpacing: 0.5,
-                  height: 1.2,
-                ),
-            subtitle2: const TextStyle(
-                  fontSize: 16,
-                  fontFamily: AppFont.oneMobile,
-                  letterSpacing: 0.5,
-                  height: 1.2,
-                ),
-            caption: Theme.of(context).textTheme.caption?.copyWith(
-                  fontFamily: AppFont.oneMobile,
-                  color: Colors.deepOrange,
-                ),
+          textTheme: const TextTheme(
+            titleSmall: TextStyle(
+              fontSize: 16,
+              fontFamily: AppFont.oneMobile,
+              letterSpacing: 0.5,
+              height: 1.2,
+            ),
+            titleMedium: TextStyle(
+              fontSize: 18,
+              fontFamily: AppFont.oneMobile,
+              letterSpacing: 0.5,
+              height: 1.2,
+            ),
           ),
           appBarTheme: AppBarTheme(
             backgroundColor: ColorScheme.fromSeed(

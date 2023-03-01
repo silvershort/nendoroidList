@@ -20,7 +20,7 @@ class MyMostNendoView extends GetView<MyController> {
           children: [
             Text(
               "가장 많이 가지고 있는 넨도로이드",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               height: 5.0,

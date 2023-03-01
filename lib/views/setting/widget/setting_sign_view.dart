@@ -30,7 +30,7 @@ class SettingSignView extends StatelessWidget {
               },
               child: Text(
                 "로그인 정보",
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
             const SizedBox(width: 5.0),
@@ -54,7 +54,7 @@ class SettingSignView extends StatelessWidget {
             const SizedBox(width: 5.0),
             Text(
               ":",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(width: 10.0),
             Expanded(

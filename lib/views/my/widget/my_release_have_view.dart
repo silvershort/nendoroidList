@@ -20,7 +20,7 @@ class MyReleaseHaveView extends GetView<MyController> {
           children: [
             Text(
               "이번달 출시 예정인 나의 넨도로이드",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               height: 5.0,

@@ -22,7 +22,7 @@ class AppInfoPage extends StatelessWidget {
         children: [
           Text(
             "- DB제공",
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           const SizedBox(height: 5.0),
           InkWell(
@@ -42,7 +42,7 @@ class AppInfoPage extends StatelessWidget {
           ),
           Text(
             "- 폰트정보",
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           const SizedBox(
             height: 5.0,
@@ -137,7 +137,7 @@ class _TitleAndButton extends StatelessWidget {
           alignment: AlignmentDirectional.centerStart,
           child: Text(
             "- $title",
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
         const SizedBox(

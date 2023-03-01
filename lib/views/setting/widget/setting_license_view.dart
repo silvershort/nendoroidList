@@ -13,7 +13,7 @@ class SettingLicenseView extends StatelessWidget {
       children: [
         Text(
           "앱 상세정보 : ",
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
           height: 5.0,

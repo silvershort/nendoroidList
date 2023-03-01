@@ -8,7 +8,7 @@ class FilterBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color selectedColor = Theme.of(context).colorScheme.tertiary.withAlpha(80);
+    Color selectedColor = Theme.of(context).colorScheme.surfaceVariant;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(

@@ -17,7 +17,7 @@ class SettingThemeView extends GetView<SettingController> {
           children: [
              Text(
               "테마 적용 : ",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             Obx(() =>
               Switch(
