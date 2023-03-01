@@ -32,7 +32,7 @@ class SettingUpdateView extends StatelessWidget {
                         : "최신 버전입니다. (탭 해서 강제 업데이트)",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.deepOrange),
                   ),
-                )ㅇ
+                )
               ],
             ),
           ),
