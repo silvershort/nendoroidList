@@ -47,8 +47,8 @@ class DebugView extends StatelessWidget {
                 const CommonDialog(content: '다운로드가 완료되었습니다.'),
               );
             } catch(error, stackTrace) {
-              logger.e("error : $error");
-              logger.e("stackTrace : $stackTrace");
+              logger.e(error.toString());
+              logger.e(stackTrace.toString());
             }
           },
           child: const Text(

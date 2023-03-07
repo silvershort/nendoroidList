@@ -222,7 +222,8 @@ class MyController extends GetxController {
       List<ExchangeRateYen> list = await RestClient(Dio()).getExchangeRate();
       _todayYen.value = list[0].ttSellingPrice?.toInt() ?? 0;
     } catch (error, stackTrace) {
-      logger.e(error, stackTrace);
+      logger.e(error.toString());
+      logger.e(stackTrace.toString());
     }
   }
 }

@@ -81,7 +81,8 @@ class FirestoreController extends GetxController {
       }
       return backupData;
     } catch (error, stackTrace) {
-      logger.e(error, stackTrace);
+      logger.e(error.toString());
+      logger.e(stackTrace.toString());
       return null;
     }
   }

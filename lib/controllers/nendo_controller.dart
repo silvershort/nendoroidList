@@ -117,7 +117,8 @@ class NendoController extends GetxController {
         // 서버에 있는 커밋날짜를 받아와준다.
         _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
       } catch (error, stackTrace) {
-        logger.e(error, stackTrace);
+        logger.e(error.toString());
+        logger.e(stackTrace.toString());
       }
       // 로컬에 있는 커밋날짜를 받아와준다.
       _localCommitDate.value = settingBox.get(HiveName.localCommitDateKey);
@@ -178,6 +179,7 @@ class NendoController extends GetxController {
       _localCommitDate.value = IntlUtil.convertDate();
     } catch (error, stackTrace) {
       logger.e(error, stackTrace);
+      logger.e(stackTrace.toString());
 
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -265,7 +267,8 @@ class NendoController extends GetxController {
       dynamic data = await fetchServerCommitData();
       _serverCommitDate.value = IntlUtil.convertDate(gmtTime: data['commit']['commit']['author']['date']);
     } catch (error, stackTrace) {
-      logger.e(error, stackTrace);
+      logger.e(error.toString());
+      logger.e(stackTrace.toString());
     }
 
     // 정렬
@@ -324,7 +327,8 @@ class NendoController extends GetxController {
       _localCommitDate.value = IntlUtil.convertDate();
       _localCommitHash.value = commitHash;
     } catch (error, stackTrace) {
-      logger.d(error, stackTrace);
+      logger.d(error.toString());
+      logger.d(stackTrace.toString());
       nendoList.value = recoveryNendoList.toList();
       _downloadComplete.value = false;
       _downloadLoading.value = false;
@@ -720,7 +724,8 @@ class NendoController extends GetxController {
       double mbSize = data / 1000;
       dataSize = "${mbSize.toStringAsFixed(2)}MB";
     } catch (error, stackTrace) {
-      logger.d(error, stackTrace);
+      logger.d(error.toString());
+      logger.d(stackTrace.toString());
       dataSize = "2MB";
     }
   }
