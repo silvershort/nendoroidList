@@ -660,10 +660,11 @@ class NendoController extends GetxController {
 
   // 세트 리스트를 가져옴
   Future fetchSetList({required List<String> nameList}) async {
-    FutureGroup<SetData> futureGroup = FutureGroup();
+    setList.clear();
     int loopCount = nameList.length ~/ 100 + 1;
     for (int j = 0; j < loopCount; j++) {
-      for (int i = j * 100; i < (j + 1) * loopCount; i++) {
+      FutureGroup<SetData> futureGroup = FutureGroup();
+      for (int i = j * 100; i < (j + 1) * 100; i++) {
         if (i == nameList.length) {
           break;
         }
