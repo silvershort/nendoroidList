@@ -113,7 +113,8 @@ class NotificationController extends GetxController {
           Get.find<DashboardController>().tabIndex = index;
         }
       } catch (error, stackTrace) {
-        logger.e(error, stackTrace);
+        logger.e(error.toString());
+        logger.e(stackTrace.toString());
       }
     }
   }
