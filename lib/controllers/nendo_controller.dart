@@ -706,14 +706,14 @@ class NendoController extends GetxController {
   // 23/03/01 dio 버전 업데이트 이후에 바로 json으로 인식 되는듯?.... 오히려 변환시키면 Map타입을 String 타입으로 바꿀 수 없다고 에러가 발생함.
   RestClient getNendoClient() {
     return RestClient(Dio()
-      ..interceptors.add(InterceptorsWrapper(onResponse: (res, handler) async {
+      /*..interceptors.add(InterceptorsWrapper(onResponse: (res, handler) async {
         logger.i('res : ${res.data.toString()}');
         if (res.headers.map[Headers.contentTypeHeader]?.first.startsWith('text') == true) {
           res.data = jsonDecode(res.data as String);
           return handler.next(res);
         }
         return handler.next(res);
-      })));
+      }))*/);
   }
 
   // DB 데이터의 총 용량을 받아옴
