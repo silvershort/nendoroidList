@@ -86,6 +86,11 @@ class NendoData {
       memo: memo ?? this.memo,
     );
   }
+
+  @override
+  String toString() {
+    return 'NendoData{num: $num, name: $name, series: $series, gscProductNum: $gscProductNum, price: $price, releaseDate: $releaseDate, image: $image, gender: $gender, have: $have, wish: $wish, count: $count, myPrice: $myPrice, memo: $memo}';
+  }
 }
 
 @HiveType(typeId: 1)
@@ -107,6 +112,11 @@ class Name {
   factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
 
   Map<String, dynamic> toJson() => _$NameToJson(this);
+
+  @override
+  String toString() {
+    return 'Name{ko: $ko, ja: $ja, en: $en}';
+  }
 }
 
 @HiveType(typeId: 2)
@@ -128,4 +138,9 @@ class Series {
   factory Series.fromJson(Map<String, dynamic> json) => _$SeriesFromJson(json);
 
   Map<String, dynamic> toJson() => _$SeriesToJson(this);
+
+  @override
+  String toString() {
+    return 'Series{ko: $ko, ja: $ja, en: $en}';
+  }
 }

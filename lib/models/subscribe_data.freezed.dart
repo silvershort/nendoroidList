@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'subscribe_data.dart';
 
@@ -32,7 +32,8 @@ mixin _$SubscribeData {
 abstract class $SubscribeDataCopyWith<$Res> {
   factory $SubscribeDataCopyWith(
           SubscribeData value, $Res Function(SubscribeData) then) =
-      _$SubscribeDataCopyWithImpl<$Res>;
+      _$SubscribeDataCopyWithImpl<$Res, SubscribeData>;
+  @useResult
   $Res call(
       {@HiveField(0) TwitterSubscribe twitterSubscribe,
       @HiveField(1) DcinsideSubscribe dcinsideSubscribe,
@@ -44,54 +45,59 @@ abstract class $SubscribeDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SubscribeDataCopyWithImpl<$Res>
+class _$SubscribeDataCopyWithImpl<$Res, $Val extends SubscribeData>
     implements $SubscribeDataCopyWith<$Res> {
   _$SubscribeDataCopyWithImpl(this._value, this._then);
 
-  final SubscribeData _value;
   // ignore: unused_field
-  final $Res Function(SubscribeData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? twitterSubscribe = freezed,
-    Object? dcinsideSubscribe = freezed,
-    Object? ruliwebSubscribe = freezed,
+    Object? twitterSubscribe = null,
+    Object? dcinsideSubscribe = null,
+    Object? ruliwebSubscribe = null,
   }) {
     return _then(_value.copyWith(
-      twitterSubscribe: twitterSubscribe == freezed
+      twitterSubscribe: null == twitterSubscribe
           ? _value.twitterSubscribe
           : twitterSubscribe // ignore: cast_nullable_to_non_nullable
               as TwitterSubscribe,
-      dcinsideSubscribe: dcinsideSubscribe == freezed
+      dcinsideSubscribe: null == dcinsideSubscribe
           ? _value.dcinsideSubscribe
           : dcinsideSubscribe // ignore: cast_nullable_to_non_nullable
               as DcinsideSubscribe,
-      ruliwebSubscribe: ruliwebSubscribe == freezed
+      ruliwebSubscribe: null == ruliwebSubscribe
           ? _value.ruliwebSubscribe
           : ruliwebSubscribe // ignore: cast_nullable_to_non_nullable
               as RuliwebSubscribe,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TwitterSubscribeCopyWith<$Res> get twitterSubscribe {
     return $TwitterSubscribeCopyWith<$Res>(_value.twitterSubscribe, (value) {
-      return _then(_value.copyWith(twitterSubscribe: value));
+      return _then(_value.copyWith(twitterSubscribe: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $DcinsideSubscribeCopyWith<$Res> get dcinsideSubscribe {
     return $DcinsideSubscribeCopyWith<$Res>(_value.dcinsideSubscribe, (value) {
-      return _then(_value.copyWith(dcinsideSubscribe: value));
+      return _then(_value.copyWith(dcinsideSubscribe: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RuliwebSubscribeCopyWith<$Res> get ruliwebSubscribe {
     return $RuliwebSubscribeCopyWith<$Res>(_value.ruliwebSubscribe, (value) {
-      return _then(_value.copyWith(ruliwebSubscribe: value));
+      return _then(_value.copyWith(ruliwebSubscribe: value) as $Val);
     });
   }
 }
@@ -103,6 +109,7 @@ abstract class _$$_SubscribeDataCopyWith<$Res>
           _$_SubscribeData value, $Res Function(_$_SubscribeData) then) =
       __$$_SubscribeDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@HiveField(0) TwitterSubscribe twitterSubscribe,
       @HiveField(1) DcinsideSubscribe dcinsideSubscribe,
@@ -118,31 +125,29 @@ abstract class _$$_SubscribeDataCopyWith<$Res>
 
 /// @nodoc
 class __$$_SubscribeDataCopyWithImpl<$Res>
-    extends _$SubscribeDataCopyWithImpl<$Res>
+    extends _$SubscribeDataCopyWithImpl<$Res, _$_SubscribeData>
     implements _$$_SubscribeDataCopyWith<$Res> {
   __$$_SubscribeDataCopyWithImpl(
       _$_SubscribeData _value, $Res Function(_$_SubscribeData) _then)
-      : super(_value, (v) => _then(v as _$_SubscribeData));
+      : super(_value, _then);
 
-  @override
-  _$_SubscribeData get _value => super._value as _$_SubscribeData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? twitterSubscribe = freezed,
-    Object? dcinsideSubscribe = freezed,
-    Object? ruliwebSubscribe = freezed,
+    Object? twitterSubscribe = null,
+    Object? dcinsideSubscribe = null,
+    Object? ruliwebSubscribe = null,
   }) {
     return _then(_$_SubscribeData(
-      twitterSubscribe: twitterSubscribe == freezed
+      twitterSubscribe: null == twitterSubscribe
           ? _value.twitterSubscribe
           : twitterSubscribe // ignore: cast_nullable_to_non_nullable
               as TwitterSubscribe,
-      dcinsideSubscribe: dcinsideSubscribe == freezed
+      dcinsideSubscribe: null == dcinsideSubscribe
           ? _value.dcinsideSubscribe
           : dcinsideSubscribe // ignore: cast_nullable_to_non_nullable
               as DcinsideSubscribe,
-      ruliwebSubscribe: ruliwebSubscribe == freezed
+      ruliwebSubscribe: null == ruliwebSubscribe
           ? _value.ruliwebSubscribe
           : ruliwebSubscribe // ignore: cast_nullable_to_non_nullable
               as RuliwebSubscribe,
@@ -155,17 +160,20 @@ class __$$_SubscribeDataCopyWithImpl<$Res>
 @HiveType(typeId: 4, adapterName: "SubscribeDataAdapter")
 class _$_SubscribeData implements _SubscribeData {
   const _$_SubscribeData(
-      {@HiveField(0) required this.twitterSubscribe,
-      @HiveField(1) required this.dcinsideSubscribe,
-      @HiveField(2) required this.ruliwebSubscribe});
+      {@HiveField(0) this.twitterSubscribe = const TwitterSubscribe(),
+      @HiveField(1) this.dcinsideSubscribe = const DcinsideSubscribe(),
+      @HiveField(2) this.ruliwebSubscribe = const RuliwebSubscribe()});
 
   @override
+  @JsonKey()
   @HiveField(0)
   final TwitterSubscribe twitterSubscribe;
   @override
+  @JsonKey()
   @HiveField(1)
   final DcinsideSubscribe dcinsideSubscribe;
   @override
+  @JsonKey()
   @HiveField(2)
   final RuliwebSubscribe ruliwebSubscribe;
 
@@ -179,32 +187,30 @@ class _$_SubscribeData implements _SubscribeData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SubscribeData &&
-            const DeepCollectionEquality()
-                .equals(other.twitterSubscribe, twitterSubscribe) &&
-            const DeepCollectionEquality()
-                .equals(other.dcinsideSubscribe, dcinsideSubscribe) &&
-            const DeepCollectionEquality()
-                .equals(other.ruliwebSubscribe, ruliwebSubscribe));
+            (identical(other.twitterSubscribe, twitterSubscribe) ||
+                other.twitterSubscribe == twitterSubscribe) &&
+            (identical(other.dcinsideSubscribe, dcinsideSubscribe) ||
+                other.dcinsideSubscribe == dcinsideSubscribe) &&
+            (identical(other.ruliwebSubscribe, ruliwebSubscribe) ||
+                other.ruliwebSubscribe == ruliwebSubscribe));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(twitterSubscribe),
-      const DeepCollectionEquality().hash(dcinsideSubscribe),
-      const DeepCollectionEquality().hash(ruliwebSubscribe));
+      runtimeType, twitterSubscribe, dcinsideSubscribe, ruliwebSubscribe);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SubscribeDataCopyWith<_$_SubscribeData> get copyWith =>
       __$$_SubscribeDataCopyWithImpl<_$_SubscribeData>(this, _$identity);
 }
 
 abstract class _SubscribeData implements SubscribeData {
   const factory _SubscribeData(
-          {@HiveField(0) required final TwitterSubscribe twitterSubscribe,
-          @HiveField(1) required final DcinsideSubscribe dcinsideSubscribe,
-          @HiveField(2) required final RuliwebSubscribe ruliwebSubscribe}) =
+          {@HiveField(0) final TwitterSubscribe twitterSubscribe,
+          @HiveField(1) final DcinsideSubscribe dcinsideSubscribe,
+          @HiveField(2) final RuliwebSubscribe ruliwebSubscribe}) =
       _$_SubscribeData;
 
   @override
@@ -244,7 +250,8 @@ mixin _$TwitterSubscribe {
 abstract class $TwitterSubscribeCopyWith<$Res> {
   factory $TwitterSubscribeCopyWith(
           TwitterSubscribe value, $Res Function(TwitterSubscribe) then) =
-      _$TwitterSubscribeCopyWithImpl<$Res>;
+      _$TwitterSubscribeCopyWithImpl<$Res, TwitterSubscribe>;
+  @useResult
   $Res call(
       {@HiveField(0) bool goodSmileJP,
       @HiveField(1) bool goodSmileUS,
@@ -254,44 +261,46 @@ abstract class $TwitterSubscribeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TwitterSubscribeCopyWithImpl<$Res>
+class _$TwitterSubscribeCopyWithImpl<$Res, $Val extends TwitterSubscribe>
     implements $TwitterSubscribeCopyWith<$Res> {
   _$TwitterSubscribeCopyWithImpl(this._value, this._then);
 
-  final TwitterSubscribe _value;
   // ignore: unused_field
-  final $Res Function(TwitterSubscribe) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? goodSmileJP = freezed,
-    Object? goodSmileUS = freezed,
-    Object? goodSmileKR = freezed,
-    Object? ninimal = freezed,
-    Object? figureInfo = freezed,
+    Object? goodSmileJP = null,
+    Object? goodSmileUS = null,
+    Object? goodSmileKR = null,
+    Object? ninimal = null,
+    Object? figureInfo = null,
   }) {
     return _then(_value.copyWith(
-      goodSmileJP: goodSmileJP == freezed
+      goodSmileJP: null == goodSmileJP
           ? _value.goodSmileJP
           : goodSmileJP // ignore: cast_nullable_to_non_nullable
               as bool,
-      goodSmileUS: goodSmileUS == freezed
+      goodSmileUS: null == goodSmileUS
           ? _value.goodSmileUS
           : goodSmileUS // ignore: cast_nullable_to_non_nullable
               as bool,
-      goodSmileKR: goodSmileKR == freezed
+      goodSmileKR: null == goodSmileKR
           ? _value.goodSmileKR
           : goodSmileKR // ignore: cast_nullable_to_non_nullable
               as bool,
-      ninimal: ninimal == freezed
+      ninimal: null == ninimal
           ? _value.ninimal
           : ninimal // ignore: cast_nullable_to_non_nullable
               as bool,
-      figureInfo: figureInfo == freezed
+      figureInfo: null == figureInfo
           ? _value.figureInfo
           : figureInfo // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -302,6 +311,7 @@ abstract class _$$_TwitterSubscribeCopyWith<$Res>
           _$_TwitterSubscribe value, $Res Function(_$_TwitterSubscribe) then) =
       __$$_TwitterSubscribeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@HiveField(0) bool goodSmileJP,
       @HiveField(1) bool goodSmileUS,
@@ -312,41 +322,39 @@ abstract class _$$_TwitterSubscribeCopyWith<$Res>
 
 /// @nodoc
 class __$$_TwitterSubscribeCopyWithImpl<$Res>
-    extends _$TwitterSubscribeCopyWithImpl<$Res>
+    extends _$TwitterSubscribeCopyWithImpl<$Res, _$_TwitterSubscribe>
     implements _$$_TwitterSubscribeCopyWith<$Res> {
   __$$_TwitterSubscribeCopyWithImpl(
       _$_TwitterSubscribe _value, $Res Function(_$_TwitterSubscribe) _then)
-      : super(_value, (v) => _then(v as _$_TwitterSubscribe));
+      : super(_value, _then);
 
-  @override
-  _$_TwitterSubscribe get _value => super._value as _$_TwitterSubscribe;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? goodSmileJP = freezed,
-    Object? goodSmileUS = freezed,
-    Object? goodSmileKR = freezed,
-    Object? ninimal = freezed,
-    Object? figureInfo = freezed,
+    Object? goodSmileJP = null,
+    Object? goodSmileUS = null,
+    Object? goodSmileKR = null,
+    Object? ninimal = null,
+    Object? figureInfo = null,
   }) {
     return _then(_$_TwitterSubscribe(
-      goodSmileJP: goodSmileJP == freezed
+      goodSmileJP: null == goodSmileJP
           ? _value.goodSmileJP
           : goodSmileJP // ignore: cast_nullable_to_non_nullable
               as bool,
-      goodSmileUS: goodSmileUS == freezed
+      goodSmileUS: null == goodSmileUS
           ? _value.goodSmileUS
           : goodSmileUS // ignore: cast_nullable_to_non_nullable
               as bool,
-      goodSmileKR: goodSmileKR == freezed
+      goodSmileKR: null == goodSmileKR
           ? _value.goodSmileKR
           : goodSmileKR // ignore: cast_nullable_to_non_nullable
               as bool,
-      ninimal: ninimal == freezed
+      ninimal: null == ninimal
           ? _value.ninimal
           : ninimal // ignore: cast_nullable_to_non_nullable
               as bool,
-      figureInfo: figureInfo == freezed
+      figureInfo: null == figureInfo
           ? _value.figureInfo
           : figureInfo // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -359,25 +367,30 @@ class __$$_TwitterSubscribeCopyWithImpl<$Res>
 @HiveType(typeId: 5, adapterName: "TwitterSubscribeAdapter")
 class _$_TwitterSubscribe implements _TwitterSubscribe {
   const _$_TwitterSubscribe(
-      {@HiveField(0) required this.goodSmileJP,
-      @HiveField(1) required this.goodSmileUS,
-      @HiveField(2) required this.goodSmileKR,
-      @HiveField(3) required this.ninimal,
-      @HiveField(4) required this.figureInfo});
+      {@HiveField(0) this.goodSmileJP = false,
+      @HiveField(1) this.goodSmileUS = false,
+      @HiveField(2) this.goodSmileKR = true,
+      @HiveField(3) this.ninimal = true,
+      @HiveField(4) this.figureInfo = true});
 
   @override
+  @JsonKey()
   @HiveField(0)
   final bool goodSmileJP;
   @override
+  @JsonKey()
   @HiveField(1)
   final bool goodSmileUS;
   @override
+  @JsonKey()
   @HiveField(2)
   final bool goodSmileKR;
   @override
+  @JsonKey()
   @HiveField(3)
   final bool ninimal;
   @override
+  @JsonKey()
   @HiveField(4)
   final bool figureInfo;
 
@@ -391,39 +404,35 @@ class _$_TwitterSubscribe implements _TwitterSubscribe {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TwitterSubscribe &&
-            const DeepCollectionEquality()
-                .equals(other.goodSmileJP, goodSmileJP) &&
-            const DeepCollectionEquality()
-                .equals(other.goodSmileUS, goodSmileUS) &&
-            const DeepCollectionEquality()
-                .equals(other.goodSmileKR, goodSmileKR) &&
-            const DeepCollectionEquality().equals(other.ninimal, ninimal) &&
-            const DeepCollectionEquality()
-                .equals(other.figureInfo, figureInfo));
+            (identical(other.goodSmileJP, goodSmileJP) ||
+                other.goodSmileJP == goodSmileJP) &&
+            (identical(other.goodSmileUS, goodSmileUS) ||
+                other.goodSmileUS == goodSmileUS) &&
+            (identical(other.goodSmileKR, goodSmileKR) ||
+                other.goodSmileKR == goodSmileKR) &&
+            (identical(other.ninimal, ninimal) || other.ninimal == ninimal) &&
+            (identical(other.figureInfo, figureInfo) ||
+                other.figureInfo == figureInfo));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(goodSmileJP),
-      const DeepCollectionEquality().hash(goodSmileUS),
-      const DeepCollectionEquality().hash(goodSmileKR),
-      const DeepCollectionEquality().hash(ninimal),
-      const DeepCollectionEquality().hash(figureInfo));
+      runtimeType, goodSmileJP, goodSmileUS, goodSmileKR, ninimal, figureInfo);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TwitterSubscribeCopyWith<_$_TwitterSubscribe> get copyWith =>
       __$$_TwitterSubscribeCopyWithImpl<_$_TwitterSubscribe>(this, _$identity);
 }
 
 abstract class _TwitterSubscribe implements TwitterSubscribe {
   const factory _TwitterSubscribe(
-      {@HiveField(0) required final bool goodSmileJP,
-      @HiveField(1) required final bool goodSmileUS,
-      @HiveField(2) required final bool goodSmileKR,
-      @HiveField(3) required final bool ninimal,
-      @HiveField(4) required final bool figureInfo}) = _$_TwitterSubscribe;
+      {@HiveField(0) final bool goodSmileJP,
+      @HiveField(1) final bool goodSmileUS,
+      @HiveField(2) final bool goodSmileKR,
+      @HiveField(3) final bool ninimal,
+      @HiveField(4) final bool figureInfo}) = _$_TwitterSubscribe;
 
   @override
   @HiveField(0)
@@ -462,34 +471,37 @@ mixin _$DcinsideSubscribe {
 abstract class $DcinsideSubscribeCopyWith<$Res> {
   factory $DcinsideSubscribeCopyWith(
           DcinsideSubscribe value, $Res Function(DcinsideSubscribe) then) =
-      _$DcinsideSubscribeCopyWithImpl<$Res>;
+      _$DcinsideSubscribeCopyWithImpl<$Res, DcinsideSubscribe>;
+  @useResult
   $Res call({@HiveField(0) bool information, @HiveField(1) bool review});
 }
 
 /// @nodoc
-class _$DcinsideSubscribeCopyWithImpl<$Res>
+class _$DcinsideSubscribeCopyWithImpl<$Res, $Val extends DcinsideSubscribe>
     implements $DcinsideSubscribeCopyWith<$Res> {
   _$DcinsideSubscribeCopyWithImpl(this._value, this._then);
 
-  final DcinsideSubscribe _value;
   // ignore: unused_field
-  final $Res Function(DcinsideSubscribe) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? information = freezed,
-    Object? review = freezed,
+    Object? information = null,
+    Object? review = null,
   }) {
     return _then(_value.copyWith(
-      information: information == freezed
+      information: null == information
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as bool,
-      review: review == freezed
+      review: null == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -500,31 +512,30 @@ abstract class _$$_DcinsideSubscribeCopyWith<$Res>
           $Res Function(_$_DcinsideSubscribe) then) =
       __$$_DcinsideSubscribeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@HiveField(0) bool information, @HiveField(1) bool review});
 }
 
 /// @nodoc
 class __$$_DcinsideSubscribeCopyWithImpl<$Res>
-    extends _$DcinsideSubscribeCopyWithImpl<$Res>
+    extends _$DcinsideSubscribeCopyWithImpl<$Res, _$_DcinsideSubscribe>
     implements _$$_DcinsideSubscribeCopyWith<$Res> {
   __$$_DcinsideSubscribeCopyWithImpl(
       _$_DcinsideSubscribe _value, $Res Function(_$_DcinsideSubscribe) _then)
-      : super(_value, (v) => _then(v as _$_DcinsideSubscribe));
+      : super(_value, _then);
 
-  @override
-  _$_DcinsideSubscribe get _value => super._value as _$_DcinsideSubscribe;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? information = freezed,
-    Object? review = freezed,
+    Object? information = null,
+    Object? review = null,
   }) {
     return _then(_$_DcinsideSubscribe(
-      information: information == freezed
+      information: null == information
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as bool,
-      review: review == freezed
+      review: null == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -537,13 +548,15 @@ class __$$_DcinsideSubscribeCopyWithImpl<$Res>
 @HiveType(typeId: 6, adapterName: "DcinsideSubscribeAdapter")
 class _$_DcinsideSubscribe implements _DcinsideSubscribe {
   const _$_DcinsideSubscribe(
-      {@HiveField(0) required this.information,
-      @HiveField(1) required this.review});
+      {@HiveField(0) this.information = true,
+      @HiveField(1) this.review = true});
 
   @override
+  @JsonKey()
   @HiveField(0)
   final bool information;
   @override
+  @JsonKey()
   @HiveField(1)
   final bool review;
 
@@ -557,19 +570,17 @@ class _$_DcinsideSubscribe implements _DcinsideSubscribe {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DcinsideSubscribe &&
-            const DeepCollectionEquality()
-                .equals(other.information, information) &&
-            const DeepCollectionEquality().equals(other.review, review));
+            (identical(other.information, information) ||
+                other.information == information) &&
+            (identical(other.review, review) || other.review == review));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(information),
-      const DeepCollectionEquality().hash(review));
+  int get hashCode => Object.hash(runtimeType, information, review);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DcinsideSubscribeCopyWith<_$_DcinsideSubscribe> get copyWith =>
       __$$_DcinsideSubscribeCopyWithImpl<_$_DcinsideSubscribe>(
           this, _$identity);
@@ -577,8 +588,8 @@ class _$_DcinsideSubscribe implements _DcinsideSubscribe {
 
 abstract class _DcinsideSubscribe implements DcinsideSubscribe {
   const factory _DcinsideSubscribe(
-      {@HiveField(0) required final bool information,
-      @HiveField(1) required final bool review}) = _$_DcinsideSubscribe;
+      {@HiveField(0) final bool information,
+      @HiveField(1) final bool review}) = _$_DcinsideSubscribe;
 
   @override
   @HiveField(0)
@@ -608,34 +619,37 @@ mixin _$RuliwebSubscribe {
 abstract class $RuliwebSubscribeCopyWith<$Res> {
   factory $RuliwebSubscribeCopyWith(
           RuliwebSubscribe value, $Res Function(RuliwebSubscribe) then) =
-      _$RuliwebSubscribeCopyWithImpl<$Res>;
+      _$RuliwebSubscribeCopyWithImpl<$Res, RuliwebSubscribe>;
+  @useResult
   $Res call({@HiveField(0) bool information, @HiveField(1) bool review});
 }
 
 /// @nodoc
-class _$RuliwebSubscribeCopyWithImpl<$Res>
+class _$RuliwebSubscribeCopyWithImpl<$Res, $Val extends RuliwebSubscribe>
     implements $RuliwebSubscribeCopyWith<$Res> {
   _$RuliwebSubscribeCopyWithImpl(this._value, this._then);
 
-  final RuliwebSubscribe _value;
   // ignore: unused_field
-  final $Res Function(RuliwebSubscribe) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? information = freezed,
-    Object? review = freezed,
+    Object? information = null,
+    Object? review = null,
   }) {
     return _then(_value.copyWith(
-      information: information == freezed
+      information: null == information
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as bool,
-      review: review == freezed
+      review: null == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -646,31 +660,30 @@ abstract class _$$_RuliwebSubscribeCopyWith<$Res>
           _$_RuliwebSubscribe value, $Res Function(_$_RuliwebSubscribe) then) =
       __$$_RuliwebSubscribeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@HiveField(0) bool information, @HiveField(1) bool review});
 }
 
 /// @nodoc
 class __$$_RuliwebSubscribeCopyWithImpl<$Res>
-    extends _$RuliwebSubscribeCopyWithImpl<$Res>
+    extends _$RuliwebSubscribeCopyWithImpl<$Res, _$_RuliwebSubscribe>
     implements _$$_RuliwebSubscribeCopyWith<$Res> {
   __$$_RuliwebSubscribeCopyWithImpl(
       _$_RuliwebSubscribe _value, $Res Function(_$_RuliwebSubscribe) _then)
-      : super(_value, (v) => _then(v as _$_RuliwebSubscribe));
+      : super(_value, _then);
 
-  @override
-  _$_RuliwebSubscribe get _value => super._value as _$_RuliwebSubscribe;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? information = freezed,
-    Object? review = freezed,
+    Object? information = null,
+    Object? review = null,
   }) {
     return _then(_$_RuliwebSubscribe(
-      information: information == freezed
+      information: null == information
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as bool,
-      review: review == freezed
+      review: null == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -683,13 +696,15 @@ class __$$_RuliwebSubscribeCopyWithImpl<$Res>
 @HiveType(typeId: 7, adapterName: "RuliwebSubscribeAdapter")
 class _$_RuliwebSubscribe implements _RuliwebSubscribe {
   const _$_RuliwebSubscribe(
-      {@HiveField(0) required this.information,
-      @HiveField(1) required this.review});
+      {@HiveField(0) this.information = true,
+      @HiveField(1) this.review = true});
 
   @override
+  @JsonKey()
   @HiveField(0)
   final bool information;
   @override
+  @JsonKey()
   @HiveField(1)
   final bool review;
 
@@ -703,27 +718,25 @@ class _$_RuliwebSubscribe implements _RuliwebSubscribe {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RuliwebSubscribe &&
-            const DeepCollectionEquality()
-                .equals(other.information, information) &&
-            const DeepCollectionEquality().equals(other.review, review));
+            (identical(other.information, information) ||
+                other.information == information) &&
+            (identical(other.review, review) || other.review == review));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(information),
-      const DeepCollectionEquality().hash(review));
+  int get hashCode => Object.hash(runtimeType, information, review);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RuliwebSubscribeCopyWith<_$_RuliwebSubscribe> get copyWith =>
       __$$_RuliwebSubscribeCopyWithImpl<_$_RuliwebSubscribe>(this, _$identity);
 }
 
 abstract class _RuliwebSubscribe implements RuliwebSubscribe {
   const factory _RuliwebSubscribe(
-      {@HiveField(0) required final bool information,
-      @HiveField(1) required final bool review}) = _$_RuliwebSubscribe;
+      {@HiveField(0) final bool information,
+      @HiveField(1) final bool review}) = _$_RuliwebSubscribe;
 
   @override
   @HiveField(0)

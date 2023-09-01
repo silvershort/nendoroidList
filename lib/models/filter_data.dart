@@ -1,29 +1,44 @@
-class FilterData {
-  bool haveFilter;
-  bool notHaveFilter;
-  bool wishFilter;
-  bool expectedFilter;
-  bool femaleFilter;
-  bool maleFilter;
-  bool etcFilter;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  bool noFilter() {
-    return !haveFilter
-        && !notHaveFilter
-        && !wishFilter
-        && !expectedFilter
-        && !femaleFilter
-        && !maleFilter
-        && !etcFilter;
+part 'filter_data.freezed.dart';
+
+@freezed
+class FilterData with _$FilterData {
+  const factory FilterData({
+    @Default(false) bool haveFilter,
+    @Default(false) bool notHaveFilter,
+    @Default(false) bool wishFilter,
+    @Default(false) bool expectedFilter,
+    @Default(false) bool femaleFilter,
+    @Default(false) bool maleFilter,
+    @Default(false) bool etcFilter,
+    @Default(false) bool preOrderFilter,
+  }) = _FilterData;
+
+  const FilterData._();
+
+  FilterData invertHave() {
+   return copyWith(haveFilter: !haveFilter);
   }
-
-  FilterData({
-    this.haveFilter = false,
-    this.notHaveFilter = false,
-    this.wishFilter = false,
-    this.expectedFilter = false,
-    this.femaleFilter = false,
-    this.maleFilter = false,
-    this.etcFilter = false,
-  });
+  FilterData invertNotHave() {
+    return copyWith(notHaveFilter: !notHaveFilter);
+  }
+  FilterData invertWish() {
+    return copyWith(wishFilter: !wishFilter);
+  }
+  FilterData invertExpected() {
+    return copyWith(expectedFilter: !expectedFilter);
+  }
+  FilterData invertFemale() {
+    return copyWith(femaleFilter: !femaleFilter);
+  }
+  FilterData invertMale() {
+    return copyWith(maleFilter: !maleFilter);
+  }
+  FilterData invertEtc() {
+    return copyWith(etcFilter: !etcFilter);
+  }
+  FilterData invertPreOrder() {
+    return copyWith(preOrderFilter: !preOrderFilter);
+  }
 }
