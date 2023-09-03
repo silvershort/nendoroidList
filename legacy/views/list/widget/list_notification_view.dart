@@ -23,7 +23,7 @@ class ListNotificationView extends GetView<NendoController> {
             onPressed: () {
               Get.dialog(AlertDialog(
                 title: const Text("다운로드 경고"),
-                content: Text("[${controller.dataSize}] 데이터를 다운로드 합니다."),
+                content: Text("[${priceController.dataSize}] 데이터를 다운로드 합니다."),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -34,7 +34,7 @@ class ListNotificationView extends GetView<NendoController> {
                   TextButton(
                     onPressed: () {
                       Get.back();
-                      controller.fetchDataInFirestore();
+                      priceController.fetchDataInFirestore();
                     },
                     child: const Text("확인"),
                   ),
@@ -53,7 +53,7 @@ class ListNotificationView extends GetView<NendoController> {
             onPressed: () {
               Get.dialog(AlertDialog(
                 title: const Text("다운로드 경고"),
-                content: Text("[${controller.dataSize}] 데이터를 다운로드 합니다.\n\n※ 이 방식은 최소 3분이상의 시간이 소요됩니다. 위의 방식으로 다운로드가 되지 않을때만 사용해주세요."),
+                content: Text("[${priceController.dataSize}] 데이터를 다운로드 합니다.\n\n※ 이 방식은 최소 3분이상의 시간이 소요됩니다. 위의 방식으로 다운로드가 되지 않을때만 사용해주세요."),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -64,7 +64,7 @@ class ListNotificationView extends GetView<NendoController> {
                   TextButton(
                     onPressed: () {
                       Get.back();
-                      controller.fetchData();
+                      // controller.fetchData();
                     },
                     child: const Text("확인"),
                   ),

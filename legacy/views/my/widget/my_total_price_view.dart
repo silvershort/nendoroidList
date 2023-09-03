@@ -34,7 +34,7 @@ class MyTotalPriceView extends GetView<MyController> {
         Obx(
           () => AccentText(
             context: context,
-            accentWord: IntlUtil.comma(controller.getSumPrice()),
+            accentWord: IntlUtil.comma(priceController.getSumPrice()),
             normalWord: "원",
             fontSize: 18.0,
           ),

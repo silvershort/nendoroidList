@@ -23,15 +23,15 @@ class MyCollectionView extends GetView<MyController> {
             Obx(
               () => AccentText(
                 context: context,
-                accentWord: "${controller.getHaveNendo()}",
-                normalWord: " / ${controller.myNendoList.length}",
+                accentWord: "${priceController.getHaveNendo()}",
+                normalWord: " / ${priceController.myNendoList.length}",
                 fontSize: 18.0,
               ),
             ),
             const SizedBox(height: 5.0),
             Obx(() =>
               Text(
-                "(중복포함 넨도개수 : ${controller.getTotalCount()}개)",
+                "(중복포함 넨도개수 : ${priceController.getTotalCount()}개)",
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 13.0),
               ),
             ),
@@ -49,7 +49,7 @@ class MyCollectionView extends GetView<MyController> {
                   lineColor: Theme.of(context).colorScheme.primary.withAlpha(50),
                   completeColor: Theme.of(context).colorScheme.outline,
                   textColor: DefaultTextStyle.of(context).style.color ?? Colors.black,
-                  completePercent: controller.getHaveRate(),
+                  completePercent: priceController.getHaveRate(),
                   width: 8.0),
             ),
           ),

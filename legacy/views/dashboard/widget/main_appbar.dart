@@ -10,7 +10,7 @@ class MainAppBar extends GetView<DashboardController> implements PreferredSizeWi
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      switch (controller.tabIndex) {
+      switch (priceController.tabIndex) {
         case 1:
           return AppBar(
             centerTitle: true,

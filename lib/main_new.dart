@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logger/logger.dart';
@@ -122,6 +123,10 @@ class MyApp extends ConsumerWidget {
             brightness: settingState.brightness,
           ).surfaceVariant,
           surfaceTintColor: Colors.white,
+          systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
+            statusBarColor: Colors.black45,
+            statusBarIconBrightness: Brightness.light
+          ),
         ),
       ),
       routerConfig: appRouter,

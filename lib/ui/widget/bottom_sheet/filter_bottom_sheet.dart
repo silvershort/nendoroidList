@@ -102,14 +102,14 @@ class FilterBottomSheet extends ConsumerWidget {
                   style: OutlinedButton.styleFrom(
                     backgroundColor: switch (state.sortData.sortingMethod) {
                       SortingMethodNum() => Theme.of(context).colorScheme.surfaceVariant,
-                      _ => Theme.of(context).colorScheme.surface,
+                      SortingMethodRelease() => Theme.of(context).colorScheme.surface,
                     },
                   ),
                   onPressed: () => controller.setNumSort(),
                   child: Text(
-                    switch (state.sortData.sortingMethod) {
+                    switch (state.sortData.sortingOrder) {
                       ASC() => "번호순↑",
-                      _ => "번호순↓",
+                      DESC() => "번호순↓",
                     },
                     style: const TextStyle(
                       height: 1.0,
@@ -122,13 +122,13 @@ class FilterBottomSheet extends ConsumerWidget {
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: switch (state.sortData.sortingMethod) {
+                        SortingMethodNum() => Theme.of(context).colorScheme.surface,
                         SortingMethodRelease() => Theme.of(context).colorScheme.surfaceVariant,
-                        _ => Theme.of(context).colorScheme.surface,
                       },
                     ),
                     onPressed: () => controller.setReleaseSort(),
                     child: Text(
-                      switch (state.sortData.sortingMethod) {
+                      switch (state.sortData.sortingOrder) {
                         ASC() => "출시일순↑",
                         _ => "출시일순↓",
                       },

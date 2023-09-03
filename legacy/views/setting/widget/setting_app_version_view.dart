@@ -14,12 +14,12 @@ class SettingAppVersionView extends GetView<AppVersionController> {
         Obx(() =>
           GestureDetector(
             onTap: () {
-              if (controller.needUpdate) {
+              if (priceController.needUpdate) {
                 Get.dialog(const AppUpdateDialog());
               }
             },
             child: Text(
-              controller.needUpdate ? "새로운 버전이 출시되었습니다."
+              priceController.needUpdate ? "새로운 버전이 출시되었습니다."
                   : "최신 버전입니다.",
               style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.deepOrange),
             ),
@@ -28,7 +28,7 @@ class SettingAppVersionView extends GetView<AppVersionController> {
         const SizedBox(height: 3.0),
         Obx(() =>
           Text(
-            "앱 버전 : ${controller.appVersion}",
+            "앱 버전 : ${priceController.appVersion}",
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),

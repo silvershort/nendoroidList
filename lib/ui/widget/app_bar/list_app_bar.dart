@@ -18,7 +18,7 @@ class _ListAppBarState extends ConsumerState<ListAppBar> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(listAppBarControllerProvider);
-    final controller = ref.watch(listAppBarControllerProvider.notifier);
+    final controller = ref.read(listAppBarControllerProvider.notifier);
 
     if (state.isSearchMode) {
       return SliverAppBar(
@@ -55,7 +55,6 @@ class _ListAppBarState extends ConsumerState<ListAppBar> {
                   ),
                 ),
                 onChanged: (String str) {
-                  // 입력한 텍스트를 RxString 에 저장하여 suffixIcon 이 출력되도록 한다.
                   controller.setSearchText(str);
                   // 타이핑 후 0.5초 후에 자동으로 검색
                   controller.debounceSearch();

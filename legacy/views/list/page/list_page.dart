@@ -17,7 +17,7 @@ class ListPage extends GetView<NendoController> {
     return Scrollbar(
       thickness: 5.0,
       radius: const Radius.circular(5.0),
-      controller: controller.scrollController,
+      controller: priceController.scrollController,
       interactive: true,
       trackVisibility: true,
       thumbVisibility: true,
@@ -34,7 +34,7 @@ class ListPage extends GetView<NendoController> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           // 컨트롤러를 Scrollbar 위젯과 공유해야 오류가 안생김
-          controller: controller.scrollController,
+          controller: priceController.scrollController,
           slivers: const [
             MainSliverAppBar(),
             ListMainView(),
@@ -51,24 +51,24 @@ class ListMainView extends GetView<NendoController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (controller.nendoList.isEmpty && !controller.initComplete) {
+      if (priceController.nendoList.isEmpty && !priceController.initComplete) {
         return const SliverFillRemaining(
           child: Center(
             child: CircularProgressIndicator(),
           ),
         );
         // 넨도 데이터가 없을때
-      } else if (controller.nendoList.isEmpty &&
-          controller.initComplete &&
-          !controller.downloadComplete &&
-          !controller.downloadLoading &&
-          !controller.downloadError) {
+      } else if (priceController.nendoList.isEmpty &&
+          priceController.initComplete &&
+          !priceController.downloadComplete &&
+          !priceController.downloadLoading &&
+          !priceController.downloadError) {
         return const SliverFillRemaining(
           child: ListNotificationView(),
         );
         // 넨도 데이터를 다운받을때
-      } else if (controller.downloadLoading) {
-        if (controller.totalStep == 0) {
+      } else if (priceController.downloadLoading) {
+        if (priceController.totalStep == 0) {
           return const SliverFillRemaining(
             child: Center(
               child: Text("넨도로이드 목록을 가져오는중..."),
@@ -81,10 +81,10 @@ class ListMainView extends GetView<NendoController> {
         }
         // 리스트 출력
       } else {
-        if (controller.downloadError) {
+        if (priceController.downloadError) {
           return const SliverFillRemaining(child: ListDownloadError());
         } else {
-          if (controller.nendoList.isEmpty) {
+          if (priceController.nendoList.isEmpty) {
             return const SliverFillRemaining(child: ListEmptyView());
           } else {
             return ListNendoView();

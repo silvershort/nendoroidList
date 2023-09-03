@@ -16,7 +16,7 @@ class NoticeDialog extends GetView<AppVersionController> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            controller.noticeText,
+            priceController.noticeText,
           ),
         ],
       ),

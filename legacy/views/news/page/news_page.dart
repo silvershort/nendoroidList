@@ -12,18 +12,18 @@ class NewsPage extends GetView<NewsController> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        if (controller.initFlag && !controller.apiCall) {
-          await controller.initData();
+        if (priceController.initFlag && !priceController.apiCall) {
+          await priceController.initData();
         }
         return;
       },
       child: Obx(() {
-        if (!controller.initFlag
-            || controller.apiCall && controller.newsDataList.isEmpty) {
+        if (!priceController.initFlag
+            || priceController.apiCall && priceController.newsDataList.isEmpty) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (controller.initFlag && controller.newsDataList.isEmpty) {
+        } else if (priceController.initFlag && priceController.newsDataList.isEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class NewsPage extends GetView<NewsController> {
                 const SizedBox(height: 10.0),
                 ElevatedButton(
                   onPressed: () {
-                    controller.initData();
+                    priceController.initData();
                   },
                   child: const Text("다시 시도"),
                 ),
@@ -44,17 +44,17 @@ class NewsPage extends GetView<NewsController> {
           );
         } else {
           return ListView.builder(
-            controller: controller.scrollController,
+            controller: priceController.scrollController,
             physics: const RangeMaintainingScrollPhysics(),
             padding: const EdgeInsets.only(top: 10),
-            itemCount: controller.newsDataList.length + 1,
+            itemCount: priceController.newsDataList.length + 1,
             itemBuilder: (context, index) {
-              if (index >= controller.newsDataList.length) {
-                if (!controller.apiCall) {
+              if (index >= priceController.newsDataList.length) {
+                if (!priceController.apiCall) {
                   // fetchData()에 의해서 build 가 완료되기 이전에 Obx 에 의해 다시 build 가 호출될 수 있음.
                   // addPostFrameCallback 으로 해당 작업이 완료되기 전까지 빌드작업을 미뤄줌.
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    controller.fetchData();
+                    priceController.fetchData();
                   });
                 }
                 return Container(
@@ -64,11 +64,11 @@ class NewsPage extends GetView<NewsController> {
                   child: const CircularProgressIndicator(),
                 );
               }
-              NewsData data = controller.newsDataList[index];
+              NewsData data = priceController.newsDataList[index];
               if (data.type == NewsType.twitter) {
-                return TwitterTile(data: controller.newsDataList[index]);
+                return TwitterTile(data: priceController.newsDataList[index]);
               } else {
-                return CommunityTile(data: controller.newsDataList[index]);
+                return CommunityTile(data: priceController.newsDataList[index]);
               }
             },
           );

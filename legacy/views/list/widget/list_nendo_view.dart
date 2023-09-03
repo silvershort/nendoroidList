@@ -13,7 +13,7 @@ class ListNendoView extends GetView<NendoController> {
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        childCount: controller.nendoList.length + 1,
+        childCount: priceController.nendoList.length + 1,
         (context, index) {
           if (index == 0) {
             if (dashboardController.searchMode) {
@@ -22,7 +22,7 @@ class ListNendoView extends GetView<NendoController> {
                 padding: const EdgeInsets.only(left: 10.0),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "검색된 넨도로이드 수 : ${controller.nendoList.length}",
+                  "검색된 넨도로이드 수 : ${priceController.nendoList.length}",
                   style: const TextStyle(
                     fontSize: 14.0,
                   ),
@@ -32,7 +32,7 @@ class ListNendoView extends GetView<NendoController> {
               return const SizedBox();
             }
           } else {
-            return ListNendoItem(nendoData: controller.nendoList[index - 1]);
+            return ListNendoItem(nendoData: priceController.nendoList[index - 1]);
           }
         },
       ),

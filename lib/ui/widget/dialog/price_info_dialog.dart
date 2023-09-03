@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class PriceInfoDialog extends StatelessWidget {
   const PriceInfoDialog({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class PriceInfoDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Get.back();
+            context.pop();
           },
           child: const Text("확인"),
         ),

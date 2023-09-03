@@ -5,7 +5,7 @@ part 'sort_data.freezed.dart';
 @freezed
 class SortData with _$SortData {
   const factory SortData({
-    @Default(ASC()) SortingOrder sortingOrder,
+    @Default(DESC()) SortingOrder sortingOrder,
     @Default(SortingMethodNum()) SortingMethod sortingMethod,
   }) = _SortData;
 

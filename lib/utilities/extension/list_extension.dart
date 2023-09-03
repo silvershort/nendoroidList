@@ -4,8 +4,59 @@ import 'package:nendoroid_db/models/gender_rate.dart';
 import 'package:nendoroid_db/models/most_series.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
+import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 
 extension NendoListExtension on List<NendoData> {
+  // 넨도로이드를 정렬 조건에 맞춰 정렬
+  void sortBySetting(NendoListSettingState settingState) {
+    sort((a, b) {
+        // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
+        int numA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
+        int numB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
+
+        String releaseA = a.releaseDate.isEmpty ? "" : a.releaseDate[a.releaseDate.length - 1];
+        String releaseB = b.releaseDate.isEmpty ? "" : b.releaseDate[b.releaseDate.length - 1];
+
+        SortData sortData = settingState.sortData;
+
+        switch (sortData.sortingMethod) {
+          case SortingMethodNum():
+            switch (sortData.sortingOrder) {
+              case ASC():
+              // 숫자 오름차순 정렬
+                if (numA > numB) {
+                  return 1;
+                } else if (numA < numB) {
+                  return -1;
+                } else {
+                  return a.num.compareTo(b.num);
+                }
+              case DESC():
+              // 숫자 내림차순 정렬
+                if (numA < numB) {
+                  return 1;
+                } else if (numA > numB) {
+                  return -1;
+                } else {
+                  // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
+                  // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
+                  return b.num.compareTo(a.num);
+                }
+            }
+        // 출시일 기준 정렬
+          case SortingMethodRelease():
+            switch (sortData.sortingOrder) {
+              case ASC():
+                return releaseA.compareTo(releaseB);
+              case DESC():
+                return releaseB.compareTo(releaseA);
+            }
+        }
+      },
+    );
+  }
+
   // 중복을 제외한 보유 넨도 개수
   int getHaveCount() {
     return where((item) => item.have).length;

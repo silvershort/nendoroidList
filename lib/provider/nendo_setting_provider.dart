@@ -1,16 +1,14 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nendoroid_db/models/edit_mode.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
-import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'nendo_setting_provider.g.dart';
 
 part 'nendo_setting_provider.freezed.dart';
+part 'nendo_setting_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class NendoListSetting extends _$NendoListSetting {
   @override
   NendoListSettingState build() {
@@ -31,6 +29,7 @@ class NendoListSetting extends _$NendoListSetting {
     state = state.copyWith(
       filterData: filterData,
     );
+    ref.read(nendoProvider.notifier).filteringList();
   }
 
   void setNumSort() {
@@ -42,9 +41,10 @@ class NendoListSetting extends _$NendoListSetting {
       case SortingMethodRelease():
         state = state.copyWith(
             sortData: state.sortData.copyWith(
-          sortingMethod: const SortingMethodRelease(),
-        ));
+              sortingMethod: const SortingMethodNum(),
+            ));
     }
+    ref.read(nendoProvider.notifier).resortingList();
   }
 
   void setReleaseSort() {
@@ -52,17 +52,14 @@ class NendoListSetting extends _$NendoListSetting {
       case SortingMethodNum():
         state = state.copyWith(
             sortData: state.sortData.copyWith(
-          sortingMethod: const SortingMethodNum(),
-        ));
+              sortingMethod: const SortingMethodRelease(),
+            ));
       case SortingMethodRelease():
         state = state.copyWith(
           sortData: state.sortData.toggleOrderValue(),
         );
     }
-  }
-
-  List<NendoData> getCurrentNendoList() {
-    return ref.watch(nendoProvider).value?.nendoList ?? [];
+    ref.read(nendoProvider.notifier).resortingList();
   }
 }
 

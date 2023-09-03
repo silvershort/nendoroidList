@@ -27,7 +27,7 @@ class SettingThemeItem extends GetView<SettingController> {
             color: primarySwatches[index],
           ),
           onTap: () {
-            controller.setAppTheme(index);
+            priceController.setAppTheme(index);
           },
         );
       },

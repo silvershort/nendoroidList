@@ -8,7 +8,7 @@ class MainSliverAppBar extends GetView<DashboardController> implements Preferred
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (controller.searchMode) {
+      if (priceController.searchMode) {
         return SliverAppBar(
           scrolledUnderElevation: 0.0,
           centerTitle: true,
@@ -18,9 +18,9 @@ class MainSliverAppBar extends GetView<DashboardController> implements Preferred
             children: [
               Expanded(
                 child: TextField(
-                  controller: controller.searchEditingController,
+                  controller: priceController.searchEditingController,
                   showCursor: true,
-                  focusNode: controller.searchFocus,
+                  focusNode: priceController.searchFocus,
                   decoration: InputDecoration(
                     hintText: "이름, 작품, 번호로 검색",
                     // 텍스트 필드의 기본 밑줄 제거
@@ -30,32 +30,32 @@ class MainSliverAppBar extends GetView<DashboardController> implements Preferred
                     contentPadding: const EdgeInsets.only(top: 12.5),
                     // 검색어를 입력했을때 검색어를 전체 삭제해주는 아이콘을 생성한다.
                     suffixIcon: Visibility(
-                      visible: controller.searchText.isNotEmpty,
+                      visible: priceController.searchText.isNotEmpty,
                       child: IconButton(
                         icon: const Icon(
                           Icons.clear,
                           size: 18.0,
                         ),
                         onPressed: () {
-                          controller.clearTextField();
+                          priceController.clearTextField();
                         },
                       ),
                     ),
                   ),
                   onChanged: (String str) {
                     // 입력한 텍스트를 RxString 에 저장하여 suffixIcon 이 출력되도록 한다.
-                    controller.searchText = str;
+                    priceController.searchText = str;
                     // 타이핑 후 0.5초 후에 자동으로 검색
-                    controller.debounce.run(() {
-                      controller.controlSearching(str);
+                    priceController.debounce.run(() {
+                      priceController.controlSearching(str);
                     });
                   },
                 ),
               ),
               TextButton(
                   onPressed: () {
-                    controller.clearTextField();
-                    controller.searchMode = false;
+                    priceController.clearTextField();
+                    priceController.searchMode = false;
                   },
                   child: const Text(
                     "취소",
@@ -70,7 +70,7 @@ class MainSliverAppBar extends GetView<DashboardController> implements Preferred
           snap: false,
           floating: true,
           title: Text(
-            controller.getAppBarTitle(),
+            priceController.getAppBarTitle(),
           ),
           actions: [
             Padding(
@@ -79,8 +79,8 @@ class MainSliverAppBar extends GetView<DashboardController> implements Preferred
               ),
               child: IconButton(
                 onPressed: () {
-                  controller.searchMode = true;
-                  controller.searchFocus.requestFocus();
+                  priceController.searchMode = true;
+                  priceController.searchFocus.requestFocus();
                 },
                 icon: const Icon(Icons.search),
               ),

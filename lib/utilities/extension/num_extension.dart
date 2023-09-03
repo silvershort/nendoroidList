@@ -1,9 +1,13 @@
 import 'package:intl/intl.dart';
 
-extension IntExtension on int {
+extension NullableIntExtension on int? {
   // 천만위 콤마를 생성
   String get comma {
     NumberFormat numberFormat = NumberFormat('###,##0');
-    return numberFormat.format(this);
+    if (this == null) {
+      return '-';
+    } else {
+      return numberFormat.format(this);
+    }
   }
 }

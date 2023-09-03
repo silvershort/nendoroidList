@@ -34,7 +34,7 @@ class LoginPage extends GetView<AuthController> {
                   ),
                   style: const TextStyle(fontSize: 18.0),
                   onSubmitted: (str) {
-                    controller.showConfirmEmail(textEditingController.text.trim());
+                    priceController.showConfirmEmail(textEditingController.text.trim());
                   },
                 ),
                 const SizedBox(height: 10.0),
@@ -43,7 +43,7 @@ class LoginPage extends GetView<AuthController> {
                   child: TextButton(
                     onPressed: () {
                       FocusScope.of(context).unfocus();
-                      controller.showConfirmEmail(textEditingController.text.trim());
+                      priceController.showConfirmEmail(textEditingController.text.trim());
                     },
                     child: const Text(
                       "로그인&회원가입",
@@ -61,7 +61,7 @@ class LoginPage extends GetView<AuthController> {
                 const SizedBox(height: 30.0),
                 Obx(
                   () => Text(
-                    controller.notificationMessage,
+                    priceController.notificationMessage,
                     style: const TextStyle(
                       height: 1.3,
                       fontSize: 16,

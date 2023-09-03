@@ -21,9 +21,9 @@ class SettingThemeView extends GetView<SettingController> {
             ),
             Obx(() =>
               Switch(
-                value: controller.isUsedDarkMode(),
+                value: priceController.isUsedDarkMode(),
                 onChanged: (value) {
-                  controller.setDarkMode(value);
+                  priceController.setDarkMode(value);
                 },
               ),
             ),

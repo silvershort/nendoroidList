@@ -1,3 +1,6 @@
+import 'package:html/dom.dart';
+import 'package:html/parser.dart';
+import 'package:nendoroid_db/main_new.dart';
 import 'package:nendoroid_db/models/api/api_result.dart';
 import 'package:nendoroid_db/networks/repositories/scraping_repository.dart';
 import 'package:retrofit/retrofit.dart';
@@ -49,5 +52,24 @@ class ScrapingService {
         page: page,
       ),
     );
+  }
+
+  Future<ApiResult<({List<String> imageList, List<String> thumbnailList})>> getGoodSmileImage({
+    required String gscProductNum,
+  }) async {
+    try {
+      final response = await repository.getGoodSmileImage(gscProductNum: gscProductNum);
+      Document document = parse(response.data);
+      Element nodeList = document.getElementsByClassName("itemPhotos").first;
+      List<String> imageList = nodeList
+          .getElementsByClassName("inline_fix")
+          .map((e) => "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
+          .toList();
+      List<String> thumbnailList = nodeList.getElementsByClassName("iconZoom").map((e) => "https:${e.attributes["src"] ?? ""}").toList();
+      return ApiResult.success((imageList: imageList, thumbnailList: thumbnailList));
+    } catch (error, stackTrace) {
+      logger.e(error.toString(), stackTrace: stackTrace);
+      return Future.error(error, stackTrace);
+    }
   }
 }

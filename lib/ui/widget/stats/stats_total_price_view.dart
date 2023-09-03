@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/ui/widget/dialog/price_info_dialog.dart';
 import 'package:nendoroid_db/ui/widget/icon/help_icon.dart';
@@ -29,7 +28,12 @@ class StatsTotalPriceView extends StatelessWidget {
               width: 5.0,
             ),
             HelpIcon(onTap: () {
-              Get.dialog(const PriceInfoDialog());
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return const PriceInfoDialog();
+                },
+              );
             }),
           ],
         ),
@@ -38,7 +42,6 @@ class StatsTotalPriceView extends StatelessWidget {
         ),
         AccentText(
           context: context,
-          // TODO: 오늘의 엔화 정보 넣어주기
           accentWord: nendoList.getSumPrice(1000).comma,
           normalWord: "원",
           fontSize: 18.0,

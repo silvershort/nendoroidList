@@ -12,7 +12,7 @@ class MainBottomNavigationBar extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Obx(() =>
       ScrollToHideWidget(
-        controller: Get.find<NendoController>().scrollController,
+        priceController: Get.find<NendoController>().scrollController,
         child: NavigationBar(
           destinations: const [
             NavigationDestination(
@@ -32,12 +32,12 @@ class MainBottomNavigationBar extends GetView<DashboardController> {
               label: "Setting",
             ),
           ],
-          selectedIndex: controller.tabIndex,
+          selectedIndex: priceController.tabIndex,
           onDestinationSelected: (index) {
             Get.find<MyController>().setMyNendoList();
-            controller.pageQueue.addPage(controller.tabIndex);
-            controller.tabIndex = index;
-            controller.pageQueue.removePage(controller.tabIndex);
+            priceController.pageQueue.addPage(priceController.tabIndex);
+            priceController.tabIndex = index;
+            priceController.pageQueue.removePage(priceController.tabIndex);
           },
         ),
       ),

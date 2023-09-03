@@ -57,7 +57,7 @@ class _DashboardPageState extends State<DashboardPage> {
             floatingActionButton: Visibility(
               visible: controller.tabIndex == 0 || controller.tabIndex == 2,
               child: ScrollToOpacityWidget(
-                controller: Get.find<NendoController>().scrollController,
+                priceController: Get.find<NendoController>().scrollController,
                 child: FloatingActionButton(
                   onPressed: () {
                     controller.tabIndex == 0

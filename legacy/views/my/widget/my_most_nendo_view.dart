@@ -11,7 +11,7 @@ class MyMostNendoView extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      List<NendoData> mostList = controller.getMostHaveNendo();
+      List<NendoData> mostList = priceController.getMostHaveNendo();
 
       if (mostList.isEmpty) {
         return const SizedBox(height: 0.0);

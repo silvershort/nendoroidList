@@ -10,7 +10,7 @@ class MyGenderRateView extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      List<GenderRate> genderList = controller.getGenderRate();
+      List<GenderRate> genderList = priceController.getGenderRate();
 
       return Column(
         children: [

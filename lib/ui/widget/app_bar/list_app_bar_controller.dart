@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/utilities/debounce.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'list_app_bar_controller.freezed.dart';
-
 part 'list_app_bar_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ListAppBarController extends _$ListAppBarController {
   final TextEditingController searchTextController = TextEditingController();
   final FocusNode searchFocus = FocusNode();
@@ -19,7 +19,7 @@ class ListAppBarController extends _$ListAppBarController {
   }
 
   void debounceSearch() {
-    // TODO: 넨도 검색
+    _debounce.run(() => ref.read(nendoProvider.notifier).searchToWord(state.searchText));
   }
 
   void setSearchText(String searchText) {
@@ -39,7 +39,7 @@ class ListAppBarController extends _$ListAppBarController {
     state = state.copyWith(
       searchText: '',
     );
-    // nendoController.searchInWord("");
+    ref.read(nendoProvider.notifier).searchToWord("");
   }
 }
 

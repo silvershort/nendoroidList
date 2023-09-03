@@ -17,7 +17,6 @@ class StatsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(nendoProvider);
-    final controller = ref.watch(nendoProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +59,7 @@ class StatsScreen extends ConsumerWidget {
                 const Text("데이터를 받아오는 중 오류가 발생했습니다."),
                 IconButton(
                   onPressed: () {
-                    controller.fetchData();
+                    ref.read(nendoProvider.notifier).fetchData();
                   },
                   icon: Icon(
                     Icons.refresh,

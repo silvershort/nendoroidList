@@ -38,7 +38,7 @@ class RegisterTokenDialog extends GetView<SettingController> {
                 if (textEditingController.text.isEmpty) {
                   Get.back();
                 } else {
-                  controller.setGithubTokenKey(textEditingController.text.trim());
+                  priceController.setGithubTokenKey(textEditingController.text.trim());
                   Get.back();
                   Get.dialog(
                     const CommonDialog(content: "등록이 완료되었습니다."),

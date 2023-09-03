@@ -8,7 +8,7 @@ class MyCompleteSetList extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      List<String> setList = controller.getCompleteSetList();
+      List<String> setList = priceController.getCompleteSetList();
       return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: setList.length,

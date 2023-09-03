@@ -12,14 +12,14 @@ class ListDownloadView extends GetView<NendoController> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("${controller.currentStep} / ${controller.totalStep}"),
+          Text("${priceController.currentStep} / ${priceController.totalStep}"),
           const SizedBox(
             height: 5.0,
           ),
           FractionallySizedBox(
             widthFactor: 0.6,
             child: LinearProgressIndicator(
-              value: controller.currentStep / controller.totalStep,
+              value: priceController.currentStep / priceController.totalStep,
               backgroundColor: Colors.grey,
             ),
           ),

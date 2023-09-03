@@ -10,7 +10,7 @@ class MyMostSeriesView extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      MostSeries? mostSeries = controller.getMostHaveSeries();
+      MostSeries? mostSeries = priceController.getMostHaveSeries();
 
       if (mostSeries == null || mostSeries.count == 0) {
         return const SizedBox(

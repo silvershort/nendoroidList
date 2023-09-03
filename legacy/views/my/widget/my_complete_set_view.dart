@@ -21,7 +21,7 @@ class MyCompleteSetView extends GetView<MyController> {
         Obx(() =>
           AccentText(
             context: context,
-            accentWord: "${controller.getCompleteSetList().length}",
+            accentWord: "${priceController.getCompleteSetList().length}",
             normalWord: "세트",
             fontSize: 18.0,
           ),

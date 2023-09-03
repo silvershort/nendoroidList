@@ -5,18 +5,20 @@ import 'package:nendoroid_db/main_new.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
-import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
-import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
+import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
+import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
 
 part 'nendo_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Nendo extends _$Nendo {
+  String _lastSearch = '';
+
   @override
   FutureOr<NendoState> build() async {
     return fetchData();
@@ -26,7 +28,7 @@ class Nendo extends _$Nendo {
   Future<NendoState> fetchData() async {
     // 로컬에 데이터가 있는지 유무를 판단하기 위해서 로컬DB를 가져온다.
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    final Box setBox = ref.watch(hiveProvider).nendoBox;
+    final Box setBox = ref.watch(hiveProvider).setBox;
 
     // 로컬이 비어있을경우 파이어베이스에서 다운로드
     if (nendoBox.isEmpty) {
@@ -40,8 +42,8 @@ class Nendo extends _$Nendo {
         final List<NendoData> nendoList = nendoBox.values.map((e) => e as NendoData).toList();
         logger.i(setBox.values.toString());
         final List<SetData> setList = setBox.values.map((e) => e as SetData).toList();
+        nendoList.sortBySetting(ref.read(nendoListSettingProvider));
 
-        sortNenedoList(nendoList);
         final NendoState nendoState = NendoState(
           nendoList: nendoList,
           filteredNendoList: nendoList,
@@ -66,7 +68,7 @@ class Nendo extends _$Nendo {
         logger.i(value.setList.toString());
 
         final List<NendoData> sortList = [...value.nendoList];
-        sortNenedoList(sortList);
+        sortList.sortBySetting(ref.read(nendoListSettingProvider));
 
         await saveLocalDB(
           nendoList: sortList,
@@ -90,8 +92,10 @@ class Nendo extends _$Nendo {
 
   // 입력받은 검색어를 통해서 넨도목록 필터링을 진행한다.
   void searchToWord(String word) {
+    _lastSearch = word;
+
     if (word.isEmpty) {
-      filterClear();
+      filterListClear();
       return;
     }
 
@@ -134,12 +138,19 @@ class Nendo extends _$Nendo {
     }
 
     // 검색어에 맞는 넨도 리스트의 필터링을 진행
-    filteringList(nendoList: tempList);
+    filteringList(nendoList: tempList, searchComplete: true);
   }
 
   // 특정 규칙에 따라서 리스트를 필터링 해준다.
-  void filteringList({List<NendoData>? nendoList}) {
-    final settingState = ref.watch(nendoListSettingProvider);
+  void filteringList({List<NendoData>? nendoList, bool searchComplete = false}) {
+    // 검색어가 남아있을 경우 검색어에 따른 필터링을 우선적으로 진행한다.
+    if (_lastSearch.isNotEmpty && !searchComplete) {
+      searchToWord(_lastSearch);
+      return;
+    }
+
+    // 필터 설정정보를 가져온다.
+    final settingState = ref.read(nendoListSettingProvider);
     FilterData filterData = settingState.filterData;
 
     // 특정 넨도 리스트(파라미터로 받은 값)을 대상으로 진행할지 전체 리스트로 진행할지 결정
@@ -183,6 +194,19 @@ class Nendo extends _$Nendo {
     );
   }
 
+  void resortingList() {
+    if (state.value == null) {
+      return;
+    }
+    final List<NendoData> sortList = [...state.requireValue.filteredNendoList];
+    sortList.sortBySetting(ref.read(nendoListSettingProvider));
+    state = AsyncData(
+      state.requireValue.copyWith(
+        filteredNendoList: sortList,
+      ),
+    );
+  }
+
   // 입력받은 리스트를 로컬DB에 저장해준다.
   Future<void> saveLocalDB({
     required List<NendoData> nendoList,
@@ -199,59 +223,7 @@ class Nendo extends _$Nendo {
     }
   }
 
-  // 넨도로이드 리스트 정렬
-  void sortNenedoList(List<NendoData> nendoList) {
-    final settingState = ref.watch(nendoListSettingProvider);
-
-    nendoList.sort(
-      (a, b) {
-        // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
-        int numA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
-        int numB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
-
-        String releaseA = a.releaseDate.isEmpty ? "" : a.releaseDate[a.releaseDate.length - 1];
-        String releaseB = b.releaseDate.isEmpty ? "" : b.releaseDate[b.releaseDate.length - 1];
-
-        SortData sortData = settingState.sortData;
-
-        switch (sortData.sortingMethod) {
-          case SortingMethodNum():
-            switch (sortData.sortingOrder) {
-              case ASC():
-                // 숫자 오름차순 정렬
-                if (numA > numB) {
-                  return 1;
-                } else if (numA < numB) {
-                  return -1;
-                } else {
-                  return a.num.compareTo(b.num);
-                }
-              case DESC():
-                // 숫자 내림차순 정렬
-                if (numA < numB) {
-                  return 1;
-                } else if (numA > numB) {
-                  return -1;
-                } else {
-                  // 숫자가 같은 넨도라는건 뒤에 문자가 붙는다는 뜻임 ex) 80-a, 80-b, 1080-DX 등등
-                  // 이럴경우 문자열 정렬 기능을 이용하여 정렬해준다.
-                  return b.num.compareTo(a.num);
-                }
-            }
-          // 출시일 기준 정렬
-          case SortingMethodRelease():
-            switch (sortData.sortingOrder) {
-              case ASC():
-                return releaseA.compareTo(releaseB);
-              case DESC():
-                return releaseB.compareTo(releaseA);
-            }
-        }
-      },
-    );
-  }
-
-  void filterClear() {
+  void filterListClear() {
     if (state.value == null) {
       return;
     }
@@ -273,51 +245,100 @@ class Nendo extends _$Nendo {
     );
   }
 
-/*void _filterNendoList(bool Function(NendoData) filterCondition) {
-    state = AsyncData(
-      state.requireValue.copyWith(
-        filteredNendoList: state.requireValue.filteredNendoList.where(filterCondition).toList(),
-      ),
-    );
-  }
-
-  void filteringList() {
+  // 선택한 넨도의 보유 여부를 수정함
+  void updateHaveNendo(String number) async {
     if (state.value == null) {
       return;
     }
 
-    final filterData = ref.read(nendoListSettingProvider).filterData;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
+    item.have = !item.have;
+    // 보유넨도가 됐을경우 수량을 1로 수정
+    if (item.have && item.count == 0) {
+      item.count = 1;
+    }
+    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
+    nendoBox.put(item.num, item);
+    state = AsyncData(state.requireValue);
+  }
 
-    if (filterData.haveFilter) {
-      _filterNendoList((item) => item.have);
-    } else if (filterData.notHaveFilter) {
-      _filterNendoList((item) => !item.have);
+  // 선택한 넨도의 위시 여부를 수정함
+  void updateWishNendo(String number) async {
+    if (state.value == null) {
+      return;
     }
 
-    if (filterData.wishFilter) {
-      _filterNendoList((item) => item.wish);
-    }
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
+    item.wish = !item.wish;
 
-    if (filterData.expectedFilter) {
-      DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
-      _filterNendoList((item) {
-        if (item.releaseDate.isEmpty) {
-          return false;
-        }
-        DateTime itemDate = DateFormat("yyyy/MM").parse(item.releaseDate[item.releaseDate.length - 1]);
-        // 출시일이 오늘 날짜와 같거나 클때
-        return !itemDate.isBefore(today);
-      });
-    }
+    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
+    nendoBox.put(item.num, item);
+    state = AsyncData(state.requireValue);
+  }
 
-    if (filterData.femaleFilter) {
-      _filterNendoList((item) => item.gender == "F");
-    } else if (filterData.maleFilter) {
-      _filterNendoList((item) => item.gender == "M");
-    } else if (filterData.etcFilter) {
-      _filterNendoList((item) => item.gender != "F" && item.gender != "M");
+  // 넨도 구매 가격 변경
+  void setNendoPurchasePrice(String number, int? price) {
+    if (state.value == null) {
+      return;
     }
-  }*/
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
+    item.myPrice = price;
+
+    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
+    nendoBox.put(item.num, item);
+    state = AsyncData(state.requireValue);
+  }
+
+  // 보유 넨도개수 조절
+  void setNendoHaveCount(String number, int count) async {
+    if (state.value == null) {
+      return;
+    }
+    // 소유하고 있다면 1개 밑으로 내려갈 수 없으므로
+    if (count <= 0) {
+      return;
+    }
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
+    item.count = count;
+    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
+    nendoBox.put(item.num, item);
+    state = AsyncData(state.requireValue);
+  }
+
+  // 넨도 메모 저장
+  void setNendoMemo(String number, List<String> memo) {
+    if (state.value == null) {
+      return;
+    }
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.addAll(memo);
+    } else {
+      item.memo = [...memo];
+    }
+    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
+    nendoBox.put(item.num, item);
+    state = AsyncData(state.requireValue);
+  }
+
+  // 넨도 메모 삭제
+  void deleteNendoMemo(String number, String memo) {
+    if (state.value == null) {
+      return;
+    }
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
+    if (item.memo != null) {
+      item.memo!.remove(memo);
+    }
+    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
+    nendoBox.put(item.num, item);
+    state = AsyncData(state.requireValue);
+  }
+
+  // 번호에 맞는 넨도 반환
+  NendoData getNendoDataByNumber(String number) {
+    return state.requireValue.nendoList.where((element) => element.num == number).first;
+  }
 }
 
 @freezed

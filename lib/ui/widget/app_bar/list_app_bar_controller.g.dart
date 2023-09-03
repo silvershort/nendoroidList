@@ -7,12 +7,12 @@ part of 'list_app_bar_controller.dart';
 // **************************************************************************
 
 String _$listAppBarControllerHash() =>
-    r'92dd2b3028b9317775488c64cd475303a1c95581';
+    r'665cd0f65f5bfb6c8ec806f915bb69ecf9748465';
 
 /// See also [ListAppBarController].
 @ProviderFor(ListAppBarController)
 final listAppBarControllerProvider =
-    AutoDisposeNotifierProvider<ListAppBarController, ListAppBarState>.internal(
+    NotifierProvider<ListAppBarController, ListAppBarState>.internal(
   ListAppBarController.new,
   name: r'listAppBarControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final listAppBarControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$ListAppBarController = AutoDisposeNotifier<ListAppBarState>;
+typedef _$ListAppBarController = Notifier<ListAppBarState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

@@ -14,7 +14,7 @@ class ListNendoMemoList extends GetView<NendoController> {
         Wrap(
           spacing: 5.0,
           runSpacing: 2.5,
-          children: memoTag(context, controller.getNendoData(num).memo ?? []),
+          children: memoTag(context, priceController.getNendoData(num).memo ?? []),
         ),
       ],
     ));
@@ -44,7 +44,7 @@ class ListNendoMemoList extends GetView<NendoController> {
             const SizedBox(width: 5.0),
             GestureDetector(
               onTap: () {
-                controller.deleteNendoMemo(num, memo);
+                priceController.deleteNendoMemo(num, memo);
               },
               child: const Icon(
                 Icons.clear,
@@ -77,7 +77,7 @@ class ListNendoMemoList extends GetView<NendoController> {
           size: 12.0,
         ),
         onDeleted: () {
-          controller.deleteNendoMemo(num, memo);
+          priceController.deleteNendoMemo(num, memo);
         },
       );
       tagList.add(tag);

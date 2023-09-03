@@ -11,7 +11,7 @@ class MyReleaseHaveView extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      List<NendoData> nendoList = controller.getThisMonthHaveList();
+      List<NendoData> nendoList = priceController.getThisMonthHaveList();
 
       if (nendoList.isEmpty) {
         return const SizedBox();

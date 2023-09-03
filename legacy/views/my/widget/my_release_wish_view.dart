@@ -11,7 +11,7 @@ class MyReleaseWishView extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      List<NendoData> nendoList = controller.getThisMonthWishList();
+      List<NendoData> nendoList = priceController.getThisMonthWishList();
 
       if (nendoList.isEmpty) {
         return const SizedBox();

@@ -70,12 +70,12 @@ class MainBody extends GetView<DashboardController> {
                   label: const Text("Setting"),
                 ),
               ],
-              selectedIndex: controller.tabIndex,
+              selectedIndex: priceController.tabIndex,
               onDestinationSelected: (index) {
                 Get.find<MyController>().setMyNendoList();
-                controller.pageQueue.addPage(controller.tabIndex);
-                controller.tabIndex = index;
-                controller.pageQueue.removePage(controller.tabIndex);
+                priceController.pageQueue.addPage(priceController.tabIndex);
+                priceController.tabIndex = index;
+                priceController.pageQueue.removePage(priceController.tabIndex);
               },
             ),
           const VerticalDivider(
@@ -84,7 +84,7 @@ class MainBody extends GetView<DashboardController> {
           ),
           Expanded(
             child: IndexedStack(
-              index: controller.tabIndex,
+              index: priceController.tabIndex,
               children: [
                 const ListPage(),
                 MyPage(),

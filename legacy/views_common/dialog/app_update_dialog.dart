@@ -20,12 +20,12 @@ class AppUpdateDialog extends GetView<AppVersionController> {
         children: [
           const Text("새로운 버전이 출시되었어요!"),
           Offstage(
-            offstage: controller.updateText.isEmpty,
+            offstage: priceController.updateText.isEmpty,
             child: Column(
               children: [
                 const SizedBox(height: 15.0),
                 Text(
-                  controller.updateText,
+                  priceController.updateText,
                 ),
               ],
             ),

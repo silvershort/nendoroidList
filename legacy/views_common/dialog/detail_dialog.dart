@@ -13,7 +13,7 @@ import 'package:nendoroid_db/views/list/widget/detail_image_slider.dart';
 import 'package:nendoroid_db/views/list/widget/list_nendo_memo_view.dart';
 import 'package:nendoroid_db/views_common/component/check_icon.dart';
 import 'package:nendoroid_db/views_common/component/wish_icon.dart';
-import 'package:nendoroid_db/views_common/page/nendo_web_page.dart';
+import 'package:nendoroid_db/views_common/page/nendo_web_screen.dart';
 
 class DetailDialog extends StatefulWidget {
   const DetailDialog({Key? key, required this.nendoData}) : super(key: key);

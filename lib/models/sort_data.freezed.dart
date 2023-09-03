@@ -102,7 +102,7 @@ class __$$_SortDataCopyWithImpl<$Res>
 
 class _$_SortData extends _SortData {
   const _$_SortData(
-      {this.sortingOrder = const ASC(),
+      {this.sortingOrder = const DESC(),
       this.sortingMethod = const SortingMethodNum()})
       : super._();
 

@@ -23,55 +23,55 @@ class NewsSubscribeDialog extends GetView<NewsController> {
               ),
               const SizedBox(height: 5.0),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.twitterSubscribe.goodSmileJP,
+                isCheck: priceController.subscribe.twitterSubscribe.goodSmileJP,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                    twitterSubscribe: controller.subscribe.twitterSubscribe.copyWith(
-                      goodSmileJP: !controller.subscribe.twitterSubscribe.goodSmileJP
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                    twitterSubscribe: priceController.subscribe.twitterSubscribe.copyWith(
+                      goodSmileJP: !priceController.subscribe.twitterSubscribe.goodSmileJP
                     )
                   ));
                 },
                 text: "@굿스마일 JP",
               ),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.twitterSubscribe.goodSmileUS,
+                isCheck: priceController.subscribe.twitterSubscribe.goodSmileUS,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      twitterSubscribe: controller.subscribe.twitterSubscribe.copyWith(
-                          goodSmileUS: !controller.subscribe.twitterSubscribe.goodSmileUS
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      twitterSubscribe: priceController.subscribe.twitterSubscribe.copyWith(
+                          goodSmileUS: !priceController.subscribe.twitterSubscribe.goodSmileUS
                       )
                   ));
                 },
                 text: "@굿스마일 US",
               ),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.twitterSubscribe.goodSmileKR,
+                isCheck: priceController.subscribe.twitterSubscribe.goodSmileKR,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      twitterSubscribe: controller.subscribe.twitterSubscribe.copyWith(
-                          goodSmileKR: !controller.subscribe.twitterSubscribe.goodSmileKR
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      twitterSubscribe: priceController.subscribe.twitterSubscribe.copyWith(
+                          goodSmileKR: !priceController.subscribe.twitterSubscribe.goodSmileKR
                       )
                   ));
                 },
                 text: "@굿스마일 KR",
               ),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.twitterSubscribe.ninimal,
+                isCheck: priceController.subscribe.twitterSubscribe.ninimal,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      twitterSubscribe: controller.subscribe.twitterSubscribe.copyWith(
-                          ninimal: !controller.subscribe.twitterSubscribe.ninimal
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      twitterSubscribe: priceController.subscribe.twitterSubscribe.copyWith(
+                          ninimal: !priceController.subscribe.twitterSubscribe.ninimal
                       )
                   ));
                 },
                 text: "@니니멀",
               ),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.twitterSubscribe.figureInfo,
+                isCheck: priceController.subscribe.twitterSubscribe.figureInfo,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      twitterSubscribe: controller.subscribe.twitterSubscribe.copyWith(
-                          figureInfo: !controller.subscribe.twitterSubscribe.figureInfo
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      twitterSubscribe: priceController.subscribe.twitterSubscribe.copyWith(
+                          figureInfo: !priceController.subscribe.twitterSubscribe.figureInfo
                       )
                   ));
                 },
@@ -86,22 +86,22 @@ class NewsSubscribeDialog extends GetView<NewsController> {
               ),
               const SizedBox(height: 5.0),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.ruliwebSubscribe.information,
+                isCheck: priceController.subscribe.ruliwebSubscribe.information,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      ruliwebSubscribe: controller.subscribe.ruliwebSubscribe.copyWith(
-                          information: !controller.subscribe.ruliwebSubscribe.information
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      ruliwebSubscribe: priceController.subscribe.ruliwebSubscribe.copyWith(
+                          information: !priceController.subscribe.ruliwebSubscribe.information
                       )
                   ));
                 },
                 text: "피규어 정보",
               ),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.ruliwebSubscribe.review,
+                isCheck: priceController.subscribe.ruliwebSubscribe.review,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      ruliwebSubscribe: controller.subscribe.ruliwebSubscribe.copyWith(
-                          review: !controller.subscribe.ruliwebSubscribe.review
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      ruliwebSubscribe: priceController.subscribe.ruliwebSubscribe.copyWith(
+                          review: !priceController.subscribe.ruliwebSubscribe.review
                       )
                   ));
                 },
@@ -116,22 +116,22 @@ class NewsSubscribeDialog extends GetView<NewsController> {
               ),
               const SizedBox(height: 5.0),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.dcinsideSubscribe.information,
+                isCheck: priceController.subscribe.dcinsideSubscribe.information,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      dcinsideSubscribe: controller.subscribe.dcinsideSubscribe.copyWith(
-                          information: !controller.subscribe.dcinsideSubscribe.information
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      dcinsideSubscribe: priceController.subscribe.dcinsideSubscribe.copyWith(
+                          information: !priceController.subscribe.dcinsideSubscribe.information
                       )
                   ));
                 },
                 text: "넨도 정보",
               ),
               SubscribeCheckBox(
-                isCheck: controller.subscribe.dcinsideSubscribe.review,
+                isCheck: priceController.subscribe.dcinsideSubscribe.review,
                 onChanged: (bool? value) {
-                  controller.updateSubscribe(controller.subscribe.copyWith(
-                      dcinsideSubscribe: controller.subscribe.dcinsideSubscribe.copyWith(
-                          review: !controller.subscribe.dcinsideSubscribe.review
+                  priceController.updateSubscribe(priceController.subscribe.copyWith(
+                      dcinsideSubscribe: priceController.subscribe.dcinsideSubscribe.copyWith(
+                          review: !priceController.subscribe.dcinsideSubscribe.review
                       )
                   ));
                 },
@@ -145,15 +145,15 @@ class NewsSubscribeDialog extends GetView<NewsController> {
         TextButton(
           onPressed: () {
             Get.back();
-            controller.cancelSubscribe();
+            priceController.cancelSubscribe();
           },
           child: const Text("취소"),
         ),
         TextButton(
           onPressed: () async {
             Get.back();
-            await controller.saveSubscribe();
-            controller.initData();
+            await priceController.saveSubscribe();
+            priceController.initData();
           },
           child: const Text("확인"),
         ),
