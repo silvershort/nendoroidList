@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/ui/widget/dialog/detail_dialog.dart';
 import 'package:nendoroid_db/ui/widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
@@ -39,13 +40,12 @@ class StatsReleaseHaveView extends StatelessWidget {
                       fontSize: 18.0,
                     ),
                     onTap: () {
-                      // TODO: 추후 주석 제거
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     return DetailDialog(nendoData: releaseNendoList[index]);
-                      //   },
-                      // );
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DetailDialog(nendoData: releaseNendoList[index]);
+                        },
+                      );
                     },
                   ),
                   const SizedBox(

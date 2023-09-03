@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:nendoroid_db/models/exchange_rate_yen.dart';
 import 'package:nendoroid_db/networks/dio/app_dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'scraping_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 ScrapingRepository scrapingRepository(ScrapingRepositoryRef ref) {
   return ScrapingRepository(ref.watch(appDioProvider));
 }
@@ -40,4 +41,8 @@ abstract class ScrapingRepository {
   Future<HttpResponse> getGoodSmileImage({
     @Path("gscProductNum") required String gscProductNum,
   });
+
+  // 엔화 환율 정보
+  @GET("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY")
+  Future<List<ExchangeRateYen>> getExchangeRate();
 }

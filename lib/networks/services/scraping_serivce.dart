@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'scraping_serivce.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 ScrapingService scrapingService(ScrapingServiceRef ref) {
   return ScrapingService(repository: ref.watch(scrapingRepositoryProvider));
 }
@@ -69,7 +69,18 @@ class ScrapingService {
       return ApiResult.success((imageList: imageList, thumbnailList: thumbnailList));
     } catch (error, stackTrace) {
       logger.e(error.toString(), stackTrace: stackTrace);
-      return Future.error(error, stackTrace);
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+    }
+  }
+
+  Future<ApiResult<int>> getExchangeRate() async {
+    try {
+      final response = await repository.getExchangeRate();
+      logger.i(response.toString());
+      return ApiResult.success(response[0].ttSellingPrice?.toInt() ?? 0);
+    } catch (error, stackTrace) {
+      logger.e(error.toString(), stackTrace: stackTrace);
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 }

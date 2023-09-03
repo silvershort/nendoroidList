@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/ui/widget/dialog/detail_dialog.dart';
 import 'package:nendoroid_db/ui/widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
@@ -43,12 +44,12 @@ class StatsMostNendoView extends StatelessWidget {
                     ),
                     onTap: () {
                       // TODO: 추후 주석 제거
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     return DetailDialog(nendoData: mostList[index]);
-                      //   },
-                      // );
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DetailDialog(nendoData: mostList[index]);
+                        },
+                      );
                     },
                   ),
                   const SizedBox(

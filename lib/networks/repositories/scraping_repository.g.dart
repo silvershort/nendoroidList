@@ -169,6 +169,35 @@ class _ScrapingRepository implements ScrapingRepository {
     return httpResponse;
   }
 
+  @override
+  Future<List<ExchangeRateYen>> getExchangeRate() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<ExchangeRateYen>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => ExchangeRateYen.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
@@ -205,12 +234,11 @@ class _ScrapingRepository implements ScrapingRepository {
 // **************************************************************************
 
 String _$scrapingRepositoryHash() =>
-    r'f66992a6904c48021f3c4eacea7304fd2e4bb34e';
+    r'20f87891ad81f962209d9f0fd5ca89dd10860f49';
 
 /// See also [scrapingRepository].
 @ProviderFor(scrapingRepository)
-final scrapingRepositoryProvider =
-    AutoDisposeProvider<ScrapingRepository>.internal(
+final scrapingRepositoryProvider = Provider<ScrapingRepository>.internal(
   scrapingRepository,
   name: r'scrapingRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -220,6 +248,6 @@ final scrapingRepositoryProvider =
   allTransitiveDependencies: null,
 );
 
-typedef ScrapingRepositoryRef = AutoDisposeProviderRef<ScrapingRepository>;
+typedef ScrapingRepositoryRef = ProviderRef<ScrapingRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

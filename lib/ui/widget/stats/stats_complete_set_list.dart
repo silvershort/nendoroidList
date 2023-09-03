@@ -32,7 +32,6 @@ class StatsCompleteSetList extends StatelessWidget {
             ),
             Text(
               setList[index],
-              style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
         );

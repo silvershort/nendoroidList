@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/ui/widget/dialog/detail_dialog.dart';
 import 'package:nendoroid_db/ui/widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
@@ -42,14 +43,14 @@ class StatsReleaseWishView extends StatelessWidget {
                       fontSize: 18.0,
                     ),
                     // TODO: 추후 주석 제거
-                    // onTap: () {
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (context) {
-                    //       return DetailDialog(nendoData: releaseList[index]);
-                    //     },
-                    //   );
-                    // },
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DetailDialog(nendoData: releaseList[index]);
+                        },
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 5.0,
