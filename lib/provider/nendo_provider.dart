@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:korea_regexp/korea_regexp.dart';
 import 'package:nendoroid_db/main_new.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
@@ -12,7 +13,6 @@ import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
-
 part 'nendo_provider.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -99,43 +99,50 @@ class Nendo extends _$Nendo {
       return;
     }
 
-    RegExp digitPattern = RegExp(r'\d+');
+    // 초성검색, 대소문자무시
+    RegExp regExp = getRegExp(
+      word.trim(),
+      RegExpOptions(
+        initialSearch: true,
+        ignoreCase: true,
+      ),
+    );
 
     late List<NendoData> tempList;
 
-    // 숫자 범위 검색, 숫자와 ~가 있을때만 ~검색 사용
-    if (word.contains("~") && digitPattern.hasMatch(word)) {
-      String startString = word.split("~").first.trim();
-      String endString = word.split("~").last.trim();
-
-      if (startString.isEmpty) {
-        startString = "0";
-      }
-      if (endString.isEmpty) {
-        endString = "9999999";
-      }
-
-      int start = int.parse(startString.replaceAll(RegExp(r"[^0-9]"), ""));
-      int end = int.parse(endString.replaceAll(RegExp(r"[^0-9]"), ""));
-
-      tempList = state.value!.nendoList
-          .where((item) =>
-              (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
-              (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
-              (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
-              (start <= int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) && int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) <= end))
-          .toList();
-    }
     // 일반 검색
-    else {
-      tempList = state.value!.nendoList
-          .where((item) =>
-              (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
-              (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
-              (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
-              (item.num) == word)
-          .toList();
-    }
+    tempList = state.value!.nendoList
+        .where((item) =>
+            regExp.hasMatch(item.name.ko?.toLowerCase() ?? "") ||
+            regExp.hasMatch(item.name.en?.toLowerCase() ?? "") ||
+            regExp.hasMatch(item.series.ko?.toLowerCase() ?? "") ||
+            regExp.hasMatch(item.num))
+        .toList();
+
+    // 숫자 범위 검색, 숫자와 ~가 있을때만 ~검색 사용
+    // RegExp digitPattern = RegExp(r'\d+');
+    // if (word.contains("~") && digitPattern.hasMatch(word)) {
+    //   String startString = word.split("~").first.trim();
+    //   String endString = word.split("~").last.trim();
+    //
+    //   if (startString.isEmpty) {
+    //     startString = "0";
+    //   }
+    //   if (endString.isEmpty) {
+    //     endString = "9999999";
+    //   }
+    //
+    //   int start = int.parse(startString.replaceAll(RegExp(r"[^0-9]"), ""));
+    //   int end = int.parse(endString.replaceAll(RegExp(r"[^0-9]"), ""));
+    //
+    //   tempList = state.value!.nendoList
+    //       .where((item) =>
+    //           (item.name.ko?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
+    //           (item.name.en?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
+    //           (item.series.ko?.toLowerCase() ?? "").contains(word.toLowerCase()) ||
+    //           (start <= int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) && int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) <= end))
+    //       .toList();
+    // }
 
     // 검색어에 맞는 넨도 리스트의 필터링을 진행
     filteringList(nendoList: tempList, searchComplete: true);
