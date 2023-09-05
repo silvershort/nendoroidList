@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
-import 'package:nendoroid_db/ui/widget/animation/scroll_to_opacity_widget.dart';
-import 'package:nendoroid_db/ui/widget/app_bar/list_app_bar.dart';
-import 'package:nendoroid_db/ui/widget/app_bar/list_app_bar_controller.dart';
-import 'package:nendoroid_db/ui/widget/bottom_sheet/filter_bottom_sheet.dart';
-import 'package:nendoroid_db/ui/widget/tile/nendo_list_tile.dart';
+import 'package:nendoroid_db/ui/_common_widget/animation/scroll_to_opacity_widget.dart';
+import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar.dart';
+import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
+import 'package:nendoroid_db/ui/_common_widget/bottom_sheet/filter_bottom_sheet.dart';
+import 'package:nendoroid_db/ui/_common_widget/tile/nendo_list_tile.dart';
 
 class ListScreen extends ConsumerStatefulWidget {
   const ListScreen({Key? key}) : super(key: key);

@@ -5,11 +5,11 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/provider/nendo_image_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/router/route_path.dart';
-import 'package:nendoroid_db/ui/widget/chip/memo_list_widget.dart';
-import 'package:nendoroid_db/ui/widget/dialog/nendo_info_edit_dialog.dart';
-import 'package:nendoroid_db/ui/widget/icon/check_icon.dart';
-import 'package:nendoroid_db/ui/widget/icon/wish_icon.dart';
-import 'package:nendoroid_db/ui/widget/image_view/detail_Image_slider.dart';
+import 'package:nendoroid_db/ui/_common_widget/chip/memo_list_widget.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_info_edit_dialog.dart';
+import 'package:nendoroid_db/ui/_common_widget/icon/check_icon.dart';
+import 'package:nendoroid_db/ui/_common_widget/icon/wish_icon.dart';
+import 'package:nendoroid_db/ui/_common_widget/image_view/detail_Image_slider.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 
 class DetailDialog extends ConsumerWidget {

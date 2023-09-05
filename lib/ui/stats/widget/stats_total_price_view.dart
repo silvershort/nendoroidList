@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/provider/yen_exchange_rate_provider.dart';
-import 'package:nendoroid_db/ui/widget/dialog/price_info_dialog.dart';
-import 'package:nendoroid_db/ui/widget/icon/help_icon.dart';
-import 'package:nendoroid_db/ui/widget/text/accent_text.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/price_info_dialog.dart';
+import 'package:nendoroid_db/ui/_common_widget/icon/help_icon.dart';
+import 'package:nendoroid_db/ui/_common_widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 

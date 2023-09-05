@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/ui/screens/dashboard/dashboard_screen.dart';
-import 'package:nendoroid_db/ui/screens/list/list_screen.dart';
-import 'package:nendoroid_db/ui/screens/nendo/nendo_web_screen.dart';
-import 'package:nendoroid_db/ui/screens/news/news_screen.dart';
-import 'package:nendoroid_db/ui/screens/setting/setting_screen.dart';
-import 'package:nendoroid_db/ui/screens/stats/stats_screen.dart';
-import 'package:nendoroid_db/ui/widget/image_view/image_detail_view.dart';
+import 'package:nendoroid_db/ui/dashboard/dashboard_screen.dart';
+import 'package:nendoroid_db/ui/list/list_screen.dart';
+import 'package:nendoroid_db/ui/my/my_screen.dart';
+import 'package:nendoroid_db/ui/nendo/nendo_web_screen.dart';
+import 'package:nendoroid_db/ui/news/news_screen.dart';
+import 'package:nendoroid_db/ui/stats/stats_screen.dart';
+import 'package:nendoroid_db/ui/_common_widget/image_view/image_detail_view.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -75,9 +75,9 @@ final appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/setting',
+              path: '/my',
               builder: (context, state) {
-                return const SettingScreen();
+                return const MyScreen();
               },
             ),
           ],

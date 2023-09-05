@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nendoroid_db/ui/widget/app_bar/list_app_bar_controller.dart';
+import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
 
 /// 넨도로이드 리스트 화면의 앱바
 /// 스크롤에 따라서 앱바를 숨기거나 보여준다.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/most_series.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/ui/widget/text/accent_text.dart';
+import 'package:nendoroid_db/ui/_common_widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
 class StatsMostSeriesView extends StatelessWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/ui/widget/dialog/detail_dialog.dart';
-import 'package:nendoroid_db/ui/widget/text/accent_text.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
+import 'package:nendoroid_db/ui/_common_widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
-class StatsReleaseWishView extends StatelessWidget {
-  const StatsReleaseWishView({
+class StatsMostNendoView extends StatelessWidget {
+  const StatsMostNendoView({
     Key? key,
     required this.nendoList,
   }) : super(key: key);
@@ -13,15 +13,15 @@ class StatsReleaseWishView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<NendoData> releaseList = nendoList.getThisMonthWishList();
+    List<NendoData> mostList = nendoList.getMostHaveNendo();
 
-    if (releaseList.isEmpty) {
-      return const SizedBox();
+    if (mostList.isEmpty) {
+      return const SizedBox(height: 0.0);
     } else {
       return Column(
         children: [
           Text(
-            "이번달 출시 예정인 위시 넨도로이드",
+            "가장 많이 가지고 있는 넨도로이드",
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(
@@ -31,23 +31,23 @@ class StatsReleaseWishView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: releaseList.length,
+            itemCount: mostList.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   InkWell(
                     child: AccentText(
                       context: context,
-                      accentWord: "[${releaseList[index].num}]",
-                      normalWord: " ${releaseList[index].name.ko}",
+                      accentWord: "[${mostList[index].num}] ${mostList[index].name.ko}",
+                      normalWord: " (${mostList[index].count}개)",
                       fontSize: 18.0,
                     ),
-                    // TODO: 추후 주석 제거
                     onTap: () {
+                      // TODO: 추후 주석 제거
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return DetailDialog(nendoData: releaseList[index]);
+                          return DetailDialog(nendoData: mostList[index]);
                         },
                       );
                     },

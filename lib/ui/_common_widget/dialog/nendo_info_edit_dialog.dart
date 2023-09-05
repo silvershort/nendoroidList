@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
-import 'package:nendoroid_db/ui/widget/dialog/nendo_add_memo_dialog.dart';
-import 'package:nendoroid_db/ui/widget/dialog/nendo_price_reset_dialog.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_add_memo_dialog.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_price_reset_dialog.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 

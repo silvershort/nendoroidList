@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
-import 'package:nendoroid_db/ui/widget/stats/stats_complete_set_list.dart';
-import 'package:nendoroid_db/ui/widget/text/accent_text.dart';
+import 'package:nendoroid_db/ui/stats/widget/stats_complete_set_list.dart';
+import 'package:nendoroid_db/ui/_common_widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
 class StatsCompleteSetView extends StatelessWidget {

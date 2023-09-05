@@ -5,6 +5,7 @@ import 'package:nendoroid_db/utilities/debounce.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'list_app_bar_controller.freezed.dart';
+
 part 'list_app_bar_controller.g.dart';
 
 @Riverpod(keepAlive: true)

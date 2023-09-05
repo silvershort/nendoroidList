@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'list_app_bar_controller.dart';
+part of '../../_common_widget/app_bar/list_app_bar_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
