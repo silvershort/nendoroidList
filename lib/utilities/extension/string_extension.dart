@@ -8,8 +8,26 @@ extension StringExtension on String {
   int get removeComma {
     try {
       return int.parse(replaceAll(",", ""));
-    } catch (error, stackTrace) {
+    } catch (_) {
       return 0;
+    }
+  }
+}
+
+extension NullableStringExtension on String? {
+  int get toIntOrDefault {
+    try {
+      return int.parse(this!);
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  double get toDoubleOrDefault {
+    try {
+      return double.parse(this!);
+    } catch (_) {
+      return 0.0;
     }
   }
 }

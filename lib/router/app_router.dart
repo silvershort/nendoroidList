@@ -8,6 +8,7 @@ import 'package:nendoroid_db/ui/screens/news/news_screen.dart';
 import 'package:nendoroid_db/ui/screens/setting/setting_screen.dart';
 import 'package:nendoroid_db/ui/screens/stats/stats_screen.dart';
 import 'package:nendoroid_db/ui/widget/image_view/image_detail_view.dart';
+import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellListNavigatorKey = GlobalKey<NavigatorState>();
@@ -24,7 +25,7 @@ final appRouter = GoRouter(
       path: '/image-detail',
       builder: (context, state) {
         final List<String> attachList = state.extra as List<String>;
-        final int initialIndex = state.pathParameters['start'] as int;
+        final int initialIndex = state.uri.queryParameters['start'].toIntOrDefault;
         return ImageDetailView(attachList: attachList, initialIndex: initialIndex);
       },
     ),
