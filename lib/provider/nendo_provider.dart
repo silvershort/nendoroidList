@@ -1,37 +1,44 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:korea_regexp/korea_regexp.dart';
 import 'package:nendoroid_db/main_new.dart';
+import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
+import 'package:nendoroid_db/provider/auth_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:collection/collection.dart';
 
 part 'nendo_provider.freezed.dart';
+
 part 'nendo_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class Nendo extends _$Nendo {
   String _lastSearch = '';
+  late final Box _nendoBox;
+  late final Box _setBox;
 
   @override
   FutureOr<NendoState> build() async {
+    // 로컬에 데이터가 있는지 유무를 판단하기 위해서 로컬DB를 가져온다.
+    _nendoBox = ref.watch(hiveProvider).nendoBox;
+    _setBox = ref.watch(hiveProvider).setBox;
+
     return fetchData();
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
   Future<NendoState> fetchData() async {
-    // 로컬에 데이터가 있는지 유무를 판단하기 위해서 로컬DB를 가져온다.
-    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    final Box setBox = ref.watch(hiveProvider).setBox;
-
     // 로컬이 비어있을경우 파이어베이스에서 다운로드
-    if (nendoBox.isEmpty) {
+    if (_nendoBox.isEmpty) {
       final NendoState nendoState = await fetchFromFirebase();
       state = AsyncData(nendoState);
       return nendoState;
@@ -39,9 +46,9 @@ class Nendo extends _$Nendo {
     // 로컬에서 넨도와 세트 정보를 가져온 후 정렬
     else {
       try {
-        final List<NendoData> nendoList = nendoBox.values.map((e) => e as NendoData).toList();
-        logger.i(setBox.values.toString());
-        final List<SetData> setList = setBox.values.map((e) => e as SetData).toList();
+        final List<NendoData> nendoList = _nendoBox.values.map((e) => e as NendoData).toList();
+        logger.i(_setBox.values.toString());
+        final List<SetData> setList = _setBox.values.map((e) => e as SetData).toList();
         nendoList.sortBySetting(ref.read(nendoListSettingProvider));
 
         final NendoState nendoState = NendoState(
@@ -61,7 +68,7 @@ class Nendo extends _$Nendo {
 
   // 파이어베이스를 통해서 넨도로이드 초기 데이터를 받아온다.
   Future<NendoState> fetchFromFirebase() async {
-    final result = await ref.watch(firebaseServiceProvider).getInitData();
+    final result = await ref.watch(firebaseServiceProvider).readInitData();
 
     return result.when(
       success: (value) async {
@@ -85,6 +92,75 @@ class Nendo extends _$Nendo {
       },
       error: (error, stackTrace) {
         state = AsyncError(error, stackTrace);
+        return Future.error(error, stackTrace);
+      },
+    );
+  }
+
+  // 파이어스토어에 저장된 데이터를 복구한다.
+  Future<void> restoreBackupList(String documentID) async {
+    if (state.value == null) {
+      return;
+    }
+    final result = await ref.read(firebaseServiceProvider).readUserBackupData(documentID: documentID);
+
+    result.when(
+      success: (value) {
+        // 깊은 복사를 해야 'Cannot remove from an unmodifiable list' 에러를 피할 수 있음.
+        final backupNendoList = value.nendoList.toList();
+
+        for (int i = backupNendoList.length - 1; i >= 0; i--) {
+          NendoData backupData = backupNendoList[i];
+          NendoData? nendoData = state.requireValue.nendoList.firstWhereOrNull((newItem) => newItem.num == backupData.num);
+          if (nendoData != null) {
+            nendoData = nendoData.copyWith(
+              count: backupData.count,
+              have: backupData.have,
+              wish: backupData.wish,
+              myPrice: backupData.myPrice,
+              memo: backupData.memo?.toList(),
+            );
+
+            _nendoBox.put(nendoData.num, nendoData);
+
+            // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
+            backupNendoList.removeAt(i);
+          }
+        }
+        state = AsyncData(state.requireValue);
+      },
+      error: (error, stackTrace) {
+        return Future.error(error, stackTrace);
+      },
+    );
+  }
+
+  // 넨도로이드 백업을 진행한다.
+  Future<void> backupDataToFirestore({required User user}) async {
+    if (state.value == null) {
+      return;
+    }
+
+    // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
+    final backupNendoList = state.requireValue.nendoList.where((item) => (item.have || item.wish) || item.memo != null).toList();
+
+    final result = await ref.read(firebaseServiceProvider).createBackupData(
+          documentID: user.uid,
+          backupData: BackupData(
+            nendoList: backupNendoList,
+            setList: [],
+            email: user.email!,
+            commitHash: '',
+            backupDate: DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now()),
+            commitDate: '',
+          ),
+        );
+
+    result.when(
+      success: (value) {
+        return;
+      },
+      error: (error, stackTrace) {
         return Future.error(error, stackTrace);
       },
     );

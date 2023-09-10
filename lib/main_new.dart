@@ -15,7 +15,6 @@ import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
-import 'package:nendoroid_db/provider/yen_exchange_rate_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 

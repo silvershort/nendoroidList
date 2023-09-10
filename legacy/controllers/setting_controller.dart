@@ -33,10 +33,10 @@ class SettingController extends GetxController {
   // 개인용 깃허브 API 키를 등록해줌
   void setGithubTokenKey(String tokenKey) {
     if (tokenKey.isEmpty) {
-      nendoController.settingBox.delete(HiveName.githubTokenKey);
+      nendoController._settingBox.delete(HiveName.githubTokenKey);
       return;
     }
-    nendoController.settingBox.put(HiveName.githubTokenKey, tokenKey);
+    nendoController._settingBox.put(HiveName.githubTokenKey, tokenKey);
     nendoController.githubToken = tokenKey;
   }
 

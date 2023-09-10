@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/ui/dashboard/dashboard_screen.dart';
 import 'package:nendoroid_db/ui/list/list_screen.dart';
+import 'package:nendoroid_db/ui/my/app_info_screen.dart';
+import 'package:nendoroid_db/ui/my/login_screen.dart';
 import 'package:nendoroid_db/ui/my/my_screen.dart';
 import 'package:nendoroid_db/ui/nendo/nendo_web_screen.dart';
 import 'package:nendoroid_db/ui/news/news_screen.dart';
@@ -11,10 +13,10 @@ import 'package:nendoroid_db/ui/_common_widget/image_view/image_detail_view.dart
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellListNavigatorKey = GlobalKey<NavigatorState>();
-final _shellStatsNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNewsNavigatorKey = GlobalKey<NavigatorState>();
-final _shellSettingNavigatorKey = GlobalKey<NavigatorState>();
+final _listShellNavigatorKey = GlobalKey<NavigatorState>();
+final _statsShellNavigatorKey = GlobalKey<NavigatorState>();
+final _newsShellNavigatorKey = GlobalKey<NavigatorState>();
+final _myShellNavigatorKey = GlobalKey<NavigatorState>();
 
 final appRouter = GoRouter(
   initialLocation: '/list',
@@ -35,6 +37,13 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final NendoData nendoData = state.extra as NendoData;
         return NendoWebPage(nendoData: nendoData);
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/license',
+      builder: (context, state) {
+        return const LicensePage();
       },
     ),
     StatefulShellRoute.indexedStack(
@@ -73,12 +82,29 @@ final appRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
+          navigatorKey: _myShellNavigatorKey,
           routes: [
             GoRoute(
               path: '/my',
               builder: (context, state) {
                 return const MyScreen();
               },
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _myShellNavigatorKey,
+                  path: 'login',
+                  builder: (context, state) {
+                    return const LoginPage();
+                  },
+                ),
+                GoRoute(
+                  parentNavigatorKey: _myShellNavigatorKey,
+                  path: 'app-info',
+                  builder: (context, state) {
+                    return const AppInfoScreen();
+                  },
+                ),
+              ],
             ),
           ],
         ),

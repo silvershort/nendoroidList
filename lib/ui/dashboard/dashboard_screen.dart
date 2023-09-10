@@ -27,16 +27,16 @@ class DashboardScreen extends StatelessWidget {
             label: "List",
           ),
           NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "My",
+            icon: Icon(Icons.stacked_bar_chart),
+            label: "Stats",
           ),
           NavigationDestination(
             icon: Icon(Icons.newspaper),
             label: "News",
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: "Setting",
+            icon: Icon(Icons.person),
+            label: "My",
           ),
         ],
         onDestinationSelected: _goBranch,

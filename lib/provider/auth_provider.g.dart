@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'nendo_provider.dart';
+part of 'auth_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nendoHash() => r'7af83b6324fc99bf4a61442be820336344991180';
+String _$authHash() => r'01a2e2867c4946501b85dfd4cf66f68a8cc7d6cf';
 
-/// See also [Nendo].
-@ProviderFor(Nendo)
-final nendoProvider = AsyncNotifierProvider<Nendo, NendoState>.internal(
-  Nendo.new,
-  name: r'nendoProvider',
+/// See also [Auth].
+@ProviderFor(Auth)
+final authProvider = AutoDisposeNotifierProvider<Auth, User?>.internal(
+  Auth.new,
+  name: r'authProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$nendoHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$authHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Nendo = AsyncNotifier<NendoState>;
+typedef _$Auth = AutoDisposeNotifier<User?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

@@ -26,23 +26,65 @@ class FirebaseService {
     required this.repository,
   });
 
-  Future<ApiResult<BackupData>> getInitData() async {
+  Future<ApiResult<BackupData>> readInitData() async {
     repository.initDefaultSetting();
     try {
-      BackupData initData = await repository.readData();
+      BackupData? initData = await repository.readData();
+      if (initData == null) {
+        return const ApiResult.error(ApiError(message: '데이터가 null값입니다.'), StackTrace.empty);
+      }
       return ApiResult.success(initData);
     } catch (error, stackTrace) {
       return ApiResult.error(ApiError(message: error.toString()), stackTrace);
     }
   }
 
-  Future<ApiResult<BackupData>> getUserBackupData({required String documentID}) async {
+  Future<ApiResult<BackupData>> readUserBackupData({required String documentID}) async {
     repository.initUserSetting(documentID: documentID);
     try {
-      BackupData initData = await repository.readData();
+      BackupData? initData = await repository.readData();
+      if (initData == null) {
+        return const ApiResult.error(ApiError(message: '데이터가 null값입니다.'), StackTrace.empty);
+      }
       return ApiResult.success(initData);
     } catch (error, stackTrace) {
       return ApiResult.error(ApiError(message: error.toString()), stackTrace);
+    }
+  }
+
+  Future<ApiResult<void>> createBackupData({
+    required String documentID,
+    required BackupData backupData,
+  }) async {
+    repository.initUserSetting(documentID: documentID);
+    try {
+      await repository.createDate(backupData: backupData);
+      return const ApiResult.success(null);
+    } catch (error, stackTrace) {
+      return ApiResult.error(ApiError(message: error.toString()), stackTrace);
+    }
+  }
+
+  Future<ApiResult<void>> updateData({
+    required String documentID,
+    required BackupData backupData,
+  }) async {
+    repository.initUserSetting(documentID: documentID);
+    try {
+      await repository.updateData(backupData: backupData);
+      return const ApiResult.success(null);
+    } catch (error, stackTrace) {
+      return ApiResult.error(const ApiError(message: '데이터백업에 실패했습니다.'), stackTrace);
+    }
+  }
+
+  Future<ApiResult<void>> deleteData(String documentID) async {
+    repository.initUserSetting(documentID: documentID);
+    try {
+      await repository.deleteData();
+      return const ApiResult.success(null);
+    } catch (error, stackTrace) {
+      return ApiResult.error(const ApiError(message: '데이터삭제에 실패했습니다.'), stackTrace);
     }
   }
 }

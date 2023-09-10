@@ -1,10 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:nendoroid_db/controllers/auth_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nendoroid_db/provider/auth_provider.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
 
-class LoginPage extends GetView<AuthController> {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController textEditingController = TextEditingController();
+
+  void _showConfirmEmail() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        final String email = textEditingController.text.replaceAll(' ', '');
+        return CommonDialog(
+          content: "$email로 인증메일을 보냅니다.",
+          negativeText: "취소",
+          positiveText: "확인",
+          positiveOnClick: () async {
+            await ref.read(authProvider.notifier).signup(email);
+            _showEmailSendComplete();
+          },
+        );
+      },
+    );
+  }
+
+  void _showEmailSendComplete() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const CommonDialog(
+          content: '이메일 전송을 완료했습니다.',
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +70,7 @@ class LoginPage extends GetView<AuthController> {
                   ),
                   style: const TextStyle(fontSize: 18.0),
                   onSubmitted: (str) {
-                    priceController._showConfirmEmail(textEditingController.text.trim());
+                    _showConfirmEmail();
                   },
                 ),
                 const SizedBox(height: 10.0),
@@ -43,7 +79,7 @@ class LoginPage extends GetView<AuthController> {
                   child: TextButton(
                     onPressed: () {
                       FocusScope.of(context).unfocus();
-                      priceController._showConfirmEmail(textEditingController.text.trim());
+                      _showConfirmEmail();
                     },
                     child: const Text(
                       "로그인&회원가입",
@@ -58,16 +94,7 @@ class LoginPage extends GetView<AuthController> {
                     height: 1.3,
                   ),
                 ),
-                const SizedBox(height: 30.0),
-                Obx(
-                  () => Text(
-                    priceController.notificationMessage,
-                    style: const TextStyle(
-                      height: 1.3,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
+                const SizedBox(height: 20.0),
               ],
             ),
           ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nendoroid_db/main_new.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
@@ -31,7 +33,7 @@ class FirebaseRepository {
     _documentID = initDocumentName;
   }
 
-  Future<BackupData> readData() async {
+  Future<BackupData?> readData() async {
     try {
       BackupData? backupData;
       for (int i = 0; i < 1000; i++) {
@@ -58,6 +60,53 @@ class FirebaseRepository {
     } catch (error, stackTrace) {
       logger.e(error.toString());
       logger.e(stackTrace.toString());
+      return Future.error(error, stackTrace);
+    }
+  }
+
+  Future<void> createDate({required BackupData backupData}) async {
+    try {
+      // 데이터길이가 길면 파이어스토어에 저장하지 못함. (리미트는 980000~990000 정도로 추정)
+      // 따라서 데이터가 일정량을 초과할경우 넨도리스트 1500개를 기준으로 반갈죽해서 저장해준다.
+      final int dataLength = jsonEncode(backupData.toJson()).length;
+      if (dataLength > limitLength) {
+        final int divideCount = (dataLength ~/ limitLength) + 1;
+        for (int i = 0; i < divideCount; i++) {
+          late BackupData data;
+          if (i == divideCount - 1) {
+            data = backupData.copyWith(nendoList: backupData.nendoList.sublist(splitCount * i));
+          } else {
+            data = backupData.copyWith(nendoList: backupData.nendoList.sublist(splitCount * i, splitCount * (i + 1)));
+          }
+          // 첫번째 도큐먼트 이름은 숫자를 붙이지 않는다 (기존 데이터 호환문제)
+          // 두번째 도큐먼트부터는 뒤쪽에 _${숫자} 를 붙여준다.
+          final String documentName = "$_documentID${i == 0 ? "" : "_${i + 1}"}";
+          await _product.doc(documentName).set(jsonDecode(jsonEncode(data.toJson())));
+        }
+      } else {
+        await _product.doc(_documentID).set(jsonDecode(jsonEncode(backupData.toJson())));
+      }
+      return;
+    } catch (e) {
+      return Future.error("데이터생성에 실패했습니다.\nerror : ${e.toString()}");
+    }
+  }
+
+  Future<void> updateData({
+    required BackupData backupData,
+  }) async {
+    try {
+      await _product.doc(_documentID).update(jsonDecode(jsonEncode(backupData.toJson())));
+      return;
+    } catch (error, stackTrace) {
+      return Future.error(error, stackTrace);
+    }
+  }
+
+  Future<void> deleteData() async {
+    try {
+      await _product.doc(_documentID).delete();
+    } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
     }
   }
