@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$NendoListSettingState {
+  ViewMode get viewMode => throw _privateConstructorUsedError;
   EditMode get editMode => throw _privateConstructorUsedError;
   FilterData get filterData => throw _privateConstructorUsedError;
   SortData get sortData => throw _privateConstructorUsedError;
@@ -31,7 +32,11 @@ abstract class $NendoListSettingStateCopyWith<$Res> {
           $Res Function(NendoListSettingState) then) =
       _$NendoListSettingStateCopyWithImpl<$Res, NendoListSettingState>;
   @useResult
-  $Res call({EditMode editMode, FilterData filterData, SortData sortData});
+  $Res call(
+      {ViewMode viewMode,
+      EditMode editMode,
+      FilterData filterData,
+      SortData sortData});
 
   $FilterDataCopyWith<$Res> get filterData;
   $SortDataCopyWith<$Res> get sortData;
@@ -51,11 +56,16 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? viewMode = null,
     Object? editMode = null,
     Object? filterData = null,
     Object? sortData = null,
   }) {
     return _then(_value.copyWith(
+      viewMode: null == viewMode
+          ? _value.viewMode
+          : viewMode // ignore: cast_nullable_to_non_nullable
+              as ViewMode,
       editMode: null == editMode
           ? _value.editMode
           : editMode // ignore: cast_nullable_to_non_nullable
@@ -96,7 +106,11 @@ abstract class _$$_NendoListSettingStateCopyWith<$Res>
       __$$_NendoListSettingStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({EditMode editMode, FilterData filterData, SortData sortData});
+  $Res call(
+      {ViewMode viewMode,
+      EditMode editMode,
+      FilterData filterData,
+      SortData sortData});
 
   @override
   $FilterDataCopyWith<$Res> get filterData;
@@ -115,11 +129,16 @@ class __$$_NendoListSettingStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? viewMode = null,
     Object? editMode = null,
     Object? filterData = null,
     Object? sortData = null,
   }) {
     return _then(_$_NendoListSettingState(
+      viewMode: null == viewMode
+          ? _value.viewMode
+          : viewMode // ignore: cast_nullable_to_non_nullable
+              as ViewMode,
       editMode: null == editMode
           ? _value.editMode
           : editMode // ignore: cast_nullable_to_non_nullable
@@ -140,10 +159,13 @@ class __$$_NendoListSettingStateCopyWithImpl<$Res>
 
 class _$_NendoListSettingState implements _NendoListSettingState {
   const _$_NendoListSettingState(
-      {required this.editMode,
+      {required this.viewMode,
+      required this.editMode,
       required this.filterData,
       required this.sortData});
 
+  @override
+  final ViewMode viewMode;
   @override
   final EditMode editMode;
   @override
@@ -153,7 +175,7 @@ class _$_NendoListSettingState implements _NendoListSettingState {
 
   @override
   String toString() {
-    return 'NendoListSettingState(editMode: $editMode, filterData: $filterData, sortData: $sortData)';
+    return 'NendoListSettingState(viewMode: $viewMode, editMode: $editMode, filterData: $filterData, sortData: $sortData)';
   }
 
   @override
@@ -161,6 +183,8 @@ class _$_NendoListSettingState implements _NendoListSettingState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_NendoListSettingState &&
+            (identical(other.viewMode, viewMode) ||
+                other.viewMode == viewMode) &&
             (identical(other.editMode, editMode) ||
                 other.editMode == editMode) &&
             (identical(other.filterData, filterData) ||
@@ -170,7 +194,8 @@ class _$_NendoListSettingState implements _NendoListSettingState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, editMode, filterData, sortData);
+  int get hashCode =>
+      Object.hash(runtimeType, viewMode, editMode, filterData, sortData);
 
   @JsonKey(ignore: true)
   @override
@@ -182,10 +207,13 @@ class _$_NendoListSettingState implements _NendoListSettingState {
 
 abstract class _NendoListSettingState implements NendoListSettingState {
   const factory _NendoListSettingState(
-      {required final EditMode editMode,
+      {required final ViewMode viewMode,
+      required final EditMode editMode,
       required final FilterData filterData,
       required final SortData sortData}) = _$_NendoListSettingState;
 
+  @override
+  ViewMode get viewMode;
   @override
   EditMode get editMode;
   @override

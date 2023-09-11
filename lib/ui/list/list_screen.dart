@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/animation/scroll_to_opacity_widget.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
 import 'package:nendoroid_db/ui/_common_widget/bottom_sheet/filter_bottom_sheet.dart';
-import 'package:nendoroid_db/ui/_common_widget/tile/nendo_list_tile.dart';
+import 'package:nendoroid_db/ui/list/widget/list_main_widget.dart';
 
 class ListScreen extends ConsumerStatefulWidget {
   const ListScreen({Key? key}) : super(key: key);
@@ -42,7 +41,7 @@ class _ListScreenState extends ConsumerState<ListScreen> {
             controller: scrollController,
             slivers: const [
               ListAppBar(),
-              ListMainView(),
+              ListMainWidget(),
             ],
           ),
         ),
@@ -64,80 +63,6 @@ class _ListScreenState extends ConsumerState<ListScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ListMainView extends ConsumerWidget {
-  const ListMainView({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(nendoProvider);
-    final controller = ref.read(nendoProvider.notifier);
-
-    return state.when(
-      data: (data) {
-        return SliverList.builder(
-          itemCount: data.filteredNendoList.length + 1,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              if (ref.watch(listAppBarControllerProvider).isSearchMode) {
-                return Container(
-                  height: 24,
-                  padding: const EdgeInsets.only(left: 10.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "검색된 넨도로이드 수 : ${data.filteredNendoList.length}",
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                    ),
-                  ),
-                );
-              } else {
-                return const SizedBox();
-              }
-            } else {
-              return NendoListTile(nendoData: data.filteredNendoList[index - 1]);
-            }
-          },
-        );
-      },
-      error: (error, stackTrace) {
-        return SliverFillRemaining(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("데이터를 받아오는 중 오류가 발생했습니다."),
-                IconButton(
-                  onPressed: () {
-                    controller.fetchData();
-                  },
-                  icon: Icon(
-                    Icons.refresh,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-      loading: () {
-        return const SliverFillRemaining(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("넨도로이드 목록을 가져오는중..."),
-                SizedBox(height: 20.0),
-                CircularProgressIndicator(),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

@@ -14,17 +14,19 @@ class MyScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("마이페이지"),
-        /*actions: [
+        actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.go(RoutePath.setting);
+              },
               icon: const Icon(
                 Icons.settings,
               ),
             ),
           ),
-        ],*/
+        ],
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

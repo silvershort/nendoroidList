@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
@@ -9,16 +10,23 @@ import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
-import 'package:nendoroid_db/provider/auth_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:collection/collection.dart';
 
 part 'nendo_provider.freezed.dart';
-
 part 'nendo_provider.g.dart';
+
+@freezed
+class NendoState with _$NendoState {
+  const factory NendoState({
+    @Default([]) List<NendoData> nendoList,
+    @Default([]) List<NendoData> filteredNendoList,
+    @Default([]) List<SetData> setList,
+  }) = _NendoState;
+}
+
 
 @Riverpod(keepAlive: true)
 class Nendo extends _$Nendo {
@@ -422,13 +430,4 @@ class Nendo extends _$Nendo {
   NendoData getNendoDataByNumber(String number) {
     return state.requireValue.nendoList.where((element) => element.num == number).first;
   }
-}
-
-@freezed
-class NendoState with _$NendoState {
-  const factory NendoState({
-    @Default([]) List<NendoData> nendoList,
-    @Default([]) List<NendoData> filteredNendoList,
-    @Default([]) List<SetData> setList,
-  }) = _NendoState;
 }

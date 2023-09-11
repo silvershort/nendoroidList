@@ -6,6 +6,7 @@ import 'package:nendoroid_db/ui/list/list_screen.dart';
 import 'package:nendoroid_db/ui/my/app_info_screen.dart';
 import 'package:nendoroid_db/ui/my/login_screen.dart';
 import 'package:nendoroid_db/ui/my/my_screen.dart';
+import 'package:nendoroid_db/ui/my/setting_screen.dart';
 import 'package:nendoroid_db/ui/nendo/nendo_web_screen.dart';
 import 'package:nendoroid_db/ui/news/news_screen.dart';
 import 'package:nendoroid_db/ui/stats/stats_screen.dart';
@@ -102,6 +103,13 @@ final appRouter = GoRouter(
                   path: 'app-info',
                   builder: (context, state) {
                     return const AppInfoScreen();
+                  },
+                ),
+                GoRoute(
+                  parentNavigatorKey: _myShellNavigatorKey,
+                  path: 'setting',
+                  builder: (context, state) {
+                    return const SettingScreen();
                   },
                 ),
               ],

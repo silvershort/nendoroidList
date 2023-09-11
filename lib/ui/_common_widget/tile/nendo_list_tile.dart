@@ -8,6 +8,7 @@ import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_info_edit_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/check_icon.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/wish_icon.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
@@ -38,6 +39,15 @@ class NendoListTile extends ConsumerWidget {
     }
   }
 
+  void _showDetailDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DetailDialog(nendoData: nendoData);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(nendoListSettingProvider);
@@ -47,13 +57,7 @@ class NendoListTile extends ConsumerWidget {
       onTap: () {
         switch (state.editMode) {
           case Normal():
-            // TODO: 다이얼로그 출력
-            showDialog(
-              context: context,
-              builder: (context) {
-                return DetailDialog(nendoData: nendoData);
-              },
-            );
+            _showDetailDialog(context);
           case Have():
             nendoController.updateHaveNendo(nendoData.num);
           case Wish():
@@ -64,6 +68,9 @@ class NendoListTile extends ConsumerWidget {
         if (ref.read(listAppBarControllerProvider).isSearchMode) {
           FocusScope.of(context).unfocus();
         }
+      },
+      onLongPress: () {
+        _showDetailDialog(context);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -181,8 +188,12 @@ class NendoListTile extends ConsumerWidget {
                         right: 2.5,
                         child: ElevatedButton(
                           onPressed: () {
-                            // TODO: 다이얼로그 출력
-                            // showNendoInfoEditDialog(context);
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return NendoInfoEditDialog(nendoData: nendoData);
+                              },
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.fromLTRB(12.5, 7.5, 12.5, 7.5),
