@@ -8,11 +8,13 @@ import 'package:nendoroid_db/main_new.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/nendo_group.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
+import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
@@ -429,5 +431,27 @@ class Nendo extends _$Nendo {
   // 번호에 맞는 넨도 반환
   NendoData getNendoDataByNumber(String number) {
     return state.requireValue.nendoList.where((element) => element.num == number).first;
+  }
+
+  // 넨도 그룹핑
+  List<NendoGroup> getNendoGroupList(Grouping grouping) {
+    if (state.value == null) {
+      return [];
+    }
+
+    final List<NendoGroup> nendoGroupList = [];
+
+    switch (grouping) {
+      case NumberGroup():
+        state.requireValue.filteredNendoList.getNendoNumberGroupList().forEach((key, value) {
+          nendoGroupList.add(NendoGroup(name: key.rangeName(), nendoList: value));
+        });
+      case SeriesGroup():
+        state.requireValue.filteredNendoList.getNendoSeriesGroupList().forEach((key, value) {
+          nendoGroupList.add(NendoGroup(name: key, nendoList: value));
+        });
+    }
+
+    return nendoGroupList;
   }
 }

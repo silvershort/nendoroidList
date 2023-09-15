@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
 
 /// 넨도로이드 리스트 화면의 앱바
@@ -19,13 +20,14 @@ class _ListAppBarState extends ConsumerState<ListAppBar> {
   Widget build(BuildContext context) {
     final state = ref.watch(listAppBarControllerProvider);
     final controller = ref.read(listAppBarControllerProvider.notifier);
+    final hideAppbar = ref.watch(appSettingProvider.select((value) => value.hideUI));
 
     if (state.isSearchMode) {
       return SliverAppBar(
         scrolledUnderElevation: 0.0,
         centerTitle: true,
         pinned: true,
-        floating: true,
+        floating: hideAppbar ? true : false,
         title: Row(
           children: [
             Expanded(
@@ -76,8 +78,7 @@ class _ListAppBarState extends ConsumerState<ListAppBar> {
       return SliverAppBar(
         centerTitle: true,
         pinned: false,
-        snap: false,
-        floating: true,
+        floating: hideAppbar ? true : false,
         title: const Text(
             "넨도로이드 목록",
         ),

@@ -12,6 +12,10 @@ class HiveName {
   static const String githubTokenKey = "githubToken";
   static const String appColorIndexKey = "appColorIndex";
   static const String appBrightnessIndexKey = "appBrightnessIndex";
+  static const String appGroupHeaderShowKey = "appGroupHeaderShow";
+  static const String appGroupMethodKey = "appGroupMethod";
+  static const String appHideUIKey = "appHideUI";
+  static const String appGridCountKey = "appGridCount";
   static const String subscribeKey = "subscribeKey";
   static const String emailKey = "emailKey";
   static const String termsAgreeKey = "termsAgreeKey";

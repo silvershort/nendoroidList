@@ -12,6 +12,14 @@ extension StringExtension on String {
       return 0;
     }
   }
+
+  int get onlyNumber {
+    try {
+      return int.parse(replaceAll(RegExp(r'[^0-9]'), ''));
+    } catch (_) {
+      return 0;
+    }
+  }
 }
 
 extension NullableStringExtension on String? {

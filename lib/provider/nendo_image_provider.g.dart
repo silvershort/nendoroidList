@@ -85,8 +85,8 @@ class NendoImageProvider
     extends AutoDisposeAsyncNotifierProviderImpl<NendoImage, NendoImageState> {
   /// See also [NendoImage].
   NendoImageProvider(
-    this.gscProductNum,
-  ) : super.internal(
+    String gscProductNum,
+  ) : this._internal(
           () => NendoImage()..gscProductNum = gscProductNum,
           from: nendoImageProvider,
           name: r'nendoImageProvider',
@@ -97,9 +97,51 @@ class NendoImageProvider
           dependencies: NendoImageFamily._dependencies,
           allTransitiveDependencies:
               NendoImageFamily._allTransitiveDependencies,
+          gscProductNum: gscProductNum,
         );
 
+  NendoImageProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.gscProductNum,
+  }) : super.internal();
+
   final String gscProductNum;
+
+  @override
+  FutureOr<NendoImageState> runNotifierBuild(
+    covariant NendoImage notifier,
+  ) {
+    return notifier.build(
+      gscProductNum,
+    );
+  }
+
+  @override
+  Override overrideWith(NendoImage Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: NendoImageProvider._internal(
+        () => create()..gscProductNum = gscProductNum,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        gscProductNum: gscProductNum,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<NendoImage, NendoImageState>
+      createElement() {
+    return _NendoImageProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -113,15 +155,20 @@ class NendoImageProvider
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin NendoImageRef on AutoDisposeAsyncNotifierProviderRef<NendoImageState> {
+  /// The parameter `gscProductNum` of this provider.
+  String get gscProductNum;
+}
+
+class _NendoImageProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<NendoImage, NendoImageState>
+    with NendoImageRef {
+  _NendoImageProviderElement(super.provider);
 
   @override
-  FutureOr<NendoImageState> runNotifierBuild(
-    covariant NendoImage notifier,
-  ) {
-    return notifier.build(
-      gscProductNum,
-    );
-  }
+  String get gscProductNum => (origin as NendoImageProvider).gscProductNum;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

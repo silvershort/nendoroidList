@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/nendo_group.dart';
+import 'package:nendoroid_db/models/view_mode.dart';
+import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
+import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/nendo_grid_tile.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/nendo_list_section.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/nendo_list_tile.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 class ListMainWidget extends ConsumerWidget {
   const ListMainWidget({super.key});
@@ -18,15 +21,37 @@ class ListMainWidget extends ConsumerWidget {
 
     return state.when(
       data: (data) {
-        // return MainGridListScrollView(nendoList: data.filteredNendoList);
-        return MainStickyGridListScrollView(sectionList: [
-          data.filteredNendoList.sublist(0, 10),
-          data.filteredNendoList.sublist(11, 20),
-          data.filteredNendoList.sublist(21, 30),
-          data.filteredNendoList.sublist(31, 40),
-          data.filteredNendoList.sublist(41, 50),
-          data.filteredNendoList.sublist(51, 60),
-        ]);
+        final appSetting = ref.watch(appSettingProvider);
+        final viewMode = ref.watch(nendoListSettingProvider.select((value) => value.viewMode));
+
+        switch (viewMode) {
+          case ListViewMode():
+            if (appSetting.showGroupHeader) {
+              return MainStickyListScrollView(
+                sectionList: controller.getNendoGroupList(
+                  switch (appSetting.groupMethod) {
+                    0 => NumberGroup(),
+                    1 || _ => SeriesGroup(),
+                  },
+                ),
+              );
+            } else {
+              return MainListScrollView(nendoList: data.filteredNendoList);
+            }
+          case GridListViewMode():
+            if (appSetting.showGroupHeader) {
+              return MainStickyListScrollView(
+                sectionList: controller.getNendoGroupList(
+                  switch (appSetting.groupMethod) {
+                    0 => NumberGroup(),
+                    1 || _ => SeriesGroup(),
+                  },
+                ),
+              );
+            } else {
+              return MainGridListScrollView(nendoList: data.filteredNendoList);
+            }
+        }
       },
       error: (error, stackTrace) {
         return SliverFillRemaining(
@@ -107,11 +132,10 @@ class MainGridListScrollView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 100,
-        childAspectRatio: 1,
-        mainAxisSpacing: 5,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
         crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
       ),
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -123,22 +147,28 @@ class MainGridListScrollView extends ConsumerWidget {
   }
 }
 
-class MainStickyGridListScrollView extends StatelessWidget {
-  const MainStickyGridListScrollView({super.key, required this.sectionList});
+class MainStickyListScrollView extends ConsumerWidget {
+  const MainStickyListScrollView({
+    super.key,
+    required this.sectionList,
+  });
 
-  final List<List<NendoData>> sectionList;
+  final List<NendoGroup> sectionList;
 
   @override
-  Widget build(BuildContext context) {
-    return MultiSliver(
-      children: [
-        for (List<NendoData> item in sectionList)
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewMode = ref.watch(nendoListSettingProvider.select((value) => value.viewMode));
+
+    return SliverMainAxisGroup(
+      slivers: [
+        for (NendoGroup group in sectionList)
           NendoListSection(
-            title: '고정',
-            sliverList: MainGridListScrollView(
-              nendoList: item,
-            ),
-          )
+            title: group.name,
+            sliverList: switch (viewMode) {
+              ListViewMode() => MainListScrollView(nendoList: group.nendoList),
+              GridListViewMode() => MainGridListScrollView(nendoList: group.nendoList),
+            },
+          ),
       ],
     );
   }

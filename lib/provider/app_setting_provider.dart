@@ -15,6 +15,10 @@ class AppSettingState with _$AppSettingState {
   const factory AppSettingState({
     required MaterialColor seedColor,
     required Brightness brightness,
+    required bool showGroupHeader,
+    required int groupMethod,
+    required bool hideUI,
+    required int gridCount,
   }) = _AppSettingState;
 }
 
@@ -31,6 +35,10 @@ class AppSetting extends _$AppSetting {
     return AppSettingState(
       seedColor: AppColor.themeColors[_appThemeBox.get(HiveName.appColorIndexKey) ?? AppColor.defaultIndex],
       brightness: _appThemeBox.get(HiveName.appBrightnessIndexKey) == 1 ? Brightness.dark : Brightness.light,
+      showGroupHeader: _appThemeBox.get(HiveName.appGroupHeaderShowKey) ?? false,
+      groupMethod: _appThemeBox.get(HiveName.appGroupMethodKey) ?? 0,
+      hideUI: _appThemeBox.get(HiveName.appHideUIKey) ?? true,
+      gridCount: _appThemeBox.get(HiveName.appGridCountKey) ?? 0,
     );
   }
 
@@ -52,5 +60,37 @@ class AppSetting extends _$AppSetting {
 
   bool isUsedDarkMode() {
     return state.brightness == Brightness.dark ? true : false;
+  }
+
+  void setShowHeader(bool show) {
+    state = state.copyWith(
+      showGroupHeader: show
+    );
+    _appThemeBox.put(HiveName.appGroupHeaderShowKey, show);
+  }
+
+  void setHideUI(bool hide) {
+    state = state.copyWith(
+        hideUI: hide
+    );
+    _appThemeBox.put(HiveName.appHideUIKey, hide);
+  }
+
+  void setGridCount(bool add) {
+    int newCount = add ? state.gridCount + 1 : state.gridCount - 1;
+    if (newCount < 0) {
+      newCount = 0;
+    }
+    state = state.copyWith(
+        gridCount: newCount,
+    );
+    _appThemeBox.put(HiveName.appGridCountKey, newCount);
+  }
+
+  void setGroudMethod(int method) {
+    state = state.copyWith(
+      groupMethod: method,
+    );
+    _appThemeBox.put(HiveName.appGroupMethodKey, method);
   }
 }

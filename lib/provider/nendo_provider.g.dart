@@ -6,7 +6,7 @@ part of 'nendo_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nendoHash() => r'7af83b6324fc99bf4a61442be820336344991180';
+String _$nendoHash() => r'd419ea38d0578ab9c26accb1306a46606742a850';
 
 /// See also [Nendo].
 @ProviderFor(Nendo)
@@ -21,4 +21,4 @@ final nendoProvider = AsyncNotifierProvider<Nendo, NendoState>.internal(
 
 typedef _$Nendo = AsyncNotifier<NendoState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

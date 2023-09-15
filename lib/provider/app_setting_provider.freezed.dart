@@ -18,6 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppSettingState {
   MaterialColor get seedColor => throw _privateConstructorUsedError;
   Brightness get brightness => throw _privateConstructorUsedError;
+  bool get showGroupHeader => throw _privateConstructorUsedError;
+  int get groupMethod => throw _privateConstructorUsedError;
+  bool get hideUI => throw _privateConstructorUsedError;
+  int get gridCount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppSettingStateCopyWith<AppSettingState> get copyWith =>
@@ -30,7 +34,13 @@ abstract class $AppSettingStateCopyWith<$Res> {
           AppSettingState value, $Res Function(AppSettingState) then) =
       _$AppSettingStateCopyWithImpl<$Res, AppSettingState>;
   @useResult
-  $Res call({MaterialColor seedColor, Brightness brightness});
+  $Res call(
+      {MaterialColor seedColor,
+      Brightness brightness,
+      bool showGroupHeader,
+      int groupMethod,
+      bool hideUI,
+      int gridCount});
 }
 
 /// @nodoc
@@ -48,6 +58,10 @@ class _$AppSettingStateCopyWithImpl<$Res, $Val extends AppSettingState>
   $Res call({
     Object? seedColor = null,
     Object? brightness = null,
+    Object? showGroupHeader = null,
+    Object? groupMethod = null,
+    Object? hideUI = null,
+    Object? gridCount = null,
   }) {
     return _then(_value.copyWith(
       seedColor: null == seedColor
@@ -58,6 +72,22 @@ class _$AppSettingStateCopyWithImpl<$Res, $Val extends AppSettingState>
           ? _value.brightness
           : brightness // ignore: cast_nullable_to_non_nullable
               as Brightness,
+      showGroupHeader: null == showGroupHeader
+          ? _value.showGroupHeader
+          : showGroupHeader // ignore: cast_nullable_to_non_nullable
+              as bool,
+      groupMethod: null == groupMethod
+          ? _value.groupMethod
+          : groupMethod // ignore: cast_nullable_to_non_nullable
+              as int,
+      hideUI: null == hideUI
+          ? _value.hideUI
+          : hideUI // ignore: cast_nullable_to_non_nullable
+              as bool,
+      gridCount: null == gridCount
+          ? _value.gridCount
+          : gridCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -70,7 +100,13 @@ abstract class _$$_AppSettingStateCopyWith<$Res>
       __$$_AppSettingStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({MaterialColor seedColor, Brightness brightness});
+  $Res call(
+      {MaterialColor seedColor,
+      Brightness brightness,
+      bool showGroupHeader,
+      int groupMethod,
+      bool hideUI,
+      int gridCount});
 }
 
 /// @nodoc
@@ -86,6 +122,10 @@ class __$$_AppSettingStateCopyWithImpl<$Res>
   $Res call({
     Object? seedColor = null,
     Object? brightness = null,
+    Object? showGroupHeader = null,
+    Object? groupMethod = null,
+    Object? hideUI = null,
+    Object? gridCount = null,
   }) {
     return _then(_$_AppSettingState(
       seedColor: null == seedColor
@@ -96,6 +136,22 @@ class __$$_AppSettingStateCopyWithImpl<$Res>
           ? _value.brightness
           : brightness // ignore: cast_nullable_to_non_nullable
               as Brightness,
+      showGroupHeader: null == showGroupHeader
+          ? _value.showGroupHeader
+          : showGroupHeader // ignore: cast_nullable_to_non_nullable
+              as bool,
+      groupMethod: null == groupMethod
+          ? _value.groupMethod
+          : groupMethod // ignore: cast_nullable_to_non_nullable
+              as int,
+      hideUI: null == hideUI
+          ? _value.hideUI
+          : hideUI // ignore: cast_nullable_to_non_nullable
+              as bool,
+      gridCount: null == gridCount
+          ? _value.gridCount
+          : gridCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -103,16 +159,30 @@ class __$$_AppSettingStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AppSettingState implements _AppSettingState {
-  const _$_AppSettingState({required this.seedColor, required this.brightness});
+  const _$_AppSettingState(
+      {required this.seedColor,
+      required this.brightness,
+      required this.showGroupHeader,
+      required this.groupMethod,
+      required this.hideUI,
+      required this.gridCount});
 
   @override
   final MaterialColor seedColor;
   @override
   final Brightness brightness;
+  @override
+  final bool showGroupHeader;
+  @override
+  final int groupMethod;
+  @override
+  final bool hideUI;
+  @override
+  final int gridCount;
 
   @override
   String toString() {
-    return 'AppSettingState(seedColor: $seedColor, brightness: $brightness)';
+    return 'AppSettingState(seedColor: $seedColor, brightness: $brightness, showGroupHeader: $showGroupHeader, groupMethod: $groupMethod, hideUI: $hideUI, gridCount: $gridCount)';
   }
 
   @override
@@ -123,11 +193,19 @@ class _$_AppSettingState implements _AppSettingState {
             (identical(other.seedColor, seedColor) ||
                 other.seedColor == seedColor) &&
             (identical(other.brightness, brightness) ||
-                other.brightness == brightness));
+                other.brightness == brightness) &&
+            (identical(other.showGroupHeader, showGroupHeader) ||
+                other.showGroupHeader == showGroupHeader) &&
+            (identical(other.groupMethod, groupMethod) ||
+                other.groupMethod == groupMethod) &&
+            (identical(other.hideUI, hideUI) || other.hideUI == hideUI) &&
+            (identical(other.gridCount, gridCount) ||
+                other.gridCount == gridCount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, seedColor, brightness);
+  int get hashCode => Object.hash(runtimeType, seedColor, brightness,
+      showGroupHeader, groupMethod, hideUI, gridCount);
 
   @JsonKey(ignore: true)
   @override
@@ -139,12 +217,24 @@ class _$_AppSettingState implements _AppSettingState {
 abstract class _AppSettingState implements AppSettingState {
   const factory _AppSettingState(
       {required final MaterialColor seedColor,
-      required final Brightness brightness}) = _$_AppSettingState;
+      required final Brightness brightness,
+      required final bool showGroupHeader,
+      required final int groupMethod,
+      required final bool hideUI,
+      required final int gridCount}) = _$_AppSettingState;
 
   @override
   MaterialColor get seedColor;
   @override
   Brightness get brightness;
+  @override
+  bool get showGroupHeader;
+  @override
+  int get groupMethod;
+  @override
+  bool get hideUI;
+  @override
+  int get gridCount;
   @override
   @JsonKey(ignore: true)
   _$$_AppSettingStateCopyWith<_$_AppSettingState> get copyWith =>

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/edit_mode.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/models/view_mode.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 
 class FilterBottomSheet extends ConsumerWidget {
@@ -26,6 +27,50 @@ class FilterBottomSheet extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: 20.0),
+          Text(
+            "보기 방식",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          const SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.425,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: switch (state.viewMode) {
+                      ListViewMode() => Theme.of(context).colorScheme.surfaceVariant,
+                      _ => Theme.of(context).colorScheme.surface,
+                    },
+                  ),
+                  onPressed: () => controller.changeViewMode(ListViewMode()),
+                  child: const Text(
+                    "리스트",
+                    style: TextStyle(),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.425,
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: switch (state.viewMode) {
+                      GridListViewMode() => Theme.of(context).colorScheme.surfaceVariant,
+                        _ => Theme.of(context).colorScheme.surface,
+                      },
+                    ),
+                    onPressed: () => controller.changeViewMode(GridListViewMode()),
+                    child: const Text(
+                      "격자",
+                      style: TextStyle(),
+                    )),
+              ),
+            ],
+          ),
           const SizedBox(height: 20.0),
           Text(
             "편집 모드",

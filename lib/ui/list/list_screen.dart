@@ -19,30 +19,32 @@ class _ListScreenState extends ConsumerState<ListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Scrollbar(
-        thickness: 5.0,
-        radius: const Radius.circular(5.0),
-        controller: scrollController,
-        interactive: true,
-        trackVisibility: true,
-        thumbVisibility: true,
-        child: NotificationListener<ScrollNotification>(
-          // 스크롤 했을때 검색창 포커스 해제
-          onNotification: (scrollNotification) {
-            if (scrollNotification is ScrollStartNotification) {
-              if (ref.watch(listAppBarControllerProvider).isSearchMode) {
-                FocusScope.of(context).unfocus();
+      body: SafeArea(
+        child: Scrollbar(
+          thickness: 5.0,
+          radius: const Radius.circular(5.0),
+          controller: scrollController,
+          interactive: true,
+          trackVisibility: true,
+          thumbVisibility: true,
+          child: NotificationListener<ScrollNotification>(
+            // 스크롤 했을때 검색창 포커스 해제
+            onNotification: (scrollNotification) {
+              if (scrollNotification is ScrollStartNotification) {
+                if (ref.watch(listAppBarControllerProvider).isSearchMode) {
+                  FocusScope.of(context).unfocus();
+                }
               }
-            }
-            return true;
-          },
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            controller: scrollController,
-            slivers: const [
-              ListAppBar(),
-              ListMainWidget(),
-            ],
+              return true;
+            },
+            child: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              controller: scrollController,
+              slivers: const [
+                ListAppBar(),
+                ListMainWidget(),
+              ],
+            ),
           ),
         ),
       ),

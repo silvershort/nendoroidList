@@ -6,7 +6,7 @@ part of 'app_setting_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appSettingHash() => r'0d9331ea9bae7cbef2f30f69be977de4b2f3cbfa';
+String _$appSettingHash() => r'06f24a14ed2c52b38acbba00d7d5a042d114da7d';
 
 /// 테마, 다크모드같은 앱의 전체적인 세팅을 설정해준다.
 ///
@@ -24,4 +24,4 @@ final appSettingProvider =
 
 typedef _$AppSetting = AutoDisposeNotifier<AppSettingState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -6,11 +6,14 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
+import 'package:nendoroid_db/utilities/extension/num_extension.dart';
+import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
 extension NendoListExtension on List<NendoData> {
   // 넨도로이드를 정렬 조건에 맞춰 정렬
   void sortBySetting(NendoListSettingState settingState) {
-    sort((a, b) {
+    sort(
+      (a, b) {
         // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
         int numA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
         int numB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
@@ -24,7 +27,7 @@ extension NendoListExtension on List<NendoData> {
           case SortingMethodNum():
             switch (sortData.sortingOrder) {
               case ASC():
-              // 숫자 오름차순 정렬
+                // 숫자 오름차순 정렬
                 if (numA > numB) {
                   return 1;
                 } else if (numA < numB) {
@@ -33,7 +36,7 @@ extension NendoListExtension on List<NendoData> {
                   return a.num.compareTo(b.num);
                 }
               case DESC():
-              // 숫자 내림차순 정렬
+                // 숫자 내림차순 정렬
                 if (numA < numB) {
                   return 1;
                 } else if (numA > numB) {
@@ -44,7 +47,7 @@ extension NendoListExtension on List<NendoData> {
                   return b.num.compareTo(a.num);
                 }
             }
-        // 출시일 기준 정렬
+          // 출시일 기준 정렬
           case SortingMethodRelease():
             switch (sortData.sortingOrder) {
               case ASC():
@@ -189,6 +192,13 @@ extension NendoListExtension on List<NendoData> {
         }
       }
     }
+
+    // 가장 많은 시리즈가 단 1개일경우 보여주지 않는다.
+    if (mostCount == 1) {
+      return null;
+    } else {
+      return MostSeries(series: mostSeries, count: mostCount);
+    }
   }
 
   // 이번달 출시예정인 구매 넨도
@@ -232,5 +242,34 @@ extension NendoListExtension on List<NendoData> {
       }
     }
     return totalPrice;
+  }
+
+  // 넨도 그룹핑 작업을 해준다.
+  Map<int, List<NendoData>> getNendoNumberGroupList() {
+    // 그룹화된 데이터를 저장할 맵
+    Map<int, List<NendoData>> groupedData = {};
+
+    for (NendoData nendoData in this) {
+      int groupKey = nendoData.num.onlyNumber.roundTo100();
+      if (!groupedData.containsKey(groupKey)) {
+        groupedData[groupKey] = [];
+      }
+      groupedData[groupKey]!.add(nendoData);
+    }
+    return groupedData;
+  }
+
+  Map<String, List<NendoData>> getNendoSeriesGroupList() {
+    // 그룹화된 데이터를 저장할 맵
+    Map<String, List<NendoData>> groupedData = {};
+
+    for (NendoData nendoData in this) {
+      String groupKey = nendoData.series.ko ?? '알수없음';
+      if (!groupedData.containsKey(groupKey)) {
+        groupedData[groupKey] = [];
+      }
+      groupedData[groupKey]!.add(nendoData);
+    }
+    return groupedData;
   }
 }

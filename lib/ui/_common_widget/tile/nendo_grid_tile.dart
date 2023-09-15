@@ -86,7 +86,7 @@ class NendoGridTile extends ConsumerWidget {
         children: [
           ExtendedImage.network(
             nendoData.image,
-            width: 100.0,
+            width: double.infinity,
             fit: BoxFit.cover,
             cache: true,
           ),
