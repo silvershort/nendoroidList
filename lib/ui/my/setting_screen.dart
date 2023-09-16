@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
+import 'package:nendoroid_db/provider/github_download_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/divider/default_divider.dart';
@@ -75,6 +76,18 @@ class SettingScreen extends ConsumerWidget {
             },
           ),
           const DefaultDivider(),
+          MenuTile(title: '넨돌 다운로드', onPressed: () {
+            ref.read(githubDownloadProvider.notifier).fetchDollJsonNameList();
+          },),
+          MenuTile(title: '넨돌 데이터 다운로드', onPressed: () {
+            ref.read(githubDownloadProvider.notifier).fetchNendoDollList();
+          },),
+          MenuTile(title: '로컬 저장소 저장', onPressed: () {
+            ref.read(githubDownloadProvider.notifier).saveLocalDB();
+          },),
+          MenuTile(title: '로컬 저장소 저장2', onPressed: () {
+            ref.read(nendoProvider.notifier).fetchData();
+          },),
           /*const SettingTitle(title: '데이터 설정'),
           MenuSwitchTile(
             title: '데이터 자동 백업',

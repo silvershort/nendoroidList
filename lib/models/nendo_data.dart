@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:nendoroid_db/models/nen_doll_data.dart';
 
 part 'nendo_data.g.dart';
 
@@ -34,6 +35,8 @@ class NendoData {
   int? myPrice;
   @HiveField(12)
   List<String>? memo;
+  @HiveField(13)
+  String? type;
 
   NendoData({
     required this.num,
@@ -49,9 +52,24 @@ class NendoData {
     this.gender,
     this.myPrice,
     this.memo,
+    this.type,
   });
 
   factory NendoData.fromJson(Map<String, dynamic> json) => _$NendoDataFromJson(json);
+
+  factory NendoData.fromNenDoll(NenDollData dollData) {
+    return NendoData(
+      num: dollData.gscProductNum.toString(),
+      name: dollData.name,
+      series: dollData.series,
+      gscProductNum: dollData.gscProductNum,
+      price: dollData.price,
+      releaseDate: dollData.releaseDate ?? [],
+      image: dollData.image,
+      gender: dollData.gender,
+      type: dollData.type,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$NendoDataToJson(this);
 
@@ -69,6 +87,7 @@ class NendoData {
     int? count,
     int? myPrice,
     List<String>? memo,
+    String? type,
   }) {
     return NendoData(
       num: num ?? this.num,
@@ -84,12 +103,13 @@ class NendoData {
       count: count ?? this.count,
       myPrice: myPrice ?? this.myPrice,
       memo: memo ?? this.memo,
+      type: type ?? this.type,
     );
   }
 
   @override
   String toString() {
-    return 'NendoData{num: $num, name: $name, series: $series, gscProductNum: $gscProductNum, price: $price, releaseDate: $releaseDate, image: $image, gender: $gender, have: $have, wish: $wish, count: $count, myPrice: $myPrice, memo: $memo}';
+    return 'NendoData{num: $num, name: $name, series: $series, gscProductNum: $gscProductNum, price: $price, releaseDate: $releaseDate, image: $image, gender: $gender, have: $have, wish: $wish, count: $count, myPrice: $myPrice, memo: $memo, type: $type}';
   }
 }
 

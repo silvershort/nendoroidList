@@ -52,6 +52,16 @@ class FirebaseService {
     }
   }
 
+  Future<ApiResult<void>> createInitData({required BackupData backupData}) async {
+    repository.initDefaultSetting();
+    try {
+      await repository.createDate(backupData: backupData);
+      return const ApiResult.success(null);
+    } catch (error, stackTrace) {
+      return ApiResult.error(ApiError(message: error.toString()), stackTrace);
+    }
+  }
+
   Future<ApiResult<void>> createBackupData({
     required String documentID,
     required BackupData backupData,

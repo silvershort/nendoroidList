@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$NendoState {
   List<NendoData> get nendoList => throw _privateConstructorUsedError;
+  List<NendoData> get nenDollList => throw _privateConstructorUsedError;
   List<NendoData> get filteredNendoList => throw _privateConstructorUsedError;
   List<SetData> get setList => throw _privateConstructorUsedError;
 
@@ -33,6 +34,7 @@ abstract class $NendoStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<NendoData> nendoList,
+      List<NendoData> nenDollList,
       List<NendoData> filteredNendoList,
       List<SetData> setList});
 }
@@ -51,6 +53,7 @@ class _$NendoStateCopyWithImpl<$Res, $Val extends NendoState>
   @override
   $Res call({
     Object? nendoList = null,
+    Object? nenDollList = null,
     Object? filteredNendoList = null,
     Object? setList = null,
   }) {
@@ -58,6 +61,10 @@ class _$NendoStateCopyWithImpl<$Res, $Val extends NendoState>
       nendoList: null == nendoList
           ? _value.nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+      nenDollList: null == nenDollList
+          ? _value.nenDollList
+          : nenDollList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
       filteredNendoList: null == filteredNendoList
           ? _value.filteredNendoList
@@ -81,6 +88,7 @@ abstract class _$$_NendoStateCopyWith<$Res>
   @useResult
   $Res call(
       {List<NendoData> nendoList,
+      List<NendoData> nenDollList,
       List<NendoData> filteredNendoList,
       List<SetData> setList});
 }
@@ -97,6 +105,7 @@ class __$$_NendoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? nendoList = null,
+    Object? nenDollList = null,
     Object? filteredNendoList = null,
     Object? setList = null,
   }) {
@@ -104,6 +113,10 @@ class __$$_NendoStateCopyWithImpl<$Res>
       nendoList: null == nendoList
           ? _value._nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+      nenDollList: null == nenDollList
+          ? _value._nenDollList
+          : nenDollList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
       filteredNendoList: null == filteredNendoList
           ? _value._filteredNendoList
@@ -122,9 +135,11 @@ class __$$_NendoStateCopyWithImpl<$Res>
 class _$_NendoState implements _NendoState {
   const _$_NendoState(
       {final List<NendoData> nendoList = const [],
+      final List<NendoData> nenDollList = const [],
       final List<NendoData> filteredNendoList = const [],
       final List<SetData> setList = const []})
       : _nendoList = nendoList,
+        _nenDollList = nenDollList,
         _filteredNendoList = filteredNendoList,
         _setList = setList;
 
@@ -135,6 +150,15 @@ class _$_NendoState implements _NendoState {
     if (_nendoList is EqualUnmodifiableListView) return _nendoList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_nendoList);
+  }
+
+  final List<NendoData> _nenDollList;
+  @override
+  @JsonKey()
+  List<NendoData> get nenDollList {
+    if (_nenDollList is EqualUnmodifiableListView) return _nenDollList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_nenDollList);
   }
 
   final List<NendoData> _filteredNendoList;
@@ -158,7 +182,7 @@ class _$_NendoState implements _NendoState {
 
   @override
   String toString() {
-    return 'NendoState(nendoList: $nendoList, filteredNendoList: $filteredNendoList, setList: $setList)';
+    return 'NendoState(nendoList: $nendoList, nenDollList: $nenDollList, filteredNendoList: $filteredNendoList, setList: $setList)';
   }
 
   @override
@@ -169,6 +193,8 @@ class _$_NendoState implements _NendoState {
             const DeepCollectionEquality()
                 .equals(other._nendoList, _nendoList) &&
             const DeepCollectionEquality()
+                .equals(other._nenDollList, _nenDollList) &&
+            const DeepCollectionEquality()
                 .equals(other._filteredNendoList, _filteredNendoList) &&
             const DeepCollectionEquality().equals(other._setList, _setList));
   }
@@ -177,6 +203,7 @@ class _$_NendoState implements _NendoState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_nendoList),
+      const DeepCollectionEquality().hash(_nenDollList),
       const DeepCollectionEquality().hash(_filteredNendoList),
       const DeepCollectionEquality().hash(_setList));
 
@@ -190,11 +217,14 @@ class _$_NendoState implements _NendoState {
 abstract class _NendoState implements NendoState {
   const factory _NendoState(
       {final List<NendoData> nendoList,
+      final List<NendoData> nenDollList,
       final List<NendoData> filteredNendoList,
       final List<SetData> setList}) = _$_NendoState;
 
   @override
   List<NendoData> get nendoList;
+  @override
+  List<NendoData> get nenDollList;
   @override
   List<NendoData> get filteredNendoList;
   @override

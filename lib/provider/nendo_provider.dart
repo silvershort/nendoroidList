@@ -24,11 +24,11 @@ part 'nendo_provider.g.dart';
 class NendoState with _$NendoState {
   const factory NendoState({
     @Default([]) List<NendoData> nendoList,
+    @Default([]) List<NendoData> nenDollList,
     @Default([]) List<NendoData> filteredNendoList,
     @Default([]) List<SetData> setList,
   }) = _NendoState;
 }
-
 
 @Riverpod(keepAlive: true)
 class Nendo extends _$Nendo {

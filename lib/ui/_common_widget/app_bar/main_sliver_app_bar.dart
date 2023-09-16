@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
+import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar_controller.dart';
 
 /// 넨도로이드 리스트 화면의 앱바
@@ -22,6 +24,9 @@ class _ListAppBarState extends ConsumerState<MainSliverAppBar> {
     final controller = ref.read(mainSliverAppBarControllerProvider.notifier);
     // 앱 설정에 따라서 스크롤시 UI를 숨길지 여부
     final hideAppbar = ref.watch(appSettingProvider.select((value) => value.hideUI));
+    // 현재 편집 모드를 받아서 타이틀을 수정해준다.
+    final editMode = ref.watch(nendoListSettingProvider.select((value) => value.editMode));
+    final dataType = ref.watch(nendoListSettingProvider.select((value) => value.dataType));
 
     if (state.isSearchMode) {
       return SliverAppBar(
@@ -80,8 +85,15 @@ class _ListAppBarState extends ConsumerState<MainSliverAppBar> {
         centerTitle: true,
         pinned: hideAppbar ? false : true,
         floating: true,
-        title: const Text(
-            "넨도로이드 목록",
+        title: Text(
+          switch (dataType) {
+            NendoroidData() => switch (editMode) {
+                Normal() => '넨도로이드 목록',
+                Have() => '보유 넨도 편집',
+                Wish() => '위시 넨도 편집',
+              },
+            NendoroidDollData() => '넨도로이드 돌 목록',
+          },
         ),
         actions: [
           Padding(
