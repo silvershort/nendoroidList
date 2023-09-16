@@ -46,9 +46,10 @@ class Nendo extends _$Nendo {
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
-  Future<NendoState> fetchData() async {
-    // 로컬이 비어있을경우 파이어베이스에서 다운로드
-    if (_nendoBox.isEmpty) {
+  Future<NendoState> fetchData({bool forceDownload = false}) async {
+    state = const AsyncLoading();
+    // 로컬이 비어있을경우 파이어베이스에서 다운로드,
+    if (_nendoBox.isEmpty || forceDownload) {
       final NendoState nendoState = await fetchFromFirebase();
       state = AsyncData(nendoState);
       return nendoState;

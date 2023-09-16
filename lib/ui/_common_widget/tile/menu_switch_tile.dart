@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SettingSwitchTile extends StatelessWidget {
-  const SettingSwitchTile({
+class MenuSwitchTile extends StatelessWidget {
+  const MenuSwitchTile({
     Key? key,
     required this.title,
     required this.value,

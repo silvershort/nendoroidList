@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SettingCountTile extends StatelessWidget {
-  const SettingCountTile({
+class MenuCountTile extends StatelessWidget {
+  const MenuCountTile({
     Key? key,
     required this.title,
     required this.value,
