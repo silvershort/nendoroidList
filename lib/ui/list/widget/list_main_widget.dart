@@ -131,9 +131,14 @@ class MainGridListScrollView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 앱 설정에서 설정한 한줄당 그리드뷰 아이템 개수
+    final count = ref.watch(appSettingProvider.select((value) => value.gridCount));
+    // 0으로 설정되어있을시 자동으로 화면 비율에 맞춰서 이미지 크기가 100에 근접하도록 개수를 맞춰준다.
+    final autoCount = MediaQuery.sizeOf(context).width ~/ 100;
+
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: count == 0 ? autoCount : count,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
       ),
