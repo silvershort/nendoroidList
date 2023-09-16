@@ -16,18 +16,16 @@ class MainGridListView extends ConsumerWidget {
     // 0으로 설정되어있을시 자동으로 화면 비율에 맞춰서 이미지 크기가 100에 근접하도록 개수를 맞춰준다.
     final autoCount = MediaQuery.sizeOf(context).width ~/ 100;
 
-    return SliverGrid(
+    return SliverGrid.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: count == 0 ? autoCount : count,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
       ),
-      delegate: SliverChildBuilderDelegate(
-            (context, index) {
-          return NendoGridTile(nendoData: nendoList[index]);
-        },
-        childCount: nendoList.length,
-      ),
+      itemCount: nendoList.length,
+      itemBuilder: (context, index) {
+        return NendoGridTile(nendoData: nendoList[index]);
+      },
     );
   }
 }

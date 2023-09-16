@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/nendo_group.dart';
 import 'package:nendoroid_db/models/view_mode.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
-import 'package:nendoroid_db/ui/_common_widget/tile/nendo_list_section.dart';
+import 'package:nendoroid_db/ui/list/widget/nendo_list_section.dart';
 import 'package:nendoroid_db/ui/list/widget/main_grid_list_view.dart';
 import 'package:nendoroid_db/ui/list/widget/main_list_view.dart';
 

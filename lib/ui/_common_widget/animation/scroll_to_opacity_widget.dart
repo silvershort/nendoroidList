@@ -7,10 +7,12 @@ class ScrollToOpacityWidget extends StatefulWidget {
     required this.child,
     required this.controller,
     this.duration = const Duration(milliseconds: 200),
+    this.enable = true,
   }) : super(key: key);
   final Widget child;
   final ScrollController controller;
   final Duration duration;
+  final bool enable;
 
   @override
   State<ScrollToOpacityWidget> createState() => _ScrollToOpacityWidgetState();
@@ -41,7 +43,7 @@ class _ScrollToOpacityWidgetState extends State<ScrollToOpacityWidget> {
     }
     if (direction == ScrollDirection.reverse) {
       setState((){
-        opacity = 0.4;
+        opacity = 0.3;
       });
     }
   }
@@ -49,7 +51,7 @@ class _ScrollToOpacityWidgetState extends State<ScrollToOpacityWidget> {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: opacity,
+      opacity: widget.enable ? opacity : 1.0,
       duration: widget.duration,
       child: widget.child,
     );

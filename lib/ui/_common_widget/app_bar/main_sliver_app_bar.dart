@@ -20,15 +20,15 @@ class _ListAppBarState extends ConsumerState<MainSliverAppBar> {
   Widget build(BuildContext context) {
     final state = ref.watch(mainSliverAppBarControllerProvider);
     final controller = ref.read(mainSliverAppBarControllerProvider.notifier);
-    // 앱 설정에 따라서 스크롤시 앱바를 숨길지 여부
+    // 앱 설정에 따라서 스크롤시 UI를 숨길지 여부
     final hideAppbar = ref.watch(appSettingProvider.select((value) => value.hideUI));
 
     if (state.isSearchMode) {
       return SliverAppBar(
         scrolledUnderElevation: 0.0,
         centerTitle: true,
-        pinned: true,
-        floating: hideAppbar ? true : false,
+        pinned: hideAppbar ? false : true,
+        floating: true,
         title: Row(
           children: [
             Expanded(
@@ -78,8 +78,8 @@ class _ListAppBarState extends ConsumerState<MainSliverAppBar> {
     } else {
       return SliverAppBar(
         centerTitle: true,
-        pinned: false,
-        floating: hideAppbar ? true : false,
+        pinned: hideAppbar ? false : true,
+        floating: true,
         title: const Text(
             "넨도로이드 목록",
         ),

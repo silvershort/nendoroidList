@@ -7,10 +7,12 @@ class ScrollToHideWidget extends StatefulWidget {
     required this.child,
     required this.controller,
     this.duration = const Duration(milliseconds: 200),
+    this.enable = true,
   }) : super(key: key);
   final Widget child;
   final ScrollController controller;
   final Duration duration;
+  final bool enable;
 
   @override
   State<ScrollToHideWidget> createState() => _ScrollToHideWidgetState();
@@ -63,7 +65,7 @@ class _ScrollToHideWidgetState extends State<ScrollToHideWidget> {
 
     return AnimatedContainer(
       duration: widget.duration,
-      height: isVisible ? height : 0,
+      height: widget.enable ? (isVisible ? height : 0) : height,
       child: Wrap(children: [widget.child]),
     );
   }

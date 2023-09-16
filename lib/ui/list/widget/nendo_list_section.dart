@@ -15,7 +15,7 @@ class NendoListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 공식 라이브러리인 SliverMainAxisGroup은 앱바가 헤더를 밀어내지 못하는 문제가 있어서 sliver_tools 라이브러리를 이용한다.
+    // 공식 라이브러리는 앱바가 헤더를 밀어내지 못하는 문제가 있어서 sliver_tools 라이브러리를 이용한다.
     return MultiSliver(
       pushPinnedChildren: true,
       children: [
@@ -25,9 +25,12 @@ class NendoListSection extends StatelessWidget {
             height: 50,
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium,
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
           ),
         ),

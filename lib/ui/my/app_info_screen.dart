@@ -42,17 +42,6 @@ class AppInfoScreen extends ConsumerWidget {
           const SizedBox(
             height: 10.0,
           ),
-          Text(
-            "- 폰트정보",
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            "OneMobile, 마비노기옛체",
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
           _TitleAndButton(
             title: "오픈소스 라이센스 고지",
             buttonTitle: "오픈소스 라이센스 정보",
