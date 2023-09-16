@@ -60,6 +60,11 @@ extension NendoListExtension on List<NendoData> {
     );
   }
 
+  // 보유 넨도 리스트
+  List<NendoData> getHaveList() {
+    return where((item) => item.have).toList();
+  }
+
   // 중복을 제외한 보유 넨도 개수
   int getHaveCount() {
     return where((item) => item.have).length;

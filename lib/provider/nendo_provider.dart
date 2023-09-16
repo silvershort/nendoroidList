@@ -455,4 +455,23 @@ class Nendo extends _$Nendo {
 
     return nendoGroupList;
   }
+
+  // 보유 넨도로이드를 텍스트로 반환
+  String getHaveNendoText() {
+    if (state.value == null) {
+      return '';
+    }
+
+    final String total = '수집한 넨도로이드 총 개수 : ${state.requireValue.nendoList.getHaveCount()}\n\n';
+
+    final List<String> list = state.requireValue.nendoList.map((e) {
+      if (e.count <= 1) {
+        return '[${e.num}] ${e.name.ko}';
+      } else {
+        return '[${e.num}] ${e.name.ko} - ${e.count}개';
+      }
+    }).toList();
+
+    return total + list.join('\n');
+  }
 }
