@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nendoroid_db/ui/_common_widget/header/header_delegate.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
+/// 넨도 리스트 그룹의 한 덩어리
 class NendoListSection extends StatelessWidget {
   const NendoListSection({
     super.key,
@@ -14,6 +15,7 @@ class NendoListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 공식 라이브러리인 SliverMainAxisGroup은 앱바가 헤더를 밀어내지 못하는 문제가 있어서 sliver_tools 라이브러리를 이용한다.
     return MultiSliver(
       pushPinnedChildren: true,
       children: [

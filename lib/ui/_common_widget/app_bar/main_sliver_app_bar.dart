@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
-import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
+import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar_controller.dart';
 
 /// 넨도로이드 리스트 화면의 앱바
 /// 스크롤에 따라서 앱바를 숨기거나 보여준다.
-class ListAppBar extends ConsumerStatefulWidget implements PreferredSizeWidget {
-  const ListAppBar({Key? key}) : super(key: key);
+class MainSliverAppBar extends ConsumerStatefulWidget implements PreferredSizeWidget {
+  const MainSliverAppBar({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ListAppBar> createState() => _ListAppBarState();
+  ConsumerState<MainSliverAppBar> createState() => _ListAppBarState();
 
   @override
   Size get preferredSize => throw UnimplementedError();
 }
 
-class _ListAppBarState extends ConsumerState<ListAppBar> {
+class _ListAppBarState extends ConsumerState<MainSliverAppBar> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(listAppBarControllerProvider);
-    final controller = ref.read(listAppBarControllerProvider.notifier);
+    final state = ref.watch(mainSliverAppBarControllerProvider);
+    final controller = ref.read(mainSliverAppBarControllerProvider.notifier);
+    // 앱 설정에 따라서 스크롤시 앱바를 숨길지 여부
     final hideAppbar = ref.watch(appSettingProvider.select((value) => value.hideUI));
 
     if (state.isSearchMode) {

@@ -7,7 +7,7 @@ import 'package:nendoroid_db/models/edit_mode.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
-import 'package:nendoroid_db/ui/_common_widget/app_bar/list_app_bar_controller.dart';
+import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar_controller.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_info_edit_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/check_icon.dart';
@@ -66,7 +66,7 @@ class NendoGridTile extends ConsumerWidget {
         }
 
         // 아이템 클릭했을때 포커스 해제
-        if (ref.read(listAppBarControllerProvider).isSearchMode) {
+        if (ref.read(mainSliverAppBarControllerProvider).isSearchMode) {
           FocusScope.of(context).unfocus();
         }
       },
