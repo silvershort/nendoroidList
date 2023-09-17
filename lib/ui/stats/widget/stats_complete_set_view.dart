@@ -34,7 +34,6 @@ class StatsCompleteSetView extends StatelessWidget {
         const SizedBox(
           height: 10.0,
         ),
-        // TODO: 추후 주석 제거
         StatsCompleteSetList(nendoList: nendoList, setData: setList),
         const SizedBox(height: 20.0),
       ],

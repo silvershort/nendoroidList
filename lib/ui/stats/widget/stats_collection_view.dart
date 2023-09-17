@@ -16,6 +16,14 @@ class StatsCollectionView extends ConsumerWidget {
   }) : super(key: key);
   final List<NendoData> nendoList;
 
+  void copyNendoText(WidgetRef ref) {
+    Clipboard.setData(
+      ClipboardData(
+        text: ref.read(nendoProvider.notifier).getHaveNendoText(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
@@ -36,13 +44,7 @@ class StatsCollectionView extends ConsumerWidget {
                     return CommonDialog(
                       content: '보유 넨도로이드 텍스트로 복사하시겠습니까?',
                       negativeText: '취소',
-                      positiveOnClick: () {
-                        Clipboard.setData(
-                          ClipboardData(
-                            text: ref.read(nendoProvider.notifier).getHaveNendoText(),
-                          ),
-                        );
-                      },
+                      positiveOnClick: () => copyNendoText(ref),
                     );
                   },
                 );

@@ -43,7 +43,6 @@ class StatsMostNendoView extends StatelessWidget {
                       fontSize: 18.0,
                     ),
                     onTap: () {
-                      // TODO: 추후 주석 제거
                       showDialog(
                         context: context,
                         builder: (context) {

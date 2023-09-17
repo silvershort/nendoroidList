@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/github_download_provider.dart';
-import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/divider/default_divider.dart';
@@ -11,7 +10,6 @@ import 'package:nendoroid_db/ui/_common_widget/text/setting_title.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_count_tile.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_switch_tile.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_tile.dart';
-import 'package:nendoroid_db/utilities/hive_name.dart';
 
 class SettingScreen extends ConsumerWidget {
   const SettingScreen({Key? key}) : super(key: key);

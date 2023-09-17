@@ -518,7 +518,7 @@ class Nendo extends _$Nendo {
 
     final String total = '수집한 넨도로이드 총 개수 : ${state.requireValue.nendoList.getHaveCount()}\n\n';
 
-    final List<String> list = state.requireValue.nendoList.map((e) {
+    final List<String> list = state.requireValue.nendoList.getHaveList().map((e) {
       if (e.count <= 1) {
         return '[${e.num}] ${e.name.ko}';
       } else {

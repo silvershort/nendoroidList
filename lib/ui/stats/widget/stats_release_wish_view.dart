@@ -42,7 +42,6 @@ class StatsReleaseWishView extends StatelessWidget {
                       normalWord: " ${releaseList[index].name.ko}",
                       fontSize: 18.0,
                     ),
-                    // TODO: 추후 주석 제거
                     onTap: () {
                       showDialog(
                         context: context,

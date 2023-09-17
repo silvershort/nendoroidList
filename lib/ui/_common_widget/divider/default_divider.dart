@@ -7,8 +7,9 @@ class DefaultDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      height: 20,
-      color: Colors.black12,
+      height: 10,
+      thickness: 3,
+      color: Theme.of(context).colorScheme.primary.withAlpha(50),
     );
   }
 }
