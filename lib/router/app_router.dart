@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/ui/base/dashboard_screen.dart';
-import 'package:nendoroid_db/ui/list/list_screen.dart';
-import 'package:nendoroid_db/ui/my/app_info_screen.dart';
-import 'package:nendoroid_db/ui/my/login_screen.dart';
-import 'package:nendoroid_db/ui/my/my_screen.dart';
-import 'package:nendoroid_db/ui/my/setting_screen.dart';
-import 'package:nendoroid_db/ui/nendo/nendo_web_screen.dart';
-import 'package:nendoroid_db/ui/news/news_screen.dart';
-import 'package:nendoroid_db/ui/stats/stats_screen.dart';
+import 'package:nendoroid_db/ui/base/screen/dashboard_screen.dart';
+import 'package:nendoroid_db/ui/list/screen/list_screen.dart';
+import 'package:nendoroid_db/ui/my/screen/app_info_screen.dart';
+import 'package:nendoroid_db/ui/my/screen/login_screen.dart';
+import 'package:nendoroid_db/ui/my/screen/my_screen.dart';
+import 'package:nendoroid_db/ui/my/screen/setting_screen.dart';
+import 'package:nendoroid_db/ui/nendo/screen/nendo_web_screen.dart';
+import 'package:nendoroid_db/ui/news/screen/news_screen.dart';
+import 'package:nendoroid_db/ui/stats/screen/stats_screen.dart';
 import 'package:nendoroid_db/ui/_common_widget/image_view/image_detail_view.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 

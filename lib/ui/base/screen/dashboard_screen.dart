@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/nendo_list_scroll_controller_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/animation/scroll_to_hide_widget.dart';
-import 'package:nendoroid_db/ui/base/dashboard_controller.dart';
+import 'package:nendoroid_db/ui/base/controller/dashboard_controller.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({
