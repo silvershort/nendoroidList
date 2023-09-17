@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:nendoroid_db/main_new.dart';
+import 'package:nendoroid_db/main.dart';
 
 part 'api_result.freezed.dart';
 

@@ -74,7 +74,6 @@ class RemoteConfigManager {
   }
 
   int convertVersion(String versionRawString) {
-    print("@@@ version : ${versionRawString}");
     List<String> versionStrList = List.from(versionRawString.split('.').reversed);
     int totalVersion = 0;
 

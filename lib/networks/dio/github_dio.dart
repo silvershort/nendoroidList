@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:nendoroid_db/main_new.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'github_dio.g.dart';

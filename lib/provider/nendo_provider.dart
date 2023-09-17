@@ -4,14 +4,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:korea_regexp/korea_regexp.dart';
-import 'package:nendoroid_db/main_new.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/nendo_group.dart';
+import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/networks/repositories/firebase_repository.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
+import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/provider/remote_config_provider.dart';
@@ -38,7 +40,7 @@ class NendoState with _$NendoState {
 class Nendo extends _$Nendo {
   String _lastSearch = '';
   late final Box _nendoBox;
-  late final Box _nenDollBoxName;
+  late final Box _nenDollBox;
   late final Box _setBox;
   late final Box _settingBox;
 
@@ -46,12 +48,28 @@ class Nendo extends _$Nendo {
   FutureOr<NendoState> build() async {
     // 로컬에 데이터가 있는지 유무를 판단하기 위해서 로컬DB를 가져온다.
     _nendoBox = ref.watch(hiveProvider).nendoBox;
-    _nenDollBoxName = ref.watch(hiveProvider).nenDollBoxName;
+    _nenDollBox = ref.watch(hiveProvider).nenDollBox;
     _setBox = ref.watch(hiveProvider).setBox;
     _settingBox = ref.watch(hiveProvider).settingBox;
 
-    // 원격 저장소 버전 확인
-
+    ref.listen(nendoListSettingProvider.select((value) => value.dataType), (previous, next) {
+      if (state.value == null) {
+        return;
+      }
+      if (previous != next) {
+        switch (next) {
+          case NendoroidData():
+            state = AsyncData(state.requireValue.copyWith(
+              filteredNendoList: state.requireValue.nendoList,
+            ));
+          case NendoroidDollData():
+            print("@@@ : ${state.requireValue.nenDollList.toString()}");
+            state = AsyncData(state.requireValue.copyWith(
+              filteredNendoList: state.requireValue.nenDollList,
+            ));
+        }
+      }
+    });
 
     return fetchData();
   }
@@ -71,7 +89,7 @@ class Nendo extends _$Nendo {
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
-  Future<NendoState> fetchData({bool forceDownload = false}) async {
+  Future<NendoState> fetchData({bool forceDownload = true}) async {
     state = const AsyncLoading();
 
     // 로컬이 비어있을경우 파이어베이스에서 다운로드,
@@ -89,9 +107,7 @@ class Nendo extends _$Nendo {
     else {
       try {
         final List<NendoData> nendoList = _nendoBox.values.map((e) => e as NendoData).toList();
-        logger.i(_nendoBox.values.toString());
-        final List<NendoData> nenDollList = _nenDollBoxName.values.map((e) => e as NendoData).toList();
-        logger.i(_nenDollBoxName.values.toString());
+        final List<NendoData> nenDollList = _nenDollBox.values.map((e) => e as NendoData).toList();
         final List<SetData> setList = _setBox.values.map((e) => e as SetData).toList();
         nendoList.sortBySetting(ref.read(nendoListSettingProvider));
 
@@ -121,6 +137,7 @@ class Nendo extends _$Nendo {
 
         final List<NendoData> sortList = [...value.nendoList];
         sortList.sortBySetting(ref.read(nendoListSettingProvider));
+        logger.i('nendolist : ${sortList.length}');
 
         await saveLocalDB(
           nendoList: sortList,
@@ -339,17 +356,17 @@ class Nendo extends _$Nendo {
 
   // 입력받은 리스트를 로컬DB에 저장해준다.
   Future<void> saveLocalDB({
-    required List<NendoData> nendoList,
-    required List<NendoData> nenDollList,
-    required List<SetData> setList,
+    List<NendoData>? nendoList,
+    List<NendoData>? nenDollList,
+    List<SetData>? setList,
   }) async {
-    for (NendoData data in nendoList) {
+    for (NendoData data in nendoList ?? state.requireValue.nendoList) {
       await _nendoBox.put(data.num, data);
     }
-    for (NendoData data in nenDollList) {
-      await _nenDollBoxName.put(data.num, data);
+    for (NendoData data in nenDollList ?? state.requireValue.nenDollList) {
+      await _nenDollBox.put(data.num, data);
     }
-    for (SetData data in setList) {
+    for (SetData data in setList ?? state.requireValue.setList) {
       await _setBox.put(data.setName, data);
     }
   }

@@ -1,7 +1,7 @@
 import 'package:async/async.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:nendoroid_db/main_new.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/doll_type.dart';
 import 'package:nendoroid_db/models/nen_doll_data.dart';
@@ -130,7 +130,7 @@ class GithubDownload extends _$GithubDownload {
     _nendoList.addAll(result);
   }
 
-  Future fetchNendoDollList() async {
+  Future<List<NendoData>> fetchNendoDollList() async {
     try {
       FutureGroup<NenDollData> futureGroup = FutureGroup();
       for (int i = 0; i < _dollNameList.length; i++) {
@@ -148,8 +148,10 @@ class GithubDownload extends _$GithubDownload {
       futureGroup.close();
       final List<NenDollData> result = await futureGroup.future;
       _nenDollList.addAll(result.map((e) => NendoData.fromNenDoll(e)));
+      return _nenDollList;
     } catch (error, stackTrace) {
       logger.e(error.toString(), stackTrace: stackTrace);
+      return Future.error(error, stackTrace);
     }
   }
 
@@ -170,8 +172,8 @@ class GithubDownload extends _$GithubDownload {
 
     final result = await ref.read(firebaseServiceProvider).createInitData(
           backupData: BackupData(
-            nendoList: nendoList,
-            nenDollList: nenDollList,
+            nendoList: nendoList.where((element) => element.type == null).toList(),
+            nenDollList: nendoList.where((element) => element.type != null).toList(),
             setList: setList,
             email: "silvershortdev@gmail.com",
             commitHash: '',
@@ -181,9 +183,11 @@ class GithubDownload extends _$GithubDownload {
         );
     result.when(
       success: (value) {
+        logger.i('초기데이터 업로드에 성공했습니다.');
         return;
       },
       error: (error, stackTrace) {
+        logger.e(error.toString(), stackTrace: stackTrace);
         return Future.error(error, stackTrace);
       },
     );

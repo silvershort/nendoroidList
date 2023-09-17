@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:hive/hive.dart';
-import 'package:nendoroid_db/main_new.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -39,9 +39,8 @@ class Auth extends _$Auth {
   }
 
   Future<void> initDynamicLinks() async {
-    logger.i('@@@ initDynamicLinks');
     FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) async {
-      logger.i('@@@ : ${dynamicLinkData.link}');
+      logger.i('dynamicLinkData : ${dynamicLinkData.link}');
       if (FirebaseAuth.instance.isSignInWithEmailLink(dynamicLinkData.link.toString())) {
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
           email: _settingBox.get(HiveName.emailKey),
@@ -59,7 +58,7 @@ class Auth extends _$Auth {
     final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
     if (initialLink != null) {
       if (FirebaseAuth.instance.isSignInWithEmailLink(initialLink.link.toString())) {
-        logger.i('@@@ isSignInWithEmailLink');
+        logger.i('initialLink : ${initialLink.link}');
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
           email: _settingBox.get(HiveName.emailKey),
           emailLink: initialLink.link.toString(),

@@ -9,13 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logger/logger.dart';
-import 'package:nendoroid_db/firebase_options.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
-import 'package:nendoroid_db/provider/remote_config_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 
@@ -27,7 +25,7 @@ var logger = Logger(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
 
   await Hive.initFlutter();
   Hive.registerAdapter(NendoDataAdapter());
@@ -57,7 +55,7 @@ void main() async {
       hiveProvider.overrideWithValue(
         HiveManager(
           nendoBox: await Hive.openBox(HiveName.nendoBoxName),
-          nenDollBoxName: await Hive.openBox(HiveName.nenDollBoxName),
+          nenDollBox: await Hive.openBox(HiveName.nenDollBoxName),
           setBox: await Hive.openBox(HiveName.setBoxName),
           settingBox: await Hive.openBox(HiveName.settingBoxName),
           appThemeBox: await Hive.openBox(HiveName.appThemeBoxName),

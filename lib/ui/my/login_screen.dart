@@ -89,7 +89,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
                 const SizedBox(height: 20.0),
                 const Text(
-                  "- 이메일 인증을 통해 회원가입이 가능합니다.\n- 이미 가입 했다면 이메일 인증으로 로그인이 가능합니다.",
+                  "- 이메일 인증을 통해 회원가입이 가능합니다.\n- 이미 가입 했다면 이메일 인증으로 로그인이 가능합니다.\n- 반드시 앱을 실행중인 디바이스에서 메일을 확인해주세요.",
                   style: TextStyle(
                     height: 1.3,
                   ),

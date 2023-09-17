@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:nendoroid_db/main_new.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -36,8 +36,8 @@ class FirebaseRepository {
   }
 
   Future<BackupData?> readData() async {
+    BackupData? backupData;
     try {
-      BackupData? backupData;
       for (int i = 0; i < 1000; i++) {
         late DocumentSnapshot<Object?> snapshot;
         // 0번째 데이터는 순번이 없음 (기존 데이터 호환)
@@ -58,14 +58,23 @@ class FirebaseRepository {
           backupData = backupData!.copyWith(nendoList: [...backupData.nendoList, ...newBackupData.nendoList]);
         }
       }
+      // 유저 다운로드가 아닌 초기 데이터 다운로드일 경우 넨돌 데이터도 같이 다운로드 시켜준다.
       if (_documentID == initDocumentName) {
         final snapshot = await _product.doc(initNenDollDocumentName).get();
-        print("snapshot : ${snapshot.toString()}");
+        List<NendoData> nenDollList =
+            ((snapshot.data() as Map<String, dynamic>)['nenDollList'] as List<dynamic>).map((e) => NendoData.fromJson(e)).toList();
+        backupData = backupData!.copyWith(
+          nenDollList: nenDollList,
+        );
       }
       return backupData!;
     } catch (error, stackTrace) {
       logger.e(error.toString());
       logger.e(stackTrace.toString());
+      // 넨돌 데이터 다운로드만 실패했을 경우
+      if (backupData != null) {
+        return backupData;
+      }
       return Future.error(error, stackTrace);
     }
   }
@@ -73,7 +82,7 @@ class FirebaseRepository {
   Future<void> createDate({required BackupData backupData}) async {
     try {
       // 넨돌 데이터 저장
-      await _product.doc(initNenDollDocumentName).set(jsonDecode(jsonEncode(backupData.nenDollList)));
+      await _product.doc(initNenDollDocumentName).set(jsonDecode(jsonEncode({"nenDollList": backupData.nenDollList})));
 
       final BackupData removeBackupData = backupData.copyWith(nenDollList: []);
 
@@ -114,6 +123,7 @@ class FirebaseRepository {
     }
   }
 
+  // 회원 탈퇴시 데이터 삭제
   Future<void> deleteData() async {
     try {
       await _product.doc(_documentID).delete();
