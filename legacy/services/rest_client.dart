@@ -14,14 +14,14 @@ abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   // 넨도 데이터 가져오기
-  @GET("https://raw.githubusercontent.com/KhoraLee/NendoroidDB/dashboard/Nendoroid/{folderName}/{fileName}")
+  @GET("https://raw.githubusercontent.com/KhoraLee/NendoroidDB/base/Nendoroid/{folderName}/{fileName}")
   Future<NendoData> getNendoData(
     @Path("folderName") String folderName,
     @Path("fileName") String fileName,
   );
 
   // 세트 데이터 가져오기
-  @GET("https://raw.githubusercontent.com/KhoraLee/NendoroidDB/dashboard/Nendoroid/{folderName}/{fileName}")
+  @GET("https://raw.githubusercontent.com/KhoraLee/NendoroidDB/base/Nendoroid/{folderName}/{fileName}")
   Future<SetData> getSetData(
       @Path("folderName") String folderName,
       @Path("fileName") String fileName,

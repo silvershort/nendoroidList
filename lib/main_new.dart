@@ -15,6 +15,7 @@ import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
+import 'package:nendoroid_db/provider/remote_config_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 
@@ -38,49 +39,39 @@ void main() async {
   Hive.registerAdapter(RuliwebSubscribeAdapter());
   Hive.registerAdapter(DcinsideSubscribeAdapter());
 
+  // 앱 버전, DB 버전 등의 앱 설정을 받아오는 클래스
+  final RemoteConfigManager remoteConfigManager = RemoteConfigManager();
+  await remoteConfigManager.init();
+
   if (!kIsWeb) {
     if (kDebugMode) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-      runApp(ProviderScope(
-        overrides: [
-          hiveProvider.overrideWithValue(
-            HiveManager(
-              nendoBox: await Hive.openBox(HiveName.nendoBoxName),
-              setBox: await Hive.openBox(HiveName.setBoxName),
-              settingBox: await Hive.openBox(HiveName.settingBoxName),
-              appThemeBox: await Hive.openBox(HiveName.appThemeBoxName),
-              subscribeBox: await Hive.openBox(HiveName.subscribeBoxName),
-              termsBox: await Hive.openBox(HiveName.termsBoxName),
-            ),
-          ),
-        ],
-        child: const MyApp(),
-      ));
     } else {
-      runZonedGuarded<Future<void>>(
-        () async {
+      runZonedGuarded<Future<void>>(() async {
           FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
           FirebaseAnalytics.instance;
-          runApp(ProviderScope(
-            overrides: [
-              hiveProvider.overrideWithValue(
-                HiveManager(
-                  nendoBox: await Hive.openBox(HiveName.nendoBoxName),
-                  setBox: await Hive.openBox(HiveName.setBoxName),
-                  settingBox: await Hive.openBox(HiveName.settingBoxName),
-                  appThemeBox: await Hive.openBox(HiveName.appThemeBoxName),
-                  subscribeBox: await Hive.openBox(HiveName.subscribeBoxName),
-                  termsBox: await Hive.openBox(HiveName.termsBoxName),
-                ),
-              ),
-            ],
-            child: const MyApp(),
-          ));
         },
         (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack, fatal: true),
       );
     }
   }
+
+  runApp(ProviderScope(
+    overrides: [
+      hiveProvider.overrideWithValue(
+        HiveManager(
+          nendoBox: await Hive.openBox(HiveName.nendoBoxName),
+          setBox: await Hive.openBox(HiveName.setBoxName),
+          settingBox: await Hive.openBox(HiveName.settingBoxName),
+          appThemeBox: await Hive.openBox(HiveName.appThemeBoxName),
+          subscribeBox: await Hive.openBox(HiveName.subscribeBoxName),
+          termsBox: await Hive.openBox(HiveName.termsBoxName),
+        ),
+      ),
+      remoteConfigManagerProvider.overrideWithValue(remoteConfigManager),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends ConsumerWidget {
@@ -89,7 +80,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingState = ref.watch(appSettingProvider);
-
     return MaterialApp.router(
       builder: (context, child) {
         return MediaQuery(

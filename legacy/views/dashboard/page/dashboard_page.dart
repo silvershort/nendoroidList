@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
 import 'package:nendoroid_db/controllers/news_controller.dart';
-import 'package:nendoroid_db/views/dashboard/widget/main_appbar.dart';
-import 'package:nendoroid_db/views/dashboard/widget/main_body.dart';
-import 'package:nendoroid_db/views/dashboard/widget/main_bottom_navigation_bar.dart';
+import 'package:nendoroid_db/views/base/widget/main_appbar.dart';
+import 'package:nendoroid_db/views/base/widget/main_body.dart';
+import 'package:nendoroid_db/views/base/widget/main_bottom_navigation_bar.dart';
 import 'package:nendoroid_db/views/list/widget/filter_bottom_sheet.dart';
 import 'package:nendoroid_db/views_common/widget/scroll_to_opacity_widget.dart';
 

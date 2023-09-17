@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nendoroid_db/controllers/dashboard_controller.dart';
 import 'package:nendoroid_db/controllers/nendo_controller.dart';
-import 'package:nendoroid_db/views/dashboard/widget/main_sliver_app_bar.dart';
+import 'package:nendoroid_db/views/base/widget/main_sliver_app_bar.dart';
 import 'package:nendoroid_db/views/list/widget/list_download_error.dart';
 import 'package:nendoroid_db/views/list/widget/list_download_view.dart';
 import 'package:nendoroid_db/views/list/widget/list_empty_view.dart';

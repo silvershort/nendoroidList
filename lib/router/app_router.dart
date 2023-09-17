@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/ui/dashboard/dashboard_screen.dart';
+import 'package:nendoroid_db/ui/base/dashboard_screen.dart';
 import 'package:nendoroid_db/ui/list/list_screen.dart';
 import 'package:nendoroid_db/ui/my/app_info_screen.dart';
 import 'package:nendoroid_db/ui/my/login_screen.dart';

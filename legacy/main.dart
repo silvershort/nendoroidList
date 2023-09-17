@@ -18,7 +18,7 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/utilities/app_font.dart';
-import 'package:nendoroid_db/views/dashboard/page/dashboard_page.dart';
+import 'package:nendoroid_db/views/base/page/dashboard_page.dart';
 import 'package:logger/logger.dart';
 
 import '../controllers/dashboard_controller.dart';

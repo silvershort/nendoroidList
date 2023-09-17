@@ -13,11 +13,14 @@ import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
+import 'package:nendoroid_db/provider/remote_config_provider.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
+import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
+
 part 'nendo_provider.g.dart';
 
 @freezed
@@ -35,22 +38,37 @@ class Nendo extends _$Nendo {
   String _lastSearch = '';
   late final Box _nendoBox;
   late final Box _setBox;
+  late final Box _settingBox;
 
   @override
   FutureOr<NendoState> build() async {
     // 로컬에 데이터가 있는지 유무를 판단하기 위해서 로컬DB를 가져온다.
     _nendoBox = ref.watch(hiveProvider).nendoBox;
     _setBox = ref.watch(hiveProvider).setBox;
+    _settingBox = ref.watch(hiveProvider).settingBox;
 
     return fetchData();
+  }
+
+  bool needUpate() {
+    final int remoteVersion = ref.read(remoteConfigManagerProvider).getFirestoreVersion();
+    final int localVersion = _settingBox.get(HiveName.localDataVersionKey, defaultValue: 0);
+
+    return remoteVersion > localVersion;
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
   Future<NendoState> fetchData({bool forceDownload = false}) async {
     state = const AsyncLoading();
+
     // 로컬이 비어있을경우 파이어베이스에서 다운로드,
-    if (_nendoBox.isEmpty || forceDownload) {
+    if (_nendoBox.isEmpty || forceDownload || needUpate()) {
       final NendoState nendoState = await fetchFromFirebase();
+      // 다운로드 완료시 로컬 데이터 버전 수정
+      _settingBox.put(
+        HiveName.localDataVersionKey,
+        ref.read(remoteConfigManagerProvider).getFirestoreVersion(),
+      );
       state = AsyncData(nendoState);
       return nendoState;
     }

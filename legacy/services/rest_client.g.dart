@@ -35,7 +35,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              'https://raw.githubusercontent.com/KhoraLee/NendoroidDB/dashboard/Nendoroid/${folderName}/${fileName}',
+              'https://raw.githubusercontent.com/KhoraLee/NendoroidDB/base/Nendoroid/${folderName}/${fileName}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -65,7 +65,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              'https://raw.githubusercontent.com/KhoraLee/NendoroidDB/dashboard/Nendoroid/${folderName}/${fileName}',
+              'https://raw.githubusercontent.com/KhoraLee/NendoroidDB/base/Nendoroid/${folderName}/${fileName}',
               queryParameters: queryParameters,
               data: _data,
             )
