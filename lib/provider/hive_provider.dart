@@ -12,6 +12,7 @@ HiveManager hive(HiveRef ref) {
 // Hive 데이터베이스를 사용하기 위한 클래스, await 작업이 필요한 박스 오픈을 앱 시작 후 미리 다 진행해준다.
 class HiveManager {
   Box nendoBox;
+  Box nenDollBoxName;
   Box setBox;
   Box settingBox;
   Box appThemeBox;
@@ -20,6 +21,7 @@ class HiveManager {
 
   HiveManager({
     required this.nendoBox,
+    required this.nenDollBoxName,
     required this.setBox,
     required this.settingBox,
     required this.appThemeBox,

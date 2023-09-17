@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nendoroid_db/main_new.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firebase_repository.g.dart';
@@ -16,6 +17,7 @@ class FirebaseRepository {
   static const String initCollectionName = 'InitData';
   static const String userCollectionName = 'BackupData';
   static const String initDocumentName = 'baseData';
+  static const String initNenDollDocumentName = 'baseDollData';
 
   static const int limitLength = 800000;
   static const int splitCount = 1500;
@@ -56,6 +58,10 @@ class FirebaseRepository {
           backupData = backupData!.copyWith(nendoList: [...backupData.nendoList, ...newBackupData.nendoList]);
         }
       }
+      if (_documentID == initDocumentName) {
+        final snapshot = await _product.doc(initNenDollDocumentName).get();
+        print("snapshot : ${snapshot.toString()}");
+      }
       return backupData!;
     } catch (error, stackTrace) {
       logger.e(error.toString());
@@ -66,17 +72,22 @@ class FirebaseRepository {
 
   Future<void> createDate({required BackupData backupData}) async {
     try {
+      // 넨돌 데이터 저장
+      await _product.doc(initNenDollDocumentName).set(jsonDecode(jsonEncode(backupData.nenDollList)));
+
+      final BackupData removeBackupData = backupData.copyWith(nenDollList: []);
+
       // 데이터길이가 길면 파이어스토어에 저장하지 못함. (리미트는 980000~990000 정도로 추정)
       // 따라서 데이터가 일정량을 초과할경우 넨도리스트 1500개를 기준으로 반갈죽해서 저장해준다.
-      final int dataLength = jsonEncode(backupData.toJson()).length;
+      final int dataLength = jsonEncode(removeBackupData.toJson()).length;
       if (dataLength > limitLength) {
         final int divideCount = (dataLength ~/ limitLength) + 1;
         for (int i = 0; i < divideCount; i++) {
           late BackupData data;
           if (i == divideCount - 1) {
-            data = backupData.copyWith(nendoList: backupData.nendoList.sublist(splitCount * i));
+            data = removeBackupData.copyWith(nendoList: removeBackupData.nendoList.sublist(splitCount * i));
           } else {
-            data = backupData.copyWith(nendoList: backupData.nendoList.sublist(splitCount * i, splitCount * (i + 1)));
+            data = removeBackupData.copyWith(nendoList: removeBackupData.nendoList.sublist(splitCount * i, splitCount * (i + 1)));
           }
           // 첫번째 도큐먼트 이름은 숫자를 붙이지 않는다 (기존 데이터 호환문제)
           // 두번째 도큐먼트부터는 뒤쪽에 _${숫자} 를 붙여준다.
@@ -84,7 +95,7 @@ class FirebaseRepository {
           await _product.doc(documentName).set(jsonDecode(jsonEncode(data.toJson())));
         }
       } else {
-        await _product.doc(_documentID).set(jsonDecode(jsonEncode(backupData.toJson())));
+        await _product.doc(_documentID).set(jsonDecode(jsonEncode(removeBackupData.toJson())));
       }
       return;
     } catch (e) {

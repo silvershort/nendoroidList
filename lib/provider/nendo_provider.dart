@@ -10,6 +10,7 @@ import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/nendo_group.dart';
 import 'package:nendoroid_db/models/set_data.dart';
+import 'package:nendoroid_db/networks/repositories/firebase_repository.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
@@ -37,6 +38,7 @@ class NendoState with _$NendoState {
 class Nendo extends _$Nendo {
   String _lastSearch = '';
   late final Box _nendoBox;
+  late final Box _nenDollBoxName;
   late final Box _setBox;
   late final Box _settingBox;
 
@@ -44,17 +46,28 @@ class Nendo extends _$Nendo {
   FutureOr<NendoState> build() async {
     // 로컬에 데이터가 있는지 유무를 판단하기 위해서 로컬DB를 가져온다.
     _nendoBox = ref.watch(hiveProvider).nendoBox;
+    _nenDollBoxName = ref.watch(hiveProvider).nenDollBoxName;
     _setBox = ref.watch(hiveProvider).setBox;
     _settingBox = ref.watch(hiveProvider).settingBox;
+
+    // 원격 저장소 버전 확인
+
 
     return fetchData();
   }
 
-  bool needUpate() {
+  void updateData() {
+    // 데이터 다운로드중일때는 업데이트를 진행하지 않음
+    if (!state.hasValue || state is AsyncLoading) {
+      return;
+    }
     final int remoteVersion = ref.read(remoteConfigManagerProvider).getFirestoreVersion();
     final int localVersion = _settingBox.get(HiveName.localDataVersionKey, defaultValue: 0);
 
-    return remoteVersion > localVersion;
+    // 업데이트가 필요함
+    if (remoteVersion > localVersion) {
+      fetchData(forceDownload: true);
+    }
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
@@ -62,7 +75,7 @@ class Nendo extends _$Nendo {
     state = const AsyncLoading();
 
     // 로컬이 비어있을경우 파이어베이스에서 다운로드,
-    if (_nendoBox.isEmpty || forceDownload || needUpate()) {
+    if (_nendoBox.isEmpty || forceDownload) {
       final NendoState nendoState = await fetchFromFirebase();
       // 다운로드 완료시 로컬 데이터 버전 수정
       _settingBox.put(
@@ -76,12 +89,15 @@ class Nendo extends _$Nendo {
     else {
       try {
         final List<NendoData> nendoList = _nendoBox.values.map((e) => e as NendoData).toList();
-        logger.i(_setBox.values.toString());
+        logger.i(_nendoBox.values.toString());
+        final List<NendoData> nenDollList = _nenDollBoxName.values.map((e) => e as NendoData).toList();
+        logger.i(_nenDollBoxName.values.toString());
         final List<SetData> setList = _setBox.values.map((e) => e as SetData).toList();
         nendoList.sortBySetting(ref.read(nendoListSettingProvider));
 
         final NendoState nendoState = NendoState(
           nendoList: nendoList,
+          nenDollList: nenDollList,
           filteredNendoList: nendoList,
           setList: setList,
         );
@@ -108,11 +124,13 @@ class Nendo extends _$Nendo {
 
         await saveLocalDB(
           nendoList: sortList,
+          nenDollList: value.nenDollList,
           setList: value.setList,
         );
 
         final NendoState nendoState = NendoState(
           nendoList: value.nendoList,
+          nenDollList: value.nenDollList,
           setList: value.setList,
           filteredNendoList: value.nendoList,
         );
@@ -322,16 +340,17 @@ class Nendo extends _$Nendo {
   // 입력받은 리스트를 로컬DB에 저장해준다.
   Future<void> saveLocalDB({
     required List<NendoData> nendoList,
+    required List<NendoData> nenDollList,
     required List<SetData> setList,
   }) async {
-    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    final Box setBox = ref.watch(hiveProvider).setBox;
-
     for (NendoData data in nendoList) {
-      await nendoBox.put(data.num, data);
+      await _nendoBox.put(data.num, data);
+    }
+    for (NendoData data in nenDollList) {
+      await _nenDollBoxName.put(data.num, data);
     }
     for (SetData data in setList) {
-      await setBox.put(data.setName, data);
+      await _setBox.put(data.setName, data);
     }
   }
 

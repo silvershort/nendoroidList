@@ -39,10 +39,6 @@ void main() async {
   Hive.registerAdapter(RuliwebSubscribeAdapter());
   Hive.registerAdapter(DcinsideSubscribeAdapter());
 
-  // 앱 버전, DB 버전 등의 앱 설정을 받아오는 클래스
-  final RemoteConfigManager remoteConfigManager = RemoteConfigManager();
-  await remoteConfigManager.init();
-
   if (!kIsWeb) {
     if (kDebugMode) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
@@ -61,6 +57,7 @@ void main() async {
       hiveProvider.overrideWithValue(
         HiveManager(
           nendoBox: await Hive.openBox(HiveName.nendoBoxName),
+          nenDollBoxName: await Hive.openBox(HiveName.nenDollBoxName),
           setBox: await Hive.openBox(HiveName.setBoxName),
           settingBox: await Hive.openBox(HiveName.settingBoxName),
           appThemeBox: await Hive.openBox(HiveName.appThemeBoxName),
@@ -68,7 +65,6 @@ void main() async {
           termsBox: await Hive.openBox(HiveName.termsBoxName),
         ),
       ),
-      remoteConfigManagerProvider.overrideWithValue(remoteConfigManager),
     ],
     child: const MyApp(),
   ));
@@ -80,6 +76,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingState = ref.watch(appSettingProvider);
+
     return MaterialApp.router(
       builder: (context, child) {
         return MediaQuery(

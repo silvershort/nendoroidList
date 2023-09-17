@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/nendo_list_scroll_controller_provider.dart';
-import 'package:nendoroid_db/provider/remote_config_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/animation/scroll_to_hide_widget.dart';
+import 'package:nendoroid_db/ui/base/dashboard_controller.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({
@@ -18,16 +18,6 @@ class DashboardScreen extends ConsumerStatefulWidget {
 }
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // 앱 버전 체크
-      ref.read(remoteConfigManagerProvider).checkNewVersion(context);
-    });
-  }
-
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -37,6 +27,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(dashboardControllerProvider, (previous, next) {
+      if (next) {
+        ref.read(dashboardControllerProvider.notifier).appStartCheckList(context);
+      }
+    });
+
     // 앱 설정에 따라서 스크롤시 UI를 숨길지 여부
     final hideUI = ref.watch(appSettingProvider.select((value) => value.hideUI));
 

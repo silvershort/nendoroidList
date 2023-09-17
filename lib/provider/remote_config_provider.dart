@@ -12,7 +12,7 @@ part 'remote_config_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 RemoteConfigManager remoteConfigManager(RemoteConfigManagerRef ref) {
-  throw UnimplementedError();
+  return RemoteConfigManager();
 }
 
 class RemoteConfigManager {
@@ -22,7 +22,7 @@ class RemoteConfigManager {
   Future<void> init() async {
     await _remoteConfig.setConfigSettings(
       RemoteConfigSettings(
-        fetchTimeout: const Duration(seconds: 10),
+        fetchTimeout: const Duration(seconds: 3),
         minimumFetchInterval: const Duration(seconds: 10),
       ),
     );

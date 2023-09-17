@@ -165,11 +165,13 @@ class GithubDownload extends _$GithubDownload {
   // 파이어베이스에 업로드
   Future<void> uploadFirebase() async {
     final nendoList = ref.read(nendoProvider).requireValue.nendoList;
+    final nenDollList = ref.read(nendoProvider).requireValue.nenDollList;
     final setList = ref.read(nendoProvider).requireValue.setList;
 
     final result = await ref.read(firebaseServiceProvider).createInitData(
           backupData: BackupData(
             nendoList: nendoList,
+            nenDollList: nenDollList,
             setList: setList,
             email: "silvershortdev@gmail.com",
             commitHash: '',

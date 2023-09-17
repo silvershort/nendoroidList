@@ -21,6 +21,7 @@ BackupData _$BackupDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BackupData {
   List<NendoData> get nendoList => throw _privateConstructorUsedError;
+  List<NendoData> get nenDollList => throw _privateConstructorUsedError;
   List<SetData> get setList => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get commitHash => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $BackupDataCopyWith<$Res> {
   @useResult
   $Res call(
       {List<NendoData> nendoList,
+      List<NendoData> nenDollList,
       List<SetData> setList,
       String email,
       String commitHash,
@@ -62,6 +64,7 @@ class _$BackupDataCopyWithImpl<$Res, $Val extends BackupData>
   @override
   $Res call({
     Object? nendoList = null,
+    Object? nenDollList = null,
     Object? setList = null,
     Object? email = null,
     Object? commitHash = null,
@@ -72,6 +75,10 @@ class _$BackupDataCopyWithImpl<$Res, $Val extends BackupData>
       nendoList: null == nendoList
           ? _value.nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+      nenDollList: null == nenDollList
+          ? _value.nenDollList
+          : nenDollList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
       setList: null == setList
           ? _value.setList
@@ -107,6 +114,7 @@ abstract class _$$_BackupDataCopyWith<$Res>
   @useResult
   $Res call(
       {List<NendoData> nendoList,
+      List<NendoData> nenDollList,
       List<SetData> setList,
       String email,
       String commitHash,
@@ -126,6 +134,7 @@ class __$$_BackupDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? nendoList = null,
+    Object? nenDollList = null,
     Object? setList = null,
     Object? email = null,
     Object? commitHash = null,
@@ -136,6 +145,10 @@ class __$$_BackupDataCopyWithImpl<$Res>
       nendoList: null == nendoList
           ? _value._nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+      nenDollList: null == nenDollList
+          ? _value._nenDollList
+          : nenDollList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
       setList: null == setList
           ? _value._setList
@@ -166,12 +179,14 @@ class __$$_BackupDataCopyWithImpl<$Res>
 class _$_BackupData implements _BackupData {
   const _$_BackupData(
       {required final List<NendoData> nendoList,
+      final List<NendoData> nenDollList = const [],
       required final List<SetData> setList,
       required this.email,
       required this.commitHash,
       required this.commitDate,
       required this.backupDate})
       : _nendoList = nendoList,
+        _nenDollList = nenDollList,
         _setList = setList;
 
   factory _$_BackupData.fromJson(Map<String, dynamic> json) =>
@@ -183,6 +198,15 @@ class _$_BackupData implements _BackupData {
     if (_nendoList is EqualUnmodifiableListView) return _nendoList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_nendoList);
+  }
+
+  final List<NendoData> _nenDollList;
+  @override
+  @JsonKey()
+  List<NendoData> get nenDollList {
+    if (_nenDollList is EqualUnmodifiableListView) return _nenDollList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_nenDollList);
   }
 
   final List<SetData> _setList;
@@ -204,7 +228,7 @@ class _$_BackupData implements _BackupData {
 
   @override
   String toString() {
-    return 'BackupData(nendoList: $nendoList, setList: $setList, email: $email, commitHash: $commitHash, commitDate: $commitDate, backupDate: $backupDate)';
+    return 'BackupData(nendoList: $nendoList, nenDollList: $nenDollList, setList: $setList, email: $email, commitHash: $commitHash, commitDate: $commitDate, backupDate: $backupDate)';
   }
 
   @override
@@ -214,6 +238,8 @@ class _$_BackupData implements _BackupData {
             other is _$_BackupData &&
             const DeepCollectionEquality()
                 .equals(other._nendoList, _nendoList) &&
+            const DeepCollectionEquality()
+                .equals(other._nenDollList, _nenDollList) &&
             const DeepCollectionEquality().equals(other._setList, _setList) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.commitHash, commitHash) ||
@@ -229,6 +255,7 @@ class _$_BackupData implements _BackupData {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_nendoList),
+      const DeepCollectionEquality().hash(_nenDollList),
       const DeepCollectionEquality().hash(_setList),
       email,
       commitHash,
@@ -252,6 +279,7 @@ class _$_BackupData implements _BackupData {
 abstract class _BackupData implements BackupData {
   const factory _BackupData(
       {required final List<NendoData> nendoList,
+      final List<NendoData> nenDollList,
       required final List<SetData> setList,
       required final String email,
       required final String commitHash,
@@ -263,6 +291,8 @@ abstract class _BackupData implements BackupData {
 
   @override
   List<NendoData> get nendoList;
+  @override
+  List<NendoData> get nenDollList;
   @override
   List<SetData> get setList;
   @override

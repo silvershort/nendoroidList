@@ -1,5 +1,6 @@
 class HiveName {
   static const String nendoBoxName = "nendoList";
+  static const String nenDollBoxName = "nenDollList";
   static const String setBoxName = "setList";
   static const String settingBoxName = "settingBox";
   static const String appThemeBoxName = "appThemeBox";

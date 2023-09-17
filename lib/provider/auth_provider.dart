@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Auth extends _$Auth {
   late Box _settingBox;
   late ActionCodeSettings _acs;
@@ -39,7 +39,9 @@ class Auth extends _$Auth {
   }
 
   Future<void> initDynamicLinks() async {
+    logger.i('@@@ initDynamicLinks');
     FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) async {
+      logger.i('@@@ : ${dynamicLinkData.link}');
       if (FirebaseAuth.instance.isSignInWithEmailLink(dynamicLinkData.link.toString())) {
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
           email: _settingBox.get(HiveName.emailKey),
@@ -57,6 +59,7 @@ class Auth extends _$Auth {
     final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
     if (initialLink != null) {
       if (FirebaseAuth.instance.isSignInWithEmailLink(initialLink.link.toString())) {
+        logger.i('@@@ isSignInWithEmailLink');
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
           email: _settingBox.get(HiveName.emailKey),
           emailLink: initialLink.link.toString(),
