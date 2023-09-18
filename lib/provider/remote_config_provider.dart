@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
+import 'package:nendoroid_db/utilities/constant.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,46 +32,32 @@ class RemoteConfigManager {
   }
   
   int getFirestoreVersion() {
-    return _remoteConfig.getInt('nendo_data_version');
+    return _remoteConfig.getInt(Constant.nendoDataVersionRemote);
   }
 
-  void checkNewVersion(BuildContext context) {
+  String getNoticeText() {
+    return _remoteConfig.getString(Constant.noticeTextRemote);
+  }
+
+  ({bool needUpdate, bool force, String updateText}) checkNewVersion() {
     final int localVersion = convertVersion(packageInfo.version);
     late final int remoteVersion;
-    late final int forceVersion = convertVersion(_remoteConfig.getString('force_update'));
+    late final int forceVersion = convertVersion(_remoteConfig.getString(Constant.forceUpdateRemote));
 
     if (Platform.isIOS) {
-      remoteVersion = convertVersion(_remoteConfig.getString('ios_version'));
+      remoteVersion = convertVersion(_remoteConfig.getString(Constant.iosVersionRemote));
     } else {
-      remoteVersion = convertVersion(_remoteConfig.getString('aos_version'));
+      remoteVersion = convertVersion(_remoteConfig.getString(Constant.aosVersionRemote));
     }
 
     // 업데이트 유무
     bool update = remoteVersion > localVersion;
     // 강제 업데이트 유무
     bool force = forceVersion > localVersion;
+    // 업데이트 텍스트
+    String updateText = _remoteConfig.getString(Constant.updateTextRemote);
 
-    if (update) {
-      showDialog(
-        context: context,
-        barrierDismissible: !force,
-        builder: (context) {
-          return CommonDialog(
-            title: '업데이트 알림',
-            content: force ? '필수 업데이트가 있습니다.' : '새로운 버전이 출시되었습니다.',
-            negativeText: force ? null : '닫기',
-            positiveText: '업데이트',
-            positiveOnClick: () {
-              if (Platform.isAndroid || Platform.isIOS) {
-                final appId = Platform.isAndroid ? "com.silvershort.nendoroid_db" : "1634111114";
-                final url = Uri.parse(Platform.isAndroid ? "market://details?id=$appId" : "https://apps.apple.com/app/id$appId");
-                launchUrl(url, mode: LaunchMode.platformDefault);
-              }
-            },
-          );
-        },
-      );
-    }
+    return (needUpdate: update, force: force, updateText: updateText);
   }
 
   int convertVersion(String versionRawString) {
