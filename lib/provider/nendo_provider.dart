@@ -80,6 +80,9 @@ class Nendo extends _$Nendo {
     final int remoteVersion = ref.read(remoteConfigManagerProvider).getFirestoreVersion();
     final int localVersion = _settingBox.get(HiveName.localDataVersionKey, defaultValue: 0);
 
+    logger.i('remoteVersion : $remoteVersion');
+    logger.i('localVersion : $localVersion');
+
     // 업데이트가 필요함
     if (remoteVersion > localVersion) {
       fetchData(forceDownload: true);
@@ -87,7 +90,7 @@ class Nendo extends _$Nendo {
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
-  Future<NendoState> fetchData({bool forceDownload = true}) async {
+  Future<NendoState> fetchData({bool forceDownload = false}) async {
     state = const AsyncLoading();
 
     // 로컬이 비어있을경우 파이어베이스에서 다운로드,

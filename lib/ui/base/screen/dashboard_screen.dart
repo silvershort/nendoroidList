@@ -26,6 +26,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => ref.read(dashboardControllerProvider.notifier).initController());
+  }
+
+  @override
   Widget build(BuildContext context) {
     ref.listen(dashboardControllerProvider, (previous, next) {
       if (next) {
