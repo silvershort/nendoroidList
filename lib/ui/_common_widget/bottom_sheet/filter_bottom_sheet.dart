@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nendoroid_db/models/doll_type.dart';
 import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
@@ -228,91 +229,177 @@ class FilterBottomSheet extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 10.0),
+          switch (state.dataType) {
+            NendoroidData() => const _FilterColunm(),
+            NendoroidDollData() => const _DollFilterColunm(),
+          },
           const SizedBox(height: 20.0),
-          Text(
-            "필터",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          const SizedBox(height: 10.0),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  _FilterButton(
-                    isSelected: state.filterData.haveFilter,
-                    onPressed: () {
-                      controller.changeFilterData(state.filterData.invertHave());
-                    },
-                    title: '보유',
-                  ),
-                  _FilterButton(
-                    isSelected: state.filterData.notHaveFilter,
-                    onPressed: () {
-                      controller.changeFilterData(state.filterData.invertNotHave());
-                    },
-                    title: '미보유',
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  _FilterButton(
-                    isSelected: state.filterData.wishFilter,
-                    onPressed: () {
-                      controller.changeFilterData(state.filterData.invertWish());
-                    },
-                    title: '위시',
-                  ),
-                  _FilterButton(
-                    isSelected: state.filterData.expectedFilter,
-                    onPressed: () {
-                      controller.changeFilterData(state.filterData.invertExpected());
-                    },
-                    title: '출시예정',
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  _FilterButton(
-                    width: MediaQuery.of(context).size.width * 0.275,
-                    isSelected: state.filterData.femaleFilter,
-                    onPressed: () {
-                      controller.changeFilterData(state.filterData.invertFemale());
-                    },
-                    title: '여성',
-                  ),
-                  _FilterButton(
-                    width: MediaQuery.of(context).size.width * 0.275,
-                    isSelected: state.filterData.maleFilter,
-                    onPressed: () {
-                      controller.changeFilterData(state.filterData.invertMale());
-                    },
-                    title: '남성',
-                  ),
-                  _FilterButton(
-                    width: MediaQuery.of(context).size.width * 0.275,
-                    isSelected: state.filterData.etcFilter,
-                    onPressed: () {
-                      controller.changeFilterData(state.filterData.invertEtc());
-                    },
-                    title: '기타',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20.0),
-            ],
-          ),
         ],
       ),
+    );
+  }
+}
+
+class _FilterColunm extends ConsumerWidget {
+  const _FilterColunm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(nendoListSettingProvider);
+    final controller = ref.read(nendoListSettingProvider.notifier);
+
+    return Column(
+      children: [
+        Text(
+          "필터",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _FilterButton(
+                  isSelected: state.filterData.haveFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertHave());
+                  },
+                  title: '보유',
+                ),
+                _FilterButton(
+                  isSelected: state.filterData.notHaveFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertNotHave());
+                  },
+                  title: '미보유',
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _FilterButton(
+                  isSelected: state.filterData.wishFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertWish());
+                  },
+                  title: '위시',
+                ),
+                _FilterButton(
+                  isSelected: state.filterData.expectedFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertExpected());
+                  },
+                  title: '출시예정',
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _FilterButton(
+                  width: MediaQuery.of(context).size.width * 0.275,
+                  isSelected: state.filterData.femaleFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertFemale());
+                  },
+                  title: '여성',
+                ),
+                _FilterButton(
+                  width: MediaQuery.of(context).size.width * 0.275,
+                  isSelected: state.filterData.maleFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertMale());
+                  },
+                  title: '남성',
+                ),
+                _FilterButton(
+                  width: MediaQuery.of(context).size.width * 0.275,
+                  isSelected: state.filterData.etcFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertEtc());
+                  },
+                  title: '기타',
+                ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _DollFilterColunm extends ConsumerWidget {
+  const _DollFilterColunm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(nendoListSettingProvider);
+    final controller = ref.read(nendoListSettingProvider.notifier);
+
+    return Column(
+      children: [
+        Text(
+          "필터",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _FilterButton(
+                  isSelected: state.dollFilterData.dollFilter,
+                  onPressed: () {
+                    controller.changeFilterDollData(state.dollFilterData.invertDoll());
+                  },
+                  title: DollType.doll.name,
+                ),
+                _FilterButton(
+                  isSelected: state.dollFilterData.bodyFilter,
+                  onPressed: () {
+                    controller.changeFilterDollData(state.dollFilterData.invertBody());
+                  },
+                  title: DollType.body.name,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _FilterButton(
+                  isSelected: state.dollFilterData.clothesFilter,
+                  onPressed: () {
+                    controller.changeFilterDollData(state.dollFilterData.invertClothes());
+                  },
+                  title: DollType.clothes.name,
+                ),
+                _FilterButton(
+                  isSelected: state.dollFilterData.customizingFilter,
+                  onPressed: () {
+                    controller.changeFilterDollData(state.dollFilterData.invertCustomizing());
+                  },
+                  title: DollType.customizing.name,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+          ],
+        ),
+      ],
     );
   }
 }

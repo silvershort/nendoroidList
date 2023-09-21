@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nendoroid_db/models/doll_filter_data.dart';
 import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
@@ -16,6 +17,7 @@ class NendoListSettingState with _$NendoListSettingState {
     required ViewMode viewMode,
     required EditMode editMode,
     required FilterData filterData,
+    required DollFilterData dollFilterData,
     required SortData sortData,
   }) = _NendoListSettingState;
 }
@@ -29,6 +31,7 @@ class NendoListSetting extends _$NendoListSetting {
       viewMode: ListViewMode(),
       editMode: Normal(),
       filterData: const FilterData(),
+      dollFilterData: const DollFilterData(),
       sortData: const SortData(),
     );
   }
@@ -56,6 +59,13 @@ class NendoListSetting extends _$NendoListSetting {
       filterData: filterData,
     );
     ref.read(nendoProvider.notifier).filteringList();
+  }
+
+  void changeFilterDollData(DollFilterData filterData) {
+    state = state.copyWith(
+      dollFilterData: filterData,
+    );
+    ref.read(nendoProvider.notifier).filteringDollList();
   }
 
   void setNumSort() {

@@ -20,6 +20,7 @@ mixin _$NendoListSettingState {
   ViewMode get viewMode => throw _privateConstructorUsedError;
   EditMode get editMode => throw _privateConstructorUsedError;
   FilterData get filterData => throw _privateConstructorUsedError;
+  DollFilterData get dollFilterData => throw _privateConstructorUsedError;
   SortData get sortData => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,9 +39,11 @@ abstract class $NendoListSettingStateCopyWith<$Res> {
       ViewMode viewMode,
       EditMode editMode,
       FilterData filterData,
+      DollFilterData dollFilterData,
       SortData sortData});
 
   $FilterDataCopyWith<$Res> get filterData;
+  $DollFilterDataCopyWith<$Res> get dollFilterData;
   $SortDataCopyWith<$Res> get sortData;
 }
 
@@ -62,6 +65,7 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
     Object? viewMode = null,
     Object? editMode = null,
     Object? filterData = null,
+    Object? dollFilterData = null,
     Object? sortData = null,
   }) {
     return _then(_value.copyWith(
@@ -81,6 +85,10 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
           ? _value.filterData
           : filterData // ignore: cast_nullable_to_non_nullable
               as FilterData,
+      dollFilterData: null == dollFilterData
+          ? _value.dollFilterData
+          : dollFilterData // ignore: cast_nullable_to_non_nullable
+              as DollFilterData,
       sortData: null == sortData
           ? _value.sortData
           : sortData // ignore: cast_nullable_to_non_nullable
@@ -93,6 +101,14 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
   $FilterDataCopyWith<$Res> get filterData {
     return $FilterDataCopyWith<$Res>(_value.filterData, (value) {
       return _then(_value.copyWith(filterData: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DollFilterDataCopyWith<$Res> get dollFilterData {
+    return $DollFilterDataCopyWith<$Res>(_value.dollFilterData, (value) {
+      return _then(_value.copyWith(dollFilterData: value) as $Val);
     });
   }
 
@@ -118,10 +134,13 @@ abstract class _$$_NendoListSettingStateCopyWith<$Res>
       ViewMode viewMode,
       EditMode editMode,
       FilterData filterData,
+      DollFilterData dollFilterData,
       SortData sortData});
 
   @override
   $FilterDataCopyWith<$Res> get filterData;
+  @override
+  $DollFilterDataCopyWith<$Res> get dollFilterData;
   @override
   $SortDataCopyWith<$Res> get sortData;
 }
@@ -141,6 +160,7 @@ class __$$_NendoListSettingStateCopyWithImpl<$Res>
     Object? viewMode = null,
     Object? editMode = null,
     Object? filterData = null,
+    Object? dollFilterData = null,
     Object? sortData = null,
   }) {
     return _then(_$_NendoListSettingState(
@@ -160,6 +180,10 @@ class __$$_NendoListSettingStateCopyWithImpl<$Res>
           ? _value.filterData
           : filterData // ignore: cast_nullable_to_non_nullable
               as FilterData,
+      dollFilterData: null == dollFilterData
+          ? _value.dollFilterData
+          : dollFilterData // ignore: cast_nullable_to_non_nullable
+              as DollFilterData,
       sortData: null == sortData
           ? _value.sortData
           : sortData // ignore: cast_nullable_to_non_nullable
@@ -176,6 +200,7 @@ class _$_NendoListSettingState implements _NendoListSettingState {
       required this.viewMode,
       required this.editMode,
       required this.filterData,
+      required this.dollFilterData,
       required this.sortData});
 
   @override
@@ -187,11 +212,13 @@ class _$_NendoListSettingState implements _NendoListSettingState {
   @override
   final FilterData filterData;
   @override
+  final DollFilterData dollFilterData;
+  @override
   final SortData sortData;
 
   @override
   String toString() {
-    return 'NendoListSettingState(dataType: $dataType, viewMode: $viewMode, editMode: $editMode, filterData: $filterData, sortData: $sortData)';
+    return 'NendoListSettingState(dataType: $dataType, viewMode: $viewMode, editMode: $editMode, filterData: $filterData, dollFilterData: $dollFilterData, sortData: $sortData)';
   }
 
   @override
@@ -207,13 +234,15 @@ class _$_NendoListSettingState implements _NendoListSettingState {
                 other.editMode == editMode) &&
             (identical(other.filterData, filterData) ||
                 other.filterData == filterData) &&
+            (identical(other.dollFilterData, dollFilterData) ||
+                other.dollFilterData == dollFilterData) &&
             (identical(other.sortData, sortData) ||
                 other.sortData == sortData));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, dataType, viewMode, editMode, filterData, sortData);
+  int get hashCode => Object.hash(runtimeType, dataType, viewMode, editMode,
+      filterData, dollFilterData, sortData);
 
   @JsonKey(ignore: true)
   @override
@@ -229,6 +258,7 @@ abstract class _NendoListSettingState implements NendoListSettingState {
       required final ViewMode viewMode,
       required final EditMode editMode,
       required final FilterData filterData,
+      required final DollFilterData dollFilterData,
       required final SortData sortData}) = _$_NendoListSettingState;
 
   @override
@@ -239,6 +269,8 @@ abstract class _NendoListSettingState implements NendoListSettingState {
   EditMode get editMode;
   @override
   FilterData get filterData;
+  @override
+  DollFilterData get dollFilterData;
   @override
   SortData get sortData;
   @override

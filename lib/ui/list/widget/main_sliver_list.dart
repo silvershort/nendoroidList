@@ -23,6 +23,17 @@ class MainSliverList extends ConsumerWidget {
         final appSetting = ref.watch(appSettingProvider);
         final viewMode = ref.watch(nendoListSettingProvider.select((value) => value.viewMode));
 
+        if (data.filteredNendoList.isEmpty) {
+          return SliverFillRemaining(
+            child: Center(
+              child: Text(
+                '조건에 맞는 넨도로이드가 없습니다.',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          );
+        }
+
         switch (viewMode) {
           case ListViewMode():
             if (appSetting.showGroupHeader) {

@@ -6,14 +6,14 @@ import 'package:intl/intl.dart';
 import 'package:korea_regexp/korea_regexp.dart';
 import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
+import 'package:nendoroid_db/models/doll_filter_data.dart';
+import 'package:nendoroid_db/models/doll_type.dart';
 import 'package:nendoroid_db/models/filter_data.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/nendo_group.dart';
 import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/models/set_data.dart';
-import 'package:nendoroid_db/networks/repositories/firebase_repository.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
-import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/provider/remote_config_provider.dart';
@@ -23,7 +23,6 @@ import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
-
 part 'nendo_provider.g.dart';
 
 @freezed
@@ -63,7 +62,6 @@ class Nendo extends _$Nendo {
               filteredNendoList: state.requireValue.nendoList,
             ));
           case NendoroidDollData():
-            print("@@@ : ${state.requireValue.nenDollList.toString()}");
             state = AsyncData(state.requireValue.copyWith(
               filteredNendoList: state.requireValue.nenDollList,
             ));
@@ -250,14 +248,27 @@ class Nendo extends _$Nendo {
 
     late List<NendoData> tempList;
 
+    final rawList = switch (ref.read(nendoListSettingProvider).dataType) {
+      NendoroidData() => state.value!.nendoList,
+      NendoroidDollData() => state.value!.nenDollList,
+    };
+
     // 일반 검색
-    tempList = state.value!.nendoList
+    tempList = rawList
         .where((item) =>
             regExp.hasMatch(item.name.ko?.toLowerCase() ?? "") ||
             regExp.hasMatch(item.name.en?.toLowerCase() ?? "") ||
             regExp.hasMatch(item.series.ko?.toLowerCase() ?? "") ||
             regExp.hasMatch(item.num))
         .toList();
+
+    // 검색어에 맞는 넨도 리스트의 필터링을 진행
+    switch (ref.read(nendoListSettingProvider).dataType) {
+      case NendoroidData():
+        filteringList(nendoList: tempList, searchComplete: true);
+      case NendoroidDollData():
+        filteringDollList(nendoList: tempList, searchComplete: true);
+    }
 
     // 숫자 범위 검색, 숫자와 ~가 있을때만 ~검색 사용
     // RegExp digitPattern = RegExp(r'\d+');
@@ -283,9 +294,6 @@ class Nendo extends _$Nendo {
     //           (start <= int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) && int.parse(item.num.replaceAll(RegExp(r"[^0-9]"), "")) <= end))
     //       .toList();
     // }
-
-    // 검색어에 맞는 넨도 리스트의 필터링을 진행
-    filteringList(nendoList: tempList, searchComplete: true);
   }
 
   // 특정 규칙에 따라서 리스트를 필터링 해준다.
@@ -331,6 +339,44 @@ class Nendo extends _$Nendo {
       tempList = tempList.where((item) => item.gender == "M").toList();
     } else if (filterData.etcFilter) {
       tempList = tempList.where((item) => item.gender != "F" && item.gender != "M").toList();
+    }
+
+    // 필터링 완료한 리스트를 넣어준다.
+    state = AsyncData(
+      state.value!.copyWith(
+        filteredNendoList: tempList,
+      ),
+    );
+  }
+
+  void filteringDollList({List<NendoData>? nendoList, bool searchComplete = false}) {
+    // 검색어가 남아있을 경우 검색어에 따른 필터링을 우선적으로 진행한다.
+    if (_lastSearch.isNotEmpty && !searchComplete) {
+      searchToWord(_lastSearch);
+      return;
+    }
+
+    // 필터 설정정보를 가져온다.
+    final settingState = ref.read(nendoListSettingProvider);
+    DollFilterData filterData = settingState.dollFilterData;
+
+    // 특정 넨도 리스트(파라미터로 받은 값)을 대상으로 진행할지 전체 리스트로 진행할지 결정
+    List<NendoData> tempList = nendoList ?? [...state.value!.nenDollList];
+
+    if (!filterData.bodyFilter) {
+      tempList = tempList.where((item) => (item.type ?? '') != DollType.body.name.toLowerCase()).toList();
+    }
+
+    if (!filterData.clothesFilter) {
+      tempList = tempList.where((item) => (item.type ?? '') != DollType.clothes.name.toLowerCase()).toList();
+    }
+
+    if (!filterData.customizingFilter) {
+      tempList = tempList.where((item) => (item.type ?? '') != DollType.customizing.name.toLowerCase()).toList();
+    }
+
+    if (!filterData.dollFilter) {
+      tempList = tempList.where((item) => (item.type ?? '') != DollType.doll.name.toLowerCase()).toList();
     }
 
     // 필터링 완료한 리스트를 넣어준다.
