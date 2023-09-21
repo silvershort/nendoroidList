@@ -9,10 +9,16 @@ class MainListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList.builder(
+    return SliverList.separated(
       itemCount: nendoList.length,
       itemBuilder: (context, index) {
         return NendoListTile(nendoData: nendoList[index]);
+      },
+      separatorBuilder: (context, index) {
+        return const Divider(
+          height: 1,
+          thickness: 1,
+        );
       },
     );
   }

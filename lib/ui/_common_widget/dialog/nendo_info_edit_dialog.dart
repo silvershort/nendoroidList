@@ -274,10 +274,12 @@ class ListNendoMemoList extends ConsumerWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    memo,
-                    style: const TextStyle(
-                      fontSize: 12,
+                  Flexible(
+                    child: Text(
+                      memo,
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 5.0),
@@ -285,9 +287,10 @@ class ListNendoMemoList extends ConsumerWidget {
                     onTap: () {
                       ref.read(nendoProvider.notifier).deleteNendoMemo(nendoData.num, memo);
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.clear,
                       size: 12.0,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   )
                 ],

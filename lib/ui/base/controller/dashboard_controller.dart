@@ -61,7 +61,7 @@ class DashboardController extends _$DashboardController {
     // 앱 공지사항 체크
     final noticeText = ref.read(remoteConfigManagerProvider).getNoticeText();
 
-    if (updateData.updateText.isNotEmpty && context.mounted) {
+    if (noticeText.isNotEmpty && context.mounted) {
       await showDialog(
         context: context,
         barrierDismissible: !updateData.force,

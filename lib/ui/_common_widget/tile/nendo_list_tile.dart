@@ -7,6 +7,7 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar_controller.dart';
+import 'package:nendoroid_db/ui/_common_widget/chip/memo_list_widget.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_info_edit_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/check_icon.dart';
@@ -77,6 +78,7 @@ class NendoListTile extends ConsumerWidget {
         width: double.infinity,
         color: _setItemSelectedColor(context, state),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
             ExtendedImage.network(
@@ -260,35 +262,5 @@ class NendoPrice extends StatelessWidget {
           ),
         );
     }
-  }
-}
-
-class ListNendoMemoView extends StatelessWidget {
-  const ListNendoMemoView({Key? key, required this.memo, this.fontSize = 11.0}) : super(key: key);
-  final List<String> memo;
-  final double fontSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 5.0,
-      runSpacing: 2.5,
-      children: List.generate(
-        memo.length,
-        (index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.5),
-            child: Text(
-              memo[index],
-              style: TextStyle(fontSize: fontSize, color: Colors.white),
-            ),
-          );
-        },
-      ),
-    );
   }
 }

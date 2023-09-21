@@ -32,7 +32,7 @@ class _NendoAddMemoDialogState extends ConsumerState<NendoAddMemoDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
-            "메모는 20글자 내외로 최대 8개 등록 가능합니다.",
+            "메모는 40글자 내외로 최대 20개 등록 가능합니다.",
             style: TextStyle(
               fontSize: 12.0,
             ),
@@ -107,18 +107,18 @@ class _NendoAddMemoDialogState extends ConsumerState<NendoAddMemoDialog> {
 
   void memoValidation(String text) {
     int memoCount = ref.read(nendoProvider.notifier).getNendoDataByNumber(widget.num).memo?.length ?? 0;
-    // 전체공백 제거 + 콤마로 파싱 + 파싱된것중 빈문자열 제거
-    List<String> memoList = text.replaceAll('\n', '').replaceAll(' ', '').split(",").where((element) => element != "").toList();
-    if (memoList.length + memoCount > 8) {
+    // 콤마로 파싱 + 파싱된 문자열 양옆 공백 제거 + 공백 문자열 제거
+    List<String> memoList = text.split(",").map((e) => e.trim()).where((element) => element != "").toList();
+    if (memoList.length + memoCount > 20) {
       setState(() {
-        errorMessage = "메모 개수가 8개를 넘습니다.";
+        errorMessage = "메모 개수가 20개를 넘습니다.";
       });
       return;
     }
     for (String memo in memoList) {
-      if (memo.length > 20) {
+      if (memo.length > 40) {
         setState(() {
-          errorMessage = "20글자를 넘는 메모가 있습니다.";
+          errorMessage = "40글자를 넘는 메모가 있습니다.";
         });
         return;
       }
