@@ -245,7 +245,7 @@ class Nendo extends _$Nendo {
     }
 
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
-    final backupNendoList = state.requireValue.nendoList.where((item) => (item.have || item.wish) || item.memo != null).toList();
+    final backupNendoList = getLocalNendoList().where((item) => (item.have || item.wish) || item.memo != null).toList();
 
     final result = await ref.read(firebaseServiceProvider).createBackupData(
           documentID: user.uid,
@@ -485,8 +485,19 @@ class Nendo extends _$Nendo {
     );
   }
 
+  // 넨도 데이터를 갱신해줌
+  void renewrData() {
+    if (state.value == null) {
+      return;
+    }
+    state = AsyncData(state.requireValue.copyWith(
+      nendoList: getLocalNendoList()..sortBySetting(ref.read(nendoListSettingProvider)),
+    ));
+    filteringList();
+  }
+
   // 선택한 넨도의 보유 여부를 수정함
-  void updateHaveNendo(String number) {
+  void updateHaveNendo(String number) async {
     if (state.value == null) {
       return;
     }
@@ -498,12 +509,12 @@ class Nendo extends _$Nendo {
       item.count = 1;
     }
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    nendoBox.put(item.num, item);
-    state = AsyncData(state.requireValue);
+    await nendoBox.put(item.num, item);
+    renewrData();
   }
 
   // 선택한 넨도의 위시 여부를 수정함
-  void updateWishNendo(String number) {
+  void updateWishNendo(String number) async {
     if (state.value == null) {
       return;
     }
@@ -512,12 +523,12 @@ class Nendo extends _$Nendo {
     item.wish = !item.wish;
 
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    nendoBox.put(item.num, item);
-    state = AsyncData(state.requireValue);
+    await nendoBox.put(item.num, item);
+    renewrData();
   }
 
   // 넨도 구매 가격 변경
-  void setNendoPurchasePrice(String number, int? price) {
+  void setNendoPurchasePrice(String number, int? price) async {
     if (state.value == null) {
       return;
     }
@@ -525,12 +536,12 @@ class Nendo extends _$Nendo {
     item.myPrice = price;
 
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    nendoBox.put(item.num, item);
-    state = AsyncData(state.requireValue);
+    await nendoBox.put(item.num, item);
+    renewrData();
   }
 
   // 보유 넨도개수 조절
-  void setNendoHaveCount(String number, int count) {
+  void setNendoHaveCount(String number, int count) async {
     if (state.value == null) {
       return;
     }
@@ -541,12 +552,12 @@ class Nendo extends _$Nendo {
     NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     item.count = count;
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    nendoBox.put(item.num, item);
-    state = AsyncData(state.requireValue);
+    await nendoBox.put(item.num, item);
+    renewrData();
   }
 
   // 넨도 메모 저장
-  void setNendoMemo(String number, List<String> memo) {
+  void setNendoMemo(String number, List<String> memo) async {
     if (state.value == null) {
       return;
     }
@@ -557,12 +568,12 @@ class Nendo extends _$Nendo {
       item.memo = [...memo];
     }
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    nendoBox.put(item.num, item);
-    state = AsyncData(state.requireValue);
+    await nendoBox.put(item.num, item);
+    renewrData();
   }
 
   // 넨도 메모 삭제
-  void deleteNendoMemo(String number, String memo) {
+  void deleteNendoMemo(String number, String memo) async {
     if (state.value == null) {
       return;
     }
@@ -571,8 +582,8 @@ class Nendo extends _$Nendo {
       item.memo!.remove(memo);
     }
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
-    nendoBox.put(item.num, item);
-    state = AsyncData(state.requireValue);
+    await nendoBox.put(item.num, item);
+    renewrData();
   }
 
   // 번호에 맞는 넨도 반환
@@ -637,9 +648,8 @@ class Nendo extends _$Nendo {
 
     state = AsyncData(state.requireValue.copyWith(
       nendoList: resetList,
-      filteredNendoList: resetList,
     ));
 
-    filteringList(nendoList: resetList);
+    filteringList();
   }
 }
