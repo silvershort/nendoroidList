@@ -43,6 +43,8 @@ class Nendo extends _$Nendo {
   late final Box _setBox;
   late final Box _settingBox;
 
+  List<NendoData> _backupNendoList = [];
+
   @override
   FutureOr<NendoState> build() async {
     // 로컬에 데이터가 있는지 유무를 판단하기 위해서 로컬DB를 가져온다.
@@ -90,8 +92,11 @@ class Nendo extends _$Nendo {
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
-  Future<NendoState> fetchData({bool forceDownload = false}) async {
+  Future<NendoState> fetchData({bool forceDownload = true}) async {
     state = const AsyncLoading();
+
+    // 원격저장소에서 다운로드를 받기 전에 현재 데이터 정보를 임시 저장해둔다.
+    backupDataToCache();
 
     // 로컬이 비어있을경우 파이어베이스에서 다운로드,
     if (_nendoBox.isEmpty || forceDownload) {
@@ -136,9 +141,29 @@ class Nendo extends _$Nendo {
       success: (value) async {
         logger.i(value.setList.toString());
 
-        final List<NendoData> sortList = [...value.nendoList];
+        List<NendoData> sortList = [...value.nendoList];
         sortList.sortBySetting(ref.read(nendoListSettingProvider));
         logger.i('nendolist : ${sortList.length}');
+
+        // 임시 백업 데이터가 있을 경우 백업을 진행
+        if (_backupNendoList.isNotEmpty) {
+          logger.i("backupData : ${_backupNendoList.toString()}");
+
+          for (int i = _backupNendoList.length - 1; i >= 0; i--) {
+            final backupData = _backupNendoList[i];
+            int index = sortList.indexWhere((e) => e.gscProductNum == backupData.gscProductNum);
+
+            if (index >= 0) {
+              sortList[index] = backupData.copyWith(
+                count: backupData.count,
+                have: backupData.have,
+                wish: backupData.wish,
+                myPrice: backupData.myPrice,
+                memo: backupData.memo?.toList(),
+              );
+            }
+          }
+        }
 
         await saveLocalDB(
           nendoList: sortList,
@@ -147,10 +172,10 @@ class Nendo extends _$Nendo {
         );
 
         final NendoState nendoState = NendoState(
-          nendoList: value.nendoList,
+          nendoList: sortList,
           nenDollList: value.nenDollList,
           setList: value.setList,
-          filteredNendoList: value.nendoList,
+          filteredNendoList: sortList,
         );
         state = AsyncData(nendoState);
         return nendoState;
@@ -198,6 +223,12 @@ class Nendo extends _$Nendo {
         return Future.error(error, stackTrace);
       },
     );
+  }
+
+  // DB 업데이트전에 데이터 백업
+  void backupDataToCache() {
+    // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
+    _backupNendoList = getLocalNendoList().where((item) => (item.have || item.wish) || item.myPrice != null ||item.memo != null).toList();
   }
 
   // 넨도로이드 백업을 진행한다.
@@ -388,6 +419,11 @@ class Nendo extends _$Nendo {
         filteredNendoList: tempList,
       ),
     );
+  }
+
+  // 로컬 저장소에 저장된 넨도로이드 리스트 반환
+  List<NendoData> getLocalNendoList() {
+    return _nendoBox.values.map((e) => e as NendoData).toList();
   }
 
   void resortingList() {
