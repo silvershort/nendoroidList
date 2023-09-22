@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:korea_regexp/korea_regexp.dart';
 import 'package:nendoroid_db/main.dart';
+import 'package:nendoroid_db/models/api/api_result.dart';
 import 'package:nendoroid_db/models/backup_data.dart';
 import 'package:nendoroid_db/models/doll_filter_data.dart';
 import 'package:nendoroid_db/models/doll_type.dart';
@@ -92,7 +93,7 @@ class Nendo extends _$Nendo {
   }
 
   // 넨도리스트를 로컬 or 원격에서 가져온다.
-  Future<NendoState> fetchData({bool forceDownload = true}) async {
+  Future<NendoState> fetchData({bool forceDownload = false}) async {
     state = const AsyncLoading();
 
     // 원격저장소에서 다운로드를 받기 전에 현재 데이터 정보를 임시 저장해둔다.
@@ -102,7 +103,7 @@ class Nendo extends _$Nendo {
     if (_nendoBox.isEmpty || forceDownload) {
       final NendoState nendoState = await fetchFromFirebase();
       // 다운로드 완료시 로컬 데이터 버전 수정
-      _settingBox.put(
+      await _settingBox.put(
         HiveName.localDataVersionKey,
         ref.read(remoteConfigManagerProvider).getFirestoreVersion(),
       );
@@ -192,10 +193,11 @@ class Nendo extends _$Nendo {
     if (state.value == null) {
       return;
     }
-    final result = await ref.read(firebaseServiceProvider).readUserBackupData(documentID: documentID);
+
+    final ApiResult<BackupData> result = await ref.read(firebaseServiceProvider).readUserBackupData(documentID: documentID);
 
     result.when(
-      success: (value) {
+      success: (value) async {
         // 깊은 복사를 해야 'Cannot remove from an unmodifiable list' 에러를 피할 수 있음.
         final backupNendoList = value.nendoList.toList();
 
@@ -211,13 +213,18 @@ class Nendo extends _$Nendo {
               memo: backupData.memo?.toList(),
             );
 
-            _nendoBox.put(nendoData.num, nendoData);
+            await _nendoBox.put(nendoData.num, nendoData);
 
             // 계속해서 백업데이터를 확인하지 않도록 제거해준다.
             backupNendoList.removeAt(i);
           }
         }
-        state = AsyncData(state.requireValue);
+        state = AsyncData(
+          state.requireValue.copyWith(
+            nendoList: getLocalNendoList(),
+          ),
+        );
+        return;
       },
       error: (error, stackTrace) {
         return Future.error(error, stackTrace);
@@ -479,7 +486,7 @@ class Nendo extends _$Nendo {
   }
 
   // 선택한 넨도의 보유 여부를 수정함
-  void updateHaveNendo(String number) async {
+  void updateHaveNendo(String number) {
     if (state.value == null) {
       return;
     }
@@ -496,7 +503,7 @@ class Nendo extends _$Nendo {
   }
 
   // 선택한 넨도의 위시 여부를 수정함
-  void updateWishNendo(String number) async {
+  void updateWishNendo(String number) {
     if (state.value == null) {
       return;
     }
@@ -523,7 +530,7 @@ class Nendo extends _$Nendo {
   }
 
   // 보유 넨도개수 조절
-  void setNendoHaveCount(String number, int count) async {
+  void setNendoHaveCount(String number, int count) {
     if (state.value == null) {
       return;
     }
@@ -612,5 +619,27 @@ class Nendo extends _$Nendo {
     }).toList();
 
     return total + list.join('\n');
+  }
+
+  // 로컬 넨도로이드 데이터를 리셋
+  Future<void> resetLocalData() async {
+    if (state.value == null) {
+      return;
+    }
+
+    final List<NendoData> resetList = getLocalNendoList().resetList();
+
+    await saveLocalDB(
+      nendoList: resetList,
+    );
+
+    resetList.sortBySetting(ref.read(nendoListSettingProvider));
+
+    state = AsyncData(state.requireValue.copyWith(
+      nendoList: resetList,
+      filteredNendoList: resetList,
+    ));
+
+    filteringList(nendoList: resetList);
   }
 }

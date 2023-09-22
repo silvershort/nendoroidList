@@ -36,7 +36,7 @@ class MenuCountTile extends StatelessWidget {
           ),
           const SizedBox(width: 5.0),
           Text(
-            value.toString(),
+            value == 0 ? '${value.toString()}(자동)' : value.toString(),
           ),
           const SizedBox(width: 5.0),
           Row(

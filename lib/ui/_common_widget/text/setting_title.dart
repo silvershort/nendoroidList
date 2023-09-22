@@ -13,9 +13,7 @@ class SettingTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-          color: Colors.black54
-        ),
+        style: Theme.of(context).textTheme.titleSmall,
       ),
     );
   }

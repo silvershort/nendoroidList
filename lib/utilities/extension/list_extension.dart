@@ -13,7 +13,7 @@ extension NendoListExtension on List<NendoData> {
   // 넨도로이드를 정렬 조건에 맞춰 정렬
   void sortBySetting(NendoListSettingState settingState) {
     sort(
-      (a, b) {
+          (a, b) {
         // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
         int numA = int.parse(a.num.replaceAll(RegExp(r"[^0-9]"), ""));
         int numB = int.parse(b.num.replaceAll(RegExp(r"[^0-9]"), ""));
@@ -27,7 +27,7 @@ extension NendoListExtension on List<NendoData> {
           case SortingMethodNum():
             switch (sortData.sortingOrder) {
               case ASC():
-                // 숫자 오름차순 정렬
+              // 숫자 오름차순 정렬
                 if (numA > numB) {
                   return 1;
                 } else if (numA < numB) {
@@ -36,7 +36,7 @@ extension NendoListExtension on List<NendoData> {
                   return a.num.compareTo(b.num);
                 }
               case DESC():
-                // 숫자 내림차순 정렬
+              // 숫자 내림차순 정렬
                 if (numA < numB) {
                   return 1;
                 } else if (numA > numB) {
@@ -47,7 +47,7 @@ extension NendoListExtension on List<NendoData> {
                   return b.num.compareTo(a.num);
                 }
             }
-          // 출시일 기준 정렬
+        // 출시일 기준 정렬
           case SortingMethodRelease():
             switch (sortData.sortingOrder) {
               case ASC():
@@ -122,9 +122,15 @@ extension NendoListExtension on List<NendoData> {
   // 보유한 넨도의 성별 비율을 보여줌
   List<GenderRate> getGenderRate() {
     List<NendoData> haveList = where((item) => item.have).toList();
-    int femaleCount = haveList.where((item) => item.gender == "F").length;
-    int maleCount = haveList.where((item) => item.gender == "M").length;
-    int etcCount = haveList.where((item) => (item.gender != "F" && item.gender != "M")).length;
+    int femaleCount = haveList
+        .where((item) => item.gender == "F")
+        .length;
+    int maleCount = haveList
+        .where((item) => item.gender == "M")
+        .length;
+    int etcCount = haveList
+        .where((item) => (item.gender != "F" && item.gender != "M"))
+        .length;
 
     List<GenderRate> genderRateList = [];
     genderRateList.add(GenderRate(
@@ -209,7 +215,11 @@ extension NendoListExtension on List<NendoData> {
   // 이번달 출시예정인 구매 넨도
   List<NendoData> getThisMonthHaveList() {
     List<NendoData> haveList = where((item) => item.have).toList();
-    DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
+    DateTime today = DateTime(DateTime
+        .now()
+        .year, DateTime
+        .now()
+        .month, 1);
     return haveList.where((item) {
       if (item.releaseDate.isEmpty) {
         return false;
@@ -222,7 +232,11 @@ extension NendoListExtension on List<NendoData> {
   // 이번달 출시예정인 위시 넨도
   List<NendoData> getThisMonthWishList() {
     List<NendoData> wishList = where((item) => item.wish).toList();
-    DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
+    DateTime today = DateTime(DateTime
+        .now()
+        .year, DateTime
+        .now()
+        .month, 1);
     return wishList.where((item) {
       if (item.releaseDate.isEmpty) {
         return false;
@@ -247,6 +261,17 @@ extension NendoListExtension on List<NendoData> {
       }
     }
     return totalPrice;
+  }
+
+  // 넨도 데이터를 리셋해준다.
+  List<NendoData> resetList() {
+    return map((e) => e = e.copyWith(
+      count: 0,
+      have: false,
+      wish: false,
+      memo: null,
+      myPrice: null,
+    )).toList();
   }
 
   // 넨도 그룹핑 작업을 해준다.

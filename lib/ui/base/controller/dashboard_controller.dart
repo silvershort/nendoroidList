@@ -14,8 +14,6 @@ part 'dashboard_controller.g.dart';
 class DashboardController extends _$DashboardController {
   @override
   bool build() {
-    // 자동 로그인 처리
-    ref.read(authProvider.notifier).init();
     return false;
   }
 

@@ -30,11 +30,15 @@ class Auth extends _$Auth {
         // minimumVersion
         androidMinimumVersion: '12');
     initDynamicLinks();
-    return null;
+    return init();
   }
 
-  FutureOr<User?> init() {
+  User? init() {
+    // 자동 로그인 처리
     final User? user = _authentication.currentUser;
+    if (user != null) {
+      logger.i('Auto login success : ${user.email}');
+    }
     return user;
   }
 
@@ -75,7 +79,7 @@ class Auth extends _$Auth {
     );
 
     // 앱이 재시작될수도 있으므로 이메일을 저장해둔다.
-    _settingBox.put(HiveName.emailKey, email.trim());
+    await _settingBox.put(HiveName.emailKey, email.trim());
   }
 
   Future<void> signOut() async {

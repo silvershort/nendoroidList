@@ -63,9 +63,9 @@ class SettingScreen extends ConsumerWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) {
+                builder: (dialogContext) {
                   return CommonDialog(
-                    content: '넨도로이드 데이터를 재다운로드 하시겠습니까?\n\n(주의 : 모든 저장된 데이터가 초기화 됩니다. 백업 후 사용해주세요.)',
+                    content: '넨도로이드 데이터를 재다운로드 하시겠습니까?',
                     negativeText: '취소',
                     positiveOnClick: () {
                       ref.read(nendoProvider.notifier).fetchData(forceDownload: true);
@@ -75,23 +75,65 @@ class SettingScreen extends ConsumerWidget {
               );
             },
           ),
+          MenuTile(
+            title: '데이터 초기화',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (dialogContext) {
+                  return CommonDialog(
+                    content: '현재 넨도로이드 데이터를 초기화 하시겠습니까?\n\n(로그인 후 진행한 백업데이터는 유지됩니다.)',
+                    negativeText: '취소',
+                    positiveOnClick: () async {
+                      await ref.read(nendoProvider.notifier).resetLocalData();
+                      if (context.mounted) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const CommonDialog(
+                              content: '데이터 초기화가 완료되었습니다.',
+                            );
+                          },
+                        );
+                      }
+                    },
+                  );
+                },
+              );
+            },
+          ),
           const DefaultDivider(),
-          MenuTile(title: '넨돌 다운로드', onPressed: () {
-            ref.read(githubDownloadProvider.notifier).fetchDollJsonNameList();
-          },),
-          MenuTile(title: '넨돌 데이터 다운로드', onPressed: () async {
-            final result = await ref.read(githubDownloadProvider.notifier).fetchNendoDollList();
-            ref.read(nendoProvider.notifier).saveLocalDB(nenDollList: result);
-          },),
-          MenuTile(title: '로컬 저장소 저장', onPressed: () {
-            ref.read(githubDownloadProvider.notifier).saveLocalDB();
-          },),
-          MenuTile(title: '로컬 저장소 저장2', onPressed: () {
-            ref.read(nendoProvider.notifier).fetchData();
-          },),
-          MenuTile(title: '원격 저장소에 데이터 저장', onPressed: () {
-            ref.read(githubDownloadProvider.notifier).uploadFirebase();
-          },),
+          MenuTile(
+            title: '넨돌 다운로드',
+            onPressed: () {
+              ref.read(githubDownloadProvider.notifier).fetchDollJsonNameList();
+            },
+          ),
+          MenuTile(
+            title: '넨돌 데이터 다운로드',
+            onPressed: () async {
+              final result = await ref.read(githubDownloadProvider.notifier).fetchNendoDollList();
+              ref.read(nendoProvider.notifier).saveLocalDB(nenDollList: result);
+            },
+          ),
+          MenuTile(
+            title: '로컬 저장소 저장',
+            onPressed: () {
+              ref.read(githubDownloadProvider.notifier).saveLocalDB();
+            },
+          ),
+          MenuTile(
+            title: '로컬 저장소 저장2',
+            onPressed: () {
+              ref.read(nendoProvider.notifier).fetchData();
+            },
+          ),
+          MenuTile(
+            title: '원격 저장소에 데이터 저장',
+            onPressed: () {
+              ref.read(githubDownloadProvider.notifier).uploadFirebase();
+            },
+          ),
           /*const SettingTitle(title: '데이터 설정'),
           MenuSwitchTile(
             title: '데이터 자동 백업',

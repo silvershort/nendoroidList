@@ -132,21 +132,33 @@ class MySignWidget extends ConsumerWidget {
                           if (ref.read(nendoProvider).hasValue) {
                             showDialog(
                               context: context,
-                              builder: (context) {
+                              builder: (dialogContext) {
                                 return CommonDialog(
                                   content: "정말 데이터 복구를 진행하시겠습니까?\n\n(백업데이터와 현재데이터가 다를경우 백업데이터로 대체됩니다.)",
                                   positiveOnClick: () async {
                                     try {
                                       await ref.read(nendoProvider.notifier).restoreBackupList(state.uid);
+                                      if (context.mounted){
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return const CommonDialog(
+                                              content: '데이터 복구에 성공했습니다.}',
+                                            );
+                                          },
+                                        );
+                                      }
                                     } catch (error) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return CommonDialog(
-                                            content: '데이터 복구에 실패했습니다.\n\nError : ${error.toString()}',
-                                          );
-                                        },
-                                      );
+                                      if (context.mounted){
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return CommonDialog(
+                                              content: '데이터 복구에 실패했습니다.\n\nError : ${error.toString()}',
+                                            );
+                                          },
+                                        );
+                                      }
                                     }
                                   },
                                   negativeText: "취소",
