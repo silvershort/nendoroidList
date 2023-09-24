@@ -10,12 +10,17 @@ import 'package:nendoroid_db/ui/_common_widget/text/setting_title.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_count_tile.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_switch_tile.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_tile.dart';
+import 'package:nendoroid_db/ui/my/controller/setting_controller.dart';
+import 'package:nendoroid_db/utilities/extension/async_value_extension.dart';
 
 class SettingScreen extends ConsumerWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(settingControllerProvider, (previous, next) {
+      next.defaultSetting(context);
+    });
     final state = ref.watch(appSettingProvider);
     final controller = ref.read(appSettingProvider.notifier);
 
@@ -58,7 +63,16 @@ class SettingScreen extends ConsumerWidget {
               controller.setGridCount(add);
             },
           ),
+          const DefaultDivider(),
+          const SizedBox(height: 10.0),
+          const SettingTitle(title: '데이터 설정'),
           MenuTile(
+            title: '데이터 초기화',
+            onPressed: () {
+              ref.watch(settingControllerProvider.notifier).dataReset(context);
+            },
+          ),
+          /*MenuTile(
             title: '데이터 재다운로드',
             onPressed: () {
               showDialog(
@@ -74,34 +88,7 @@ class SettingScreen extends ConsumerWidget {
                 },
               );
             },
-          ),
-          MenuTile(
-            title: '데이터 초기화',
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (dialogContext) {
-                  return CommonDialog(
-                    content: '현재 넨도로이드 데이터를 초기화 하시겠습니까?\n\n(로그인 후 진행한 백업데이터는 유지됩니다.)',
-                    negativeText: '취소',
-                    positiveOnClick: () async {
-                      await ref.read(nendoProvider.notifier).resetLocalData();
-                      if (context.mounted) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const CommonDialog(
-                              content: '데이터 초기화가 완료되었습니다.',
-                            );
-                          },
-                        );
-                      }
-                    },
-                  );
-                },
-              );
-            },
-          ),
+          ),*/
           const DefaultDivider(),
           MenuTile(
             title: '넨돌 다운로드',

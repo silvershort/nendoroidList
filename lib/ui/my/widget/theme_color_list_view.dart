@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 
-class ThemeColorListWidget extends ConsumerWidget {
-  const ThemeColorListWidget({
+class ThemeColorListView extends ConsumerWidget {
+  const ThemeColorListView({
     Key? key,
     required this.primarySwatches,
   }) : super(key: key);

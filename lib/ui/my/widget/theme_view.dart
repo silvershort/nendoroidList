@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
-import 'package:nendoroid_db/ui/my/widget/theme_color_list_widget.dart';
+import 'package:nendoroid_db/ui/my/widget/theme_color_list_view.dart';
 import 'package:nendoroid_db/utilities/app_color.dart';
 
-class ThemeWidget extends ConsumerWidget {
-  const ThemeWidget({Key? key}) : super(key: key);
+class ThemeView extends ConsumerWidget {
+  const ThemeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +32,7 @@ class ThemeWidget extends ConsumerWidget {
         const SizedBox(
           height: 5.0,
         ),
-        const ThemeColorListWidget(
+        const ThemeColorListView(
           primarySwatches: AppColor.themeColors,
         ),
       ],
