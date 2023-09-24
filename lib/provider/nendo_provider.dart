@@ -14,6 +14,7 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/nendo_group.dart';
 import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/models/set_data.dart';
+import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/networks/services/firebase_service.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
@@ -24,6 +25,7 @@ import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
+
 part 'nendo_provider.g.dart';
 
 @freezed
@@ -116,7 +118,7 @@ class Nendo extends _$Nendo {
         final List<NendoData> nendoList = _nendoBox.values.map((e) => e as NendoData).toList();
         final List<NendoData> nenDollList = _nenDollBox.values.map((e) => e as NendoData).toList();
         final List<SetData> setList = _setBox.values.map((e) => e as SetData).toList();
-        nendoList.sortBySetting(ref.read(nendoListSettingProvider));
+        nendoList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
 
         final NendoState nendoState = NendoState(
           nendoList: nendoList,
@@ -143,7 +145,7 @@ class Nendo extends _$Nendo {
         logger.i(value.setList.toString());
 
         List<NendoData> sortList = [...value.nendoList];
-        sortList.sortBySetting(ref.read(nendoListSettingProvider));
+        sortList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
         logger.i('nendolist : ${sortList.length}');
 
         // 임시 백업 데이터가 있을 경우 백업을 진행
@@ -235,7 +237,7 @@ class Nendo extends _$Nendo {
   // DB 업데이트전에 데이터 백업
   void backupDataToCache() {
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
-    _backupNendoList = getLocalNendoList().where((item) => (item.have || item.wish) || item.myPrice != null ||item.memo != null).toList();
+    _backupNendoList = getLocalNendoList().where((item) => (item.have || item.wish) || item.myPrice != null || item.memo != null).toList();
   }
 
   // 넨도로이드 백업을 진행한다.
@@ -438,7 +440,7 @@ class Nendo extends _$Nendo {
       return;
     }
     final List<NendoData> sortList = [...state.requireValue.filteredNendoList];
-    sortList.sortBySetting(ref.read(nendoListSettingProvider));
+    sortList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
     state = AsyncData(
       state.requireValue.copyWith(
         filteredNendoList: sortList,
@@ -491,7 +493,7 @@ class Nendo extends _$Nendo {
       return;
     }
     state = AsyncData(state.requireValue.copyWith(
-      nendoList: getLocalNendoList()..sortBySetting(ref.read(nendoListSettingProvider)),
+      nendoList: getLocalNendoList()..sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData))),
     ));
     filteringList();
   }
@@ -620,8 +622,9 @@ class Nendo extends _$Nendo {
     }
 
     final String total = '수집한 넨도로이드 총 개수 : ${state.requireValue.nendoList.getHaveCount()}\n\n';
-
-    final List<String> list = state.requireValue.nendoList.getHaveList().map((e) {
+    final sortedList = state.requireValue.nendoList.getHaveList()
+      ..sortBySetting(const SortData(sortingOrder: ASC()));
+    final List<String> list = sortedList.map((e) {
       if (e.count <= 1) {
         return '[${e.num}] ${e.name.ko}';
       } else {
@@ -644,7 +647,7 @@ class Nendo extends _$Nendo {
       nendoList: resetList,
     );
 
-    resetList.sortBySetting(ref.read(nendoListSettingProvider));
+    resetList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
 
     state = AsyncData(state.requireValue.copyWith(
       nendoList: resetList,

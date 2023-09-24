@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
-import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
@@ -16,12 +15,24 @@ class StatsCollectionView extends ConsumerWidget {
   }) : super(key: key);
   final List<NendoData> nendoList;
 
-  void copyNendoText(WidgetRef ref) {
-    Clipboard.setData(
+  void copyNendoText({required WidgetRef ref, required BuildContext context}) async {
+    await Clipboard.setData(
       ClipboardData(
         text: ref.read(nendoProvider.notifier).getHaveNendoText(),
       ),
     );
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 10,
+          ),
+          content: Text('보유 넨도로이드 목록이 클립보드에 복사가 완료되었습니다.'),
+        ),
+      );
+    }
   }
 
   @override
@@ -38,16 +49,7 @@ class StatsCollectionView extends ConsumerWidget {
             const SizedBox(height: 10.0),
             GestureDetector(
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return CommonDialog(
-                      content: '보유 넨도로이드 텍스트로 복사하시겠습니까?',
-                      negativeText: '취소',
-                      positiveOnClick: () => copyNendoText(ref),
-                    );
-                  },
-                );
+                copyNendoText(ref: ref, context: context);
               },
               child: AccentText(
                 context: context,

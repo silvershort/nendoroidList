@@ -11,7 +11,7 @@ import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
 extension NendoListExtension on List<NendoData> {
   // 넨도로이드를 정렬 조건에 맞춰 정렬
-  void sortBySetting(NendoListSettingState settingState) {
+  void sortBySetting(SortData sortData) {
     sort(
           (a, b) {
         // 넨도번호를 숫자 크기로 비교하기 위해서 순수하게 숫자만 남겨준다.
@@ -20,8 +20,6 @@ extension NendoListExtension on List<NendoData> {
 
         String releaseA = a.releaseDate.isEmpty ? "" : a.releaseDate[a.releaseDate.length - 1];
         String releaseB = b.releaseDate.isEmpty ? "" : b.releaseDate[b.releaseDate.length - 1];
-
-        SortData sortData = settingState.sortData;
 
         switch (sortData.sortingMethod) {
           case SortingMethodNum():
