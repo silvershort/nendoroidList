@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'backup_data.dart';
 
@@ -21,6 +21,7 @@ BackupData _$BackupDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BackupData {
   List<NendoData> get nendoList => throw _privateConstructorUsedError;
+  List<NendoData> get nenDollList => throw _privateConstructorUsedError;
   List<SetData> get setList => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get commitHash => throw _privateConstructorUsedError;
@@ -37,9 +38,11 @@ mixin _$BackupData {
 abstract class $BackupDataCopyWith<$Res> {
   factory $BackupDataCopyWith(
           BackupData value, $Res Function(BackupData) then) =
-      _$BackupDataCopyWithImpl<$Res>;
+      _$BackupDataCopyWithImpl<$Res, BackupData>;
+  @useResult
   $Res call(
       {List<NendoData> nendoList,
+      List<NendoData> nenDollList,
       List<SetData> setList,
       String email,
       String commitHash,
@@ -48,48 +51,56 @@ abstract class $BackupDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BackupDataCopyWithImpl<$Res> implements $BackupDataCopyWith<$Res> {
+class _$BackupDataCopyWithImpl<$Res, $Val extends BackupData>
+    implements $BackupDataCopyWith<$Res> {
   _$BackupDataCopyWithImpl(this._value, this._then);
 
-  final BackupData _value;
   // ignore: unused_field
-  final $Res Function(BackupData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nendoList = freezed,
-    Object? setList = freezed,
-    Object? email = freezed,
-    Object? commitHash = freezed,
-    Object? commitDate = freezed,
-    Object? backupDate = freezed,
+    Object? nendoList = null,
+    Object? nenDollList = null,
+    Object? setList = null,
+    Object? email = null,
+    Object? commitHash = null,
+    Object? commitDate = null,
+    Object? backupDate = null,
   }) {
     return _then(_value.copyWith(
-      nendoList: nendoList == freezed
+      nendoList: null == nendoList
           ? _value.nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
-      setList: setList == freezed
+      nenDollList: null == nenDollList
+          ? _value.nenDollList
+          : nenDollList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+      setList: null == setList
           ? _value.setList
           : setList // ignore: cast_nullable_to_non_nullable
               as List<SetData>,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      commitHash: commitHash == freezed
+      commitHash: null == commitHash
           ? _value.commitHash
           : commitHash // ignore: cast_nullable_to_non_nullable
               as String,
-      commitDate: commitDate == freezed
+      commitDate: null == commitDate
           ? _value.commitDate
           : commitDate // ignore: cast_nullable_to_non_nullable
               as String,
-      backupDate: backupDate == freezed
+      backupDate: null == backupDate
           ? _value.backupDate
           : backupDate // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -100,8 +111,10 @@ abstract class _$$_BackupDataCopyWith<$Res>
           _$_BackupData value, $Res Function(_$_BackupData) then) =
       __$$_BackupDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<NendoData> nendoList,
+      List<NendoData> nenDollList,
       List<SetData> setList,
       String email,
       String commitHash,
@@ -110,46 +123,50 @@ abstract class _$$_BackupDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BackupDataCopyWithImpl<$Res> extends _$BackupDataCopyWithImpl<$Res>
+class __$$_BackupDataCopyWithImpl<$Res>
+    extends _$BackupDataCopyWithImpl<$Res, _$_BackupData>
     implements _$$_BackupDataCopyWith<$Res> {
   __$$_BackupDataCopyWithImpl(
       _$_BackupData _value, $Res Function(_$_BackupData) _then)
-      : super(_value, (v) => _then(v as _$_BackupData));
+      : super(_value, _then);
 
-  @override
-  _$_BackupData get _value => super._value as _$_BackupData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nendoList = freezed,
-    Object? setList = freezed,
-    Object? email = freezed,
-    Object? commitHash = freezed,
-    Object? commitDate = freezed,
-    Object? backupDate = freezed,
+    Object? nendoList = null,
+    Object? nenDollList = null,
+    Object? setList = null,
+    Object? email = null,
+    Object? commitHash = null,
+    Object? commitDate = null,
+    Object? backupDate = null,
   }) {
     return _then(_$_BackupData(
-      nendoList: nendoList == freezed
+      nendoList: null == nendoList
           ? _value._nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
-      setList: setList == freezed
+      nenDollList: null == nenDollList
+          ? _value._nenDollList
+          : nenDollList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+      setList: null == setList
           ? _value._setList
           : setList // ignore: cast_nullable_to_non_nullable
               as List<SetData>,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      commitHash: commitHash == freezed
+      commitHash: null == commitHash
           ? _value.commitHash
           : commitHash // ignore: cast_nullable_to_non_nullable
               as String,
-      commitDate: commitDate == freezed
+      commitDate: null == commitDate
           ? _value.commitDate
           : commitDate // ignore: cast_nullable_to_non_nullable
               as String,
-      backupDate: backupDate == freezed
+      backupDate: null == backupDate
           ? _value.backupDate
           : backupDate // ignore: cast_nullable_to_non_nullable
               as String,
@@ -162,12 +179,14 @@ class __$$_BackupDataCopyWithImpl<$Res> extends _$BackupDataCopyWithImpl<$Res>
 class _$_BackupData implements _BackupData {
   const _$_BackupData(
       {required final List<NendoData> nendoList,
+      final List<NendoData> nenDollList = const [],
       required final List<SetData> setList,
       required this.email,
       required this.commitHash,
       required this.commitDate,
       required this.backupDate})
       : _nendoList = nendoList,
+        _nenDollList = nenDollList,
         _setList = setList;
 
   factory _$_BackupData.fromJson(Map<String, dynamic> json) =>
@@ -176,13 +195,24 @@ class _$_BackupData implements _BackupData {
   final List<NendoData> _nendoList;
   @override
   List<NendoData> get nendoList {
+    if (_nendoList is EqualUnmodifiableListView) return _nendoList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_nendoList);
+  }
+
+  final List<NendoData> _nenDollList;
+  @override
+  @JsonKey()
+  List<NendoData> get nenDollList {
+    if (_nenDollList is EqualUnmodifiableListView) return _nenDollList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_nenDollList);
   }
 
   final List<SetData> _setList;
   @override
   List<SetData> get setList {
+    if (_setList is EqualUnmodifiableListView) return _setList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_setList);
   }
@@ -198,7 +228,7 @@ class _$_BackupData implements _BackupData {
 
   @override
   String toString() {
-    return 'BackupData(nendoList: $nendoList, setList: $setList, email: $email, commitHash: $commitHash, commitDate: $commitDate, backupDate: $backupDate)';
+    return 'BackupData(nendoList: $nendoList, nenDollList: $nenDollList, setList: $setList, email: $email, commitHash: $commitHash, commitDate: $commitDate, backupDate: $backupDate)';
   }
 
   @override
@@ -208,14 +238,16 @@ class _$_BackupData implements _BackupData {
             other is _$_BackupData &&
             const DeepCollectionEquality()
                 .equals(other._nendoList, _nendoList) &&
+            const DeepCollectionEquality()
+                .equals(other._nenDollList, _nenDollList) &&
             const DeepCollectionEquality().equals(other._setList, _setList) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality()
-                .equals(other.commitHash, commitHash) &&
-            const DeepCollectionEquality()
-                .equals(other.commitDate, commitDate) &&
-            const DeepCollectionEquality()
-                .equals(other.backupDate, backupDate));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.commitHash, commitHash) ||
+                other.commitHash == commitHash) &&
+            (identical(other.commitDate, commitDate) ||
+                other.commitDate == commitDate) &&
+            (identical(other.backupDate, backupDate) ||
+                other.backupDate == backupDate));
   }
 
   @JsonKey(ignore: true)
@@ -223,14 +255,16 @@ class _$_BackupData implements _BackupData {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_nendoList),
+      const DeepCollectionEquality().hash(_nenDollList),
       const DeepCollectionEquality().hash(_setList),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(commitHash),
-      const DeepCollectionEquality().hash(commitDate),
-      const DeepCollectionEquality().hash(backupDate));
+      email,
+      commitHash,
+      commitDate,
+      backupDate);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BackupDataCopyWith<_$_BackupData> get copyWith =>
       __$$_BackupDataCopyWithImpl<_$_BackupData>(this, _$identity);
 
@@ -245,6 +279,7 @@ class _$_BackupData implements _BackupData {
 abstract class _BackupData implements BackupData {
   const factory _BackupData(
       {required final List<NendoData> nendoList,
+      final List<NendoData> nenDollList,
       required final List<SetData> setList,
       required final String email,
       required final String commitHash,
@@ -256,6 +291,8 @@ abstract class _BackupData implements BackupData {
 
   @override
   List<NendoData> get nendoList;
+  @override
+  List<NendoData> get nenDollList;
   @override
   List<SetData> get setList;
   @override

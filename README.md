@@ -10,9 +10,11 @@ DB제공 : https://github.com/KhoraLee/NendoroidDB
 
 ## 사용된 주요 기술 스택
 
-:bulb: GetX (State Manager)
+:bulb: Riverpod (StateManagement, DI)
 
-:bulb: Retrofit (Rest API Call)
+:bulb: GoRouter (Route)
+
+:bulb: Retrofit (Network)
 
 :bulb: Hive (Local DB)
 

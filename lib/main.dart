@@ -3,27 +3,21 @@ import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:nendoroid_db/controllers/auth_controller.dart';
-import 'package:nendoroid_db/controllers/bottom_sheet_controller.dart';
-import 'package:nendoroid_db/controllers/firestore_controller.dart';
-import 'package:nendoroid_db/controllers/nendo_controller.dart';
-import 'package:nendoroid_db/controllers/news_controller.dart';
-import 'package:nendoroid_db/controllers/notification_controller.dart';
-import 'package:nendoroid_db/controllers/setting_controller.dart';
+import 'package:logger/logger.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
-import 'package:nendoroid_db/utilities/app_font.dart';
-import 'package:nendoroid_db/views/dashboard/page/dashboard_page.dart';
-import 'package:logger/logger.dart';
+import 'package:nendoroid_db/provider/app_setting_provider.dart';
+import 'package:nendoroid_db/provider/hive_provider.dart';
+import 'package:nendoroid_db/router/app_router.dart';
+import 'package:nendoroid_db/utilities/hive_name.dart';
 
-import 'controllers/dashboard_controller.dart';
-import 'controllers/my_controller.dart';
-import 'firebase_options.dart';
+import 'utilities/app_font.dart';
 
 var logger = Logger(
   printer: PrettyPrinter(),
@@ -31,7 +25,7 @@ var logger = Logger(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
 
   await Hive.initFlutter();
   Hive.registerAdapter(NendoDataAdapter());
@@ -43,73 +37,83 @@ void main() async {
   Hive.registerAdapter(RuliwebSubscribeAdapter());
   Hive.registerAdapter(DcinsideSubscribeAdapter());
 
-  Get.put(NendoController());
-  Get.put(MyController());
-  Get.put(BottomSheetController());
-  Get.put(DashboardController());
-  await Get.put(SettingController()).settingInit();
-  Get.put(NotificationController());
-  Get.put(NewsController());
-  Get.put(FirestoreController());
-  Get.put(AuthController());
-
   if (!kIsWeb) {
     if (kDebugMode) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-      runApp(const MyApp());
     } else {
       runZonedGuarded<Future<void>>(() async {
-        FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-        FirebaseAnalytics.instance;
-
-        runApp(const MyApp());
-      }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
+          FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+          FirebaseAnalytics.instance;
+        },
+        (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack, fatal: true),
+      );
     }
   }
+
+  runApp(ProviderScope(
+    overrides: [
+      hiveProvider.overrideWithValue(
+        HiveManager(
+          nendoBox: await Hive.openBox(HiveName.nendoBoxName),
+          nenDollBox: await Hive.openBox(HiveName.nenDollBoxName),
+          setBox: await Hive.openBox(HiveName.setBoxName),
+          settingBox: await Hive.openBox(HiveName.settingBoxName),
+          appThemeBox: await Hive.openBox(HiveName.appThemeBoxName),
+          subscribeBox: await Hive.openBox(HiveName.subscribeBoxName),
+          termsBox: await Hive.openBox(HiveName.termsBoxName),
+        ),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final SettingController settingController = Get.find<SettingController>();
-    return Obx(() => GetMaterialApp(
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: child!,
-          );
-        },
-        theme: ThemeData(
-          useMaterial3: true,
-          colorSchemeSeed: settingController.seedColor,
-          brightness: settingController.brightness,
-          fontFamily: AppFont.oneMobile,
-          textTheme: const TextTheme(
-            titleSmall: TextStyle(
-              fontSize: 16,
-              fontFamily: AppFont.oneMobile,
-              letterSpacing: 0.5,
-              height: 1.2,
-            ),
-            titleMedium: TextStyle(
-              fontSize: 18,
-              fontFamily: AppFont.oneMobile,
-              letterSpacing: 0.5,
-              height: 1.2,
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settingState = ref.watch(appSettingProvider);
+
+    return MaterialApp.router(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child!,
+        );
+      },
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: settingState.seedColor,
+        brightness: settingState.brightness,
+        fontFamily: AppFont.oneMobile,
+        textTheme: const TextTheme(
+          titleSmall: TextStyle(
+            fontSize: 16,
+            fontFamily: AppFont.oneMobile,
+            letterSpacing: 0.5,
+            height: 1.2,
           ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: ColorScheme.fromSeed(
-              seedColor: settingController.seedColor,
-              brightness: settingController.brightness,
-            ).surfaceVariant,
-            surfaceTintColor: Colors.white,
+          titleMedium: TextStyle(
+            fontSize: 18,
+            fontFamily: AppFont.oneMobile,
+            letterSpacing: 0.5,
+            height: 1.2,
           ),
         ),
-        home: const DashboardPage(),
+        appBarTheme: AppBarTheme(
+          backgroundColor: ColorScheme.fromSeed(
+            seedColor: settingState.seedColor,
+            brightness: settingState.brightness,
+          ).surfaceVariant,
+          surfaceTintColor: Colors.white,
+          systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
+            statusBarColor: Colors.black45,
+            statusBarIconBrightness: Brightness.light
+          ),
+        ),
       ),
+      routerConfig: appRouter,
     );
   }
 }

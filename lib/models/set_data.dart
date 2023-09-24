@@ -16,4 +16,9 @@ class SetData {
   factory SetData.fromJson(Map<String, dynamic> json) => _$SetDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$SetDataToJson(this);
+
+  @override
+  String toString() {
+    return 'SetData{setName: $setName, list: $list}';
+  }
 }

@@ -10,6 +10,7 @@ part 'backup_data.g.dart';
 class BackupData with _$BackupData {
   const factory BackupData({
     required List<NendoData> nendoList,
+    @Default([]) List<NendoData> nenDollList,
     required List<SetData> setList,
     required String email,
     required String commitHash,
