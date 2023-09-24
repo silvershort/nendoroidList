@@ -602,11 +602,11 @@ class Nendo extends _$Nendo {
     switch (grouping) {
       case NumberGroup():
         state.requireValue.filteredNendoList.getNendoNumberGroupList().forEach((key, value) {
-          nendoGroupList.add(NendoGroup(name: key.rangeName(), nendoList: value));
+          nendoGroupList.add(NendoGroup(name: '${key.rangeName()} [${value.length}개]', nendoList: value));
         });
       case SeriesGroup():
         state.requireValue.filteredNendoList.getNendoSeriesGroupList().forEach((key, value) {
-          nendoGroupList.add(NendoGroup(name: key, nendoList: value));
+          nendoGroupList.add(NendoGroup(name: '$key [${value.length}개]', nendoList: value));
         });
     }
 
