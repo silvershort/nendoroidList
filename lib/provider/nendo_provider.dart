@@ -249,6 +249,8 @@ class Nendo extends _$Nendo {
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
     final backupNendoList = getLocalNendoList().where((item) => (item.have || item.wish) || item.memo != null).toList();
 
+    final String backupDate = DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now());
+
     final result = await ref.read(firebaseServiceProvider).createBackupData(
           documentID: user.uid,
           backupData: BackupData(
@@ -256,10 +258,11 @@ class Nendo extends _$Nendo {
             setList: [],
             email: user.email!,
             commitHash: '',
-            backupDate: DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now()),
+            backupDate: backupDate,
             commitDate: '',
           ),
         );
+
 
     result.when(
       success: (value) {
