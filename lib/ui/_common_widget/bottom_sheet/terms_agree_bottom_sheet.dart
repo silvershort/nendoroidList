@@ -145,7 +145,7 @@ class _TermsAgreeBottomSheetState extends ConsumerState<TermsAgreeBottomSheet> {
                     child: ElevatedButton(
                       onPressed: _agree
                           ? () {
-                              ref.read(hiveProvider).termsBox.put(HiveName.termsBoxName, true);
+                              ref.read(hiveProvider).termsBox.put(HiveName.termsAgreeKey, true);
                               context.pop();
                               context.go(RoutePath.login);
                             }

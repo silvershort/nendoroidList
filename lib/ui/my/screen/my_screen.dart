@@ -4,8 +4,8 @@ import 'package:html/dom_parsing.dart';
 import 'package:nendoroid_db/router/route_path.dart';
 import 'package:nendoroid_db/ui/_common_widget/divider/default_divider.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_tile.dart';
-import 'package:nendoroid_db/ui/my/widget/my_sign_widget.dart';
-import 'package:nendoroid_db/ui/my/widget/theme_widget.dart';
+import 'package:nendoroid_db/ui/my/widget/my_sign_view.dart';
+import 'package:nendoroid_db/ui/my/widget/theme_view.dart';
 
 class MyScreen extends StatelessWidget {
   const MyScreen({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class MyScreen extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: MySignWidget(),
+            child: MySignView(),
           ),
           const SizedBox(height: 10.0),
           const DefaultDivider(),
@@ -58,7 +58,7 @@ class MyScreen extends StatelessWidget {
           const SizedBox(height: 10.0),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: ThemeWidget(),
+            child: ThemeView(),
           ),
         ],
       ),
