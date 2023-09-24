@@ -89,7 +89,7 @@ class SettingScreen extends ConsumerWidget {
               );
             },
           ),*/
-          const DefaultDivider(),
+          /*const DefaultDivider(),
           MenuTile(
             title: '넨돌 다운로드',
             onPressed: () {
@@ -120,7 +120,7 @@ class SettingScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(githubDownloadProvider.notifier).uploadFirebase();
             },
-          ),
+          ),*/
           /*const SettingTitle(title: '데이터 설정'),
           MenuSwitchTile(
             title: '데이터 자동 백업',
