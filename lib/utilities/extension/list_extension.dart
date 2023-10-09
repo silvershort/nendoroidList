@@ -84,12 +84,12 @@ extension NendoListExtension on List<NendoData> {
   }
 
   // 내가 보유한 넨도 세트 리스트를 반환해줌
-  List<String> getCompleteSetList(List<SetData> setList) {
+  /*List<String> getCompleteSetList(List<SetData> setList) {
     List<String> completeList = [];
     List<NendoData> haveList = where((item) => item.have).toList();
     for (SetData setData in setList) {
       // 보유한 넨도 리스트에서 같은 시리즈 이름을 가진 리스트를 뽑고 거기서 넨도 번호를 받아온다.
-      List<String> tempHaveSetList = haveList.where((item) => (item.series.ko ?? "").contains(setData.setName)).map((e) => e.num).toList();
+      List<String> tempHaveSetList = haveList.where((item) => (item.series.ko ?? "") == setData.setName).map((e) => e.num).toList();
 
       // TODO: 추후 사용자 선택에 따라서 파생제품까지 세트 컴플리트 조건으로 할지 결정하도록 수정
       if (true) {
@@ -115,7 +115,7 @@ extension NendoListExtension on List<NendoData> {
     }
     // 혹시라도 중복해서 세트가 들어갔다면 중복 아이템을 제거
     return completeList.toSet().toList();
-  }
+  }*/
 
   // 보유한 넨도의 성별 비율을 보여줌
   List<GenderRate> getGenderRate() {

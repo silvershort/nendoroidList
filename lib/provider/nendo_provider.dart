@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -25,7 +26,6 @@ import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
-
 part 'nendo_provider.g.dart';
 
 @freezed
@@ -40,6 +40,7 @@ class NendoState with _$NendoState {
 
 @Riverpod(keepAlive: true)
 class Nendo extends _$Nendo {
+  List<SetData> _newSetData = [];
   String _lastSearch = '';
   late final Box _nendoBox;
   late final Box _nenDollBox;
@@ -262,7 +263,6 @@ class Nendo extends _$Nendo {
             commitDate: '',
           ),
         );
-
 
     result.when(
       success: (value) {
@@ -625,8 +625,7 @@ class Nendo extends _$Nendo {
     }
 
     final String total = '수집한 넨도로이드 총 개수 : ${state.requireValue.nendoList.getHaveCount()}\n\n';
-    final sortedList = state.requireValue.nendoList.getHaveList()
-      ..sortBySetting(const SortData(sortingOrder: ASC()));
+    final sortedList = state.requireValue.nendoList.getHaveList()..sortBySetting(const SortData(sortingOrder: ASC()));
     final List<String> list = sortedList.map((e) {
       if (e.count <= 1) {
         return '[${e.num}] ${e.name.ko}';
@@ -636,6 +635,74 @@ class Nendo extends _$Nendo {
     }).toList();
 
     return total + list.join('\n');
+  }
+
+  // 보유한 넨도 세트 리스트 반환(임시)
+  // 현재 세트데이터와 실제 넨도 세트데이터와 한국어 시리즈 이름이 정확하게 일치하지 않음.
+  // 따라서 그냥 시리즈 이름을 기준으로 세트 데이터를 생성하고 비교해서 컴플리트 여부를 확인한다.
+  List<String> getCompleteSetList() {
+    if (state.value == null) {
+      return [];
+    }
+    if (_newSetData.isEmpty) {
+      _createNewSetData();
+    }
+
+    List<String> completeList = [];
+    List<NendoData> haveList = state.requireValue.nendoList.where((item) => item.have).toList();
+
+    for (SetData setData in _newSetData) {
+      // 보유한 넨도 리스트에서 같은 시리즈 이름을 가진 리스트를 뽑고 거기서 넨도 번호를 받아온다.
+      List<String> tempHaveSetList = haveList.where((item) => (item.series.ko ?? "") == setData.setName).map((e) => e.num).toList();
+
+      if (true) {
+        // 순수 숫자만 남기고 중복되는 숫자를 제거하여 DX같은 파생상품을 지운다
+        for (int i = 0; i < setData.list.length; i++) {
+          setData.list[i] = setData.list[i].replaceAll(RegExp(r"[^0-9]"), "");
+        }
+        for (int i = 0; i < tempHaveSetList.length; i++) {
+          tempHaveSetList[i] = tempHaveSetList[i].replaceAll(RegExp(r"[^0-9]"), "");
+        }
+        tempHaveSetList = tempHaveSetList.toSet().toList();
+        setData.list = setData.list.toSet().toList();
+      }
+
+      // 리스트 비교를 위해 오름차순 정렬
+      tempHaveSetList.sort();
+      setData.list.sort();
+
+      // 세트 전체 넨도 번호 리스트와 보유한 넨도 리스트가 같은지 비교 후 같다면 completeList에 추가한다.
+      if (listEquals(tempHaveSetList, setData.list)) {
+        completeList.add(setData.setName);
+      }
+    }
+    // 혹시라도 중복해서 세트가 들어갔다면 중복 아이템을 제거
+    return completeList.toSet().toList()..sort();
+  }
+
+  void _createNewSetData() {
+    Map<String, List<String>> setMap = {};
+
+    // 넨도 데이터를 돌면서 같은 시리즈끼리 묶어줌
+    for (NendoData nendoData in state.requireValue.nendoList) {
+      if (nendoData.series.ko == null) {
+        continue;
+      }
+      if (!setMap.containsKey(nendoData.series.ko)) {
+        setMap[nendoData.series.ko!] = [];
+      }
+      setMap[nendoData.series.ko!]!.add(nendoData.num);
+    }
+
+    for (var entry in setMap.entries) {
+      // 1개밖에 없는 작품은 세트 데이터에서 제외한다.
+      if (entry.value.length < 2) {
+        continue;
+      }
+      _newSetData.add(
+        SetData(setName: entry.key, list: entry.value),
+      );
+    }
   }
 
   // 로컬 넨도로이드 데이터를 리셋

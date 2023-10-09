@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
+import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/ui/stats/widget/stats_complete_set_list.dart';
 import 'package:nendoroid_db/ui/_common_widget/text/accent_text.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
-class StatsCompleteSetView extends StatelessWidget {
+class StatsCompleteSetView extends ConsumerWidget {
   const StatsCompleteSetView({
     Key? key,
     required this.nendoList,
@@ -15,7 +17,7 @@ class StatsCompleteSetView extends StatelessWidget {
   final List<SetData> setList;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         Text(
@@ -27,7 +29,7 @@ class StatsCompleteSetView extends StatelessWidget {
         ),
         AccentText(
           context: context,
-          accentWord: "${nendoList.getCompleteSetList(setList).length}",
+          accentWord: "${ref.watch(nendoProvider.notifier).getCompleteSetList().length}",
           normalWord: "세트",
           fontSize: 18.0,
         ),
