@@ -2,6 +2,7 @@ class RoutePath {
   static String list = '/list';
   static String stats = '/stats';
   static String news = '/news';
+  static String newsDetail = '/news/detail';
   static String my = '/my';
   static String login = '/my/login';
   static String appInfo = '/my/app-info';

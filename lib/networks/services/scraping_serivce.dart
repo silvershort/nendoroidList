@@ -2,7 +2,9 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/api/api_result.dart';
+import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/networks/repositories/scraping_repository.dart';
+import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -67,6 +69,100 @@ class ScrapingService {
           .toList();
       List<String> thumbnailList = nodeList.getElementsByClassName("iconZoom").map((e) => "https:${e.attributes["src"] ?? ""}").toList();
       return ApiResult.success((imageList: imageList, thumbnailList: thumbnailList));
+    } catch (error, stackTrace) {
+      logger.e(error.toString(), stackTrace: stackTrace);
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+    }
+  }
+
+  Future<ApiResult<List<NewsItemData>>> getNinimalList() async {
+    try {
+      final response = await repository.getNinimal();
+      final Document document = parse(response.data);
+
+      final List<Element> productList = document.getElementsByClassName('item xans-record-');
+
+      final itemList = productList.map((e) {
+        String name = e.getElementsByClassName('name').firstOrNull?.getElementsByTagName('span').lastOrNull?.text ?? '';
+        bool soldout = false;
+        String price = e
+                .getElementsByClassName(' xans-record-')
+                .firstOrNull
+                ?.getElementsByTagName('span')
+                .where((element) => element.text.contains('원'))
+                .firstOrNull
+                ?.text ??
+            '';
+        String link = e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ?? '';
+        String imagePath = e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? '';
+
+        link = 'https://ninimal.co.kr/$link';
+        imagePath = 'https:$imagePath';
+
+        // 품절 여부 체크
+        final imgList = e.getElementsByClassName('icon').firstOrNull?.getElementsByTagName('img') ?? [];
+        for (var img in imgList) {
+          if (img.attributes['alt'] == '품절') {
+            soldout = true;
+          }
+        }
+        return NewsItemData(
+          name: name,
+          price: price,
+          imagePath: imagePath,
+          soldOut: soldout,
+          link: link,
+        );
+      }).toList();
+
+      return ApiResult.success(itemList.where((element) => !element.name.contains('10cm솜')).toList());
+    } catch (error, stackTrace) {
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+    }
+  }
+
+  Future<ApiResult<List<NewsItemData>>> getGoodSmileSpecialList() async {
+    try {
+      List<NewsItemData> list = [];
+      int currentPage = 1;
+      int lastPage = 1;
+
+      while (true) {
+        final response = await repository.getGoodSmileKRSpecialImage(page: currentPage);
+        final Document document = parse(response.data);
+
+        // 마지막 페이지가 어디인지 확인하고 저장해준다.
+        if (lastPage == 1) {
+          final List<Element> pageElement = document.getElementsByClassName("UWN4IvaQza");
+          lastPage = pageElement.length;
+        }
+
+        final List<NewsItemData> tempList = document.getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX").map((e) {
+          String imagePath = e.getElementsByClassName("_25CKxIKjAk").first.attributes["src"] ?? '';
+          String name = e.getElementsByClassName("_25CKxIKjAk").first.attributes["alt"] ?? '';
+          String number = name.onlyNumber.toString();
+          name = name.replaceFirst(number, '');
+          String link =
+              e.getElementsByTagName("a").firstWhere((element) => element.className == "stX4bV9Ny3 N=a:lst.product linkAnchor").attributes["href"] ??
+                  '';
+          String price = e.getElementsByClassName('LGJCRfhDKi').first.text;
+          bool soldOut = e.getElementsByClassName('text blind').firstOrNull?.text == 'SOLD OUT';
+
+          link = 'https://brand.naver.com$link';
+          return NewsItemData(imagePath: imagePath, number: number, name: name, link: link, price: price, soldOut: soldOut);
+        }).toList();
+
+        list.addAll(tempList
+            .where((element) => element.name.contains('넨도로이드'))
+            .map((e) => e.copyWith(name: e.name.replaceFirst('[특전]', '').replaceFirst('넨도로이드', '').trim()))
+            .toList());
+
+        if (lastPage == currentPage) {
+          break;
+        }
+        currentPage++;
+      }
+      return ApiResult.success(list);
     } catch (error, stackTrace) {
       logger.e(error.toString(), stackTrace: stackTrace);
       return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);

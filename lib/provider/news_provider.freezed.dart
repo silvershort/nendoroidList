@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$NewsState {
-  List<NewsData> get newsList => throw _privateConstructorUsedError;
-  SubscribeData get subscribeData => throw _privateConstructorUsedError;
+  List<NewsItemData> get specialGoodsList => throw _privateConstructorUsedError;
+  List<NewsItemData> get ninimalList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewsStateCopyWith<NewsState> get copyWith =>
@@ -29,9 +29,8 @@ abstract class $NewsStateCopyWith<$Res> {
   factory $NewsStateCopyWith(NewsState value, $Res Function(NewsState) then) =
       _$NewsStateCopyWithImpl<$Res, NewsState>;
   @useResult
-  $Res call({List<NewsData> newsList, SubscribeData subscribeData});
-
-  $SubscribeDataCopyWith<$Res> get subscribeData;
+  $Res call(
+      {List<NewsItemData> specialGoodsList, List<NewsItemData> ninimalList});
 }
 
 /// @nodoc
@@ -47,27 +46,19 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newsList = null,
-    Object? subscribeData = null,
+    Object? specialGoodsList = null,
+    Object? ninimalList = null,
   }) {
     return _then(_value.copyWith(
-      newsList: null == newsList
-          ? _value.newsList
-          : newsList // ignore: cast_nullable_to_non_nullable
-              as List<NewsData>,
-      subscribeData: null == subscribeData
-          ? _value.subscribeData
-          : subscribeData // ignore: cast_nullable_to_non_nullable
-              as SubscribeData,
+      specialGoodsList: null == specialGoodsList
+          ? _value.specialGoodsList
+          : specialGoodsList // ignore: cast_nullable_to_non_nullable
+              as List<NewsItemData>,
+      ninimalList: null == ninimalList
+          ? _value.ninimalList
+          : ninimalList // ignore: cast_nullable_to_non_nullable
+              as List<NewsItemData>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $SubscribeDataCopyWith<$Res> get subscribeData {
-    return $SubscribeDataCopyWith<$Res>(_value.subscribeData, (value) {
-      return _then(_value.copyWith(subscribeData: value) as $Val);
-    });
   }
 }
 
@@ -78,10 +69,8 @@ abstract class _$$_NewsStateCopyWith<$Res> implements $NewsStateCopyWith<$Res> {
       __$$_NewsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<NewsData> newsList, SubscribeData subscribeData});
-
-  @override
-  $SubscribeDataCopyWith<$Res> get subscribeData;
+  $Res call(
+      {List<NewsItemData> specialGoodsList, List<NewsItemData> ninimalList});
 }
 
 /// @nodoc
@@ -95,18 +84,18 @@ class __$$_NewsStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newsList = null,
-    Object? subscribeData = null,
+    Object? specialGoodsList = null,
+    Object? ninimalList = null,
   }) {
     return _then(_$_NewsState(
-      newsList: null == newsList
-          ? _value._newsList
-          : newsList // ignore: cast_nullable_to_non_nullable
-              as List<NewsData>,
-      subscribeData: null == subscribeData
-          ? _value.subscribeData
-          : subscribeData // ignore: cast_nullable_to_non_nullable
-              as SubscribeData,
+      specialGoodsList: null == specialGoodsList
+          ? _value._specialGoodsList
+          : specialGoodsList // ignore: cast_nullable_to_non_nullable
+              as List<NewsItemData>,
+      ninimalList: null == ninimalList
+          ? _value._ninimalList
+          : ninimalList // ignore: cast_nullable_to_non_nullable
+              as List<NewsItemData>,
     ));
   }
 }
@@ -115,26 +104,33 @@ class __$$_NewsStateCopyWithImpl<$Res>
 
 class _$_NewsState implements _NewsState {
   const _$_NewsState(
-      {final List<NewsData> newsList = const [],
-      this.subscribeData = const SubscribeData()})
-      : _newsList = newsList;
+      {final List<NewsItemData> specialGoodsList = const [],
+      final List<NewsItemData> ninimalList = const []})
+      : _specialGoodsList = specialGoodsList,
+        _ninimalList = ninimalList;
 
-  final List<NewsData> _newsList;
+  final List<NewsItemData> _specialGoodsList;
   @override
   @JsonKey()
-  List<NewsData> get newsList {
-    if (_newsList is EqualUnmodifiableListView) return _newsList;
+  List<NewsItemData> get specialGoodsList {
+    if (_specialGoodsList is EqualUnmodifiableListView)
+      return _specialGoodsList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_newsList);
+    return EqualUnmodifiableListView(_specialGoodsList);
+  }
+
+  final List<NewsItemData> _ninimalList;
+  @override
+  @JsonKey()
+  List<NewsItemData> get ninimalList {
+    if (_ninimalList is EqualUnmodifiableListView) return _ninimalList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ninimalList);
   }
 
   @override
-  @JsonKey()
-  final SubscribeData subscribeData;
-
-  @override
   String toString() {
-    return 'NewsState(newsList: $newsList, subscribeData: $subscribeData)';
+    return 'NewsState(specialGoodsList: $specialGoodsList, ninimalList: $ninimalList)';
   }
 
   @override
@@ -142,14 +138,17 @@ class _$_NewsState implements _NewsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_NewsState &&
-            const DeepCollectionEquality().equals(other._newsList, _newsList) &&
-            (identical(other.subscribeData, subscribeData) ||
-                other.subscribeData == subscribeData));
+            const DeepCollectionEquality()
+                .equals(other._specialGoodsList, _specialGoodsList) &&
+            const DeepCollectionEquality()
+                .equals(other._ninimalList, _ninimalList));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_newsList), subscribeData);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_specialGoodsList),
+      const DeepCollectionEquality().hash(_ninimalList));
 
   @JsonKey(ignore: true)
   @override
@@ -160,13 +159,13 @@ class _$_NewsState implements _NewsState {
 
 abstract class _NewsState implements NewsState {
   const factory _NewsState(
-      {final List<NewsData> newsList,
-      final SubscribeData subscribeData}) = _$_NewsState;
+      {final List<NewsItemData> specialGoodsList,
+      final List<NewsItemData> ninimalList}) = _$_NewsState;
 
   @override
-  List<NewsData> get newsList;
+  List<NewsItemData> get specialGoodsList;
   @override
-  SubscribeData get subscribeData;
+  List<NewsItemData> get ninimalList;
   @override
   @JsonKey(ignore: true)
   _$$_NewsStateCopyWith<_$_NewsState> get copyWith =>

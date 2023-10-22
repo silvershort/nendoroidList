@@ -132,7 +132,7 @@ class __$$_NendoStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NendoState implements _NendoState {
+class _$_NendoState with DiagnosticableTreeMixin implements _NendoState {
   const _$_NendoState(
       {final List<NendoData> nendoList = const [],
       final List<NendoData> nenDollList = const [],
@@ -181,8 +181,19 @@ class _$_NendoState implements _NendoState {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'NendoState(nendoList: $nendoList, nenDollList: $nenDollList, filteredNendoList: $filteredNendoList, setList: $setList)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NendoState'))
+      ..add(DiagnosticsProperty('nendoList', nendoList))
+      ..add(DiagnosticsProperty('nenDollList', nenDollList))
+      ..add(DiagnosticsProperty('filteredNendoList', filteredNendoList))
+      ..add(DiagnosticsProperty('setList', setList));
   }
 
   @override

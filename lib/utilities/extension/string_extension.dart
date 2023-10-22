@@ -5,6 +5,17 @@ extension StringExtension on String {
    return DateFormat('yyyy-MM-dd').format(DateTime.parse(this));
   }
 
+  /*String get numberBracket {
+    RegExp regExp = RegExp(r'\d+');
+    Match? match = regExp.firstMatch(this);
+
+    if (match?.group(0) != null) {
+      String number = match!.group(0)!;
+      return replaceFirst(number, '[$number]');
+    }
+    return this;
+  }*/
+
   int get removeComma {
     try {
       return int.parse(replaceAll(",", ""));

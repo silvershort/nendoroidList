@@ -1,22 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nendoroid_db/models/news_item_data.dart';
+import 'package:nendoroid_db/provider/news_provider.dart';
+import 'package:nendoroid_db/router/route_path.dart';
+import 'package:nendoroid_db/ui/news/widget/news_list_section.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class NewsScreen extends StatelessWidget {
+class NewsScreen extends ConsumerWidget {
   const NewsScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(newsProvider);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("넨도로이드 소식"),
       ),
-      body: const Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text(
-            '트위터 API 정책 변경 후 트위터 정보를 가져오기 어려운 상황입니다.\n다른 내용으로 소식탭 개선 예정이니 조금만 기다려주세요!'
-          ),
-        ),
+      body: state.when(
+        data: (data) {
+          return ListView(
+            padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
+            children: [
+              NewsListSection(
+                title: '특전🎁 포함! 굿스마일 코리아 예약 목록',
+                onTitleTap: () {
+                  context.push(
+                    '${RoutePath.newsDetail}?title=굿스마일 코리아&homePage=https://https://brand.naver.com/goodsmilekr',
+                    extra: data.specialGoodsList,
+                  );
+                },
+                itemList: data.specialGoodsList,
+                onTap: (index) {
+                  launchUrl(
+                    Uri.parse(data.specialGoodsList[index].link),
+                    mode: LaunchMode.externalApplication,
+                  );
+                },
+              ),
+              const SizedBox(height: 10.0),
+              NewsListSection(
+                title: '넨돌 의상🩳 니니멀 신상품',
+                onTitleTap: () {
+                  context.push(
+                    '${RoutePath.newsDetail}?title=넨돌 의상니니멀&homePage=https://ninimal.co.kr',
+                    extra: data.ninimalList,
+                  );
+                },
+                itemList: data.ninimalList.map((e) {
+                  return NewsItemData(
+                    name: e.name,
+                    price: e.price,
+                    imagePath: e.imagePath,
+                    soldOut: e.soldOut,
+                  );
+                }).toList(),
+                onTap: (index) {
+                  launchUrl(
+                    Uri.parse(data.ninimalList[index].link),
+                    mode: LaunchMode.externalApplication,
+                  );
+                },
+              ),
+            ],
+          );
+        },
+        error: (error, stackTrace) {
+          return const Center(
+            child: Text('데이터가 로딩에 실패했습니다.'),
+          );
+        },
+        loading: () {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }

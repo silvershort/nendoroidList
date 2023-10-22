@@ -42,6 +42,19 @@ abstract class ScrapingRepository {
     @Path("gscProductNum") required String gscProductNum,
   });
 
+  // 굿스마일 코리아 특전 넨도로이드 목록
+  @GET("https://brand.naver.com/goodsmilekr/category/29c44741d6284ef19868e4c075a41038")
+  Future<HttpResponse> getGoodSmileKRSpecialImage({
+    @Query("st") String st = "RECENT",
+    @Query("dt") String dt = "IMAGE",
+    @Query("size") String size = "80",
+    @Query("page") required int page,
+  });
+
+  // 니니멀 홈페이지
+  @GET('https://ninimal.co.kr/index.html')
+  Future<HttpResponse> getNinimal();
+
   // 엔화 환율 정보
   @GET("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY")
   Future<List<ExchangeRateYen>> getExchangeRate();

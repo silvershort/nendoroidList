@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/ui/base/screen/dashboard_screen.dart';
 import 'package:nendoroid_db/ui/list/screen/list_screen.dart';
 import 'package:nendoroid_db/ui/my/screen/app_info_screen.dart';
@@ -8,6 +9,7 @@ import 'package:nendoroid_db/ui/my/screen/login_screen.dart';
 import 'package:nendoroid_db/ui/my/screen/my_screen.dart';
 import 'package:nendoroid_db/ui/my/screen/setting_screen.dart';
 import 'package:nendoroid_db/ui/nendo/screen/nendo_web_screen.dart';
+import 'package:nendoroid_db/ui/news/screen/news_detail_screen.dart';
 import 'package:nendoroid_db/ui/news/screen/news_screen.dart';
 import 'package:nendoroid_db/ui/stats/screen/stats_screen.dart';
 import 'package:nendoroid_db/ui/_common_widget/image_view/image_detail_view.dart';
@@ -79,6 +81,22 @@ final appRouter = GoRouter(
               builder: (context, state) {
                 return const NewsScreen();
               },
+              routes: [
+                GoRoute(
+                  path: 'detail',
+                  builder: (context, state) {
+                    final String title = state.uri.queryParameters['title'] ?? '상세보기';
+                    final String homePage = state.uri.queryParameters['homePage'] ?? '';
+                    final List<NewsItemData> itemList = state.extra as List<NewsItemData>;
+
+                    return NewsDetailScreen(
+                      title: title,
+                      homePage: homePage,
+                      itemList: itemList,
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
