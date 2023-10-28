@@ -1,6 +1,9 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
+import 'package:nendoroid_db/ui/news/widget/news_list_tile.dart';
+import 'package:nendoroid_db/utilities/constant.dart';
+import 'package:prototype_constrained_box/prototype_constrained_box.dart';
 
 class NewsListSection extends StatelessWidget {
   const NewsListSection({
@@ -35,79 +38,31 @@ class NewsListSection extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const Icon(Icons.arrow_forward_ios, size: 16,),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
               ],
             ),
           ),
         ),
         const SizedBox(height: 5.0),
-        SizedBox(
-          height: 190,
+        PrototypeConstrainedBox.tightFor(
+          prototype: NewsListTile(
+            item: NewsItemData(
+              name: Constant.longText,
+              imagePath: '',
+              price: itemList.first.price,
+            ),
+          ),
+          height: true,
+          width: false,
           child: ListView.separated(
             padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               final NewsItemData item = itemList[index];
-              return InkWell(
-                onTap: () {
-                  onTap?.call(index);
-                },
-                child: SizedBox(
-                  width: 120,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          ExtendedImage.network(
-                            item.imagePath,
-                            height: 120,
-                            width: 120,
-                            fit: BoxFit.cover,
-                          ),
-                          if (item.soldOut)
-                            Container(
-                              width: 120,
-                              height: 120,
-                              color: Colors.black38,
-                              alignment: Alignment.center,
-                              child: Text(
-                                'SOLD OUT',
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      const SizedBox(height: 10.0),
-                      RichText(
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        text: TextSpan(style: Theme.of(context).textTheme.bodySmall, children: [
-                          if (item.number != null)
-                            TextSpan(
-                                text: '[${item.number}] ',
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: Colors.deepOrange,
-                                    )),
-                          TextSpan(
-                            text: item.name,
-                          ),
-                        ]),
-                      ),
-                      const SizedBox(height: 3.0),
-                      Text(
-                        '${item.price.replaceAll('원', '')}원',
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              fontWeight: FontWeight.w300,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return NewsListTile(item: item, onTap: onTap?.call(index),);
             },
             separatorBuilder: (context, index) {
               return const SizedBox(

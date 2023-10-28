@@ -7,7 +7,7 @@ class NewsItemData with _$NewsItemData {
   const factory NewsItemData({
     String? number,
     required String name,
-    required String price,
+    String? price,
     required String imagePath,
     @Default('') String link,
     @Default(false) bool soldOut,

@@ -5,4 +5,5 @@ class Constant {
   static const nendoDataVersionRemote = 'nendo_data_version';
   static const noticeTextRemote = 'notice_text';
   static const updateTextRemote = 'update_text';
+  static const longText = 'verylonggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg';
 }

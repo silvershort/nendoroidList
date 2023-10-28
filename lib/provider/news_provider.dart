@@ -24,9 +24,25 @@ class News extends _$News {
   Future<NewsState> initData() async {
     final List<NewsItemData> specialList = await getNendoroidList();
     final List<NewsItemData> ninimalList = await getNinimalList();
+    final List<NewsItemData> imminentList = await getNendoroidAnnounced();
     return NewsState(
       specialGoodsList: specialList,
       ninimalList: ninimalList,
+      imminentList: imminentList,
+    );
+  }
+
+  Future<List<NewsItemData>> getNendoroidAnnounced() async {
+    final result = await ref.read(scrapingServiceProvider).getNendoroidAnnounced();
+
+    return result.when(
+      success: (value) {
+        return value;
+      },
+      error: (error, stackTrace) {
+        logger.e(error.message);
+        return [];
+      },
     );
   }
 
@@ -64,5 +80,6 @@ class NewsState with _$NewsState {
   const factory NewsState({
     @Default([]) List<NewsItemData> specialGoodsList,
     @Default([]) List<NewsItemData> ninimalList,
+    @Default([]) List<NewsItemData> imminentList,
   }) = _NewsState;
 }

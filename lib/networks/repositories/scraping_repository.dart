@@ -55,6 +55,10 @@ abstract class ScrapingRepository {
   @GET('https://ninimal.co.kr/index.html')
   Future<HttpResponse> getNinimal();
 
+  // 굿스마일 넨도로이드 안내 페이지
+  @GET('https://www.goodsmile.info/en/products/category/nendoroid_series/announced')
+  Future<HttpResponse> getNendoroidAnnounced();
+
   // 엔화 환율 정보
   @GET("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY")
   Future<List<ExchangeRateYen>> getExchangeRate();

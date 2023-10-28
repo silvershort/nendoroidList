@@ -984,6 +984,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  prototype_constrained_box:
+    dependency: "direct main"
+    description:
+      name: prototype_constrained_box
+      sha256: e035420ddc63d939fcd0378085c419afe6a381de9487e1d71fe75adeb4c32805
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   pub_semver:
     dependency: transitive
     description:

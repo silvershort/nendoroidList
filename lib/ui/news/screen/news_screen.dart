@@ -25,10 +25,27 @@ class NewsScreen extends ConsumerWidget {
             padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
             children: [
               NewsListSection(
+                title: '예약마감⏰ 임박 넨도로이드',
+                onTitleTap: () {
+                  context.push(
+                    '${RoutePath.newsDetail}?title=마감 임박 넨도로이드&homePage=https://www.goodsmile.info/en/products/category/nendoroid_series/announced',
+                    extra: data.imminentList,
+                  );
+                },
+                itemList: data.imminentList,
+                onTap: (index) {
+                  launchUrl(
+                    Uri.parse(data.imminentList[index].link),
+                    mode: LaunchMode.externalApplication,
+                  );
+                },
+              ),
+              const SizedBox(height: 10.0),
+              NewsListSection(
                 title: '특전🎁 포함! 굿스마일 코리아 예약 목록',
                 onTitleTap: () {
                   context.push(
-                    '${RoutePath.newsDetail}?title=굿스마일 코리아&homePage=https://https://brand.naver.com/goodsmilekr',
+                    '${RoutePath.newsDetail}?title=굿스마일 코리아&homePage=https://brand.naver.com/goodsmilekr',
                     extra: data.specialGoodsList,
                   );
                 },

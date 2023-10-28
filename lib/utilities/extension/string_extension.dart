@@ -31,6 +31,21 @@ extension StringExtension on String {
       return 0;
     }
   }
+
+  int get onlyNumberFirst {
+    try {
+      RegExp regExp = RegExp(r'\d+');
+      Match? match = regExp.firstMatch(this);
+
+      if (match?.group(0) != null) {
+        int number = match!.group(0).toIntOrDefault;
+        return number;
+      }
+      return 0;
+    } catch (_) {
+      return 0;
+    }
+  }
 }
 
 extension NullableStringExtension on String? {

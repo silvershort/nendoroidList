@@ -78,6 +78,52 @@ class ScrapingService {
     }
   }
 
+  Future<ApiResult<List<NewsItemData>>> getNendoroidAnnounced() async {
+    try {
+      final response = await repository.getNendoroidAnnounced();
+      final Document document = parse(response.data);
+
+      final Element? imminentText = document.getElementsByClassName('current-date shimelist').firstOrNull;
+      final Element? imminentSection = document.getElementsByClassName('hitList clearfix').firstOrNull;
+      if (imminentText == null || imminentSection == null) {
+        return const ApiResult.success([]);
+      }
+
+      final List<Element> imminentList = imminentSection.getElementsByClassName('hitItem shimeproduct nendoroid nendoroid_series');
+
+      final itemList = imminentList.map((e) {
+        String name = e.getElementsByClassName('hitTtl').firstOrNull?.getElementsByTagName('span').firstOrNull?.text ?? '';
+        bool soldout = false;
+        String link = e.getElementsByClassName('hitBox')
+            .firstOrNull?.getElementsByTagName('a')
+            .firstOrNull?.attributes['href'] ?? '';
+        String imagePath = e.getElementsByClassName('hitBox')
+            .firstOrNull?.getElementsByTagName('img')
+            .firstOrNull?.attributes['data-original'] ?? '';
+
+        imagePath = 'https:$imagePath';
+
+        // 품절 여부 체크
+        final imgList = e.getElementsByClassName('icon').firstOrNull?.getElementsByTagName('img') ?? [];
+        for (var img in imgList) {
+          if (img.attributes['alt'] == '품절') {
+            soldout = true;
+          }
+        }
+        return NewsItemData(
+          name: name,
+          imagePath: imagePath,
+          soldOut: soldout,
+          link: link,
+        );
+      }).toList();
+
+      return ApiResult.success(itemList.where((element) => !element.name.contains('10cm솜')).toList());
+    } catch (error, stackTrace) {
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+    }
+  }
+
   Future<ApiResult<List<NewsItemData>>> getNinimalList() async {
     try {
       final response = await repository.getNinimal();
@@ -143,7 +189,7 @@ class ScrapingService {
         final List<NewsItemData> tempList = document.getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX").map((e) {
           String imagePath = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["src"] ?? '';
           String name = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["alt"] ?? '';
-          String number = name.onlyNumber.toString();
+          String number = name.onlyNumberFirst.toString();
           name = name.replaceFirst(number, '');
           String link =
               e.getElementsByTagName("a").firstWhere((element) => element.className == "stX4bV9Ny3 N=a:lst.product linkAnchor").attributes["href"] ??

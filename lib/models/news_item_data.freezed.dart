@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NewsItemData {
   String? get number => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
+  String? get price => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   String get link => throw _privateConstructorUsedError;
   bool get soldOut => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $NewsItemDataCopyWith<$Res> {
   $Res call(
       {String? number,
       String name,
-      String price,
+      String? price,
       String imagePath,
       String link,
       bool soldOut});
@@ -58,7 +58,7 @@ class _$NewsItemDataCopyWithImpl<$Res, $Val extends NewsItemData>
   $Res call({
     Object? number = freezed,
     Object? name = null,
-    Object? price = null,
+    Object? price = freezed,
     Object? imagePath = null,
     Object? link = null,
     Object? soldOut = null,
@@ -72,10 +72,10 @@ class _$NewsItemDataCopyWithImpl<$Res, $Val extends NewsItemData>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imagePath: null == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
@@ -103,7 +103,7 @@ abstract class _$$_NewsItemDataCopyWith<$Res>
   $Res call(
       {String? number,
       String name,
-      String price,
+      String? price,
       String imagePath,
       String link,
       bool soldOut});
@@ -122,7 +122,7 @@ class __$$_NewsItemDataCopyWithImpl<$Res>
   $Res call({
     Object? number = freezed,
     Object? name = null,
-    Object? price = null,
+    Object? price = freezed,
     Object? imagePath = null,
     Object? link = null,
     Object? soldOut = null,
@@ -136,10 +136,10 @@ class __$$_NewsItemDataCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imagePath: null == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
@@ -162,7 +162,7 @@ class _$_NewsItemData implements _NewsItemData {
   const _$_NewsItemData(
       {this.number,
       required this.name,
-      required this.price,
+      this.price,
       required this.imagePath,
       this.link = '',
       this.soldOut = false});
@@ -172,7 +172,7 @@ class _$_NewsItemData implements _NewsItemData {
   @override
   final String name;
   @override
-  final String price;
+  final String? price;
   @override
   final String imagePath;
   @override
@@ -216,7 +216,7 @@ abstract class _NewsItemData implements NewsItemData {
   const factory _NewsItemData(
       {final String? number,
       required final String name,
-      required final String price,
+      final String? price,
       required final String imagePath,
       final String link,
       final bool soldOut}) = _$_NewsItemData;
@@ -226,7 +226,7 @@ abstract class _NewsItemData implements NewsItemData {
   @override
   String get name;
   @override
-  String get price;
+  String? get price;
   @override
   String get imagePath;
   @override
