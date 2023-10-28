@@ -70,7 +70,7 @@ class NewsDetailScreen extends ConsumerWidget {
               sliver: SliverAlignedGrid(
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 15,
-                itemCount: 100,
+                itemCount: itemList.length,
                 itemBuilder: (context, index) {
                   final NewsItemData item = itemList[index];
                   return InkWell(
