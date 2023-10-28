@@ -35,7 +35,7 @@ class _GithubRepository implements GithubRepository {
     )
             .compose(
               _dio.options,
-              'https://raw.githubusercontent.com/KhoraLee/NendoroidDB/main/Nendoroid/${folderName}/${fileName}',
+              'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -65,7 +65,7 @@ class _GithubRepository implements GithubRepository {
     )
             .compose(
               _dio.options,
-              'https://raw.githubusercontent.com/KhoraLee/NendoroidDB/main/NendoroidDoll/${folderName}/${fileName}',
+              'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/NendoroidDoll/${folderName}/${fileName}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -95,7 +95,7 @@ class _GithubRepository implements GithubRepository {
     )
             .compose(
               _dio.options,
-              'https://raw.githubusercontent.com/KhoraLee/NendoroidDB/main/Nendoroid/${folderName}/${fileName}',
+              'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -122,7 +122,7 @@ class _GithubRepository implements GithubRepository {
     )
             .compose(
               _dio.options,
-              'https://api.github.com/repos/KhoraLee/NendoroidDB/contents/Nendoroid/${folderName}',
+              'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/Nendoroid/${folderName}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -151,7 +151,7 @@ class _GithubRepository implements GithubRepository {
     )
             .compose(
               _dio.options,
-              'https://api.github.com/repos/KhoraLee/NendoroidDB/contents/NendoroidDoll/${folderName}',
+              'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/NendoroidDoll/${folderName}',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:async/async.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -34,19 +36,31 @@ class GithubDownload extends _$GithubDownload {
   List<NendoData> _nendoList = [];
   List<NendoData> _nenDollList = [];
 
+  // 폴더목록 필터링을 위한 정규식
+  final RegExp _folderReg = RegExp(r"[0-9][-][0-9]");
+
   @override
   void build() {
     _githubService = ref.watch(githubServiceProvider);
     return;
   }
 
-  Future<void> fetchNendoData() async {}
+  Future<void> fetchNendoData() async {
+    await fetchFolderNameList();
+    for (int i = 0; i < _folderNameList.length; i++) {
+      await fetchJsonNameList(currentIndex: i);
+      await fetchNendoList(jsonList: _nameList, currentIndex: i);
+    }
+    logger.d('--------------------@@@ 넨도로이드 데이터 다운 완료');
+    saveLocalDB();
+  }
 
   Future<void> fetchFolderNameList() async {
     final result = await _githubService.getRepoList(folderName: '');
     result.when(
       success: (value) {
-        _folderNameList = value.map((e) => e.name).toList();
+        // 정규식을 통해서 유효한 넨도 폴더명만 남겨둔다 ex) Set폴더 제외
+        _folderNameList = value.map((e) => e.name).where((element) => _folderReg.hasMatch(element)).toList();
       },
       error: (error, stackTrace) {
         logger.e(error.toString(), stackTrace: stackTrace);
@@ -156,10 +170,20 @@ class GithubDownload extends _$GithubDownload {
   }
 
   // 입력받은 리스트를 로컬DB에 저장해준다.
-  Future<void> saveLocalDB() async {
+  Future<void> saveNendollLocalDB() async {
     final Box nendoBox = ref.read(hiveProvider).nendoBox;
 
     for (NendoData data in _nenDollList) {
+      await nendoBox.put(data.num, data);
+    }
+  }
+
+  // 입력받은 리스트를 로컬DB에 저장해준다.
+  Future<void> saveLocalDB() async {
+    logger.d('--------------------@@@ 로컬데이터 저장 완료');
+    final Box nendoBox = ref.read(hiveProvider).nendoBox;
+
+    for (NendoData data in _nendoList) {
       await nendoBox.put(data.num, data);
     }
   }

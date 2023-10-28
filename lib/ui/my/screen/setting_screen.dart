@@ -72,7 +72,7 @@ class SettingScreen extends ConsumerWidget {
               ref.watch(settingControllerProvider.notifier).dataReset(context);
             },
           ),
-          /*MenuTile(
+          MenuTile(
             title: '데이터 재다운로드',
             onPressed: () {
               showDialog(
@@ -88,9 +88,9 @@ class SettingScreen extends ConsumerWidget {
                 },
               );
             },
-          ),*/
-          /*const DefaultDivider(),
-          MenuTile(
+          ),
+          const DefaultDivider(),
+          /*MenuTile(
             title: '넨돌 다운로드',
             onPressed: () {
               ref.read(githubDownloadProvider.notifier).fetchDollJsonNameList();
@@ -101,6 +101,12 @@ class SettingScreen extends ConsumerWidget {
             onPressed: () async {
               final result = await ref.read(githubDownloadProvider.notifier).fetchNendoDollList();
               ref.read(nendoProvider.notifier).saveLocalDB(nenDollList: result);
+            },
+          ),
+          MenuTile(
+            title: '로컬 저장소 넨돌 저장',
+            onPressed: () {
+              ref.read(githubDownloadProvider.notifier).saveNendollLocalDB();
             },
           ),
           MenuTile(
@@ -116,12 +122,18 @@ class SettingScreen extends ConsumerWidget {
             },
           ),
           MenuTile(
+            title: '넨도 데이터 저장',
+            onPressed: () {
+              ref.read(githubDownloadProvider.notifier).fetchNendoData();
+            },
+          ),
+          MenuTile(
             title: '원격 저장소에 데이터 저장',
             onPressed: () {
               ref.read(githubDownloadProvider.notifier).uploadFirebase();
             },
-          ),*/
-          /*const SettingTitle(title: '데이터 설정'),
+          ),
+          const SettingTitle(title: '데이터 설정'),
           MenuSwitchTile(
             title: '데이터 자동 백업',
             value: state.hideUI,
