@@ -110,7 +110,6 @@ class NewsDetailScreen extends ConsumerWidget {
                         '${item.price.replaceAll('원', '')}원',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87
                         ),
                       ),
                       const SizedBox(height: 3.0),
