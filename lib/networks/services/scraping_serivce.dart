@@ -62,7 +62,10 @@ class ScrapingService {
     try {
       final response = await repository.getGoodSmileImage(gscProductNum: gscProductNum);
       Document document = parse(response.data);
-      Element nodeList = document.getElementsByClassName("itemPhotos").first;
+      Element? nodeList = document.getElementsByClassName("itemPhotos").firstOrNull;
+      if (nodeList == null) {
+        throw Exception('No itemPhotos');
+      }
       List<String> imageList = nodeList
           .getElementsByClassName("inline_fix")
           .map((e) => "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
@@ -138,14 +141,14 @@ class ScrapingService {
         }
 
         final List<NewsItemData> tempList = document.getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX").map((e) {
-          String imagePath = e.getElementsByClassName("_25CKxIKjAk").first.attributes["src"] ?? '';
-          String name = e.getElementsByClassName("_25CKxIKjAk").first.attributes["alt"] ?? '';
+          String imagePath = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["src"] ?? '';
+          String name = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["alt"] ?? '';
           String number = name.onlyNumber.toString();
           name = name.replaceFirst(number, '');
           String link =
               e.getElementsByTagName("a").firstWhere((element) => element.className == "stX4bV9Ny3 N=a:lst.product linkAnchor").attributes["href"] ??
                   '';
-          String price = e.getElementsByClassName('LGJCRfhDKi').first.text;
+          String price = e.getElementsByClassName('LGJCRfhDKi').firstOrNull?.text ?? '';
           bool soldOut = e.getElementsByClassName('text blind').firstOrNull?.text == 'SOLD OUT';
 
           link = 'https://brand.naver.com$link';
