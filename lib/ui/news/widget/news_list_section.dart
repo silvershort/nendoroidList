@@ -21,6 +21,9 @@ class NewsListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (itemList.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -49,6 +52,7 @@ class NewsListSection extends StatelessWidget {
         const SizedBox(height: 5.0),
         PrototypeConstrainedBox.tightFor(
           prototype: NewsListTile(
+            onTap: null,
             item: NewsItemData(
               name: Constant.longText,
               imagePath: '',
@@ -62,7 +66,9 @@ class NewsListSection extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               final NewsItemData item = itemList[index];
-              return NewsListTile(item: item, onTap: onTap?.call(index),);
+              return NewsListTile(item: item, onTap: () {
+                onTap?.call(index);
+              },);
             },
             separatorBuilder: (context, index) {
               return const SizedBox(
