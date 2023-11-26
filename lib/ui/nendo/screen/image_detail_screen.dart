@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nendoroid_db/models/file_download_data.dart';
+import 'package:nendoroid_db/provider/file_download_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-class ImageDetailView extends StatefulWidget {
-  const ImageDetailView({Key? key, required this.attachList, required this.initialIndex}) : super(key: key);
+class ImageDetailScreen extends ConsumerStatefulWidget {
+  const ImageDetailScreen({super.key, required this.attachList, required this.initialIndex});
+
   final List<String> attachList;
   final int initialIndex;
 
   @override
-  State<ImageDetailView> createState() => _ImageDetailViewState();
+  ConsumerState<ImageDetailScreen> createState() => _ImageDetailScreenState();
 }
 
-class _ImageDetailViewState extends State<ImageDetailView> {
+class _ImageDetailScreenState extends ConsumerState<ImageDetailScreen> {
   late PageController _pageController;
+  late int currentIndex;
 
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.initialIndex;
     _pageController = PageController(initialPage: widget.initialIndex);
+  }
+
+  void imageDownload() async {
+    await ref.read(fileDownloadProvider.notifier).fileDownload(
+      fileDownloadData: FileDownloadData(
+        downloadUrl: widget.attachList[currentIndex],
+      ),
+    );
   }
 
   @override
@@ -26,6 +40,14 @@ class _ImageDetailViewState extends State<ImageDetailView> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("이미지 상세보기"),
+        actions: [
+          IconButton(
+            onPressed: imageDownload,
+            icon: const Icon(
+              Icons.download,
+            ),
+          ),
+        ],
       ),
       body: Container(
         color: Colors.black,
@@ -44,6 +66,11 @@ class _ImageDetailViewState extends State<ImageDetailView> {
             );
           },
           pageController: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
       ),
     );

@@ -93,11 +93,11 @@ class _$NewsItemDataCopyWithImpl<$Res, $Val extends NewsItemData>
 }
 
 /// @nodoc
-abstract class _$$_NewsItemDataCopyWith<$Res>
+abstract class _$$NewsItemDataImplCopyWith<$Res>
     implements $NewsItemDataCopyWith<$Res> {
-  factory _$$_NewsItemDataCopyWith(
-          _$_NewsItemData value, $Res Function(_$_NewsItemData) then) =
-      __$$_NewsItemDataCopyWithImpl<$Res>;
+  factory _$$NewsItemDataImplCopyWith(
+          _$NewsItemDataImpl value, $Res Function(_$NewsItemDataImpl) then) =
+      __$$NewsItemDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_NewsItemDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NewsItemDataCopyWithImpl<$Res>
-    extends _$NewsItemDataCopyWithImpl<$Res, _$_NewsItemData>
-    implements _$$_NewsItemDataCopyWith<$Res> {
-  __$$_NewsItemDataCopyWithImpl(
-      _$_NewsItemData _value, $Res Function(_$_NewsItemData) _then)
+class __$$NewsItemDataImplCopyWithImpl<$Res>
+    extends _$NewsItemDataCopyWithImpl<$Res, _$NewsItemDataImpl>
+    implements _$$NewsItemDataImplCopyWith<$Res> {
+  __$$NewsItemDataImplCopyWithImpl(
+      _$NewsItemDataImpl _value, $Res Function(_$NewsItemDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_NewsItemDataCopyWithImpl<$Res>
     Object? link = null,
     Object? soldOut = null,
   }) {
-    return _then(_$_NewsItemData(
+    return _then(_$NewsItemDataImpl(
       number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_NewsItemDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NewsItemData implements _NewsItemData {
-  const _$_NewsItemData(
+class _$NewsItemDataImpl implements _NewsItemData {
+  const _$NewsItemDataImpl(
       {this.number,
       required this.name,
       this.price,
@@ -191,7 +191,7 @@ class _$_NewsItemData implements _NewsItemData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NewsItemData &&
+            other is _$NewsItemDataImpl &&
             (identical(other.number, number) || other.number == number) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.price, price) || other.price == price) &&
@@ -208,8 +208,8 @@ class _$_NewsItemData implements _NewsItemData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NewsItemDataCopyWith<_$_NewsItemData> get copyWith =>
-      __$$_NewsItemDataCopyWithImpl<_$_NewsItemData>(this, _$identity);
+  _$$NewsItemDataImplCopyWith<_$NewsItemDataImpl> get copyWith =>
+      __$$NewsItemDataImplCopyWithImpl<_$NewsItemDataImpl>(this, _$identity);
 }
 
 abstract class _NewsItemData implements NewsItemData {
@@ -219,7 +219,7 @@ abstract class _NewsItemData implements NewsItemData {
       final String? price,
       required final String imagePath,
       final String link,
-      final bool soldOut}) = _$_NewsItemData;
+      final bool soldOut}) = _$NewsItemDataImpl;
 
   @override
   String? get number;
@@ -235,6 +235,6 @@ abstract class _NewsItemData implements NewsItemData {
   bool get soldOut;
   @override
   @JsonKey(ignore: true)
-  _$$_NewsItemDataCopyWith<_$_NewsItemData> get copyWith =>
+  _$$NewsItemDataImplCopyWith<_$NewsItemDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

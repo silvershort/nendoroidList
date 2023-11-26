@@ -63,22 +63,22 @@ class _$NendoImageStateCopyWithImpl<$Res, $Val extends NendoImageState>
 }
 
 /// @nodoc
-abstract class _$$_NendoImageStateCopyWith<$Res>
+abstract class _$$NendoImageStateImplCopyWith<$Res>
     implements $NendoImageStateCopyWith<$Res> {
-  factory _$$_NendoImageStateCopyWith(
-          _$_NendoImageState value, $Res Function(_$_NendoImageState) then) =
-      __$$_NendoImageStateCopyWithImpl<$Res>;
+  factory _$$NendoImageStateImplCopyWith(_$NendoImageStateImpl value,
+          $Res Function(_$NendoImageStateImpl) then) =
+      __$$NendoImageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<String> imageList, List<String> thumbnailList});
 }
 
 /// @nodoc
-class __$$_NendoImageStateCopyWithImpl<$Res>
-    extends _$NendoImageStateCopyWithImpl<$Res, _$_NendoImageState>
-    implements _$$_NendoImageStateCopyWith<$Res> {
-  __$$_NendoImageStateCopyWithImpl(
-      _$_NendoImageState _value, $Res Function(_$_NendoImageState) _then)
+class __$$NendoImageStateImplCopyWithImpl<$Res>
+    extends _$NendoImageStateCopyWithImpl<$Res, _$NendoImageStateImpl>
+    implements _$$NendoImageStateImplCopyWith<$Res> {
+  __$$NendoImageStateImplCopyWithImpl(
+      _$NendoImageStateImpl _value, $Res Function(_$NendoImageStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_NendoImageStateCopyWithImpl<$Res>
     Object? imageList = null,
     Object? thumbnailList = null,
   }) {
-    return _then(_$_NendoImageState(
+    return _then(_$NendoImageStateImpl(
       imageList: null == imageList
           ? _value._imageList
           : imageList // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_NendoImageStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NendoImageState implements _NendoImageState {
-  const _$_NendoImageState(
+class _$NendoImageStateImpl implements _NendoImageState {
+  const _$NendoImageStateImpl(
       {required final List<String> imageList,
       required final List<String> thumbnailList})
       : _imageList = imageList,
@@ -134,7 +134,7 @@ class _$_NendoImageState implements _NendoImageState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NendoImageState &&
+            other is _$NendoImageStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._imageList, _imageList) &&
             const DeepCollectionEquality()
@@ -150,14 +150,15 @@ class _$_NendoImageState implements _NendoImageState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NendoImageStateCopyWith<_$_NendoImageState> get copyWith =>
-      __$$_NendoImageStateCopyWithImpl<_$_NendoImageState>(this, _$identity);
+  _$$NendoImageStateImplCopyWith<_$NendoImageStateImpl> get copyWith =>
+      __$$NendoImageStateImplCopyWithImpl<_$NendoImageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _NendoImageState implements NendoImageState {
   const factory _NendoImageState(
       {required final List<String> imageList,
-      required final List<String> thumbnailList}) = _$_NendoImageState;
+      required final List<String> thumbnailList}) = _$NendoImageStateImpl;
 
   @override
   List<String> get imageList;
@@ -165,6 +166,6 @@ abstract class _NendoImageState implements NendoImageState {
   List<String> get thumbnailList;
   @override
   @JsonKey(ignore: true)
-  _$$_NendoImageStateCopyWith<_$_NendoImageState> get copyWith =>
+  _$$NendoImageStateImplCopyWith<_$NendoImageStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -122,11 +122,12 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_NendoListSettingStateCopyWith<$Res>
+abstract class _$$NendoListSettingStateImplCopyWith<$Res>
     implements $NendoListSettingStateCopyWith<$Res> {
-  factory _$$_NendoListSettingStateCopyWith(_$_NendoListSettingState value,
-          $Res Function(_$_NendoListSettingState) then) =
-      __$$_NendoListSettingStateCopyWithImpl<$Res>;
+  factory _$$NendoListSettingStateImplCopyWith(
+          _$NendoListSettingStateImpl value,
+          $Res Function(_$NendoListSettingStateImpl) then) =
+      __$$NendoListSettingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -146,11 +147,12 @@ abstract class _$$_NendoListSettingStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NendoListSettingStateCopyWithImpl<$Res>
-    extends _$NendoListSettingStateCopyWithImpl<$Res, _$_NendoListSettingState>
-    implements _$$_NendoListSettingStateCopyWith<$Res> {
-  __$$_NendoListSettingStateCopyWithImpl(_$_NendoListSettingState _value,
-      $Res Function(_$_NendoListSettingState) _then)
+class __$$NendoListSettingStateImplCopyWithImpl<$Res>
+    extends _$NendoListSettingStateCopyWithImpl<$Res,
+        _$NendoListSettingStateImpl>
+    implements _$$NendoListSettingStateImplCopyWith<$Res> {
+  __$$NendoListSettingStateImplCopyWithImpl(_$NendoListSettingStateImpl _value,
+      $Res Function(_$NendoListSettingStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -163,7 +165,7 @@ class __$$_NendoListSettingStateCopyWithImpl<$Res>
     Object? dollFilterData = null,
     Object? sortData = null,
   }) {
-    return _then(_$_NendoListSettingState(
+    return _then(_$NendoListSettingStateImpl(
       dataType: null == dataType
           ? _value.dataType
           : dataType // ignore: cast_nullable_to_non_nullable
@@ -194,8 +196,8 @@ class __$$_NendoListSettingStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NendoListSettingState implements _NendoListSettingState {
-  const _$_NendoListSettingState(
+class _$NendoListSettingStateImpl implements _NendoListSettingState {
+  const _$NendoListSettingStateImpl(
       {required this.dataType,
       required this.viewMode,
       required this.editMode,
@@ -225,7 +227,7 @@ class _$_NendoListSettingState implements _NendoListSettingState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NendoListSettingState &&
+            other is _$NendoListSettingStateImpl &&
             (identical(other.dataType, dataType) ||
                 other.dataType == dataType) &&
             (identical(other.viewMode, viewMode) ||
@@ -247,9 +249,9 @@ class _$_NendoListSettingState implements _NendoListSettingState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NendoListSettingStateCopyWith<_$_NendoListSettingState> get copyWith =>
-      __$$_NendoListSettingStateCopyWithImpl<_$_NendoListSettingState>(
-          this, _$identity);
+  _$$NendoListSettingStateImplCopyWith<_$NendoListSettingStateImpl>
+      get copyWith => __$$NendoListSettingStateImplCopyWithImpl<
+          _$NendoListSettingStateImpl>(this, _$identity);
 }
 
 abstract class _NendoListSettingState implements NendoListSettingState {
@@ -259,7 +261,7 @@ abstract class _NendoListSettingState implements NendoListSettingState {
       required final EditMode editMode,
       required final FilterData filterData,
       required final DollFilterData dollFilterData,
-      required final SortData sortData}) = _$_NendoListSettingState;
+      required final SortData sortData}) = _$NendoListSettingStateImpl;
 
   @override
   DataType get dataType;
@@ -275,6 +277,6 @@ abstract class _NendoListSettingState implements NendoListSettingState {
   SortData get sortData;
   @override
   @JsonKey(ignore: true)
-  _$$_NendoListSettingStateCopyWith<_$_NendoListSettingState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$NendoListSettingStateImplCopyWith<_$NendoListSettingStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

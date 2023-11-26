@@ -71,10 +71,11 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
 }
 
 /// @nodoc
-abstract class _$$_NewsStateCopyWith<$Res> implements $NewsStateCopyWith<$Res> {
-  factory _$$_NewsStateCopyWith(
-          _$_NewsState value, $Res Function(_$_NewsState) then) =
-      __$$_NewsStateCopyWithImpl<$Res>;
+abstract class _$$NewsStateImplCopyWith<$Res>
+    implements $NewsStateCopyWith<$Res> {
+  factory _$$NewsStateImplCopyWith(
+          _$NewsStateImpl value, $Res Function(_$NewsStateImpl) then) =
+      __$$NewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -84,11 +85,11 @@ abstract class _$$_NewsStateCopyWith<$Res> implements $NewsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_NewsStateCopyWithImpl<$Res>
-    extends _$NewsStateCopyWithImpl<$Res, _$_NewsState>
-    implements _$$_NewsStateCopyWith<$Res> {
-  __$$_NewsStateCopyWithImpl(
-      _$_NewsState _value, $Res Function(_$_NewsState) _then)
+class __$$NewsStateImplCopyWithImpl<$Res>
+    extends _$NewsStateCopyWithImpl<$Res, _$NewsStateImpl>
+    implements _$$NewsStateImplCopyWith<$Res> {
+  __$$NewsStateImplCopyWithImpl(
+      _$NewsStateImpl _value, $Res Function(_$NewsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -98,7 +99,7 @@ class __$$_NewsStateCopyWithImpl<$Res>
     Object? ninimalList = null,
     Object? imminentList = null,
   }) {
-    return _then(_$_NewsState(
+    return _then(_$NewsStateImpl(
       specialGoodsList: null == specialGoodsList
           ? _value._specialGoodsList
           : specialGoodsList // ignore: cast_nullable_to_non_nullable
@@ -117,8 +118,8 @@ class __$$_NewsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NewsState implements _NewsState {
-  const _$_NewsState(
+class _$NewsStateImpl implements _NewsState {
+  const _$NewsStateImpl(
       {final List<NewsItemData> specialGoodsList = const [],
       final List<NewsItemData> ninimalList = const [],
       final List<NewsItemData> imminentList = const []})
@@ -163,7 +164,7 @@ class _$_NewsState implements _NewsState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NewsState &&
+            other is _$NewsStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._specialGoodsList, _specialGoodsList) &&
             const DeepCollectionEquality()
@@ -182,15 +183,15 @@ class _$_NewsState implements _NewsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NewsStateCopyWith<_$_NewsState> get copyWith =>
-      __$$_NewsStateCopyWithImpl<_$_NewsState>(this, _$identity);
+  _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>
+      __$$NewsStateImplCopyWithImpl<_$NewsStateImpl>(this, _$identity);
 }
 
 abstract class _NewsState implements NewsState {
   const factory _NewsState(
       {final List<NewsItemData> specialGoodsList,
       final List<NewsItemData> ninimalList,
-      final List<NewsItemData> imminentList}) = _$_NewsState;
+      final List<NewsItemData> imminentList}) = _$NewsStateImpl;
 
   @override
   List<NewsItemData> get specialGoodsList;
@@ -200,6 +201,6 @@ abstract class _NewsState implements NewsState {
   List<NewsItemData> get imminentList;
   @override
   @JsonKey(ignore: true)
-  _$$_NewsStateCopyWith<_$_NewsState> get copyWith =>
+  _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -9,11 +9,11 @@ import 'package:nendoroid_db/ui/_common_widget/chip/memo_list_widget.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_info_edit_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/check_icon.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/wish_icon.dart';
-import 'package:nendoroid_db/ui/_common_widget/image_view/detail_Image_slider.dart';
+import 'package:nendoroid_db/ui/_common_widget/image_view/detail_image_slider.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 
 class DetailDialog extends ConsumerWidget {
-  const DetailDialog({Key? key, required this.nendoData}) : super(key: key);
+  const DetailDialog({super.key, required this.nendoData});
   final NendoData nendoData;
 
   @override
@@ -52,7 +52,7 @@ class DetailDialog extends ConsumerWidget {
                 padding: const EdgeInsets.only(
                   left: 20,
                   right: 20,
-                  top: 15,
+                  top: 5,
                   bottom: 10,
                 ),
                 child: Column(

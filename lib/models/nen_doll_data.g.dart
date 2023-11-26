@@ -6,8 +6,8 @@ part of 'nen_doll_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_NenDollData _$$_NenDollDataFromJson(Map<String, dynamic> json) =>
-    _$_NenDollData(
+_$NenDollDataImpl _$$NenDollDataImplFromJson(Map<String, dynamic> json) =>
+    _$NenDollDataImpl(
       gender: json['gender'] as String?,
       gscProductNum: json['gsc_productNum'] as int,
       image: json['image'] as String,
@@ -20,7 +20,7 @@ _$_NenDollData _$$_NenDollDataFromJson(Map<String, dynamic> json) =>
       type: json['type'] as String,
     );
 
-Map<String, dynamic> _$$_NenDollDataToJson(_$_NenDollData instance) =>
+Map<String, dynamic> _$$NenDollDataImplToJson(_$NenDollDataImpl instance) =>
     <String, dynamic>{
       'gender': instance.gender,
       'gsc_productNum': instance.gscProductNum,

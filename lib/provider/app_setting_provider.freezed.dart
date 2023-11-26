@@ -22,6 +22,7 @@ mixin _$AppSettingState {
   int get groupMethod => throw _privateConstructorUsedError;
   bool get hideUI => throw _privateConstructorUsedError;
   int get gridCount => throw _privateConstructorUsedError;
+  bool get autoPlay => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppSettingStateCopyWith<AppSettingState> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $AppSettingStateCopyWith<$Res> {
       bool showGroupHeader,
       int groupMethod,
       bool hideUI,
-      int gridCount});
+      int gridCount,
+      bool autoPlay});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$AppSettingStateCopyWithImpl<$Res, $Val extends AppSettingState>
     Object? groupMethod = null,
     Object? hideUI = null,
     Object? gridCount = null,
+    Object? autoPlay = null,
   }) {
     return _then(_value.copyWith(
       seedColor: null == seedColor
@@ -88,16 +91,20 @@ class _$AppSettingStateCopyWithImpl<$Res, $Val extends AppSettingState>
           ? _value.gridCount
           : gridCount // ignore: cast_nullable_to_non_nullable
               as int,
+      autoPlay: null == autoPlay
+          ? _value.autoPlay
+          : autoPlay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_AppSettingStateCopyWith<$Res>
+abstract class _$$AppSettingStateImplCopyWith<$Res>
     implements $AppSettingStateCopyWith<$Res> {
-  factory _$$_AppSettingStateCopyWith(
-          _$_AppSettingState value, $Res Function(_$_AppSettingState) then) =
-      __$$_AppSettingStateCopyWithImpl<$Res>;
+  factory _$$AppSettingStateImplCopyWith(_$AppSettingStateImpl value,
+          $Res Function(_$AppSettingStateImpl) then) =
+      __$$AppSettingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -106,15 +113,16 @@ abstract class _$$_AppSettingStateCopyWith<$Res>
       bool showGroupHeader,
       int groupMethod,
       bool hideUI,
-      int gridCount});
+      int gridCount,
+      bool autoPlay});
 }
 
 /// @nodoc
-class __$$_AppSettingStateCopyWithImpl<$Res>
-    extends _$AppSettingStateCopyWithImpl<$Res, _$_AppSettingState>
-    implements _$$_AppSettingStateCopyWith<$Res> {
-  __$$_AppSettingStateCopyWithImpl(
-      _$_AppSettingState _value, $Res Function(_$_AppSettingState) _then)
+class __$$AppSettingStateImplCopyWithImpl<$Res>
+    extends _$AppSettingStateCopyWithImpl<$Res, _$AppSettingStateImpl>
+    implements _$$AppSettingStateImplCopyWith<$Res> {
+  __$$AppSettingStateImplCopyWithImpl(
+      _$AppSettingStateImpl _value, $Res Function(_$AppSettingStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -126,8 +134,9 @@ class __$$_AppSettingStateCopyWithImpl<$Res>
     Object? groupMethod = null,
     Object? hideUI = null,
     Object? gridCount = null,
+    Object? autoPlay = null,
   }) {
-    return _then(_$_AppSettingState(
+    return _then(_$AppSettingStateImpl(
       seedColor: null == seedColor
           ? _value.seedColor
           : seedColor // ignore: cast_nullable_to_non_nullable
@@ -152,20 +161,25 @@ class __$$_AppSettingStateCopyWithImpl<$Res>
           ? _value.gridCount
           : gridCount // ignore: cast_nullable_to_non_nullable
               as int,
+      autoPlay: null == autoPlay
+          ? _value.autoPlay
+          : autoPlay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_AppSettingState implements _AppSettingState {
-  const _$_AppSettingState(
+class _$AppSettingStateImpl implements _AppSettingState {
+  const _$AppSettingStateImpl(
       {required this.seedColor,
       required this.brightness,
       required this.showGroupHeader,
       required this.groupMethod,
       required this.hideUI,
-      required this.gridCount});
+      required this.gridCount,
+      required this.autoPlay});
 
   @override
   final MaterialColor seedColor;
@@ -179,17 +193,19 @@ class _$_AppSettingState implements _AppSettingState {
   final bool hideUI;
   @override
   final int gridCount;
+  @override
+  final bool autoPlay;
 
   @override
   String toString() {
-    return 'AppSettingState(seedColor: $seedColor, brightness: $brightness, showGroupHeader: $showGroupHeader, groupMethod: $groupMethod, hideUI: $hideUI, gridCount: $gridCount)';
+    return 'AppSettingState(seedColor: $seedColor, brightness: $brightness, showGroupHeader: $showGroupHeader, groupMethod: $groupMethod, hideUI: $hideUI, gridCount: $gridCount, autoPlay: $autoPlay)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AppSettingState &&
+            other is _$AppSettingStateImpl &&
             (identical(other.seedColor, seedColor) ||
                 other.seedColor == seedColor) &&
             (identical(other.brightness, brightness) ||
@@ -200,18 +216,21 @@ class _$_AppSettingState implements _AppSettingState {
                 other.groupMethod == groupMethod) &&
             (identical(other.hideUI, hideUI) || other.hideUI == hideUI) &&
             (identical(other.gridCount, gridCount) ||
-                other.gridCount == gridCount));
+                other.gridCount == gridCount) &&
+            (identical(other.autoPlay, autoPlay) ||
+                other.autoPlay == autoPlay));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, seedColor, brightness,
-      showGroupHeader, groupMethod, hideUI, gridCount);
+      showGroupHeader, groupMethod, hideUI, gridCount, autoPlay);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppSettingStateCopyWith<_$_AppSettingState> get copyWith =>
-      __$$_AppSettingStateCopyWithImpl<_$_AppSettingState>(this, _$identity);
+  _$$AppSettingStateImplCopyWith<_$AppSettingStateImpl> get copyWith =>
+      __$$AppSettingStateImplCopyWithImpl<_$AppSettingStateImpl>(
+          this, _$identity);
 }
 
 abstract class _AppSettingState implements AppSettingState {
@@ -221,7 +240,8 @@ abstract class _AppSettingState implements AppSettingState {
       required final bool showGroupHeader,
       required final int groupMethod,
       required final bool hideUI,
-      required final int gridCount}) = _$_AppSettingState;
+      required final int gridCount,
+      required final bool autoPlay}) = _$AppSettingStateImpl;
 
   @override
   MaterialColor get seedColor;
@@ -236,7 +256,9 @@ abstract class _AppSettingState implements AppSettingState {
   @override
   int get gridCount;
   @override
+  bool get autoPlay;
+  @override
   @JsonKey(ignore: true)
-  _$$_AppSettingStateCopyWith<_$_AppSettingState> get copyWith =>
+  _$$AppSettingStateImplCopyWith<_$AppSettingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

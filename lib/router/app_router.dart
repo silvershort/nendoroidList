@@ -12,7 +12,7 @@ import 'package:nendoroid_db/ui/nendo/screen/nendo_web_screen.dart';
 import 'package:nendoroid_db/ui/news/screen/news_detail_screen.dart';
 import 'package:nendoroid_db/ui/news/screen/news_screen.dart';
 import 'package:nendoroid_db/ui/stats/screen/stats_screen.dart';
-import 'package:nendoroid_db/ui/_common_widget/image_view/image_detail_view.dart';
+import 'package:nendoroid_db/ui/nendo/screen/image_detail_screen.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -31,7 +31,7 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final List<String> attachList = state.extra as List<String>;
         final int initialIndex = state.uri.queryParameters['start'].toIntOrDefault;
-        return ImageDetailView(attachList: attachList, initialIndex: initialIndex);
+        return ImageDetailScreen(attachList: attachList, initialIndex: initialIndex);
       },
     ),
     GoRoute(

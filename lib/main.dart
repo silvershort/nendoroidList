@@ -16,6 +16,7 @@ import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
 import 'utilities/app_font.dart';
 
@@ -26,6 +27,7 @@ var logger = Logger(
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FlutterDownloader.initialize(debug: true);
 
   await Hive.initFlutter();
   Hive.registerAdapter(NendoDataAdapter());
@@ -41,7 +43,8 @@ void main() async {
     if (kDebugMode) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     } else {
-      runZonedGuarded<Future<void>>(() async {
+      runZonedGuarded<Future<void>>(
+        () async {
           FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
           FirebaseAnalytics.instance;
         },
@@ -69,7 +72,7 @@ void main() async {
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -77,8 +80,7 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        return MediaQuery.withNoTextScaling(
           child: child!,
         );
       },
@@ -109,7 +111,7 @@ class MyApp extends ConsumerWidget {
           surfaceTintColor: Colors.white,
           systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
             statusBarColor: Colors.black45,
-            statusBarIconBrightness: Brightness.light
+            statusBarIconBrightness: Brightness.light,
           ),
         ),
       ),

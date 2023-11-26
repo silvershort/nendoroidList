@@ -114,11 +114,11 @@ class _$NenDollDataCopyWithImpl<$Res, $Val extends NenDollData>
 }
 
 /// @nodoc
-abstract class _$$_NenDollDataCopyWith<$Res>
+abstract class _$$NenDollDataImplCopyWith<$Res>
     implements $NenDollDataCopyWith<$Res> {
-  factory _$$_NenDollDataCopyWith(
-          _$_NenDollData value, $Res Function(_$_NenDollData) then) =
-      __$$_NenDollDataCopyWithImpl<$Res>;
+  factory _$$NenDollDataImplCopyWith(
+          _$NenDollDataImpl value, $Res Function(_$NenDollDataImpl) then) =
+      __$$NenDollDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -133,11 +133,11 @@ abstract class _$$_NenDollDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NenDollDataCopyWithImpl<$Res>
-    extends _$NenDollDataCopyWithImpl<$Res, _$_NenDollData>
-    implements _$$_NenDollDataCopyWith<$Res> {
-  __$$_NenDollDataCopyWithImpl(
-      _$_NenDollData _value, $Res Function(_$_NenDollData) _then)
+class __$$NenDollDataImplCopyWithImpl<$Res>
+    extends _$NenDollDataCopyWithImpl<$Res, _$NenDollDataImpl>
+    implements _$$NenDollDataImplCopyWith<$Res> {
+  __$$NenDollDataImplCopyWithImpl(
+      _$NenDollDataImpl _value, $Res Function(_$NenDollDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -152,7 +152,7 @@ class __$$_NenDollDataCopyWithImpl<$Res>
     Object? series = null,
     Object? type = null,
   }) {
-    return _then(_$_NenDollData(
+    return _then(_$NenDollDataImpl(
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -191,8 +191,8 @@ class __$$_NenDollDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_NenDollData implements _NenDollData {
-  const _$_NenDollData(
+class _$NenDollDataImpl implements _NenDollData {
+  const _$NenDollDataImpl(
       {this.gender,
       @JsonKey(name: 'gsc_productNum') required this.gscProductNum,
       required this.image,
@@ -203,8 +203,8 @@ class _$_NenDollData implements _NenDollData {
       required this.type})
       : _releaseDate = releaseDate;
 
-  factory _$_NenDollData.fromJson(Map<String, dynamic> json) =>
-      _$$_NenDollDataFromJson(json);
+  factory _$NenDollDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NenDollDataImplFromJson(json);
 
   @override
   final String? gender;
@@ -242,7 +242,7 @@ class _$_NenDollData implements _NenDollData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NenDollData &&
+            other is _$NenDollDataImpl &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.gscProductNum, gscProductNum) ||
                 other.gscProductNum == gscProductNum) &&
@@ -271,12 +271,12 @@ class _$_NenDollData implements _NenDollData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NenDollDataCopyWith<_$_NenDollData> get copyWith =>
-      __$$_NenDollDataCopyWithImpl<_$_NenDollData>(this, _$identity);
+  _$$NenDollDataImplCopyWith<_$NenDollDataImpl> get copyWith =>
+      __$$NenDollDataImplCopyWithImpl<_$NenDollDataImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_NenDollDataToJson(
+    return _$$NenDollDataImplToJson(
       this,
     );
   }
@@ -291,10 +291,10 @@ abstract class _NenDollData implements NenDollData {
       required final int price,
       @JsonKey(name: 'release_date') final List<String>? releaseDate,
       required final Series series,
-      required final String type}) = _$_NenDollData;
+      required final String type}) = _$NenDollDataImpl;
 
   factory _NenDollData.fromJson(Map<String, dynamic> json) =
-      _$_NenDollData.fromJson;
+      _$NenDollDataImpl.fromJson;
 
   @override
   String? get gender;
@@ -316,6 +316,6 @@ abstract class _NenDollData implements NenDollData {
   String get type;
   @override
   @JsonKey(ignore: true)
-  _$$_NenDollDataCopyWith<_$_NenDollData> get copyWith =>
+  _$$NenDollDataImplCopyWith<_$NenDollDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

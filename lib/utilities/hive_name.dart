@@ -17,6 +17,7 @@ class HiveName {
   static const String appGroupMethodKey = "appGroupMethod";
   static const String appHideUIKey = "appHideUI";
   static const String appGridCountKey = "appGridCount";
+  static const String appImageAutoPlayKey = "appImageAutoPlay";
   static const String localDataVersionKey = "localDataVersion";
   static const String subscribeKey = "subscribeKey";
   static const String emailKey = "emailKey";

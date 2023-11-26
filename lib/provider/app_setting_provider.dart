@@ -19,6 +19,7 @@ class AppSettingState with _$AppSettingState {
     required int groupMethod,
     required bool hideUI,
     required int gridCount,
+    required bool autoPlay,
   }) = _AppSettingState;
 }
 
@@ -39,6 +40,7 @@ class AppSetting extends _$AppSetting {
       groupMethod: _appThemeBox.get(HiveName.appGroupMethodKey) ?? 0,
       hideUI: _appThemeBox.get(HiveName.appHideUIKey) ?? true,
       gridCount: _appThemeBox.get(HiveName.appGridCountKey) ?? 0,
+      autoPlay: _appThemeBox.get(HiveName.appImageAutoPlayKey) ?? true,
     );
   }
 
@@ -58,10 +60,12 @@ class AppSetting extends _$AppSetting {
     _appThemeBox.put(HiveName.appBrightnessIndexKey, darkMode ? 1 : 0);
   }
 
+  // 다크모드 사용 여부
   bool isUsedDarkMode() {
     return state.brightness == Brightness.dark ? true : false;
   }
 
+  // 리스트 그룹핑 여부 변경
   void setShowHeader(bool show) {
     state = state.copyWith(
       showGroupHeader: show
@@ -69,6 +73,7 @@ class AppSetting extends _$AppSetting {
     _appThemeBox.put(HiveName.appGroupHeaderShowKey, show);
   }
 
+  // 리스트 UI 숨김 여부 변경
   void setHideUI(bool hide) {
     state = state.copyWith(
         hideUI: hide
@@ -76,6 +81,7 @@ class AppSetting extends _$AppSetting {
     _appThemeBox.put(HiveName.appHideUIKey, hide);
   }
 
+  // 리스트 그리드 아이템 변경
   void setGridCount(bool add) {
     int newCount = add ? state.gridCount + 1 : state.gridCount - 1;
     if (newCount < 0) {
@@ -87,10 +93,19 @@ class AppSetting extends _$AppSetting {
     _appThemeBox.put(HiveName.appGridCountKey, newCount);
   }
 
+  // 리스트 그룹핑 방법 변경
   void setGroudMethod(int method) {
     state = state.copyWith(
       groupMethod: method,
     );
     _appThemeBox.put(HiveName.appGroupMethodKey, method);
+  }
+
+  // 상세보기 이미지 자동재생 여부 변경
+  void setAutoPlayKey(bool autoPlay) {
+    state = state.copyWith(
+      autoPlay: autoPlay
+    );
+    _appThemeBox.put(HiveName.appImageAutoPlayKey, autoPlay);
   }
 }

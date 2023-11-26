@@ -107,11 +107,11 @@ class _$FilterDataCopyWithImpl<$Res, $Val extends FilterData>
 }
 
 /// @nodoc
-abstract class _$$_FilterDataCopyWith<$Res>
+abstract class _$$FilterDataImplCopyWith<$Res>
     implements $FilterDataCopyWith<$Res> {
-  factory _$$_FilterDataCopyWith(
-          _$_FilterData value, $Res Function(_$_FilterData) then) =
-      __$$_FilterDataCopyWithImpl<$Res>;
+  factory _$$FilterDataImplCopyWith(
+          _$FilterDataImpl value, $Res Function(_$FilterDataImpl) then) =
+      __$$FilterDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -126,11 +126,11 @@ abstract class _$$_FilterDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_FilterDataCopyWithImpl<$Res>
-    extends _$FilterDataCopyWithImpl<$Res, _$_FilterData>
-    implements _$$_FilterDataCopyWith<$Res> {
-  __$$_FilterDataCopyWithImpl(
-      _$_FilterData _value, $Res Function(_$_FilterData) _then)
+class __$$FilterDataImplCopyWithImpl<$Res>
+    extends _$FilterDataCopyWithImpl<$Res, _$FilterDataImpl>
+    implements _$$FilterDataImplCopyWith<$Res> {
+  __$$FilterDataImplCopyWithImpl(
+      _$FilterDataImpl _value, $Res Function(_$FilterDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -145,7 +145,7 @@ class __$$_FilterDataCopyWithImpl<$Res>
     Object? etcFilter = null,
     Object? preOrderFilter = null,
   }) {
-    return _then(_$_FilterData(
+    return _then(_$FilterDataImpl(
       haveFilter: null == haveFilter
           ? _value.haveFilter
           : haveFilter // ignore: cast_nullable_to_non_nullable
@@ -184,8 +184,8 @@ class __$$_FilterDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FilterData extends _FilterData {
-  const _$_FilterData(
+class _$FilterDataImpl extends _FilterData {
+  const _$FilterDataImpl(
       {this.haveFilter = false,
       this.notHaveFilter = false,
       this.wishFilter = false,
@@ -230,7 +230,7 @@ class _$_FilterData extends _FilterData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FilterData &&
+            other is _$FilterDataImpl &&
             (identical(other.haveFilter, haveFilter) ||
                 other.haveFilter == haveFilter) &&
             (identical(other.notHaveFilter, notHaveFilter) ||
@@ -264,8 +264,8 @@ class _$_FilterData extends _FilterData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FilterDataCopyWith<_$_FilterData> get copyWith =>
-      __$$_FilterDataCopyWithImpl<_$_FilterData>(this, _$identity);
+  _$$FilterDataImplCopyWith<_$FilterDataImpl> get copyWith =>
+      __$$FilterDataImplCopyWithImpl<_$FilterDataImpl>(this, _$identity);
 }
 
 abstract class _FilterData extends FilterData {
@@ -277,7 +277,7 @@ abstract class _FilterData extends FilterData {
       final bool femaleFilter,
       final bool maleFilter,
       final bool etcFilter,
-      final bool preOrderFilter}) = _$_FilterData;
+      final bool preOrderFilter}) = _$FilterDataImpl;
   const _FilterData._() : super._();
 
   @override
@@ -298,6 +298,6 @@ abstract class _FilterData extends FilterData {
   bool get preOrderFilter;
   @override
   @JsonKey(ignore: true)
-  _$$_FilterDataCopyWith<_$_FilterData> get copyWith =>
+  _$$FilterDataImplCopyWith<_$FilterDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -63,22 +63,22 @@ class _$NendoGroupCopyWithImpl<$Res, $Val extends NendoGroup>
 }
 
 /// @nodoc
-abstract class _$$_NendoGroupCopyWith<$Res>
+abstract class _$$NendoGroupImplCopyWith<$Res>
     implements $NendoGroupCopyWith<$Res> {
-  factory _$$_NendoGroupCopyWith(
-          _$_NendoGroup value, $Res Function(_$_NendoGroup) then) =
-      __$$_NendoGroupCopyWithImpl<$Res>;
+  factory _$$NendoGroupImplCopyWith(
+          _$NendoGroupImpl value, $Res Function(_$NendoGroupImpl) then) =
+      __$$NendoGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, List<NendoData> nendoList});
 }
 
 /// @nodoc
-class __$$_NendoGroupCopyWithImpl<$Res>
-    extends _$NendoGroupCopyWithImpl<$Res, _$_NendoGroup>
-    implements _$$_NendoGroupCopyWith<$Res> {
-  __$$_NendoGroupCopyWithImpl(
-      _$_NendoGroup _value, $Res Function(_$_NendoGroup) _then)
+class __$$NendoGroupImplCopyWithImpl<$Res>
+    extends _$NendoGroupCopyWithImpl<$Res, _$NendoGroupImpl>
+    implements _$$NendoGroupImplCopyWith<$Res> {
+  __$$NendoGroupImplCopyWithImpl(
+      _$NendoGroupImpl _value, $Res Function(_$NendoGroupImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_NendoGroupCopyWithImpl<$Res>
     Object? name = null,
     Object? nendoList = null,
   }) {
-    return _then(_$_NendoGroup(
+    return _then(_$NendoGroupImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_NendoGroupCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NendoGroup implements _NendoGroup {
-  const _$_NendoGroup(
+class _$NendoGroupImpl implements _NendoGroup {
+  const _$NendoGroupImpl(
       {required this.name, required final List<NendoData> nendoList})
       : _nendoList = nendoList;
 
@@ -126,7 +126,7 @@ class _$_NendoGroup implements _NendoGroup {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NendoGroup &&
+            other is _$NendoGroupImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._nendoList, _nendoList));
@@ -139,14 +139,14 @@ class _$_NendoGroup implements _NendoGroup {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NendoGroupCopyWith<_$_NendoGroup> get copyWith =>
-      __$$_NendoGroupCopyWithImpl<_$_NendoGroup>(this, _$identity);
+  _$$NendoGroupImplCopyWith<_$NendoGroupImpl> get copyWith =>
+      __$$NendoGroupImplCopyWithImpl<_$NendoGroupImpl>(this, _$identity);
 }
 
 abstract class _NendoGroup implements NendoGroup {
   const factory _NendoGroup(
       {required final String name,
-      required final List<NendoData> nendoList}) = _$_NendoGroup;
+      required final List<NendoData> nendoList}) = _$NendoGroupImpl;
 
   @override
   String get name;
@@ -154,6 +154,6 @@ abstract class _NendoGroup implements NendoGroup {
   List<NendoData> get nendoList;
   @override
   @JsonKey(ignore: true)
-  _$$_NendoGroupCopyWith<_$_NendoGroup> get copyWith =>
+  _$$NendoGroupImplCopyWith<_$NendoGroupImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

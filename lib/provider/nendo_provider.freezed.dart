@@ -79,11 +79,11 @@ class _$NendoStateCopyWithImpl<$Res, $Val extends NendoState>
 }
 
 /// @nodoc
-abstract class _$$_NendoStateCopyWith<$Res>
+abstract class _$$NendoStateImplCopyWith<$Res>
     implements $NendoStateCopyWith<$Res> {
-  factory _$$_NendoStateCopyWith(
-          _$_NendoState value, $Res Function(_$_NendoState) then) =
-      __$$_NendoStateCopyWithImpl<$Res>;
+  factory _$$NendoStateImplCopyWith(
+          _$NendoStateImpl value, $Res Function(_$NendoStateImpl) then) =
+      __$$NendoStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_NendoStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NendoStateCopyWithImpl<$Res>
-    extends _$NendoStateCopyWithImpl<$Res, _$_NendoState>
-    implements _$$_NendoStateCopyWith<$Res> {
-  __$$_NendoStateCopyWithImpl(
-      _$_NendoState _value, $Res Function(_$_NendoState) _then)
+class __$$NendoStateImplCopyWithImpl<$Res>
+    extends _$NendoStateCopyWithImpl<$Res, _$NendoStateImpl>
+    implements _$$NendoStateImplCopyWith<$Res> {
+  __$$NendoStateImplCopyWithImpl(
+      _$NendoStateImpl _value, $Res Function(_$NendoStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_NendoStateCopyWithImpl<$Res>
     Object? filteredNendoList = null,
     Object? setList = null,
   }) {
-    return _then(_$_NendoState(
+    return _then(_$NendoStateImpl(
       nendoList: null == nendoList
           ? _value._nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
@@ -132,8 +132,8 @@ class __$$_NendoStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NendoState with DiagnosticableTreeMixin implements _NendoState {
-  const _$_NendoState(
+class _$NendoStateImpl with DiagnosticableTreeMixin implements _NendoState {
+  const _$NendoStateImpl(
       {final List<NendoData> nendoList = const [],
       final List<NendoData> nenDollList = const [],
       final List<NendoData> filteredNendoList = const [],
@@ -200,7 +200,7 @@ class _$_NendoState with DiagnosticableTreeMixin implements _NendoState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NendoState &&
+            other is _$NendoStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._nendoList, _nendoList) &&
             const DeepCollectionEquality()
@@ -221,8 +221,8 @@ class _$_NendoState with DiagnosticableTreeMixin implements _NendoState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NendoStateCopyWith<_$_NendoState> get copyWith =>
-      __$$_NendoStateCopyWithImpl<_$_NendoState>(this, _$identity);
+  _$$NendoStateImplCopyWith<_$NendoStateImpl> get copyWith =>
+      __$$NendoStateImplCopyWithImpl<_$NendoStateImpl>(this, _$identity);
 }
 
 abstract class _NendoState implements NendoState {
@@ -230,7 +230,7 @@ abstract class _NendoState implements NendoState {
       {final List<NendoData> nendoList,
       final List<NendoData> nenDollList,
       final List<NendoData> filteredNendoList,
-      final List<SetData> setList}) = _$_NendoState;
+      final List<SetData> setList}) = _$NendoStateImpl;
 
   @override
   List<NendoData> get nendoList;
@@ -242,6 +242,6 @@ abstract class _NendoState implements NendoState {
   List<SetData> get setList;
   @override
   @JsonKey(ignore: true)
-  _$$_NendoStateCopyWith<_$_NendoState> get copyWith =>
+  _$$NendoStateImplCopyWith<_$NendoStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

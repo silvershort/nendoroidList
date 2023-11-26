@@ -6,17 +6,17 @@ part of 'subscribe_data.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SubscribeDataAdapter extends TypeAdapter<_$_SubscribeData> {
+class SubscribeDataAdapter extends TypeAdapter<_$SubscribeDataImpl> {
   @override
   final int typeId = 4;
 
   @override
-  _$_SubscribeData read(BinaryReader reader) {
+  _$SubscribeDataImpl read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_SubscribeData(
+    return _$SubscribeDataImpl(
       twitterSubscribe: fields[0] as TwitterSubscribe,
       dcinsideSubscribe: fields[1] as DcinsideSubscribe,
       ruliwebSubscribe: fields[2] as RuliwebSubscribe,
@@ -24,7 +24,7 @@ class SubscribeDataAdapter extends TypeAdapter<_$_SubscribeData> {
   }
 
   @override
-  void write(BinaryWriter writer, _$_SubscribeData obj) {
+  void write(BinaryWriter writer, _$SubscribeDataImpl obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -46,17 +46,17 @@ class SubscribeDataAdapter extends TypeAdapter<_$_SubscribeData> {
           typeId == other.typeId;
 }
 
-class TwitterSubscribeAdapter extends TypeAdapter<_$_TwitterSubscribe> {
+class TwitterSubscribeAdapter extends TypeAdapter<_$TwitterSubscribeImpl> {
   @override
   final int typeId = 5;
 
   @override
-  _$_TwitterSubscribe read(BinaryReader reader) {
+  _$TwitterSubscribeImpl read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_TwitterSubscribe(
+    return _$TwitterSubscribeImpl(
       goodSmileJP: fields[0] as bool,
       goodSmileUS: fields[1] as bool,
       goodSmileKR: fields[2] as bool,
@@ -66,7 +66,7 @@ class TwitterSubscribeAdapter extends TypeAdapter<_$_TwitterSubscribe> {
   }
 
   @override
-  void write(BinaryWriter writer, _$_TwitterSubscribe obj) {
+  void write(BinaryWriter writer, _$TwitterSubscribeImpl obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
@@ -92,24 +92,24 @@ class TwitterSubscribeAdapter extends TypeAdapter<_$_TwitterSubscribe> {
           typeId == other.typeId;
 }
 
-class DcinsideSubscribeAdapter extends TypeAdapter<_$_DcinsideSubscribe> {
+class DcinsideSubscribeAdapter extends TypeAdapter<_$DcinsideSubscribeImpl> {
   @override
   final int typeId = 6;
 
   @override
-  _$_DcinsideSubscribe read(BinaryReader reader) {
+  _$DcinsideSubscribeImpl read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_DcinsideSubscribe(
+    return _$DcinsideSubscribeImpl(
       information: fields[0] as bool,
       review: fields[1] as bool,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_DcinsideSubscribe obj) {
+  void write(BinaryWriter writer, _$DcinsideSubscribeImpl obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
@@ -129,24 +129,24 @@ class DcinsideSubscribeAdapter extends TypeAdapter<_$_DcinsideSubscribe> {
           typeId == other.typeId;
 }
 
-class RuliwebSubscribeAdapter extends TypeAdapter<_$_RuliwebSubscribe> {
+class RuliwebSubscribeAdapter extends TypeAdapter<_$RuliwebSubscribeImpl> {
   @override
   final int typeId = 7;
 
   @override
-  _$_RuliwebSubscribe read(BinaryReader reader) {
+  _$RuliwebSubscribeImpl read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_RuliwebSubscribe(
+    return _$RuliwebSubscribeImpl(
       information: fields[0] as bool,
       review: fields[1] as bool,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_RuliwebSubscribe obj) {
+  void write(BinaryWriter writer, _$RuliwebSubscribeImpl obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)

@@ -63,22 +63,22 @@ class _$ListAppBarStateCopyWithImpl<$Res, $Val extends ListAppBarState>
 }
 
 /// @nodoc
-abstract class _$$_ListAppBarStateCopyWith<$Res>
+abstract class _$$ListAppBarStateImplCopyWith<$Res>
     implements $ListAppBarStateCopyWith<$Res> {
-  factory _$$_ListAppBarStateCopyWith(
-          _$_ListAppBarState value, $Res Function(_$_ListAppBarState) then) =
-      __$$_ListAppBarStateCopyWithImpl<$Res>;
+  factory _$$ListAppBarStateImplCopyWith(_$ListAppBarStateImpl value,
+          $Res Function(_$ListAppBarStateImpl) then) =
+      __$$ListAppBarStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isSearchMode, String searchText});
 }
 
 /// @nodoc
-class __$$_ListAppBarStateCopyWithImpl<$Res>
-    extends _$ListAppBarStateCopyWithImpl<$Res, _$_ListAppBarState>
-    implements _$$_ListAppBarStateCopyWith<$Res> {
-  __$$_ListAppBarStateCopyWithImpl(
-      _$_ListAppBarState _value, $Res Function(_$_ListAppBarState) _then)
+class __$$ListAppBarStateImplCopyWithImpl<$Res>
+    extends _$ListAppBarStateCopyWithImpl<$Res, _$ListAppBarStateImpl>
+    implements _$$ListAppBarStateImplCopyWith<$Res> {
+  __$$ListAppBarStateImplCopyWithImpl(
+      _$ListAppBarStateImpl _value, $Res Function(_$ListAppBarStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_ListAppBarStateCopyWithImpl<$Res>
     Object? isSearchMode = null,
     Object? searchText = null,
   }) {
-    return _then(_$_ListAppBarState(
+    return _then(_$ListAppBarStateImpl(
       isSearchMode: null == isSearchMode
           ? _value.isSearchMode
           : isSearchMode // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,9 @@ class __$$_ListAppBarStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ListAppBarState implements _ListAppBarState {
-  const _$_ListAppBarState({this.isSearchMode = false, this.searchText = ''});
+class _$ListAppBarStateImpl implements _ListAppBarState {
+  const _$ListAppBarStateImpl(
+      {this.isSearchMode = false, this.searchText = ''});
 
   @override
   @JsonKey()
@@ -121,7 +122,7 @@ class _$_ListAppBarState implements _ListAppBarState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ListAppBarState &&
+            other is _$ListAppBarStateImpl &&
             (identical(other.isSearchMode, isSearchMode) ||
                 other.isSearchMode == isSearchMode) &&
             (identical(other.searchText, searchText) ||
@@ -134,13 +135,15 @@ class _$_ListAppBarState implements _ListAppBarState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ListAppBarStateCopyWith<_$_ListAppBarState> get copyWith =>
-      __$$_ListAppBarStateCopyWithImpl<_$_ListAppBarState>(this, _$identity);
+  _$$ListAppBarStateImplCopyWith<_$ListAppBarStateImpl> get copyWith =>
+      __$$ListAppBarStateImplCopyWithImpl<_$ListAppBarStateImpl>(
+          this, _$identity);
 }
 
 abstract class _ListAppBarState implements ListAppBarState {
   const factory _ListAppBarState(
-      {final bool isSearchMode, final String searchText}) = _$_ListAppBarState;
+      {final bool isSearchMode,
+      final String searchText}) = _$ListAppBarStateImpl;
 
   @override
   bool get isSearchMode;
@@ -148,6 +151,6 @@ abstract class _ListAppBarState implements ListAppBarState {
   String get searchText;
   @override
   @JsonKey(ignore: true)
-  _$$_ListAppBarStateCopyWith<_$_ListAppBarState> get copyWith =>
+  _$$ListAppBarStateImplCopyWith<_$ListAppBarStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

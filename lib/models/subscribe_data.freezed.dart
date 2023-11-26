@@ -103,11 +103,11 @@ class _$SubscribeDataCopyWithImpl<$Res, $Val extends SubscribeData>
 }
 
 /// @nodoc
-abstract class _$$_SubscribeDataCopyWith<$Res>
+abstract class _$$SubscribeDataImplCopyWith<$Res>
     implements $SubscribeDataCopyWith<$Res> {
-  factory _$$_SubscribeDataCopyWith(
-          _$_SubscribeData value, $Res Function(_$_SubscribeData) then) =
-      __$$_SubscribeDataCopyWithImpl<$Res>;
+  factory _$$SubscribeDataImplCopyWith(
+          _$SubscribeDataImpl value, $Res Function(_$SubscribeDataImpl) then) =
+      __$$SubscribeDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -124,11 +124,11 @@ abstract class _$$_SubscribeDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SubscribeDataCopyWithImpl<$Res>
-    extends _$SubscribeDataCopyWithImpl<$Res, _$_SubscribeData>
-    implements _$$_SubscribeDataCopyWith<$Res> {
-  __$$_SubscribeDataCopyWithImpl(
-      _$_SubscribeData _value, $Res Function(_$_SubscribeData) _then)
+class __$$SubscribeDataImplCopyWithImpl<$Res>
+    extends _$SubscribeDataCopyWithImpl<$Res, _$SubscribeDataImpl>
+    implements _$$SubscribeDataImplCopyWith<$Res> {
+  __$$SubscribeDataImplCopyWithImpl(
+      _$SubscribeDataImpl _value, $Res Function(_$SubscribeDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -138,7 +138,7 @@ class __$$_SubscribeDataCopyWithImpl<$Res>
     Object? dcinsideSubscribe = null,
     Object? ruliwebSubscribe = null,
   }) {
-    return _then(_$_SubscribeData(
+    return _then(_$SubscribeDataImpl(
       twitterSubscribe: null == twitterSubscribe
           ? _value.twitterSubscribe
           : twitterSubscribe // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_SubscribeDataCopyWithImpl<$Res>
 /// @nodoc
 
 @HiveType(typeId: 4, adapterName: "SubscribeDataAdapter")
-class _$_SubscribeData implements _SubscribeData {
-  const _$_SubscribeData(
+class _$SubscribeDataImpl implements _SubscribeData {
+  const _$SubscribeDataImpl(
       {@HiveField(0) this.twitterSubscribe = const TwitterSubscribe(),
       @HiveField(1) this.dcinsideSubscribe = const DcinsideSubscribe(),
       @HiveField(2) this.ruliwebSubscribe = const RuliwebSubscribe()});
@@ -186,7 +186,7 @@ class _$_SubscribeData implements _SubscribeData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubscribeData &&
+            other is _$SubscribeDataImpl &&
             (identical(other.twitterSubscribe, twitterSubscribe) ||
                 other.twitterSubscribe == twitterSubscribe) &&
             (identical(other.dcinsideSubscribe, dcinsideSubscribe) ||
@@ -202,8 +202,8 @@ class _$_SubscribeData implements _SubscribeData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubscribeDataCopyWith<_$_SubscribeData> get copyWith =>
-      __$$_SubscribeDataCopyWithImpl<_$_SubscribeData>(this, _$identity);
+  _$$SubscribeDataImplCopyWith<_$SubscribeDataImpl> get copyWith =>
+      __$$SubscribeDataImplCopyWithImpl<_$SubscribeDataImpl>(this, _$identity);
 }
 
 abstract class _SubscribeData implements SubscribeData {
@@ -211,7 +211,7 @@ abstract class _SubscribeData implements SubscribeData {
           {@HiveField(0) final TwitterSubscribe twitterSubscribe,
           @HiveField(1) final DcinsideSubscribe dcinsideSubscribe,
           @HiveField(2) final RuliwebSubscribe ruliwebSubscribe}) =
-      _$_SubscribeData;
+      _$SubscribeDataImpl;
 
   @override
   @HiveField(0)
@@ -224,7 +224,7 @@ abstract class _SubscribeData implements SubscribeData {
   RuliwebSubscribe get ruliwebSubscribe;
   @override
   @JsonKey(ignore: true)
-  _$$_SubscribeDataCopyWith<_$_SubscribeData> get copyWith =>
+  _$$SubscribeDataImplCopyWith<_$SubscribeDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -305,11 +305,11 @@ class _$TwitterSubscribeCopyWithImpl<$Res, $Val extends TwitterSubscribe>
 }
 
 /// @nodoc
-abstract class _$$_TwitterSubscribeCopyWith<$Res>
+abstract class _$$TwitterSubscribeImplCopyWith<$Res>
     implements $TwitterSubscribeCopyWith<$Res> {
-  factory _$$_TwitterSubscribeCopyWith(
-          _$_TwitterSubscribe value, $Res Function(_$_TwitterSubscribe) then) =
-      __$$_TwitterSubscribeCopyWithImpl<$Res>;
+  factory _$$TwitterSubscribeImplCopyWith(_$TwitterSubscribeImpl value,
+          $Res Function(_$TwitterSubscribeImpl) then) =
+      __$$TwitterSubscribeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -321,11 +321,11 @@ abstract class _$$_TwitterSubscribeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TwitterSubscribeCopyWithImpl<$Res>
-    extends _$TwitterSubscribeCopyWithImpl<$Res, _$_TwitterSubscribe>
-    implements _$$_TwitterSubscribeCopyWith<$Res> {
-  __$$_TwitterSubscribeCopyWithImpl(
-      _$_TwitterSubscribe _value, $Res Function(_$_TwitterSubscribe) _then)
+class __$$TwitterSubscribeImplCopyWithImpl<$Res>
+    extends _$TwitterSubscribeCopyWithImpl<$Res, _$TwitterSubscribeImpl>
+    implements _$$TwitterSubscribeImplCopyWith<$Res> {
+  __$$TwitterSubscribeImplCopyWithImpl(_$TwitterSubscribeImpl _value,
+      $Res Function(_$TwitterSubscribeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -337,7 +337,7 @@ class __$$_TwitterSubscribeCopyWithImpl<$Res>
     Object? ninimal = null,
     Object? figureInfo = null,
   }) {
-    return _then(_$_TwitterSubscribe(
+    return _then(_$TwitterSubscribeImpl(
       goodSmileJP: null == goodSmileJP
           ? _value.goodSmileJP
           : goodSmileJP // ignore: cast_nullable_to_non_nullable
@@ -365,8 +365,8 @@ class __$$_TwitterSubscribeCopyWithImpl<$Res>
 /// @nodoc
 
 @HiveType(typeId: 5, adapterName: "TwitterSubscribeAdapter")
-class _$_TwitterSubscribe implements _TwitterSubscribe {
-  const _$_TwitterSubscribe(
+class _$TwitterSubscribeImpl implements _TwitterSubscribe {
+  const _$TwitterSubscribeImpl(
       {@HiveField(0) this.goodSmileJP = false,
       @HiveField(1) this.goodSmileUS = false,
       @HiveField(2) this.goodSmileKR = true,
@@ -403,7 +403,7 @@ class _$_TwitterSubscribe implements _TwitterSubscribe {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TwitterSubscribe &&
+            other is _$TwitterSubscribeImpl &&
             (identical(other.goodSmileJP, goodSmileJP) ||
                 other.goodSmileJP == goodSmileJP) &&
             (identical(other.goodSmileUS, goodSmileUS) ||
@@ -422,8 +422,9 @@ class _$_TwitterSubscribe implements _TwitterSubscribe {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TwitterSubscribeCopyWith<_$_TwitterSubscribe> get copyWith =>
-      __$$_TwitterSubscribeCopyWithImpl<_$_TwitterSubscribe>(this, _$identity);
+  _$$TwitterSubscribeImplCopyWith<_$TwitterSubscribeImpl> get copyWith =>
+      __$$TwitterSubscribeImplCopyWithImpl<_$TwitterSubscribeImpl>(
+          this, _$identity);
 }
 
 abstract class _TwitterSubscribe implements TwitterSubscribe {
@@ -432,7 +433,7 @@ abstract class _TwitterSubscribe implements TwitterSubscribe {
       @HiveField(1) final bool goodSmileUS,
       @HiveField(2) final bool goodSmileKR,
       @HiveField(3) final bool ninimal,
-      @HiveField(4) final bool figureInfo}) = _$_TwitterSubscribe;
+      @HiveField(4) final bool figureInfo}) = _$TwitterSubscribeImpl;
 
   @override
   @HiveField(0)
@@ -451,7 +452,7 @@ abstract class _TwitterSubscribe implements TwitterSubscribe {
   bool get figureInfo;
   @override
   @JsonKey(ignore: true)
-  _$$_TwitterSubscribeCopyWith<_$_TwitterSubscribe> get copyWith =>
+  _$$TwitterSubscribeImplCopyWith<_$TwitterSubscribeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -506,22 +507,22 @@ class _$DcinsideSubscribeCopyWithImpl<$Res, $Val extends DcinsideSubscribe>
 }
 
 /// @nodoc
-abstract class _$$_DcinsideSubscribeCopyWith<$Res>
+abstract class _$$DcinsideSubscribeImplCopyWith<$Res>
     implements $DcinsideSubscribeCopyWith<$Res> {
-  factory _$$_DcinsideSubscribeCopyWith(_$_DcinsideSubscribe value,
-          $Res Function(_$_DcinsideSubscribe) then) =
-      __$$_DcinsideSubscribeCopyWithImpl<$Res>;
+  factory _$$DcinsideSubscribeImplCopyWith(_$DcinsideSubscribeImpl value,
+          $Res Function(_$DcinsideSubscribeImpl) then) =
+      __$$DcinsideSubscribeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({@HiveField(0) bool information, @HiveField(1) bool review});
 }
 
 /// @nodoc
-class __$$_DcinsideSubscribeCopyWithImpl<$Res>
-    extends _$DcinsideSubscribeCopyWithImpl<$Res, _$_DcinsideSubscribe>
-    implements _$$_DcinsideSubscribeCopyWith<$Res> {
-  __$$_DcinsideSubscribeCopyWithImpl(
-      _$_DcinsideSubscribe _value, $Res Function(_$_DcinsideSubscribe) _then)
+class __$$DcinsideSubscribeImplCopyWithImpl<$Res>
+    extends _$DcinsideSubscribeCopyWithImpl<$Res, _$DcinsideSubscribeImpl>
+    implements _$$DcinsideSubscribeImplCopyWith<$Res> {
+  __$$DcinsideSubscribeImplCopyWithImpl(_$DcinsideSubscribeImpl _value,
+      $Res Function(_$DcinsideSubscribeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -530,7 +531,7 @@ class __$$_DcinsideSubscribeCopyWithImpl<$Res>
     Object? information = null,
     Object? review = null,
   }) {
-    return _then(_$_DcinsideSubscribe(
+    return _then(_$DcinsideSubscribeImpl(
       information: null == information
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
@@ -546,8 +547,8 @@ class __$$_DcinsideSubscribeCopyWithImpl<$Res>
 /// @nodoc
 
 @HiveType(typeId: 6, adapterName: "DcinsideSubscribeAdapter")
-class _$_DcinsideSubscribe implements _DcinsideSubscribe {
-  const _$_DcinsideSubscribe(
+class _$DcinsideSubscribeImpl implements _DcinsideSubscribe {
+  const _$DcinsideSubscribeImpl(
       {@HiveField(0) this.information = true,
       @HiveField(1) this.review = true});
 
@@ -569,7 +570,7 @@ class _$_DcinsideSubscribe implements _DcinsideSubscribe {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DcinsideSubscribe &&
+            other is _$DcinsideSubscribeImpl &&
             (identical(other.information, information) ||
                 other.information == information) &&
             (identical(other.review, review) || other.review == review));
@@ -581,15 +582,15 @@ class _$_DcinsideSubscribe implements _DcinsideSubscribe {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DcinsideSubscribeCopyWith<_$_DcinsideSubscribe> get copyWith =>
-      __$$_DcinsideSubscribeCopyWithImpl<_$_DcinsideSubscribe>(
+  _$$DcinsideSubscribeImplCopyWith<_$DcinsideSubscribeImpl> get copyWith =>
+      __$$DcinsideSubscribeImplCopyWithImpl<_$DcinsideSubscribeImpl>(
           this, _$identity);
 }
 
 abstract class _DcinsideSubscribe implements DcinsideSubscribe {
   const factory _DcinsideSubscribe(
       {@HiveField(0) final bool information,
-      @HiveField(1) final bool review}) = _$_DcinsideSubscribe;
+      @HiveField(1) final bool review}) = _$DcinsideSubscribeImpl;
 
   @override
   @HiveField(0)
@@ -599,7 +600,7 @@ abstract class _DcinsideSubscribe implements DcinsideSubscribe {
   bool get review;
   @override
   @JsonKey(ignore: true)
-  _$$_DcinsideSubscribeCopyWith<_$_DcinsideSubscribe> get copyWith =>
+  _$$DcinsideSubscribeImplCopyWith<_$DcinsideSubscribeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -654,22 +655,22 @@ class _$RuliwebSubscribeCopyWithImpl<$Res, $Val extends RuliwebSubscribe>
 }
 
 /// @nodoc
-abstract class _$$_RuliwebSubscribeCopyWith<$Res>
+abstract class _$$RuliwebSubscribeImplCopyWith<$Res>
     implements $RuliwebSubscribeCopyWith<$Res> {
-  factory _$$_RuliwebSubscribeCopyWith(
-          _$_RuliwebSubscribe value, $Res Function(_$_RuliwebSubscribe) then) =
-      __$$_RuliwebSubscribeCopyWithImpl<$Res>;
+  factory _$$RuliwebSubscribeImplCopyWith(_$RuliwebSubscribeImpl value,
+          $Res Function(_$RuliwebSubscribeImpl) then) =
+      __$$RuliwebSubscribeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({@HiveField(0) bool information, @HiveField(1) bool review});
 }
 
 /// @nodoc
-class __$$_RuliwebSubscribeCopyWithImpl<$Res>
-    extends _$RuliwebSubscribeCopyWithImpl<$Res, _$_RuliwebSubscribe>
-    implements _$$_RuliwebSubscribeCopyWith<$Res> {
-  __$$_RuliwebSubscribeCopyWithImpl(
-      _$_RuliwebSubscribe _value, $Res Function(_$_RuliwebSubscribe) _then)
+class __$$RuliwebSubscribeImplCopyWithImpl<$Res>
+    extends _$RuliwebSubscribeCopyWithImpl<$Res, _$RuliwebSubscribeImpl>
+    implements _$$RuliwebSubscribeImplCopyWith<$Res> {
+  __$$RuliwebSubscribeImplCopyWithImpl(_$RuliwebSubscribeImpl _value,
+      $Res Function(_$RuliwebSubscribeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -678,7 +679,7 @@ class __$$_RuliwebSubscribeCopyWithImpl<$Res>
     Object? information = null,
     Object? review = null,
   }) {
-    return _then(_$_RuliwebSubscribe(
+    return _then(_$RuliwebSubscribeImpl(
       information: null == information
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
@@ -694,8 +695,8 @@ class __$$_RuliwebSubscribeCopyWithImpl<$Res>
 /// @nodoc
 
 @HiveType(typeId: 7, adapterName: "RuliwebSubscribeAdapter")
-class _$_RuliwebSubscribe implements _RuliwebSubscribe {
-  const _$_RuliwebSubscribe(
+class _$RuliwebSubscribeImpl implements _RuliwebSubscribe {
+  const _$RuliwebSubscribeImpl(
       {@HiveField(0) this.information = true,
       @HiveField(1) this.review = true});
 
@@ -717,7 +718,7 @@ class _$_RuliwebSubscribe implements _RuliwebSubscribe {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RuliwebSubscribe &&
+            other is _$RuliwebSubscribeImpl &&
             (identical(other.information, information) ||
                 other.information == information) &&
             (identical(other.review, review) || other.review == review));
@@ -729,14 +730,15 @@ class _$_RuliwebSubscribe implements _RuliwebSubscribe {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RuliwebSubscribeCopyWith<_$_RuliwebSubscribe> get copyWith =>
-      __$$_RuliwebSubscribeCopyWithImpl<_$_RuliwebSubscribe>(this, _$identity);
+  _$$RuliwebSubscribeImplCopyWith<_$RuliwebSubscribeImpl> get copyWith =>
+      __$$RuliwebSubscribeImplCopyWithImpl<_$RuliwebSubscribeImpl>(
+          this, _$identity);
 }
 
 abstract class _RuliwebSubscribe implements RuliwebSubscribe {
   const factory _RuliwebSubscribe(
       {@HiveField(0) final bool information,
-      @HiveField(1) final bool review}) = _$_RuliwebSubscribe;
+      @HiveField(1) final bool review}) = _$RuliwebSubscribeImpl;
 
   @override
   @HiveField(0)
@@ -746,6 +748,6 @@ abstract class _RuliwebSubscribe implements RuliwebSubscribe {
   bool get review;
   @override
   @JsonKey(ignore: true)
-  _$$_RuliwebSubscribeCopyWith<_$_RuliwebSubscribe> get copyWith =>
+  _$$RuliwebSubscribeImplCopyWith<_$RuliwebSubscribeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

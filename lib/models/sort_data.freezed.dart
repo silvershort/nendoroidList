@@ -62,21 +62,22 @@ class _$SortDataCopyWithImpl<$Res, $Val extends SortData>
 }
 
 /// @nodoc
-abstract class _$$_SortDataCopyWith<$Res> implements $SortDataCopyWith<$Res> {
-  factory _$$_SortDataCopyWith(
-          _$_SortData value, $Res Function(_$_SortData) then) =
-      __$$_SortDataCopyWithImpl<$Res>;
+abstract class _$$SortDataImplCopyWith<$Res>
+    implements $SortDataCopyWith<$Res> {
+  factory _$$SortDataImplCopyWith(
+          _$SortDataImpl value, $Res Function(_$SortDataImpl) then) =
+      __$$SortDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({SortingOrder sortingOrder, SortingMethod sortingMethod});
 }
 
 /// @nodoc
-class __$$_SortDataCopyWithImpl<$Res>
-    extends _$SortDataCopyWithImpl<$Res, _$_SortData>
-    implements _$$_SortDataCopyWith<$Res> {
-  __$$_SortDataCopyWithImpl(
-      _$_SortData _value, $Res Function(_$_SortData) _then)
+class __$$SortDataImplCopyWithImpl<$Res>
+    extends _$SortDataCopyWithImpl<$Res, _$SortDataImpl>
+    implements _$$SortDataImplCopyWith<$Res> {
+  __$$SortDataImplCopyWithImpl(
+      _$SortDataImpl _value, $Res Function(_$SortDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -85,7 +86,7 @@ class __$$_SortDataCopyWithImpl<$Res>
     Object? sortingOrder = null,
     Object? sortingMethod = null,
   }) {
-    return _then(_$_SortData(
+    return _then(_$SortDataImpl(
       sortingOrder: null == sortingOrder
           ? _value.sortingOrder
           : sortingOrder // ignore: cast_nullable_to_non_nullable
@@ -100,8 +101,8 @@ class __$$_SortDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SortData extends _SortData {
-  const _$_SortData(
+class _$SortDataImpl extends _SortData {
+  const _$SortDataImpl(
       {this.sortingOrder = const DESC(),
       this.sortingMethod = const SortingMethodNum()})
       : super._();
@@ -122,7 +123,7 @@ class _$_SortData extends _SortData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SortData &&
+            other is _$SortDataImpl &&
             (identical(other.sortingOrder, sortingOrder) ||
                 other.sortingOrder == sortingOrder) &&
             (identical(other.sortingMethod, sortingMethod) ||
@@ -135,14 +136,14 @@ class _$_SortData extends _SortData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SortDataCopyWith<_$_SortData> get copyWith =>
-      __$$_SortDataCopyWithImpl<_$_SortData>(this, _$identity);
+  _$$SortDataImplCopyWith<_$SortDataImpl> get copyWith =>
+      __$$SortDataImplCopyWithImpl<_$SortDataImpl>(this, _$identity);
 }
 
 abstract class _SortData extends SortData {
   const factory _SortData(
       {final SortingOrder sortingOrder,
-      final SortingMethod sortingMethod}) = _$_SortData;
+      final SortingMethod sortingMethod}) = _$SortDataImpl;
   const _SortData._() : super._();
 
   @override
@@ -151,6 +152,6 @@ abstract class _SortData extends SortData {
   SortingMethod get sortingMethod;
   @override
   @JsonKey(ignore: true)
-  _$$_SortDataCopyWith<_$_SortData> get copyWith =>
+  _$$SortDataImplCopyWith<_$SortDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

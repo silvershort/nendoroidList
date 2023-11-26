@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
+import 'package:nendoroid_db/provider/file_download_provider.dart';
 import 'package:nendoroid_db/provider/nendo_list_scroll_controller_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/animation/scroll_to_hide_widget.dart';
 import 'package:nendoroid_db/ui/base/controller/dashboard_controller.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({
-    Key? key,
+    super.key,
     required this.navigationShell,
-  }) : super(key: key);
+  });
   final StatefulNavigationShell navigationShell;
 
   @override
@@ -36,6 +38,17 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     ref.listen(dashboardControllerProvider, (previous, next) {
       if (next) {
         ref.read(dashboardControllerProvider.notifier).appStartCheckList(context);
+      }
+    });
+
+    // 파일 다운로드 상태가 변경될 경우 토스트 메시지를 출력해준다.
+    ref.listen(fileDownloadProvider, (previous, next) {
+      switch (next) {
+        case DownloadSuccess():
+          Fluttertoast.showToast(msg: '다운로드에 성공했습니다.');
+        case DownloadError():
+          Fluttertoast.showToast(msg: '다운로드에 실패했습니다.');
+        case DownloadIdle():
       }
     });
 

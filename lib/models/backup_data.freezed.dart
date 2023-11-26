@@ -105,11 +105,11 @@ class _$BackupDataCopyWithImpl<$Res, $Val extends BackupData>
 }
 
 /// @nodoc
-abstract class _$$_BackupDataCopyWith<$Res>
+abstract class _$$BackupDataImplCopyWith<$Res>
     implements $BackupDataCopyWith<$Res> {
-  factory _$$_BackupDataCopyWith(
-          _$_BackupData value, $Res Function(_$_BackupData) then) =
-      __$$_BackupDataCopyWithImpl<$Res>;
+  factory _$$BackupDataImplCopyWith(
+          _$BackupDataImpl value, $Res Function(_$BackupDataImpl) then) =
+      __$$BackupDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -123,11 +123,11 @@ abstract class _$$_BackupDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BackupDataCopyWithImpl<$Res>
-    extends _$BackupDataCopyWithImpl<$Res, _$_BackupData>
-    implements _$$_BackupDataCopyWith<$Res> {
-  __$$_BackupDataCopyWithImpl(
-      _$_BackupData _value, $Res Function(_$_BackupData) _then)
+class __$$BackupDataImplCopyWithImpl<$Res>
+    extends _$BackupDataCopyWithImpl<$Res, _$BackupDataImpl>
+    implements _$$BackupDataImplCopyWith<$Res> {
+  __$$BackupDataImplCopyWithImpl(
+      _$BackupDataImpl _value, $Res Function(_$BackupDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -141,7 +141,7 @@ class __$$_BackupDataCopyWithImpl<$Res>
     Object? commitDate = null,
     Object? backupDate = null,
   }) {
-    return _then(_$_BackupData(
+    return _then(_$BackupDataImpl(
       nendoList: null == nendoList
           ? _value._nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
@@ -176,8 +176,8 @@ class __$$_BackupDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BackupData implements _BackupData {
-  const _$_BackupData(
+class _$BackupDataImpl implements _BackupData {
+  const _$BackupDataImpl(
       {required final List<NendoData> nendoList,
       final List<NendoData> nenDollList = const [],
       required final List<SetData> setList,
@@ -189,8 +189,8 @@ class _$_BackupData implements _BackupData {
         _nenDollList = nenDollList,
         _setList = setList;
 
-  factory _$_BackupData.fromJson(Map<String, dynamic> json) =>
-      _$$_BackupDataFromJson(json);
+  factory _$BackupDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BackupDataImplFromJson(json);
 
   final List<NendoData> _nendoList;
   @override
@@ -235,7 +235,7 @@ class _$_BackupData implements _BackupData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BackupData &&
+            other is _$BackupDataImpl &&
             const DeepCollectionEquality()
                 .equals(other._nendoList, _nendoList) &&
             const DeepCollectionEquality()
@@ -265,12 +265,12 @@ class _$_BackupData implements _BackupData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BackupDataCopyWith<_$_BackupData> get copyWith =>
-      __$$_BackupDataCopyWithImpl<_$_BackupData>(this, _$identity);
+  _$$BackupDataImplCopyWith<_$BackupDataImpl> get copyWith =>
+      __$$BackupDataImplCopyWithImpl<_$BackupDataImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BackupDataToJson(
+    return _$$BackupDataImplToJson(
       this,
     );
   }
@@ -284,10 +284,10 @@ abstract class _BackupData implements BackupData {
       required final String email,
       required final String commitHash,
       required final String commitDate,
-      required final String backupDate}) = _$_BackupData;
+      required final String backupDate}) = _$BackupDataImpl;
 
   factory _BackupData.fromJson(Map<String, dynamic> json) =
-      _$_BackupData.fromJson;
+      _$BackupDataImpl.fromJson;
 
   @override
   List<NendoData> get nendoList;
@@ -305,6 +305,6 @@ abstract class _BackupData implements BackupData {
   String get backupDate;
   @override
   @JsonKey(ignore: true)
-  _$$_BackupDataCopyWith<_$_BackupData> get copyWith =>
+  _$$BackupDataImplCopyWith<_$BackupDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

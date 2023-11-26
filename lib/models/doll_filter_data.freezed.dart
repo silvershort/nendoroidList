@@ -79,11 +79,11 @@ class _$DollFilterDataCopyWithImpl<$Res, $Val extends DollFilterData>
 }
 
 /// @nodoc
-abstract class _$$_DollFilterDataCopyWith<$Res>
+abstract class _$$DollFilterDataImplCopyWith<$Res>
     implements $DollFilterDataCopyWith<$Res> {
-  factory _$$_DollFilterDataCopyWith(
-          _$_DollFilterData value, $Res Function(_$_DollFilterData) then) =
-      __$$_DollFilterDataCopyWithImpl<$Res>;
+  factory _$$DollFilterDataImplCopyWith(_$DollFilterDataImpl value,
+          $Res Function(_$DollFilterDataImpl) then) =
+      __$$DollFilterDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_DollFilterDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DollFilterDataCopyWithImpl<$Res>
-    extends _$DollFilterDataCopyWithImpl<$Res, _$_DollFilterData>
-    implements _$$_DollFilterDataCopyWith<$Res> {
-  __$$_DollFilterDataCopyWithImpl(
-      _$_DollFilterData _value, $Res Function(_$_DollFilterData) _then)
+class __$$DollFilterDataImplCopyWithImpl<$Res>
+    extends _$DollFilterDataCopyWithImpl<$Res, _$DollFilterDataImpl>
+    implements _$$DollFilterDataImplCopyWith<$Res> {
+  __$$DollFilterDataImplCopyWithImpl(
+      _$DollFilterDataImpl _value, $Res Function(_$DollFilterDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_DollFilterDataCopyWithImpl<$Res>
     Object? customizingFilter = null,
     Object? dollFilter = null,
   }) {
-    return _then(_$_DollFilterData(
+    return _then(_$DollFilterDataImpl(
       bodyFilter: null == bodyFilter
           ? _value.bodyFilter
           : bodyFilter // ignore: cast_nullable_to_non_nullable
@@ -132,8 +132,8 @@ class __$$_DollFilterDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DollFilterData extends _DollFilterData {
-  const _$_DollFilterData(
+class _$DollFilterDataImpl extends _DollFilterData {
+  const _$DollFilterDataImpl(
       {this.bodyFilter = true,
       this.clothesFilter = true,
       this.customizingFilter = true,
@@ -162,7 +162,7 @@ class _$_DollFilterData extends _DollFilterData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DollFilterData &&
+            other is _$DollFilterDataImpl &&
             (identical(other.bodyFilter, bodyFilter) ||
                 other.bodyFilter == bodyFilter) &&
             (identical(other.clothesFilter, clothesFilter) ||
@@ -180,8 +180,9 @@ class _$_DollFilterData extends _DollFilterData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DollFilterDataCopyWith<_$_DollFilterData> get copyWith =>
-      __$$_DollFilterDataCopyWithImpl<_$_DollFilterData>(this, _$identity);
+  _$$DollFilterDataImplCopyWith<_$DollFilterDataImpl> get copyWith =>
+      __$$DollFilterDataImplCopyWithImpl<_$DollFilterDataImpl>(
+          this, _$identity);
 }
 
 abstract class _DollFilterData extends DollFilterData {
@@ -189,7 +190,7 @@ abstract class _DollFilterData extends DollFilterData {
       {final bool bodyFilter,
       final bool clothesFilter,
       final bool customizingFilter,
-      final bool dollFilter}) = _$_DollFilterData;
+      final bool dollFilter}) = _$DollFilterDataImpl;
   const _DollFilterData._() : super._();
 
   @override
@@ -202,6 +203,6 @@ abstract class _DollFilterData extends DollFilterData {
   bool get dollFilter;
   @override
   @JsonKey(ignore: true)
-  _$$_DollFilterDataCopyWith<_$_DollFilterData> get copyWith =>
+  _$$DollFilterDataImplCopyWith<_$DollFilterDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
