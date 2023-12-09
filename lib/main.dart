@@ -1,14 +1,13 @@
-import 'dart:async';
-
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logger/logger.dart';
+import 'package:nendoroid_db/firebase_options.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
@@ -16,7 +15,6 @@ import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 
 import 'utilities/app_font.dart';
 
@@ -26,7 +24,7 @@ var logger = Logger(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FlutterDownloader.initialize(debug: true);
 
   await Hive.initFlutter();
@@ -39,19 +37,30 @@ void main() async {
   Hive.registerAdapter(RuliwebSubscribeAdapter());
   Hive.registerAdapter(DcinsideSubscribeAdapter());
 
-  if (!kIsWeb) {
-    if (kDebugMode) {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  const fatalError = true;
+  // Non-async exceptions
+  FlutterError.onError = (errorDetails) {
+    if (fatalError) {
+      // If you want to record a "fatal" exception
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      // ignore: dead_code
     } else {
-      runZonedGuarded<Future<void>>(
-        () async {
-          FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-          FirebaseAnalytics.instance;
-        },
-        (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack, fatal: true),
-      );
+      // If you want to record a "non-fatal" exception
+      FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
     }
-  }
+  };
+  // Async exceptions
+  PlatformDispatcher.instance.onError = (error, stack) {
+    if (fatalError) {
+      // If you want to record a "fatal" exception
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      // ignore: dead_code
+    } else {
+      // If you want to record a "non-fatal" exception
+      FirebaseCrashlytics.instance.recordError(error, stack);
+    }
+    return true;
+  };
 
   runApp(ProviderScope(
     overrides: [
