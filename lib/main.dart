@@ -131,7 +131,7 @@ class MyApp extends ConsumerWidget {
             seedColor: settingState.seedColor,
             brightness: settingState.brightness,
           ).surfaceVariant,
-          surfaceTintColor: Colors.white,
+          surfaceTintColor: Colors.transparent,
           systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
             statusBarColor: Colors.black45,
             statusBarIconBrightness: Brightness.light,
