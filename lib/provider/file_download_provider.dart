@@ -57,7 +57,7 @@ class FileDownload extends _$FileDownload {
         saveInPublicStorage: true,
         showNotification: fileDownloadData.showNotification,
       );
-      logger.i('taskId : $result}');
+      talker.info('taskId : $result}');
       // 다운로드 성공 상태를 프로바이더를 listen하고 있는 객체들에게 전달해주고 바로 다시 Idle 상태로 전환해준다.
       if (result != null) {
         state = DownloadSuccess();
@@ -83,7 +83,7 @@ class FileDownload extends _$FileDownload {
       ));
       final List<String?> result = await Future.wait(futureList);
 
-      logger.i('taskId : $result}');
+      talker.info('taskId : $result}');
       state = DownloadSuccess();
       state = DownloadIdle();
       return result;

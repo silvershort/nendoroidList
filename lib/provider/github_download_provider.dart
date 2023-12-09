@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:async/async.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -32,9 +30,9 @@ class GithubDownload extends _$GithubDownload {
   List<String> _customizingNameList = [];
   List<String> _dollNameList = [];
 
-  List<SetData> _setList = [];
-  List<NendoData> _nendoList = [];
-  List<NendoData> _nenDollList = [];
+  final List<SetData> _setList = [];
+  final List<NendoData> _nendoList = [];
+  final List<NendoData> _nenDollList = [];
 
   // 폴더목록 필터링을 위한 정규식
   final RegExp _folderReg = RegExp(r"[0-9][-][0-9]");
@@ -51,7 +49,7 @@ class GithubDownload extends _$GithubDownload {
       await fetchJsonNameList(currentIndex: i);
       await fetchNendoList(jsonList: _nameList, currentIndex: i);
     }
-    logger.d('--------------------@@@ 넨도로이드 데이터 다운 완료');
+    talker.debug('--------------------@@@ 넨도로이드 데이터 다운 완료');
     saveLocalDB();
   }
 
@@ -63,7 +61,7 @@ class GithubDownload extends _$GithubDownload {
         _folderNameList = value.map((e) => e.name).where((element) => _folderReg.hasMatch(element)).toList();
       },
       error: (error, stackTrace) {
-        logger.e(error.toString(), stackTrace: stackTrace);
+        talker.error(error.toString(), error, stackTrace);
         return Future.error(error, stackTrace);
       },
     );
@@ -76,7 +74,7 @@ class GithubDownload extends _$GithubDownload {
         _setNameList = value.map((e) => e.name).toList();
       },
       error: (error, stackTrace) {
-        logger.e(error.toString(), stackTrace: stackTrace);
+        talker.error(error.toString(), error, stackTrace);
         return Future.error(error, stackTrace);
       },
     );
@@ -90,7 +88,7 @@ class GithubDownload extends _$GithubDownload {
         _nameList = value.map((e) => e.name).toList();
       },
       error: (error, stackTrace) {
-        logger.e(error.toString(), stackTrace: stackTrace);
+        talker.error(error.toString(), error, stackTrace);
         return Future.error(error, stackTrace);
       },
     );
@@ -108,7 +106,7 @@ class GithubDownload extends _$GithubDownload {
       result = await _githubService.getNenDollJsonList(dollType: DollType.doll);
       _dollNameList = result.map((e) => e.name).toList();
     } catch (error, stackTrace) {
-      logger.e(error.toString(), stackTrace: stackTrace);
+      talker.error(error.toString(), error, stackTrace);
     }
   }
 
@@ -164,7 +162,7 @@ class GithubDownload extends _$GithubDownload {
       _nenDollList.addAll(result.map((e) => NendoData.fromNenDoll(e)));
       return _nenDollList;
     } catch (error, stackTrace) {
-      logger.e(error.toString(), stackTrace: stackTrace);
+      talker.error(error.toString(), error, stackTrace);
       return Future.error(error, stackTrace);
     }
   }
@@ -180,7 +178,7 @@ class GithubDownload extends _$GithubDownload {
 
   // 입력받은 리스트를 로컬DB에 저장해준다.
   Future<void> saveLocalDB() async {
-    logger.d('--------------------@@@ 로컬데이터 저장 완료');
+    talker.debug('--------------------@@@ 로컬데이터 저장 완료');
     final Box nendoBox = ref.read(hiveProvider).nendoBox;
 
     for (NendoData data in _nendoList) {
@@ -207,11 +205,11 @@ class GithubDownload extends _$GithubDownload {
         );
     result.when(
       success: (value) {
-        logger.i('초기데이터 업로드에 성공했습니다.');
+        talker.info('초기데이터 업로드에 성공했습니다.');
         return;
       },
       error: (error, stackTrace) {
-        logger.e(error.toString(), stackTrace: stackTrace);
+        talker.error(error.toString(), error, stackTrace);
         return Future.error(error, stackTrace);
       },
     );

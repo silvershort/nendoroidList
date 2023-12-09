@@ -21,13 +21,13 @@ class ApiError with _$ApiError {
 Future<ApiResult<T>> apiCall<T>({required Future<T> request}) async {
   try {
     final T result = await request;
-    logger.d(result.toString());
+    talker.debug(result.toString());
     return ApiResult<T>.success(result);
   } on DioException catch (error, stackTrace){
-    logger.e(ApiError(code: error.response?.statusCode ?? 0, message: error.message ?? ''), stackTrace: stackTrace);
+    talker.error(error.message ?? '', error, stackTrace);
     return ApiResult.error(ApiError(code: error.response?.statusCode ?? 0, message: error.message ?? ''), stackTrace);
   } catch (error, stackTrace) {
-    logger.e(error: error, stackTrace);
+    talker.error(error.toString(), error, stackTrace);
     return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
   }
 }

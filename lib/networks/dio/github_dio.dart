@@ -19,7 +19,7 @@ Dio githubDio(GithubDioRef ref) {
         ),
         InterceptorsWrapper(
           onResponse: (res, handler) async {
-            logger.i('res : ${res.data.toString()}');
+            talker.info('res : ${res.data.toString()}');
             if (res.headers.map[Headers.contentTypeHeader]?.first.startsWith('text') == true) {
               res.data = jsonDecode(res.data as String);
               return handler.next(res);

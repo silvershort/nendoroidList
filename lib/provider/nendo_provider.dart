@@ -86,8 +86,8 @@ class Nendo extends _$Nendo {
     final int remoteVersion = ref.read(remoteConfigManagerProvider).getFirestoreVersion();
     final int localVersion = _settingBox.get(HiveName.localDataVersionKey, defaultValue: 0);
 
-    logger.i('remoteVersion : $remoteVersion');
-    logger.i('localVersion : $localVersion');
+    talker.info('remoteVersion : $remoteVersion');
+    talker.info('localVersion : $localVersion');
 
     // 업데이트가 필요함
     if (remoteVersion > localVersion) {
@@ -130,7 +130,7 @@ class Nendo extends _$Nendo {
         state = AsyncData(nendoState);
         return nendoState;
       } catch (error, stackTrace) {
-        logger.e(error, stackTrace: stackTrace);
+        talker.error(error, error, stackTrace);
         state = AsyncError(error, stackTrace);
         return Future.error(error, stackTrace);
       }
@@ -143,15 +143,15 @@ class Nendo extends _$Nendo {
 
     return result.when(
       success: (value) async {
-        logger.i(value.setList.toString());
+        talker.info(value.setList.toString());
 
         List<NendoData> sortList = [...value.nendoList];
         sortList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
-        logger.i('nendolist : ${sortList.length}');
+        talker.info('nendolist : ${sortList.length}');
 
         // 임시 백업 데이터가 있을 경우 백업을 진행
         if (_backupNendoList.isNotEmpty) {
-          logger.i("backupData : ${_backupNendoList.toString()}");
+          talker.info("backupData : ${_backupNendoList.toString()}");
 
           for (int i = _backupNendoList.length - 1; i >= 0; i--) {
             final backupData = _backupNendoList[i];

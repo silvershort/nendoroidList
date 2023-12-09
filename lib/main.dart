@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:logger/logger.dart';
 import 'package:nendoroid_db/firebase_options.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
@@ -15,12 +14,11 @@ import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import 'utilities/app_font.dart';
 
-var logger = Logger(
-  printer: PrettyPrinter(),
-);
+final talker = TalkerFlutter.init();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

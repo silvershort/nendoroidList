@@ -69,8 +69,7 @@ class FirebaseRepository {
       }
       return backupData!;
     } catch (error, stackTrace) {
-      logger.e(error.toString());
-      logger.e(stackTrace.toString());
+      talker.error(error.toString(), error, stackTrace);
       // 넨돌 데이터 다운로드만 실패했을 경우
       if (backupData != null) {
         return backupData;

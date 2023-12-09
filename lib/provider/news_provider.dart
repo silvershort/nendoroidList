@@ -40,7 +40,7 @@ class News extends _$News {
         return value;
       },
       error: (error, stackTrace) {
-        logger.e(error.message);
+        talker.error(error.message, error, stackTrace);
         return [];
       },
     );
@@ -54,7 +54,7 @@ class News extends _$News {
         return value;
       },
       error: (error, stackTrace) {
-        logger.e(error.message);
+        talker.error(error.message, error, stackTrace);
         return [];
       },
     );
@@ -68,7 +68,7 @@ class News extends _$News {
         return value;
       },
       error: (error, stackTrace) {
-        logger.e(error.message);
+        talker.error(error.message, error, stackTrace);
         return [];
       },
     );

@@ -37,14 +37,14 @@ class Auth extends _$Auth {
     // 자동 로그인 처리
     final User? user = _authentication.currentUser;
     if (user != null) {
-      logger.i('Auto login success : ${user.email}');
+      talker.info('Auto login success : ${user.email}');
     }
     return user;
   }
 
   Future<void> initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) async {
-      logger.i('dynamicLinkData : ${dynamicLinkData.link}');
+      talker.info('dynamicLinkData : ${dynamicLinkData.link}');
       if (FirebaseAuth.instance.isSignInWithEmailLink(dynamicLinkData.link.toString())) {
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
           email: _settingBox.get(HiveName.emailKey),
@@ -55,14 +55,14 @@ class Auth extends _$Auth {
 
       }
     }).onError((error) {
-      logger.e(error.toString());
+      talker.error(error.toString(), error);
     });
 
     // get any initial links
     final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
     if (initialLink != null) {
       if (FirebaseAuth.instance.isSignInWithEmailLink(initialLink.link.toString())) {
-        logger.i('initialLink : ${initialLink.link}');
+        talker.info('initialLink : ${initialLink.link}');
         final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
           email: _settingBox.get(HiveName.emailKey),
           emailLink: initialLink.link.toString(),
