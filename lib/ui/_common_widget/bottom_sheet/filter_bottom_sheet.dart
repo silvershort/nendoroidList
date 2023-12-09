@@ -27,50 +27,50 @@ class FilterBottomSheet extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 20.0),
-          Text(
-            "데이터 타입",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          const SizedBox(height: 10.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.425,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: switch (state.dataType) {
-                      NendoroidData() => Theme.of(context).colorScheme.surfaceVariant,
-                      _ => Theme.of(context).colorScheme.surface,
-                    },
-                  ),
-                  onPressed: () => controller.changeDataType(NendoroidData()),
-                  child: const Text(
-                    "넨도로이드",
-                    style: TextStyle(),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.425,
-                child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: switch (state.dataType) {
-                        NendoroidDollData() => Theme.of(context).colorScheme.surfaceVariant,
-                        _ => Theme.of(context).colorScheme.surface,
-                      },
-                    ),
-                    onPressed: () => controller.changeDataType(NendoroidDollData()),
-                    child: const Text(
-                      "넨도로이드 돌",
-                      style: TextStyle(),
-                    )),
-              ),
-            ],
-          ),
+          // const SizedBox(height: 20.0),
+          // Text(
+          //   "데이터 타입",
+          //   style: TextStyle(
+          //     color: Theme.of(context).colorScheme.secondary,
+          //   ),
+          // ),
+          // const SizedBox(height: 10.0),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     SizedBox(
+          //       width: MediaQuery.of(context).size.width * 0.425,
+          //       child: OutlinedButton(
+          //         style: OutlinedButton.styleFrom(
+          //           backgroundColor: switch (state.dataType) {
+          //             NendoroidData() => Theme.of(context).colorScheme.surfaceVariant,
+          //             _ => Theme.of(context).colorScheme.surface,
+          //           },
+          //         ),
+          //         onPressed: () => controller.changeDataType(NendoroidData()),
+          //         child: const Text(
+          //           "넨도로이드",
+          //           style: TextStyle(),
+          //         ),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: MediaQuery.of(context).size.width * 0.425,
+          //       child: OutlinedButton(
+          //           style: OutlinedButton.styleFrom(
+          //             backgroundColor: switch (state.dataType) {
+          //               NendoroidDollData() => Theme.of(context).colorScheme.surfaceVariant,
+          //               _ => Theme.of(context).colorScheme.surface,
+          //             },
+          //           ),
+          //           onPressed: () => controller.changeDataType(NendoroidDollData()),
+          //           child: const Text(
+          //             "넨도로이드 돌",
+          //             style: TextStyle(),
+          //           )),
+          //     ),
+          //   ],
+          // ),
           const SizedBox(height: 20.0),
           Text(
             "보기 방식",
