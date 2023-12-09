@@ -6,7 +6,7 @@ part of 'file_download_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fileDownloadHash() => r'e2f4dffeac90fe9aa3e92af8088073dc72a3a002';
+String _$fileDownloadHash() => r'cc60d98d615a80251d18a8e0737cba50aca0e7f5';
 
 /// See also [FileDownload].
 @ProviderFor(FileDownload)

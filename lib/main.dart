@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:nendoroid_db/firebase_options.dart';
@@ -12,6 +14,7 @@ import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
+import 'package:nendoroid_db/provider/notification_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -21,7 +24,7 @@ import 'utilities/app_font.dart';
 final talker = TalkerFlutter.init();
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FlutterDownloader.initialize(debug: true);
 
@@ -34,6 +37,17 @@ void main() async {
   Hive.registerAdapter(TwitterSubscribeAdapter());
   Hive.registerAdapter(RuliwebSubscribeAdapter());
   Hive.registerAdapter(DcinsideSubscribeAdapter());
+
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // 앱 시작시 푸시 알림 권한 요청
+  await FirebaseMessaging.instance.requestPermission(
+    badge: true,
+    alert: true,
+    sound: true,
+  );
+  FlutterNativeSplash.remove();
+  // FCM 토큰값 확인
+  talker.info('FCM Token : ${await FirebaseMessaging.instance.getToken()}');
 
   const fatalError = true;
   // Non-async exceptions
@@ -83,6 +97,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(appNotificationProvider);
+
     final settingState = ref.watch(appSettingProvider);
 
     return MaterialApp.router(
