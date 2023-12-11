@@ -6,7 +6,7 @@ part of 'app_setting_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appSettingHash() => r'1c302a762849ec75293937414de7e8dc98cdbfd6';
+String _$appSettingHash() => r'7b903c0728c721816871893cbe4d9ab7a5bee067';
 
 /// 테마, 다크모드같은 앱의 전체적인 세팅을 설정해준다.
 ///

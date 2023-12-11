@@ -4,6 +4,7 @@ import 'package:html/dom_parsing.dart';
 import 'package:nendoroid_db/router/route_path.dart';
 import 'package:nendoroid_db/ui/_common_widget/divider/default_divider.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_tile.dart';
+import 'package:nendoroid_db/ui/my/widget/font_view.dart';
 import 'package:nendoroid_db/ui/my/widget/my_sign_view.dart';
 import 'package:nendoroid_db/ui/my/widget/theme_view.dart';
 
@@ -60,6 +61,7 @@ class MyScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: ThemeView(),
           ),
+          const SizedBox(height: 20.0),
         ],
       ),
     );

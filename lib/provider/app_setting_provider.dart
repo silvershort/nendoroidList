@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
+import 'package:nendoroid_db/provider/shared_preference_provider.dart';
 import 'package:nendoroid_db/utilities/app_color.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,6 +21,7 @@ class AppSettingState with _$AppSettingState {
     required bool hideUI,
     required int gridCount,
     required bool autoPlay,
+    required String appFont,
   }) = _AppSettingState;
 }
 
@@ -41,6 +43,7 @@ class AppSetting extends _$AppSetting {
       hideUI: _appThemeBox.get(HiveName.appHideUIKey) ?? true,
       gridCount: _appThemeBox.get(HiveName.appGridCountKey) ?? 0,
       autoPlay: _appThemeBox.get(HiveName.appImageAutoPlayKey) ?? true,
+      appFont: ref.read(sharedPreferencesProvider).getFont(),
     );
   }
 
@@ -107,5 +110,12 @@ class AppSetting extends _$AppSetting {
       autoPlay: autoPlay
     );
     _appThemeBox.put(HiveName.appImageAutoPlayKey, autoPlay);
+  }
+
+  // 앱 폰트 변경
+  void setAppFont(String appFont) {
+    state = state.copyWith(
+      appFont: appFont,
+    );
   }
 }

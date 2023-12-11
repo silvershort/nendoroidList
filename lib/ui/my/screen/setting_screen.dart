@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
-import 'package:nendoroid_db/provider/github_download_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/divider/default_divider.dart';
@@ -11,10 +10,11 @@ import 'package:nendoroid_db/ui/_common_widget/tile/menu_count_tile.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_switch_tile.dart';
 import 'package:nendoroid_db/ui/_common_widget/tile/menu_tile.dart';
 import 'package:nendoroid_db/ui/my/controller/setting_controller.dart';
+import 'package:nendoroid_db/ui/my/widget/font_view.dart';
 import 'package:nendoroid_db/utilities/extension/async_value_extension.dart';
 
 class SettingScreen extends ConsumerWidget {
-  const SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -89,6 +89,10 @@ class SettingScreen extends ConsumerWidget {
               );
             },
           ),
+          const DefaultDivider(),
+          const SizedBox(height: 10.0),
+          const SettingTitle(title: '폰트 설정'),
+          const FontView(),
           const DefaultDivider(),
           /*MenuTile(
             title: '넨돌 다운로드',

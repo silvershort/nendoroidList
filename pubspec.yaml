@@ -38,6 +38,7 @@ dependencies:
   # Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.2
   # DI, Statemanagement
   freezed_annotation: ^2.4.1
   flutter_riverpod: ^2.4.8
@@ -84,6 +85,18 @@ flutter:
           weight: 400
         - asset: fonts/one_mobile_bold.otf
           weight: 700
+    - family: mabinogi
+      fonts:
+        - asset: fonts/mabinogi_classic.otf
+    - family: gyeonggiCheonnyen
+      fonts:
+        - asset: fonts/gyeonggi_cheonnyen_light.otf
+          weight: 400
+        - asset: fonts/gyeonggi_cheonnyen_medium.otf
+          weight: 500
+        - asset: fonts/gyeonggi_cheonnyen_bold.otf
+          weight: 700
+
 flutter_native_splash:
   color: "#FFFFFF"
   image: assets/android12_image.png

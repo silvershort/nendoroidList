@@ -15,8 +15,10 @@ import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/notification_provider.dart';
+import 'package:nendoroid_db/provider/shared_preference_provider.dart';
 import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'utilities/app_font.dart';
@@ -87,6 +89,7 @@ void main() async {
           termsBox: await Hive.openBox(HiveName.termsBoxName),
         ),
       ),
+      sharedPreferencesProvider.overrideWithValue(SharedPreferencesManager(await SharedPreferences.getInstance())),
     ],
     child: const MyApp(),
   ));
@@ -111,21 +114,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
         colorSchemeSeed: settingState.seedColor,
         brightness: settingState.brightness,
-        fontFamily: AppFont.oneMobile,
-        textTheme: const TextTheme(
-          titleSmall: TextStyle(
-            fontSize: 16,
-            fontFamily: AppFont.oneMobile,
-            letterSpacing: 0.5,
-            height: 1.2,
-          ),
-          titleMedium: TextStyle(
-            fontSize: 18,
-            fontFamily: AppFont.oneMobile,
-            letterSpacing: 0.5,
-            height: 1.2,
-          ),
-        ),
+        fontFamily: ref.watch(sharedPreferencesProvider).getFont(),
         appBarTheme: AppBarTheme(
           backgroundColor: ColorScheme.fromSeed(
             seedColor: settingState.seedColor,
