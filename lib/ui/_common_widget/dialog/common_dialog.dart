@@ -11,6 +11,7 @@ class CommonDialog extends StatelessWidget {
     this.negativeText,
     this.positiveOnClick,
     this.negativeOnClick,
+    this.autoClose = true,
   }) : super(key: key);
   final String title;
   final String content;
@@ -19,6 +20,7 @@ class CommonDialog extends StatelessWidget {
   final String? negativeText;
   final VoidCallback? positiveOnClick;
   final VoidCallback? negativeOnClick;
+  final bool autoClose;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +34,14 @@ class CommonDialog extends StatelessWidget {
         if (negativeText != null)
           TextButton(
             onPressed: () {
-              context.pop();
+              if (autoClose) context.pop();
               negativeOnClick?.call();
             },
             child: Text(negativeText!),
           ),
         TextButton(
           onPressed: () {
-            context.pop();
+            if (autoClose) context.pop();
             positiveOnClick?.call();
           },
           child: Text(positiveText),

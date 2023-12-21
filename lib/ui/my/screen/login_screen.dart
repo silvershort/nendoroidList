@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/provider/auth_provider.dart';
+import 'package:nendoroid_db/router/app_router.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -34,9 +37,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   void _showEmailSendComplete() {
     showDialog(
       context: context,
-      builder: (context) {
-        return const CommonDialog(
+      builder: (dialogContext) {
+        return CommonDialog(
           content: '이메일 전송을 완료했습니다.',
+          positiveOnClick: () {
+            context.pop();
+          },
         );
       },
     );

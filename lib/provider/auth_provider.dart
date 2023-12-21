@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
@@ -23,7 +24,7 @@ class Auth extends _$Auth {
         url: 'https://nendoroiddb.page.link/',
         // This must be true
         handleCodeInApp: true,
-        iOSBundleId: 'com.silvershort.nendoroidDb',
+        iOSBundleId: 'com.silvershort.nendoroiddb',
         androidPackageName: 'com.slivershort.nendoroid_db',
         // installIfNotAvailable
         androidInstallApp: true,
@@ -51,8 +52,7 @@ class Auth extends _$Auth {
           emailLink: dynamicLinkData.link.toString(),
         );
         state = userCredential.user;
-      } else {
-
+        Fluttertoast.showToast(msg: '로그인에 성공했습니다.');
       }
     }).onError((error) {
       talker.error(error.toString(), error);

@@ -13,6 +13,7 @@ import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/subscribe_data.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
+import 'package:nendoroid_db/provider/auth_provider.dart';
 import 'package:nendoroid_db/provider/hive_provider.dart';
 import 'package:nendoroid_db/provider/notification_provider.dart';
 import 'package:nendoroid_db/provider/shared_preference_provider.dart';
@@ -76,7 +77,7 @@ void main() async {
     return true;
   };
 
-  runApp(ProviderScope(
+  final container = ProviderContainer(
     overrides: [
       hiveProvider.overrideWithValue(
         HiveManager(
@@ -91,6 +92,11 @@ void main() async {
       ),
       sharedPreferencesProvider.overrideWithValue(SharedPreferencesManager(await SharedPreferences.getInstance())),
     ],
+  );
+  container.read(authProvider);
+
+  runApp(UncontrolledProviderScope(
+    container: container,
     child: const MyApp(),
   ));
 }
