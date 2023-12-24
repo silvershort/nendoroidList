@@ -8,7 +8,7 @@ import 'package:nendoroid_db/ui/news/widget/news_list_section.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsScreen extends ConsumerWidget {
-  const NewsScreen({Key? key}) : super(key: key);
+  const NewsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,67 +21,70 @@ class NewsScreen extends ConsumerWidget {
       ),
       body: state.when(
         data: (data) {
-          return ListView(
-            padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
-            children: [
-              NewsListSection(
-                title: '예약마감⏰ 임박 넨도로이드',
-                onTitleTap: () {
-                  context.push(
-                    '${RoutePath.newsDetail}?title=마감 임박 넨도로이드&homePage=https://www.goodsmile.info/en/products/category/nendoroid_series/announced',
-                    extra: data.imminentList,
-                  );
-                },
-                itemList: data.imminentList,
-                onTap: (index) {
-                  launchUrl(
-                    Uri.parse(data.imminentList[index].link),
-                    mode: LaunchMode.externalApplication,
-                  );
-                },
-              ),
-              const SizedBox(height: 10.0),
-              NewsListSection(
-                title: '특전🎁 포함! 굿스마일 코리아 예약 목록',
-                onTitleTap: () {
-                  context.push(
-                    '${RoutePath.newsDetail}?title=굿스마일 코리아&homePage=https://brand.naver.com/goodsmilekr',
-                    extra: data.specialGoodsList,
-                  );
-                },
-                itemList: data.specialGoodsList,
-                onTap: (index) {
-                  launchUrl(
-                    Uri.parse(data.specialGoodsList[index].link),
-                    mode: LaunchMode.externalApplication,
-                  );
-                },
-              ),
-              const SizedBox(height: 10.0),
-              NewsListSection(
-                title: '넨돌 의상🩳 니니멀 신상품',
-                onTitleTap: () {
-                  context.push(
-                    '${RoutePath.newsDetail}?title=넨돌 의상니니멀&homePage=https://ninimal.co.kr',
-                    extra: data.ninimalList,
-                  );
-                },
-                itemList: data.ninimalList.map((e) {
-                  return NewsItemData(
-                    name: e.name,
-                    price: e.price,
-                    imagePath: e.imagePath,
-                    soldOut: e.soldOut,
-                  );
-                }).toList(),
-                onTap: (index) {
-                  launchUrl(
-                    Uri.parse(data.ninimalList[index].link),
-                    mode: LaunchMode.externalApplication,
-                  );
-                },
-              ),
-            ],
+          return RefreshIndicator(
+            onRefresh: () => ref.refresh(newsProvider.future),
+            child: ListView(
+              padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
+              children: [
+                NewsListSection(
+                  title: '예약마감⏰ 임박 넨도로이드',
+                  onTitleTap: () {
+                    context.push(
+                      '${RoutePath.newsDetail}?title=마감 임박 넨도로이드&homePage=https://www.goodsmile.info/en/products/category/nendoroid_series/announced',
+                      extra: data.imminentList,
+                    );
+                  },
+                  itemList: data.imminentList,
+                  onTap: (index) {
+                    launchUrl(
+                      Uri.parse(data.imminentList[index].link),
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                ),
+                const SizedBox(height: 10.0),
+                NewsListSection(
+                  title: '특전🎁 포함! 굿스마일 코리아 예약 목록',
+                  onTitleTap: () {
+                    context.push(
+                      '${RoutePath.newsDetail}?title=굿스마일 코리아&homePage=https://brand.naver.com/goodsmilekr',
+                      extra: data.specialGoodsList,
+                    );
+                  },
+                  itemList: data.specialGoodsList,
+                  onTap: (index) {
+                    launchUrl(
+                      Uri.parse(data.specialGoodsList[index].link),
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                ),
+                const SizedBox(height: 10.0),
+                NewsListSection(
+                  title: '넨돌 의상🩳 니니멀 신상품',
+                  onTitleTap: () {
+                    context.push(
+                      '${RoutePath.newsDetail}?title=넨돌 의상니니멀&homePage=https://ninimal.co.kr',
+                      extra: data.ninimalList,
+                    );
+                  },
+                  itemList: data.ninimalList.map((e) {
+                    return NewsItemData(
+                      name: e.name,
+                      price: e.price,
+                      imagePath: e.imagePath,
+                      soldOut: e.soldOut,
+                    );
+                  }).toList(),
+                  onTap: (index) {
+                    launchUrl(
+                      Uri.parse(data.ninimalList[index].link),
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                ),
+              ],
+            ),
           );
         },
         error: (error, stackTrace) {
