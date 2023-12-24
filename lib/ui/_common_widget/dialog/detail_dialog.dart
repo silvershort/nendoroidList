@@ -14,6 +14,7 @@ import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 
 class DetailDialog extends ConsumerWidget {
   const DetailDialog({super.key, required this.nendoData});
+
   final NendoData nendoData;
 
   @override
@@ -73,11 +74,23 @@ class DetailDialog extends ConsumerWidget {
                             return Container(
                               height: 200,
                               alignment: Alignment.center,
-                              child: const Text(
-                                "데이터를 불러오는데 실패했습니다.",
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "데이터를 불러오는데 실패했습니다.",
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () => ref.refresh(nendoImageProvider(nendoData.gscProductNum.toString())),
+                                    icon: const Icon(
+                                      Icons.refresh,
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
                           },
