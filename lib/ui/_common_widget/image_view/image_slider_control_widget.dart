@@ -50,6 +50,13 @@ class _ImageSliderControlWidgetState extends State<ImageSliderControlWidget> {
               });
             },
           ),
+          const SizedBox(
+            height: 10,
+            child: VerticalDivider(
+              thickness: 1,
+              width: 3,
+            ),
+          ),
           _ImageSliderControlButton(
             icon: Icons.download,
             onTap: widget.downloadOnTap,
