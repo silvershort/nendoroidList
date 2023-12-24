@@ -39,7 +39,7 @@ class StatsScreen extends ConsumerWidget {
                   StatsTotalPriceView(nendoList: nendoList),
                   StatsCompleteSetView(
                     nendoList: nendoList,
-                    setList: data.setList,
+                    // setList: data.setList,
                   ),
                   StatsGenderRateView(nendoList: nendoList),
                   StatsMostNendoView(nendoList: nendoList),

@@ -26,6 +26,7 @@ import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
+
 part 'nendo_provider.g.dart';
 
 @freezed
@@ -518,6 +519,21 @@ class Nendo extends _$Nendo {
     renewrData();
   }
 
+  // 모든 넨도로이드를 보유 상태로 변경(테스트 용)
+  void updateHaveAllNendo() async {
+    if (state.value == null) {
+      return;
+    }
+
+    for (final nendo in state.requireValue.nendoList) {
+      nendo.have = true;
+      if (nendo.count == 0) {
+        nendo.count = 1;
+      }
+    }
+    renewrData();
+  }
+
   // 선택한 넨도의 위시 여부를 수정함
   void updateWishNendo(String number) async {
     if (state.value == null) {
@@ -640,7 +656,7 @@ class Nendo extends _$Nendo {
   // 보유한 넨도 세트 리스트 반환(임시)
   // 현재 세트데이터와 실제 넨도 세트데이터와 한국어 시리즈 이름이 정확하게 일치하지 않음.
   // 따라서 그냥 시리즈 이름을 기준으로 세트 데이터를 생성하고 비교해서 컴플리트 여부를 확인한다.
-  List<String> getCompleteSetList() {
+  List<({String name, int count})> getCompleteSetList() {
     if (state.value == null) {
       return [];
     }
@@ -648,7 +664,7 @@ class Nendo extends _$Nendo {
       _createNewSetData();
     }
 
-    List<String> completeList = [];
+    List<({String name, int count})> completeList = [];
     List<NendoData> haveList = state.requireValue.nendoList.where((item) => item.have).toList();
 
     for (SetData setData in _newSetData) {
@@ -673,11 +689,19 @@ class Nendo extends _$Nendo {
 
       // 세트 전체 넨도 번호 리스트와 보유한 넨도 리스트가 같은지 비교 후 같다면 completeList에 추가한다.
       if (listEquals(tempHaveSetList, setData.list)) {
-        completeList.add(setData.setName);
+        completeList.add((name: setData.setName, count: setData.list.length));
       }
     }
     // 혹시라도 중복해서 세트가 들어갔다면 중복 아이템을 제거
-    return completeList.toSet().toList()..sort();
+    // return completeList.toSet().toList();
+
+    // 세트 개수가 가장 많은 순으로 정렬해준다.
+    return completeList
+      ..sort(
+        (a, b) {
+          return b.count.compareTo(a.count);
+        },
+      );
   }
 
   void _createNewSetData() {

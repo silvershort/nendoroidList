@@ -7,16 +7,16 @@ import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 
 class StatsCompleteSetList extends ConsumerWidget {
   const StatsCompleteSetList({
-    Key? key,
+    super.key,
     required this.nendoList,
-    required this.setData,
-  }) : super(key: key);
+    // required this.setData,
+  });
   final List<NendoData> nendoList;
-  final List<SetData> setData;
+  // final List<SetData> setData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<String> setList = ref.watch(nendoProvider.notifier).getCompleteSetList();
+    final setList = ref.watch(nendoProvider.notifier).getCompleteSetList();
 
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
@@ -25,19 +25,32 @@ class StatsCompleteSetList extends ConsumerWidget {
       itemBuilder: (context, index) {
         return Row(
           children: [
-            const Icon(
-              Icons.star,
+            Icon(
+              generateIconData(setList[index].count),
               color: Colors.amber,
             ),
             const SizedBox(
               width: 5.0,
             ),
-            Text(
-              setList[index],
+            Expanded(
+              child: Text(
+                setList[index].name,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
           ],
         );
       },
     );
+  }
+
+  IconData generateIconData(int totalCount) {
+    return switch (totalCount) {
+      >= 25 => Icons.stars_outlined,
+      >= 15 => Icons.stars,
+      >= 7 => Icons.hotel_class,
+      _ => Icons.star,
+    };
   }
 }
