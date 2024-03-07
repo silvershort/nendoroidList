@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
+import 'package:nendoroid_db/provider/github_download_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/common_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/divider/default_divider.dart';
@@ -94,37 +95,37 @@ class SettingScreen extends ConsumerWidget {
           const SettingTitle(title: '폰트 설정'),
           const FontView(),
           const DefaultDivider(),
-          /*MenuTile(
-            title: '넨돌 다운로드',
-            onPressed: () {
-              ref.read(githubDownloadProvider.notifier).fetchDollJsonNameList();
-            },
-          ),
-          MenuTile(
-            title: '넨돌 데이터 다운로드',
-            onPressed: () async {
-              final result = await ref.read(githubDownloadProvider.notifier).fetchNendoDollList();
-              ref.read(nendoProvider.notifier).saveLocalDB(nenDollList: result);
-            },
-          ),
-          MenuTile(
-            title: '로컬 저장소 넨돌 저장',
-            onPressed: () {
-              ref.read(githubDownloadProvider.notifier).saveNendollLocalDB();
-            },
-          ),
-          MenuTile(
-            title: '로컬 저장소 저장',
-            onPressed: () {
-              ref.read(githubDownloadProvider.notifier).saveLocalDB();
-            },
-          ),
-          MenuTile(
-            title: '로컬 저장소 저장2',
-            onPressed: () {
-              ref.read(nendoProvider.notifier).fetchData();
-            },
-          ),
+          // MenuTile(
+          //   title: '넨돌 다운로드',
+          //   onPressed: () {
+          //     ref.read(githubDownloadProvider.notifier).fetchDollJsonNameList();
+          //   },
+          // ),
+          // MenuTile(
+          //   title: '넨돌 데이터 다운로드',
+          //   onPressed: () async {
+          //     final result = await ref.read(githubDownloadProvider.notifier).fetchNendoDollList();
+          //     ref.read(nendoProvider.notifier).saveLocalDB(nenDollList: result);
+          //   },
+          // ),
+          // MenuTile(
+          //   title: '로컬 저장소 넨돌 저장',
+          //   onPressed: () {
+          //     ref.read(githubDownloadProvider.notifier).saveNendollLocalDB();
+          //   },
+          // ),
+          // MenuTile(
+          //   title: '로컬 저장소 저장',
+          //   onPressed: () {
+          //     ref.read(githubDownloadProvider.notifier).saveLocalDB();
+          //   },
+          // ),
+          // MenuTile(
+          //   title: '로컬 저장소 저장2',
+          //   onPressed: () {
+          //     ref.read(nendoProvider.notifier).fetchData();
+          //   },
+          // ),
           MenuTile(
             title: '넨도 데이터 저장',
             onPressed: () {
@@ -137,14 +138,14 @@ class SettingScreen extends ConsumerWidget {
               ref.read(githubDownloadProvider.notifier).uploadFirebase();
             },
           ),
-          const SettingTitle(title: '데이터 설정'),
-          MenuSwitchTile(
-            title: '데이터 자동 백업',
-            value: state.hideUI,
-            onChanged: (value) {
-              controller.setHideUI(value ?? true);
-            },
-          ),*/
+          // const SettingTitle(title: '데이터 설정'),
+          // MenuSwitchTile(
+          //   title: '데이터 자동 백업',
+          //   value: state.hideUI,
+          //   onChanged: (value) {
+          //     controller.setHideUI(value ?? true);
+          //   },
+          // ),
         ],
       ),
     );

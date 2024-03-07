@@ -6,4 +6,5 @@ class Constant {
   static const noticeTextRemote = 'notice_text';
   static const updateTextRemote = 'update_text';
   static const longText = 'verylonggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg';
+  static const gemini = 'gemini-pro';
 }
