@@ -35,6 +35,11 @@ class Repo {
   factory Repo.fromJson(Map<String, dynamic> json) => _$RepoFromJson(json);
 
   Map<String, dynamic> toJson() => _$RepoToJson(this);
+
+  @override
+  String toString() {
+    return 'Repo{name: $name, path: $path, sha: $sha, size: $size, url: $url, htmlUrl: $htmlUrl, gitUrl: $gitUrl, downloadUrl: $downloadUrl, type: $type, links: $links}';
+  }
 }
 
 @JsonSerializable(explicitToJson: true)

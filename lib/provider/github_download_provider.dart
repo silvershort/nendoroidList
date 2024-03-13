@@ -46,8 +46,12 @@ class GithubDownload extends _$GithubDownload {
   Future<void> fetchNendoData() async {
     await fetchFolderNameList();
     for (int i = 0; i < _folderNameList.length; i++) {
-      await fetchJsonNameList(currentIndex: i);
-      await fetchNendoList(jsonList: _nameList, currentIndex: i);
+      try {
+        await fetchJsonNameList(currentIndex: i);
+        await fetchNendoList(jsonList: _nameList, currentIndex: i);
+      } catch (error, stackTrace) {
+        talker.error(error.toString(), error, stackTrace);
+      }
     }
     talker.debug('--------------------@@@ 넨도로이드 데이터 다운 완료');
     saveLocalDB();

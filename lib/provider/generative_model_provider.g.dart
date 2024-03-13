@@ -7,7 +7,7 @@ part of 'generative_model_provider.dart';
 // **************************************************************************
 
 String _$generativeModelNotifierHash() =>
-    r'e83aa3b1fa1a44567cade98d74174b177868e13a';
+    r'98e1c98f4448dedec6169ec137df2626ef1d2ac0';
 
 /// See also [GenerativeModelNotifier].
 @ProviderFor(GenerativeModelNotifier)

@@ -7,4 +7,7 @@ class Constant {
   static const updateTextRemote = 'update_text';
   static const longText = 'verylonggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg';
   static const gemini = 'gemini-pro';
+  static const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
+  ];
 }

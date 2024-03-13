@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:nendoroid_db/main.dart';
@@ -56,34 +57,25 @@ class ScrapingService {
     );
   }
 
-  Future<ApiResult<({List<String> imageList, List<String> thumbnailList})>>
-      getGoodSmileImage({
+  Future<ApiResult<({List<String> imageList, List<String> thumbnailList})>> getGoodSmileImage({
     required String gscProductNum,
   }) async {
     try {
-      final response =
-          await repository.getGoodSmileImage(gscProductNum: gscProductNum);
+      final response = await repository.getGoodSmileImage(gscProductNum: gscProductNum);
       Document document = parse(response.data);
-      Element? nodeList =
-          document.getElementsByClassName("itemPhotos").firstOrNull;
+      Element? nodeList = document.getElementsByClassName("itemPhotos").firstOrNull;
       if (nodeList == null) {
         throw Exception('No itemPhotos');
       }
       List<String> imageList = nodeList
           .getElementsByClassName("inline_fix")
-          .map((e) =>
-              "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
+          .map((e) => "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
           .toList();
-      List<String> thumbnailList = nodeList
-          .getElementsByClassName("iconZoom")
-          .map((e) => "https:${e.attributes["src"] ?? ""}")
-          .toList();
-      return ApiResult.success(
-          (imageList: imageList, thumbnailList: thumbnailList));
+      List<String> thumbnailList = nodeList.getElementsByClassName("iconZoom").map((e) => "https:${e.attributes["src"] ?? ""}").toList();
+      return ApiResult.success((imageList: imageList, thumbnailList: thumbnailList));
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
-      return ApiResult.error(
-          ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 
@@ -92,49 +84,24 @@ class ScrapingService {
       final response = await repository.getNendoroidAnnounced();
       final Document document = parse(response.data);
 
-      final Element? imminentText =
-          document.getElementsByClassName('current-date shimelist').firstOrNull;
-      final Element? imminentSection =
-          document.getElementsByClassName('hitList clearfix').firstOrNull;
+      final Element? imminentText = document.getElementsByClassName('current-date shimelist').firstOrNull;
+      final Element? imminentSection = document.getElementsByClassName('hitList clearfix').firstOrNull;
       if (imminentText == null || imminentSection == null) {
         return const ApiResult.success([]);
       }
 
-      final List<Element> imminentList = imminentSection.getElementsByClassName(
-          'hitItem shimeproduct nendoroid nendoroid_series');
+      final List<Element> imminentList = imminentSection.getElementsByClassName('hitItem shimeproduct nendoroid nendoroid_series');
 
       final itemList = imminentList.map((e) {
-        String name = e
-                .getElementsByClassName('hitTtl')
-                .firstOrNull
-                ?.getElementsByTagName('span')
-                .firstOrNull
-                ?.text ??
-            '';
+        String name = e.getElementsByClassName('hitTtl').firstOrNull?.getElementsByTagName('span').firstOrNull?.text ?? '';
         bool soldout = false;
-        String link = e
-                .getElementsByClassName('hitBox')
-                .firstOrNull
-                ?.getElementsByTagName('a')
-                .firstOrNull
-                ?.attributes['href'] ??
-            '';
-        String imagePath = e
-                .getElementsByClassName('hitBox')
-                .firstOrNull
-                ?.getElementsByTagName('img')
-                .firstOrNull
-                ?.attributes['data-original'] ??
-            '';
+        String link = e.getElementsByClassName('hitBox').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ?? '';
+        String imagePath = e.getElementsByClassName('hitBox').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['data-original'] ?? '';
 
         imagePath = 'https:$imagePath';
 
         // 품절 여부 체크
-        final imgList = e
-                .getElementsByClassName('icon')
-                .firstOrNull
-                ?.getElementsByTagName('img') ??
-            [];
+        final imgList = e.getElementsByClassName('icon').firstOrNull?.getElementsByTagName('img') ?? [];
         for (var img in imgList) {
           if (img.attributes['alt'] == '품절') {
             soldout = true;
@@ -148,12 +115,9 @@ class ScrapingService {
         );
       }).toList();
 
-      return ApiResult.success(itemList
-          .where((element) => !element.name.contains('10cm솜'))
-          .toList());
+      return ApiResult.success(itemList.where((element) => !element.name.contains('10cm솜')).toList());
     } catch (error, stackTrace) {
-      return ApiResult.error(
-          ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 
@@ -162,17 +126,10 @@ class ScrapingService {
       final response = await repository.getNinimal();
       final Document document = parse(response.data);
 
-      final List<Element> productList =
-          document.getElementsByClassName('item xans-record-');
+      final List<Element> productList = document.getElementsByClassName('item xans-record-');
 
       final itemList = productList.map((e) {
-        String name = e
-                .getElementsByClassName('name')
-                .firstOrNull
-                ?.getElementsByTagName('span')
-                .lastOrNull
-                ?.text ??
-            '';
+        String name = e.getElementsByClassName('name').firstOrNull?.getElementsByTagName('span').lastOrNull?.text ?? '';
         bool soldout = false;
         String price = e
                 .getElementsByClassName(' xans-record-')
@@ -182,30 +139,14 @@ class ScrapingService {
                 .firstOrNull
                 ?.text ??
             '';
-        String link = e
-                .getElementsByClassName('box')
-                .firstOrNull
-                ?.getElementsByTagName('a')
-                .firstOrNull
-                ?.attributes['href'] ??
-            '';
-        String imagePath = e
-                .getElementsByClassName('box')
-                .firstOrNull
-                ?.getElementsByTagName('img')
-                .firstOrNull
-                ?.attributes['src'] ??
-            '';
+        String link = e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ?? '';
+        String imagePath = e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? '';
 
         link = 'https://ninimal.co.kr/$link';
         imagePath = 'https:$imagePath';
 
         // 품절 여부 체크
-        final imgList = e
-                .getElementsByClassName('icon')
-                .firstOrNull
-                ?.getElementsByTagName('img') ??
-            [];
+        final imgList = e.getElementsByClassName('icon').firstOrNull?.getElementsByTagName('img') ?? [];
         for (var img in imgList) {
           if (img.attributes['alt'] == '품절') {
             soldout = true;
@@ -220,12 +161,49 @@ class ScrapingService {
         );
       }).toList();
 
-      return ApiResult.success(itemList
-          .where((element) => !element.name.contains('10cm솜'))
-          .toList());
+      return ApiResult.success(itemList.where((element) => !element.name.contains('10cm솜')).toList());
+    } catch (error, stackTrace) {
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+    }
+  }
+
+  Future<ApiResult<void>> getNendoroidReleaseData() async {
+    try {
+      final response = await repository.getNendoroidReleaseInfo();
+      final Document document = parse(response.data);
+
+      // 날짜 설명이 있는 컨텐츠 영역
+      final List<Element> content = document.getElementsByClassName("content");
+
+      // 마지막 업데이트 날짜를 찾기위한 정규식 (Update: 로 시작하고 )로 끝나는 사이의 문자열을 추출)
+      RegExp regex = RegExp(r'Update: \((.*?)\)');
+      Match? match = regex.firstMatch(content.first.text);
+
+      if (match != null) {
+        talker.info('Last update : ${match.group(1)}');
+      } else {
+        talker.debug('마지막 업데이트 날짜를 찾지 못했습니다.');
+      }
+
+      // 릴리즈 데이터가 있는 영역
+      final List<Element> releaseDataList = document.getElementsByClassName("arrowlisting");
+
+      for (Element monthItem in releaseDataList) {
+        monthItem.getElementsByTagName('largedate');
+      }
+
+
+      return ApiResult.success(null);
+    } on DioException catch (error, stackTrace) {
+      return ApiResult.error(
+        ApiError(code: error.response?.statusCode ?? 0, message: error.message ?? ''),
+        stackTrace,
+      );
     } catch (error, stackTrace) {
       return ApiResult.error(
-          ApiError(code: 0, message: error.toString()), stackTrace);
+        ApiError(code: 0, message: error.toString()),
+        stackTrace,
+      );
     }
   }
 
@@ -236,62 +214,33 @@ class ScrapingService {
       int lastPage = 1;
 
       while (true) {
-        final response =
-            await repository.getGoodSmileKRSpecialImage(page: currentPage);
+        final response = await repository.getGoodSmileKRSpecialImage(page: currentPage);
         final Document document = parse(response.data);
 
         // 마지막 페이지가 어디인지 확인하고 저장해준다.
         if (lastPage == 1) {
-          final List<Element> pageElement =
-              document.getElementsByClassName("UWN4IvaQza");
+          final List<Element> pageElement = document.getElementsByClassName("UWN4IvaQza");
           lastPage = pageElement.length;
         }
 
-        final List<NewsItemData> tempList = document
-            .getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX")
-            .map((e) {
-          String imagePath = e
-                  .getElementsByClassName("_25CKxIKjAk")
-                  .firstOrNull
-                  ?.attributes["src"] ??
-              '';
-          String name = e
-                  .getElementsByClassName("_25CKxIKjAk")
-                  .firstOrNull
-                  ?.attributes["alt"] ??
-              '';
+        final List<NewsItemData> tempList = document.getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX").map((e) {
+          String imagePath = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["src"] ?? '';
+          String name = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["alt"] ?? '';
           String number = name.onlyNumberFirst.toString();
           name = name.replaceFirst(number, '');
-          String link = e
-                  .getElementsByTagName("a")
-                  .firstWhere((element) =>
-                      element.className ==
-                      "stX4bV9Ny3 N=a:lst.product linkAnchor")
-                  .attributes["href"] ??
-              '';
-          String price =
-              e.getElementsByClassName('LGJCRfhDKi').firstOrNull?.text ?? '';
-          bool soldOut =
-              e.getElementsByClassName('text blind').firstOrNull?.text ==
-                  'SOLD OUT';
+          String link =
+              e.getElementsByTagName("a").firstWhere((element) => element.className == "stX4bV9Ny3 N=a:lst.product linkAnchor").attributes["href"] ??
+                  '';
+          String price = e.getElementsByClassName('LGJCRfhDKi').firstOrNull?.text ?? '';
+          bool soldOut = e.getElementsByClassName('text blind').firstOrNull?.text == 'SOLD OUT';
 
           link = 'https://brand.naver.com$link';
-          return NewsItemData(
-              imagePath: imagePath,
-              number: number,
-              name: name,
-              link: link,
-              price: price,
-              soldOut: soldOut);
+          return NewsItemData(imagePath: imagePath, number: number, name: name, link: link, price: price, soldOut: soldOut);
         }).toList();
 
         list.addAll(tempList
             .where((element) => element.name.contains('넨도로이드'))
-            .map((e) => e.copyWith(
-                name: e.name
-                    .replaceFirst('[특전]', '')
-                    .replaceFirst('넨도로이드', '')
-                    .trim()))
+            .map((e) => e.copyWith(name: e.name.replaceFirst('[특전]', '').replaceFirst('넨도로이드', '').trim()))
             .toList());
 
         if (lastPage == currentPage) {
@@ -302,8 +251,7 @@ class ScrapingService {
       return ApiResult.success(list);
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
-      return ApiResult.error(
-          ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 
@@ -314,8 +262,7 @@ class ScrapingService {
       return ApiResult.success(response[0].ttSellingPrice?.toInt() ?? 0);
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
-      return ApiResult.error(
-          ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 }

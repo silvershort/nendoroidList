@@ -6,7 +6,7 @@ part of 'github_download_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$githubDownloadHash() => r'eeb5041e240a42c18e2e8597634752cd3d854d55';
+String _$githubDownloadHash() => r'69ed654fe4022562e5add7230e253a4db28b5496';
 
 /// (구)다운로드 방식
 /// 초기 데이터 갱신을 위해서 Github로 다운로드를 진행한 후 업로드를 해줘야 한다.

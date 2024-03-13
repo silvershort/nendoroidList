@@ -11,17 +11,21 @@ Dio githubDio(GithubDioRef ref) {
   return Dio()
     ..interceptors.addAll(
       [
-        LogInterceptor(
-          error: true,
-          request: true,
-          requestBody: true,
-          responseBody: true,
-        ),
+        // LogInterceptor(
+        //   error: true,
+        //   request: true,
+        //   requestBody: true,
+        //   responseBody: true,
+        // ),
         InterceptorsWrapper(
           onResponse: (res, handler) async {
-            talker.info('res : ${res.data.toString()}');
+            // talker.info('res : ${res.data.toString()}');
             if (res.headers.map[Headers.contentTypeHeader]?.first.startsWith('text') == true) {
-              res.data = jsonDecode(res.data as String);
+              try {
+                res.data = jsonDecode(res.data as String);
+              } catch (error, stackTrace) {
+                talker.error(error.toString(), error, stackTrace);
+              }
               return handler.next(res);
             }
             return handler.next(res);
