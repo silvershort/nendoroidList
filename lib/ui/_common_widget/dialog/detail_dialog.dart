@@ -62,7 +62,7 @@ class DetailDialog extends ConsumerWidget {
                   children: [
                     Consumer(
                       builder: (context, ref, child) {
-                        final state = ref.watch(nendoImageProvider(nendoData.gscProductNum.toString()));
+                        final state = ref.watch(nendoImageProvider(nendoData));
                         return state.when(
                           data: (data) {
                             return DetailImageSlider(
@@ -85,7 +85,7 @@ class DetailDialog extends ConsumerWidget {
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: () => ref.refresh(nendoImageProvider(nendoData.gscProductNum.toString())),
+                                    onPressed: () => ref.refresh(nendoImageProvider(nendoData)),
                                     icon: const Icon(
                                       Icons.refresh,
                                     ),

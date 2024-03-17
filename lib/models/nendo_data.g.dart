@@ -31,14 +31,13 @@ class NendoDataAdapter extends TypeAdapter<NendoData> {
       myPrice: fields[11] as int?,
       memo: (fields[12] as List?)?.cast<String>(),
       type: fields[13] as String?,
-      image2: fields[14] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, NendoData obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.num)
       ..writeByte(1)
@@ -66,9 +65,7 @@ class NendoDataAdapter extends TypeAdapter<NendoData> {
       ..writeByte(12)
       ..write(obj.memo)
       ..writeByte(13)
-      ..write(obj.type)
-      ..writeByte(14)
-      ..write(obj.image2);
+      ..write(obj.type);
   }
 
   @override
@@ -183,7 +180,6 @@ NendoData _$NendoDataFromJson(Map<String, dynamic> json) => NendoData(
       myPrice: json['myPrice'] as int?,
       memo: (json['memo'] as List<dynamic>?)?.map((e) => e as String).toList(),
       type: json['type'] as String?,
-      image2: json['image2'] as String?,
     );
 
 Map<String, dynamic> _$NendoDataToJson(NendoData instance) => <String, dynamic>{
@@ -201,7 +197,6 @@ Map<String, dynamic> _$NendoDataToJson(NendoData instance) => <String, dynamic>{
       'myPrice': instance.myPrice,
       'memo': instance.memo,
       'type': instance.type,
-      'image2': instance.image2,
     };
 
 Name _$NameFromJson(Map<String, dynamic> json) => Name(

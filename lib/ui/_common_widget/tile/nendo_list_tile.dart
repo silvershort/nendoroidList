@@ -82,7 +82,7 @@ class NendoListTile extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             ExtendedImage.network(
-              nendoData.image.isNotEmpty ? nendoData.image : nendoData.image2 ?? '',
+              nendoData.image,
               width: 100.0,
               fit: BoxFit.cover,
               cache: true,

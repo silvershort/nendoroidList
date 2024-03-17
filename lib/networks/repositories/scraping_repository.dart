@@ -17,15 +17,21 @@ abstract class ScrapingRepository {
 
   // 루리웹 피규어 정보 리스트
   @GET("https://bbs.ruliweb.com/family/242/board/300017")
-  Future<HttpResponse> getRuliwebInfoList(@Query("page") int page,);
+  Future<HttpResponse> getRuliwebInfoList(
+    @Query("page") int page,
+  );
 
   // 루리웹 피규어 갤러리 리스트
   @GET("https://bbs.ruliweb.com/family/242/board/300087")
-  Future<HttpResponse> getRuliwebGalleryList(@Query("page") int page,);
+  Future<HttpResponse> getRuliwebGalleryList(
+    @Query("page") int page,
+  );
 
   // 루리웹 디테일
   @GET("https://bbs.ruliweb.com/family/242/board/300017/read/{id}")
-  Future<HttpResponse> getRuliwebDetail(@Path("id") String id,);
+  Future<HttpResponse> getRuliwebDetail(
+    @Path("id") String id,
+  );
 
   // 넨갤 리스트
   @GET("https://gall.dcinside.com/mgallery/board/lists/")
@@ -66,4 +72,10 @@ abstract class ScrapingRepository {
   // 굿스마일 넨도로이드 일정 페이지
   @GET('https://www.goodsmile.info/en/releaseinfo')
   Future<HttpResponse> getNendoroidReleaseInfo();
+
+  // 굿스마일 온라인샾에서 제품 이미지 가져오기
+  @GET('https://www.goodsmile.com/en/product/{gscProductNum}')
+  Future<HttpResponse> getOnlineStoreThumbnailList({
+    @Path("gscProductNum") required String gscProductNum,
+  });
 }

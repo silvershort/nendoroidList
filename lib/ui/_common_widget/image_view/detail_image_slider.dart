@@ -112,7 +112,7 @@ class _DetailImageSliderState extends ConsumerState<DetailImageSlider> {
                     carouselController.animateToPage(index);
                   },
                   child: ExtendedImage.network(
-                    widget.imageList[index],
+                    widget.thumbnailList[index],
                     width: 48.0,
                     height: 48.0,
                     fit: BoxFit.cover,

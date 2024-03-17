@@ -6,7 +6,7 @@ part of 'nendo_image_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nendoImageHash() => r'a843b1e4ec4f72f97d7a167025fc6d065a882597';
+String _$nendoImageHash() => r'b94f74e6dc3191b352301a5edca67d70d870e410';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,10 +31,10 @@ class _SystemHash {
 
 abstract class _$NendoImage
     extends BuildlessAutoDisposeAsyncNotifier<NendoImageState> {
-  late final String gscProductNum;
+  late final NendoData nendoData;
 
   FutureOr<NendoImageState> build(
-    String gscProductNum,
+    NendoData nendoData,
   );
 }
 
@@ -49,10 +49,10 @@ class NendoImageFamily extends Family<AsyncValue<NendoImageState>> {
 
   /// See also [NendoImage].
   NendoImageProvider call(
-    String gscProductNum,
+    NendoData nendoData,
   ) {
     return NendoImageProvider(
-      gscProductNum,
+      nendoData,
     );
   }
 
@@ -61,7 +61,7 @@ class NendoImageFamily extends Family<AsyncValue<NendoImageState>> {
     covariant NendoImageProvider provider,
   ) {
     return call(
-      provider.gscProductNum,
+      provider.nendoData,
     );
   }
 
@@ -85,9 +85,9 @@ class NendoImageProvider
     extends AutoDisposeAsyncNotifierProviderImpl<NendoImage, NendoImageState> {
   /// See also [NendoImage].
   NendoImageProvider(
-    String gscProductNum,
+    NendoData nendoData,
   ) : this._internal(
-          () => NendoImage()..gscProductNum = gscProductNum,
+          () => NendoImage()..nendoData = nendoData,
           from: nendoImageProvider,
           name: r'nendoImageProvider',
           debugGetCreateSourceHash:
@@ -97,7 +97,7 @@ class NendoImageProvider
           dependencies: NendoImageFamily._dependencies,
           allTransitiveDependencies:
               NendoImageFamily._allTransitiveDependencies,
-          gscProductNum: gscProductNum,
+          nendoData: nendoData,
         );
 
   NendoImageProvider._internal(
@@ -107,17 +107,17 @@ class NendoImageProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.gscProductNum,
+    required this.nendoData,
   }) : super.internal();
 
-  final String gscProductNum;
+  final NendoData nendoData;
 
   @override
   FutureOr<NendoImageState> runNotifierBuild(
     covariant NendoImage notifier,
   ) {
     return notifier.build(
-      gscProductNum,
+      nendoData,
     );
   }
 
@@ -126,13 +126,13 @@ class NendoImageProvider
     return ProviderOverride(
       origin: this,
       override: NendoImageProvider._internal(
-        () => create()..gscProductNum = gscProductNum,
+        () => create()..nendoData = nendoData,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        gscProductNum: gscProductNum,
+        nendoData: nendoData,
       ),
     );
   }
@@ -145,21 +145,21 @@ class NendoImageProvider
 
   @override
   bool operator ==(Object other) {
-    return other is NendoImageProvider && other.gscProductNum == gscProductNum;
+    return other is NendoImageProvider && other.nendoData == nendoData;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, gscProductNum.hashCode);
+    hash = _SystemHash.combine(hash, nendoData.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
 mixin NendoImageRef on AutoDisposeAsyncNotifierProviderRef<NendoImageState> {
-  /// The parameter `gscProductNum` of this provider.
-  String get gscProductNum;
+  /// The parameter `nendoData` of this provider.
+  NendoData get nendoData;
 }
 
 class _NendoImageProviderElement
@@ -168,7 +168,7 @@ class _NendoImageProviderElement
   _NendoImageProviderElement(super.provider);
 
   @override
-  String get gscProductNum => (origin as NendoImageProvider).gscProductNum;
+  NendoData get nendoData => (origin as NendoImageProvider).nendoData;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

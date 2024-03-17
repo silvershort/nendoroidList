@@ -20,6 +20,17 @@ class _NendoWebPageState extends State<NendoWebPage> {
   @override
   void initState() {
     super.initState();
+
+    late final String uri;
+
+    // 새로운 데이터일 경우
+    if (widget.nendoData.image.contains('www.goodsmile.com')) {
+      uri = 'https://www.goodsmile.com/en/product/${widget.nendoData.gscProductNum}';
+    } // 기존 데이터일 경우
+    else {
+      uri = 'https://www.goodsmile.info/ja/product/${widget.nendoData.gscProductNum}';
+    }
+
     _webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
@@ -29,7 +40,7 @@ class _NendoWebPageState extends State<NendoWebPage> {
             },
           )
       )
-      ..loadRequest(Uri.parse('https://www.goodsmile.info/ja/product/${widget.nendoData.gscProductNum}'));
+      ..loadRequest(Uri.parse(uri));
   }
 
   @override

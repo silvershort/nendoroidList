@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/networks/services/scraping_serivce.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,28 +10,46 @@ part 'nendo_image_provider.freezed.dart';
 @riverpod
 class NendoImage extends _$NendoImage {
   @override
-  FutureOr<NendoImageState> build(String gscProductNum) async {
-    return fetchImage(gscProductNum);
+  FutureOr<NendoImageState> build(NendoData nendoData) async {
+    return fetchImage(nendoData);
   }
 
-  Future<NendoImageState> fetchImage(String gscProductNum) async {
-    final result = await ref.read(scrapingServiceProvider).getGoodSmileImage(gscProductNum: gscProductNum);
+  Future<NendoImageState> fetchImage(NendoData nendoData) async {
+    // 온라인샵에서 이미지를 가져오는 방식
+    if (nendoData.image.contains('www.goodsmile.com')) {
+      final result = await ref.read(scrapingServiceProvider).getOnlineStoreThumbnailList(nendoData.gscProductNum.toString());
 
-    return result.when(
-      success: (value) {
-        return NendoImageState(
-          imageList: value.imageList,
-          thumbnailList: value.thumbnailList,
-        );
-      },
-      error: (error, stackTrace) {
-        return Future.error(error, stackTrace);
-      },
-    );
+      return result.when(
+        success: (value) {
+          return NendoImageState(
+            imageList: value,
+            thumbnailList: value,
+          );
+        },
+        error: (error, stackTrace) {
+          return Future.error(error, stackTrace);
+        },
+      );
+    } // 기존 info에서 이미지를 가져오는 방식
+    else {
+      final result = await ref.read(scrapingServiceProvider).getGoodSmileImage(gscProductNum: nendoData.gscProductNum.toString());
+
+      return result.when(
+        success: (value) {
+          return NendoImageState(
+            imageList: value.imageList,
+            thumbnailList: value.thumbnailList,
+          );
+        },
+        error: (error, stackTrace) {
+          return Future.error(error, stackTrace);
+        },
+      );
+    }
   }
 
   Future<void> refresh() async {
-    state = await AsyncValue.guard(() => fetchImage(gscProductNum));
+    state = await AsyncValue.guard(() => fetchImage(nendoData));
   }
 }
 

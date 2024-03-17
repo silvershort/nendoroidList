@@ -71,7 +71,10 @@ class ScrapingService {
           .getElementsByClassName("inline_fix")
           .map((e) => "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
           .toList();
-      List<String> thumbnailList = nodeList.getElementsByClassName("iconZoom").map((e) => "https:${e.attributes["src"] ?? ""}").toList();
+      List<String> thumbnailList = document.getElementsByClassName("itemThumb clearfix").firstOrNull?.getElementsByTagName('li')
+          .map((e) => "https:${e.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? ''}").toList() ?? [];
+
+      print("@@@ thumb : ${thumbnailList.toList()}");
       return ApiResult.success((imageList: imageList, thumbnailList: thumbnailList));
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
@@ -204,6 +207,29 @@ class ScrapingService {
         ApiError(code: 0, message: error.toString()),
         stackTrace,
       );
+    }
+  }
+
+  Future<ApiResult<List<String>>> getOnlineStoreThumbnailList(String gscProductNum) async {
+    try {
+      List<String> thumbnailList = [];
+
+      final response = await repository.getOnlineStoreThumbnailList(gscProductNum: gscProductNum);
+      final Document document = parse(response.data);
+
+      // 썸네일 리스트 클래스 가져오기
+      final List<Element> elementList = document.getElementsByClassName("c-photo-variable-grid__item js-grid-item js-panzoom-show ");
+
+      // for문을 돌면서 실제 이미지 링크만 뽑아서 저장해둔다.
+      for (Element element in elementList) {
+        final String? url = element.getElementsByClassName('c-image').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['src'];
+        if (url != null) {
+          thumbnailList.add('https://www.goodsmile.com$url');
+        }
+      }
+      return ApiResult.success(thumbnailList);
+    } catch (error, stackTrace) {
+      return ApiResult.error(ApiError(message: error.toString()), stackTrace);
     }
   }
 
