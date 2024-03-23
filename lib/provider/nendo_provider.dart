@@ -159,7 +159,7 @@ class Nendo extends _$Nendo {
             int index = sortList.indexWhere((e) => e.gscProductNum == backupData.gscProductNum);
 
             if (index >= 0) {
-              sortList[index] = backupData.copyWith(
+              sortList[index] = sortList[index].copyWith(
                 count: backupData.count,
                 have: backupData.have,
                 wish: backupData.wish,
