@@ -126,18 +126,18 @@ class SettingScreen extends ConsumerWidget {
           //     ref.read(nendoProvider.notifier).fetchData();
           //   },
           // ),
-          // MenuTile(
-          //   title: '넨도 데이터 저장',
-          //   onPressed: () {
-          //     ref.read(githubDownloadProvider.notifier).fetchNendoData();
-          //   },
-          // ),
-          // MenuTile(
-          //   title: '원격 저장소에 데이터 저장',
-          //   onPressed: () {
-          //     ref.read(githubDownloadProvider.notifier).uploadFirebase();
-          //   },
-          // ),
+          MenuTile(
+            title: '넨도 데이터 저장',
+            onPressed: () {
+              ref.read(githubDownloadProvider.notifier).fetchNendoData();
+            },
+          ),
+          MenuTile(
+            title: '원격 저장소에 데이터 저장',
+            onPressed: () {
+              ref.read(githubDownloadProvider.notifier).uploadFirebase();
+            },
+          ),
           // const SettingTitle(title: '데이터 설정'),
           // MenuSwitchTile(
           //   title: '데이터 자동 백업',
