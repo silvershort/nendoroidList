@@ -21,7 +21,7 @@ class DetailImageSlider extends ConsumerStatefulWidget {
 }
 
 class _DetailImageSliderState extends ConsumerState<DetailImageSlider> {
-  final CarouselController carouselController = CarouselController();
+  final CarouselSliderController carouselController = CarouselSliderController();
   int currentIndex = 0;
 
   @override
