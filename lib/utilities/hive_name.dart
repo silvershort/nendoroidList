@@ -18,6 +18,7 @@ class HiveName {
   static const String appHideUIKey = "appHideUI";
   static const String appGridCountKey = "appGridCount";
   static const String appImageAutoPlayKey = "appImageAutoPlay";
+  static const String nendoDetailUsePopupKey = "nendoDetailUsePopupKey";
   static const String localDataVersionKey = "localDataVersion";
   static const String subscribeKey = "subscribeKey";
   static const String emailKey = "emailKey";

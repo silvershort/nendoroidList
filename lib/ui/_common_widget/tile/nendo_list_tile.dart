@@ -2,10 +2,13 @@ import 'package:badges/badges.dart' as badges;
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
+import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
+import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
+import 'package:nendoroid_db/router/route_path.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar_controller.dart';
 import 'package:nendoroid_db/ui/_common_widget/chip/memo_list_widget.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
@@ -16,9 +19,9 @@ import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 
 class NendoListTile extends ConsumerWidget {
   const NendoListTile({
-    Key? key,
+    super.key,
     required this.nendoData,
-  }) : super(key: key);
+  });
   final NendoData nendoData;
 
   Color _setItemSelectedColor(BuildContext context, NendoListSettingState state) {
@@ -40,25 +43,30 @@ class NendoListTile extends ConsumerWidget {
     }
   }
 
-  void _showDetailDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return DetailDialog(nendoData: nendoData);
-      },
-    );
+  void _showDetail(BuildContext context, bool usePopup) {
+    if (usePopup) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return DetailDialog(nendoData: nendoData);
+        },
+      );
+    } else {
+      context.push(RoutePath.listDetail, extra: nendoData);
+    }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(nendoListSettingProvider);
     final nendoController = ref.read(nendoProvider.notifier);
+    final bool usePopup = ref.watch(appSettingProvider.select((value) => value.usePopup));
 
     return GestureDetector(
       onTap: () {
         switch (state.editMode) {
           case Normal():
-            _showDetailDialog(context);
+            _showDetail(context, usePopup);
           case Have():
             nendoController.updateHaveNendo(nendoData.num);
           case Wish():
@@ -71,7 +79,7 @@ class NendoListTile extends ConsumerWidget {
         }
       },
       onLongPress: () {
-        _showDetailDialog(context);
+        _showDetail(context, usePopup);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -220,7 +228,7 @@ class NendoListTile extends ConsumerWidget {
 }
 
 class NendoPrice extends StatelessWidget {
-  const NendoPrice({Key? key, required this.state, required this.nendoData}) : super(key: key);
+  const NendoPrice({super.key, required this.state, required this.nendoData});
   final NendoListSettingState state;
   final NendoData nendoData;
 

@@ -1,5 +1,6 @@
 class RoutePath {
   static String list = '/list';
+  static String listDetail = '/list/detail';
   static String stats = '/stats';
   static String news = '/news';
   static String newsDetail = '/news/detail';

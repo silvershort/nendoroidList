@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
@@ -8,6 +9,7 @@ import 'package:nendoroid_db/ui/my/screen/app_info_screen.dart';
 import 'package:nendoroid_db/ui/my/screen/login_screen.dart';
 import 'package:nendoroid_db/ui/my/screen/my_screen.dart';
 import 'package:nendoroid_db/ui/my/screen/setting_screen.dart';
+import 'package:nendoroid_db/ui/nendo/screen/nendo_detail_screen.dart';
 import 'package:nendoroid_db/ui/nendo/screen/nendo_web_screen.dart';
 import 'package:nendoroid_db/ui/news/screen/news_detail_screen.dart';
 import 'package:nendoroid_db/ui/news/screen/news_screen.dart';
@@ -30,8 +32,10 @@ final appRouter = GoRouter(
       path: '/image-detail',
       builder: (context, state) {
         final List<String> attachList = state.extra as List<String>;
-        final int initialIndex = state.uri.queryParameters['start'].toIntOrDefault;
-        return ImageDetailScreen(attachList: attachList, initialIndex: initialIndex);
+        final int initialIndex =
+            state.uri.queryParameters['start'].toIntOrDefault;
+        return ImageDetailScreen(
+            attachList: attachList, initialIndex: initialIndex);
       },
     ),
     GoRoute(
@@ -58,9 +62,36 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/list',
-              builder: (context, state) {
-                return const ListScreen();
+              pageBuilder: (context, state) {
+                return const NoTransitionPage(child: ListScreen());
               },
+              routes: [
+                GoRoute(
+                  path: 'detail',
+                  pageBuilder: (context, state) {
+                    final NendoData nendoData = state.extra as NendoData;
+
+                    return CustomTransitionPage(
+                      child: NendoDetailScreen(nendoData: nendoData),
+                      opaque: false,
+                      transitionDuration: const Duration(milliseconds: 150),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: SlideTransition(
+                            position: Tween<Offset>(
+                              begin: const Offset(1.0, 0.0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                )
+              ],
             ),
           ],
         ),
@@ -85,9 +116,12 @@ final appRouter = GoRouter(
                 GoRoute(
                   path: 'detail',
                   builder: (context, state) {
-                    final String title = state.uri.queryParameters['title'] ?? '상세보기';
-                    final String homePage = state.uri.queryParameters['homePage'] ?? '';
-                    final List<NewsItemData> itemList = state.extra as List<NewsItemData>;
+                    final String title =
+                        state.uri.queryParameters['title'] ?? '상세보기';
+                    final String homePage =
+                        state.uri.queryParameters['homePage'] ?? '';
+                    final List<NewsItemData> itemList =
+                        state.extra as List<NewsItemData>;
 
                     return NewsDetailScreen(
                       title: title,

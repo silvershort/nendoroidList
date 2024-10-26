@@ -22,6 +22,7 @@ class AppSettingState with _$AppSettingState {
     required int gridCount,
     required bool autoPlay,
     required String appFont,
+    required bool usePopup,
   }) = _AppSettingState;
 }
 
@@ -44,6 +45,7 @@ class AppSetting extends _$AppSetting {
       gridCount: _appThemeBox.get(HiveName.appGridCountKey) ?? 0,
       autoPlay: _appThemeBox.get(HiveName.appImageAutoPlayKey) ?? true,
       appFont: ref.read(sharedPreferencesProvider).getFont(),
+      usePopup: _appThemeBox.get(HiveName.nendoDetailUsePopupKey) ?? false,
     );
   }
 
@@ -116,6 +118,13 @@ class AppSetting extends _$AppSetting {
   void setAppFont(String appFont) {
     state = state.copyWith(
       appFont: appFont,
+    );
+  }
+
+  // 넨도 상세페이지를 팝업형식으로 열지 여부
+  void setNendoDetailUsePopup(bool usePopup) {
+    state = state.copyWith(
+      usePopup: usePopup,
     );
   }
 }

@@ -57,6 +57,13 @@ class SettingScreen extends ConsumerWidget {
               controller.setHideUI(value ?? true);
             },
           ),
+          MenuSwitchTile(
+            title: '상세페이지를 팝업형식으로 보기',
+            value: state.usePopup,
+            onChanged: (value) {
+              controller.setNendoDetailUsePopup(value ?? false);
+            },
+          ),
           MenuCountTile(
             title: '격자뷰 아이템 개수',
             value: state.gridCount,

@@ -24,6 +24,7 @@ mixin _$AppSettingState {
   int get gridCount => throw _privateConstructorUsedError;
   bool get autoPlay => throw _privateConstructorUsedError;
   String get appFont => throw _privateConstructorUsedError;
+  bool get usePopup => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppSettingStateCopyWith<AppSettingState> get copyWith =>
@@ -44,7 +45,8 @@ abstract class $AppSettingStateCopyWith<$Res> {
       bool hideUI,
       int gridCount,
       bool autoPlay,
-      String appFont});
+      String appFont,
+      bool usePopup});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$AppSettingStateCopyWithImpl<$Res, $Val extends AppSettingState>
     Object? gridCount = null,
     Object? autoPlay = null,
     Object? appFont = null,
+    Object? usePopup = null,
   }) {
     return _then(_value.copyWith(
       seedColor: null == seedColor
@@ -102,6 +105,10 @@ class _$AppSettingStateCopyWithImpl<$Res, $Val extends AppSettingState>
           ? _value.appFont
           : appFont // ignore: cast_nullable_to_non_nullable
               as String,
+      usePopup: null == usePopup
+          ? _value.usePopup
+          : usePopup // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -122,7 +129,8 @@ abstract class _$$AppSettingStateImplCopyWith<$Res>
       bool hideUI,
       int gridCount,
       bool autoPlay,
-      String appFont});
+      String appFont,
+      bool usePopup});
 }
 
 /// @nodoc
@@ -144,6 +152,7 @@ class __$$AppSettingStateImplCopyWithImpl<$Res>
     Object? gridCount = null,
     Object? autoPlay = null,
     Object? appFont = null,
+    Object? usePopup = null,
   }) {
     return _then(_$AppSettingStateImpl(
       seedColor: null == seedColor
@@ -178,6 +187,10 @@ class __$$AppSettingStateImplCopyWithImpl<$Res>
           ? _value.appFont
           : appFont // ignore: cast_nullable_to_non_nullable
               as String,
+      usePopup: null == usePopup
+          ? _value.usePopup
+          : usePopup // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -193,7 +206,8 @@ class _$AppSettingStateImpl implements _AppSettingState {
       required this.hideUI,
       required this.gridCount,
       required this.autoPlay,
-      required this.appFont});
+      required this.appFont,
+      required this.usePopup});
 
   @override
   final MaterialColor seedColor;
@@ -211,10 +225,12 @@ class _$AppSettingStateImpl implements _AppSettingState {
   final bool autoPlay;
   @override
   final String appFont;
+  @override
+  final bool usePopup;
 
   @override
   String toString() {
-    return 'AppSettingState(seedColor: $seedColor, brightness: $brightness, showGroupHeader: $showGroupHeader, groupMethod: $groupMethod, hideUI: $hideUI, gridCount: $gridCount, autoPlay: $autoPlay, appFont: $appFont)';
+    return 'AppSettingState(seedColor: $seedColor, brightness: $brightness, showGroupHeader: $showGroupHeader, groupMethod: $groupMethod, hideUI: $hideUI, gridCount: $gridCount, autoPlay: $autoPlay, appFont: $appFont, usePopup: $usePopup)';
   }
 
   @override
@@ -235,12 +251,23 @@ class _$AppSettingStateImpl implements _AppSettingState {
                 other.gridCount == gridCount) &&
             (identical(other.autoPlay, autoPlay) ||
                 other.autoPlay == autoPlay) &&
-            (identical(other.appFont, appFont) || other.appFont == appFont));
+            (identical(other.appFont, appFont) || other.appFont == appFont) &&
+            (identical(other.usePopup, usePopup) ||
+                other.usePopup == usePopup));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, seedColor, brightness,
-      showGroupHeader, groupMethod, hideUI, gridCount, autoPlay, appFont);
+  int get hashCode => Object.hash(
+      runtimeType,
+      seedColor,
+      brightness,
+      showGroupHeader,
+      groupMethod,
+      hideUI,
+      gridCount,
+      autoPlay,
+      appFont,
+      usePopup);
 
   @JsonKey(ignore: true)
   @override
@@ -259,7 +286,8 @@ abstract class _AppSettingState implements AppSettingState {
       required final bool hideUI,
       required final int gridCount,
       required final bool autoPlay,
-      required final String appFont}) = _$AppSettingStateImpl;
+      required final String appFont,
+      required final bool usePopup}) = _$AppSettingStateImpl;
 
   @override
   MaterialColor get seedColor;
@@ -277,6 +305,8 @@ abstract class _AppSettingState implements AppSettingState {
   bool get autoPlay;
   @override
   String get appFont;
+  @override
+  bool get usePopup;
   @override
   @JsonKey(ignore: true)
   _$$AppSettingStateImplCopyWith<_$AppSettingStateImpl> get copyWith =>
