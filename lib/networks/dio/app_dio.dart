@@ -23,4 +23,15 @@ class AppDio extends _$AppDio {
   void setBaseUrl(String baseUrl) {
     _dio.options.baseUrl = baseUrl;
   }
+
+  void addHeader(Map<String, dynamic> header) {
+    _dio.options.headers.addAll(header);
+  }
+
+  void removeHeader(List<String> keys) {
+    for (var key in keys) {
+      _dio.options.headers.remove(key);
+    }
+  }
+
 }

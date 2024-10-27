@@ -1,10 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
+import 'package:nendoroid_db/networks/dio/app_dio.dart';
 import 'package:nendoroid_db/networks/services/scraping_serivce.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'news_provider.freezed.dart';
+
 part 'news_provider.g.dart';
 
 @riverpod
@@ -47,7 +49,14 @@ class News extends _$News {
   }
 
   Future<List<NewsItemData>> getNendoroidList() async {
+    // 알 수 없는 이유로 네이버 헤더에 쿠키값을 포함하지 않으면 스크래핑이 되지 않는다.
+    // 따라서 Dio쪽에 헤더를 추가했다가 메소드가 끝날때 해제시킨다.
+    final appDioController = ref.read(appDioProvider.notifier);
+    appDioController.addHeader({'Cookie': 'wcs_bt=s_17766344d46d1:1726706449; Path=/; Expires=Fri, 19 Sep 2025 00:43:33 GMT;'});
+
     final result = await ref.read(scrapingServiceProvider).getGoodSmileSpecialList();
+
+    appDioController.removeHeader(['Cookie']);
 
     return result.when(
       success: (value) {

@@ -255,7 +255,7 @@ class ScrapingService {
           String number = name.onlyNumberFirst.toString();
           name = name.replaceFirst(number, '');
           String link =
-              e.getElementsByTagName("a").firstWhere((element) => element.className == "stX4bV9Ny3 N=a:lst.product linkAnchor").attributes["href"] ??
+              e.getElementsByTagName("a").firstWhere((element) => element.className.contains("stX4bV9Ny3")).attributes["href"] ??
                   '';
           String price = e.getElementsByClassName('LGJCRfhDKi').firstOrNull?.text ?? '';
           bool soldOut = e.getElementsByClassName('text blind').firstOrNull?.text == 'SOLD OUT';
