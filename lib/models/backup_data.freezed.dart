@@ -12,7 +12,7 @@ part of 'backup_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 BackupData _$BackupDataFromJson(Map<String, dynamic> json) {
   return _BackupData.fromJson(json);
@@ -28,8 +28,12 @@ mixin _$BackupData {
   String get commitDate => throw _privateConstructorUsedError;
   String get backupDate => throw _privateConstructorUsedError;
 
+  /// Serializes this BackupData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BackupData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BackupDataCopyWith<BackupData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$BackupDataCopyWithImpl<$Res, $Val extends BackupData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BackupData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,6 +136,8 @@ class __$$BackupDataImplCopyWithImpl<$Res>
       _$BackupDataImpl _value, $Res Function(_$BackupDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BackupData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -232,7 +240,7 @@ class _$BackupDataImpl implements _BackupData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BackupDataImpl &&
@@ -250,7 +258,7 @@ class _$BackupDataImpl implements _BackupData {
                 other.backupDate == backupDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -262,7 +270,9 @@ class _$BackupDataImpl implements _BackupData {
       commitDate,
       backupDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BackupData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BackupDataImplCopyWith<_$BackupDataImpl> get copyWith =>
@@ -303,8 +313,11 @@ abstract class _BackupData implements BackupData {
   String get commitDate;
   @override
   String get backupDate;
+
+  /// Create a copy of BackupData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BackupDataImplCopyWith<_$BackupDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

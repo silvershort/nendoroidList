@@ -3,6 +3,7 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/api/api_result.dart';
+import 'package:nendoroid_db/models/good_smile_news_model.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/networks/repositories/scraping_repository.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
@@ -18,6 +19,8 @@ ScrapingService scrapingService(ScrapingServiceRef ref) {
 
 class ScrapingService {
   final ScrapingRepository repository;
+  final String _releaseNewsCategory = 'Shipping Info';
+  final String _releaseNewsKeyword = 'Release Dates';
 
   const ScrapingService({
     required this.repository,
@@ -69,10 +72,16 @@ class ScrapingService {
       }
       List<String> imageList = nodeList
           .getElementsByClassName("inline_fix")
-          .map((e) => "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
+          .map((e) =>
+              "https:${e.getElementsByTagName("a").firstWhere((element) => element.className == "imagebox").attributes["href"] ?? ""}")
           .toList();
-      List<String> thumbnailList = document.getElementsByClassName("itemThumb clearfix").firstOrNull?.getElementsByTagName('li')
-          .map((e) => "https:${e.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? ''}").toList() ?? [];
+      List<String> thumbnailList = document
+              .getElementsByClassName("itemThumb clearfix")
+              .firstOrNull
+              ?.getElementsByTagName('li')
+              .map((e) => "https:${e.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? ''}")
+              .toList() ??
+          [];
 
       print("@@@ thumb : ${thumbnailList.toList()}");
       return ApiResult.success((imageList: imageList, thumbnailList: thumbnailList));
@@ -93,13 +102,23 @@ class ScrapingService {
         return const ApiResult.success([]);
       }
 
-      final List<Element> imminentList = imminentSection.getElementsByClassName('hitItem shimeproduct nendoroid nendoroid_series');
+      final List<Element> imminentList =
+          imminentSection.getElementsByClassName('hitItem shimeproduct nendoroid nendoroid_series');
 
       final itemList = imminentList.map((e) {
-        String name = e.getElementsByClassName('hitTtl').firstOrNull?.getElementsByTagName('span').firstOrNull?.text ?? '';
+        String name =
+            e.getElementsByClassName('hitTtl').firstOrNull?.getElementsByTagName('span').firstOrNull?.text ?? '';
         bool soldout = false;
-        String link = e.getElementsByClassName('hitBox').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ?? '';
-        String imagePath = e.getElementsByClassName('hitBox').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['data-original'] ?? '';
+        String link =
+            e.getElementsByClassName('hitBox').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ??
+                '';
+        String imagePath = e
+                .getElementsByClassName('hitBox')
+                .firstOrNull
+                ?.getElementsByTagName('img')
+                .firstOrNull
+                ?.attributes['data-original'] ??
+            '';
 
         imagePath = 'https:$imagePath';
 
@@ -142,8 +161,12 @@ class ScrapingService {
                 .firstOrNull
                 ?.text ??
             '';
-        String link = e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ?? '';
-        String imagePath = e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? '';
+        String link =
+            e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ??
+                '';
+        String imagePath =
+            e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['src'] ??
+                '';
 
         link = 'https://ninimal.co.kr/$link';
         imagePath = 'https:$imagePath';
@@ -195,7 +218,6 @@ class ScrapingService {
         monthItem.getElementsByTagName('largedate');
       }
 
-
       return ApiResult.success(null);
     } on DioException catch (error, stackTrace) {
       return ApiResult.error(
@@ -218,11 +240,17 @@ class ScrapingService {
       final Document document = parse(response.data);
 
       // 썸네일 리스트 클래스 가져오기
-      final List<Element> elementList = document.getElementsByClassName("c-photo-variable-grid__item js-grid-item js-panzoom-show ");
+      final List<Element> elementList =
+          document.getElementsByClassName("c-photo-variable-grid__item js-grid-item js-panzoom-show ");
 
       // for문을 돌면서 실제 이미지 링크만 뽑아서 저장해둔다.
       for (Element element in elementList) {
-        final String? url = element.getElementsByClassName('c-image').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['src'];
+        final String? url = element
+            .getElementsByClassName('c-image')
+            .firstOrNull
+            ?.getElementsByTagName('img')
+            .firstOrNull
+            ?.attributes['src'];
         if (url != null) {
           thumbnailList.add('https://www.goodsmile.com$url');
         }
@@ -249,19 +277,23 @@ class ScrapingService {
           lastPage = pageElement.length;
         }
 
-        final List<NewsItemData> tempList = document.getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX").map((e) {
+        final List<NewsItemData> tempList =
+            document.getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX").map((e) {
           String imagePath = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["src"] ?? '';
           String name = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["alt"] ?? '';
           String number = name.onlyNumberFirst.toString();
           name = name.replaceFirst(number, '');
-          String link =
-              e.getElementsByTagName("a").firstWhere((element) => element.className.contains("stX4bV9Ny3")).attributes["href"] ??
-                  '';
+          String link = e
+                  .getElementsByTagName("a")
+                  .firstWhere((element) => element.className.contains("stX4bV9Ny3"))
+                  .attributes["href"] ??
+              '';
           String price = e.getElementsByClassName('LGJCRfhDKi').firstOrNull?.text ?? '';
           bool soldOut = e.getElementsByClassName('text blind').firstOrNull?.text == 'SOLD OUT';
 
           link = 'https://brand.naver.com$link';
-          return NewsItemData(imagePath: imagePath, number: number, name: name, link: link, price: price, soldOut: soldOut);
+          return NewsItemData(
+              imagePath: imagePath, number: number, name: name, link: link, price: price, soldOut: soldOut);
         }).toList();
 
         list.addAll(tempList
@@ -279,6 +311,67 @@ class ScrapingService {
       talker.error(error.toString(), error, stackTrace);
       return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
     }
+  }
+
+  Future<ApiResult<GoodSmileNewsModel>> getGoodSmileNews() async {
+    final response = await repository.getOnlineStoreNewsList();
+    final Document document = parse(response.data);
+
+    final List<Element> pageElement = document.getElementsByClassName("c-news__row");
+
+    for (final Element element in pageElement) {
+      final Element? category = element.getElementsByClassName('c-news__category').firstOrNull;
+      final Element? title = element.getElementsByClassName('c-news__title').firstOrNull;
+      final Element? link = element.getElementsByTagName('a').firstOrNull;
+
+      GoodSmileNewsModel? goodSmileNewsModel;
+
+      // 뉴스 리스트에서 카테고리가 'Shipping Info'인 항목을 골라낸다.
+      if (category != null && category.text == _releaseNewsCategory) {
+        if (title?.text.contains(_releaseNewsKeyword) ?? false) {
+          final String? detailLink = link?.attributes['href'];
+
+          if (detailLink != null) {
+            final String newsNumber = detailLink.split('/').last;
+            final response = await repository.getOnlineStoreNewsDetail(newsNumber: newsNumber);
+            final Document document = parse(response.data);
+
+            final content = document.getElementById('notice-1');
+            
+            if (content == null) {
+              continue;
+            }
+
+            // 넨도로이드 이름을 담을 리스트
+            final List<String> releaseNendoList = [];
+
+            talker.info('@@@ ${content.text}');
+            // 실제 뉴스 내용에서 넨도로이드 제품만 추출
+            for (final line in content.text.split('\n')) {
+              if (line.contains('Nendoroid') && !line.contains('Doll')) {
+                // -과 ( 사이의 문자열 추출 후 Nendoroid라는 문자를 삭제
+                final pattern = RegExp(r'- (.*?) \(');
+                final match = pattern.firstMatch(line);
+                final nendoName = match?.group(1)?.replaceAll('Nendoroid', '').trim();
+
+                if (nendoName != null) {
+                  releaseNendoList.add(nendoName);
+                }
+              }
+            }
+
+            goodSmileNewsModel = GoodSmileNewsModel(
+              title: title!.text,
+              link: detailLink,
+              nendoNameList: releaseNendoList,
+            );
+
+            return ApiResult.success(goodSmileNewsModel);
+          }
+        }
+      }
+    }
+    return const ApiResult.error(ApiError(message: 'Not found news'), StackTrace.empty);
   }
 
   Future<ApiResult<int>> getExchangeRate() async {

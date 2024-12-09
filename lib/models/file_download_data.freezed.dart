@@ -12,7 +12,7 @@ part of 'file_download_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$FileDownloadData {
@@ -20,7 +20,9 @@ mixin _$FileDownloadData {
   String? get fileName => throw _privateConstructorUsedError;
   bool get showNotification => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FileDownloadData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FileDownloadDataCopyWith<FileDownloadData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$FileDownloadDataCopyWithImpl<$Res, $Val extends FileDownloadData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FileDownloadData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$FileDownloadDataImplCopyWithImpl<$Res>
       $Res Function(_$FileDownloadDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FileDownloadData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,7 +137,7 @@ class _$FileDownloadDataImpl implements _FileDownloadData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FileDownloadDataImpl &&
@@ -147,7 +153,9 @@ class _$FileDownloadDataImpl implements _FileDownloadData {
   int get hashCode =>
       Object.hash(runtimeType, downloadUrl, fileName, showNotification);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FileDownloadData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FileDownloadDataImplCopyWith<_$FileDownloadDataImpl> get copyWith =>
@@ -167,8 +175,11 @@ abstract class _FileDownloadData implements FileDownloadData {
   String? get fileName;
   @override
   bool get showNotification;
+
+  /// Create a copy of FileDownloadData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FileDownloadDataImplCopyWith<_$FileDownloadDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

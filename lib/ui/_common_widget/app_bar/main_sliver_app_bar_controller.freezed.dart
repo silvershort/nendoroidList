@@ -12,14 +12,16 @@ part of 'main_sliver_app_bar_controller.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ListAppBarState {
   bool get isSearchMode => throw _privateConstructorUsedError;
   String get searchText => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ListAppBarState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ListAppBarStateCopyWith<ListAppBarState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$ListAppBarStateCopyWithImpl<$Res, $Val extends ListAppBarState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ListAppBarState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +85,8 @@ class __$$ListAppBarStateImplCopyWithImpl<$Res>
       _$ListAppBarStateImpl _value, $Res Function(_$ListAppBarStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ListAppBarState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,7 +125,7 @@ class _$ListAppBarStateImpl implements _ListAppBarState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ListAppBarStateImpl &&
@@ -132,7 +138,9 @@ class _$ListAppBarStateImpl implements _ListAppBarState {
   @override
   int get hashCode => Object.hash(runtimeType, isSearchMode, searchText);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ListAppBarState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ListAppBarStateImplCopyWith<_$ListAppBarStateImpl> get copyWith =>
@@ -149,8 +157,11 @@ abstract class _ListAppBarState implements ListAppBarState {
   bool get isSearchMode;
   @override
   String get searchText;
+
+  /// Create a copy of ListAppBarState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ListAppBarStateImplCopyWith<_$ListAppBarStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

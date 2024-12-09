@@ -12,7 +12,7 @@ part of 'nendo_release_info_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NendoRelaseInfoData {
@@ -20,7 +20,9 @@ mixin _$NendoRelaseInfoData {
   List<MonthReleaseData> get monthReleaseList =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NendoRelaseInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NendoRelaseInfoDataCopyWith<NendoRelaseInfoData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,6 +47,8 @@ class _$NendoRelaseInfoDataCopyWithImpl<$Res, $Val extends NendoRelaseInfoData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NendoRelaseInfoData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -84,6 +88,8 @@ class __$$NendoRelaseInfoDataImplCopyWithImpl<$Res>
       $Res Function(_$NendoRelaseInfoDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NendoRelaseInfoData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,7 +134,7 @@ class _$NendoRelaseInfoDataImpl implements _NendoRelaseInfoData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NendoRelaseInfoDataImpl &&
@@ -142,7 +148,9 @@ class _$NendoRelaseInfoDataImpl implements _NendoRelaseInfoData {
   int get hashCode => Object.hash(runtimeType, lastReleaseDate,
       const DeepCollectionEquality().hash(_monthReleaseList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NendoRelaseInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NendoRelaseInfoDataImplCopyWith<_$NendoRelaseInfoDataImpl> get copyWith =>
@@ -160,8 +168,11 @@ abstract class _NendoRelaseInfoData implements NendoRelaseInfoData {
   DateTime get lastReleaseDate;
   @override
   List<MonthReleaseData> get monthReleaseList;
+
+  /// Create a copy of NendoRelaseInfoData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NendoRelaseInfoDataImplCopyWith<_$NendoRelaseInfoDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -172,7 +183,9 @@ mixin _$MonthReleaseData {
   int get month => throw _privateConstructorUsedError;
   List<ReleaseData> get releaseList => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MonthReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MonthReleaseDataCopyWith<MonthReleaseData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -196,6 +209,8 @@ class _$MonthReleaseDataCopyWithImpl<$Res, $Val extends MonthReleaseData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MonthReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -239,6 +254,8 @@ class __$$MonthReleaseDataImplCopyWithImpl<$Res>
       $Res Function(_$MonthReleaseDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MonthReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -290,7 +307,7 @@ class _$MonthReleaseDataImpl implements _MonthReleaseData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MonthReleaseDataImpl &&
@@ -304,7 +321,9 @@ class _$MonthReleaseDataImpl implements _MonthReleaseData {
   int get hashCode => Object.hash(runtimeType, year, month,
       const DeepCollectionEquality().hash(_releaseList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MonthReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MonthReleaseDataImplCopyWith<_$MonthReleaseDataImpl> get copyWith =>
@@ -324,8 +343,11 @@ abstract class _MonthReleaseData implements MonthReleaseData {
   int get month;
   @override
   List<ReleaseData> get releaseList;
+
+  /// Create a copy of MonthReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MonthReleaseDataImplCopyWith<_$MonthReleaseDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -335,7 +357,9 @@ mixin _$ReleaseData {
   DateTime get releaseData => throw _privateConstructorUsedError;
   NendoReleaseData get nendoData => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ReleaseDataCopyWith<ReleaseData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -361,6 +385,8 @@ class _$ReleaseDataCopyWithImpl<$Res, $Val extends ReleaseData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -379,6 +405,8 @@ class _$ReleaseDataCopyWithImpl<$Res, $Val extends ReleaseData>
     ) as $Val);
   }
 
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $NendoReleaseDataCopyWith<$Res> get nendoData {
@@ -410,6 +438,8 @@ class __$$ReleaseDataImplCopyWithImpl<$Res>
       _$ReleaseDataImpl _value, $Res Function(_$ReleaseDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -445,7 +475,7 @@ class _$ReleaseDataImpl implements _ReleaseData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ReleaseDataImpl &&
@@ -458,7 +488,9 @@ class _$ReleaseDataImpl implements _ReleaseData {
   @override
   int get hashCode => Object.hash(runtimeType, releaseData, nendoData);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReleaseDataImplCopyWith<_$ReleaseDataImpl> get copyWith =>
@@ -474,8 +506,11 @@ abstract class _ReleaseData implements ReleaseData {
   DateTime get releaseData;
   @override
   NendoReleaseData get nendoData;
+
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReleaseDataImplCopyWith<_$ReleaseDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -486,7 +521,9 @@ mixin _$NendoReleaseData {
   String get name => throw _privateConstructorUsedError;
   String get productLink => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NendoReleaseDataCopyWith<NendoReleaseData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -510,6 +547,8 @@ class _$NendoReleaseDataCopyWithImpl<$Res, $Val extends NendoReleaseData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -553,6 +592,8 @@ class __$$NendoReldeaseDataImplCopyWithImpl<$Res>
       $Res Function(_$NendoReldeaseDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -596,7 +637,7 @@ class _$NendoReldeaseDataImpl implements _NendoReldeaseData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NendoReldeaseDataImpl &&
@@ -610,7 +651,9 @@ class _$NendoReldeaseDataImpl implements _NendoReldeaseData {
   @override
   int get hashCode => Object.hash(runtimeType, imageLink, name, productLink);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NendoReldeaseDataImplCopyWith<_$NendoReldeaseDataImpl> get copyWith =>
@@ -630,8 +673,11 @@ abstract class _NendoReldeaseData implements NendoReleaseData {
   String get name;
   @override
   String get productLink;
+
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NendoReldeaseDataImplCopyWith<_$NendoReldeaseDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,7 @@ part of 'doll_filter_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$DollFilterData {
@@ -21,7 +21,9 @@ mixin _$DollFilterData {
   bool get customizingFilter => throw _privateConstructorUsedError;
   bool get dollFilter => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DollFilterData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DollFilterDataCopyWith<DollFilterData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$DollFilterDataCopyWithImpl<$Res, $Val extends DollFilterData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DollFilterData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +105,8 @@ class __$$DollFilterDataImplCopyWithImpl<$Res>
       _$DollFilterDataImpl _value, $Res Function(_$DollFilterDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DollFilterData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -159,7 +165,7 @@ class _$DollFilterDataImpl extends _DollFilterData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DollFilterDataImpl &&
@@ -177,7 +183,9 @@ class _$DollFilterDataImpl extends _DollFilterData {
   int get hashCode => Object.hash(
       runtimeType, bodyFilter, clothesFilter, customizingFilter, dollFilter);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DollFilterData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DollFilterDataImplCopyWith<_$DollFilterDataImpl> get copyWith =>
@@ -201,8 +209,11 @@ abstract class _DollFilterData extends DollFilterData {
   bool get customizingFilter;
   @override
   bool get dollFilter;
+
+  /// Create a copy of DollFilterData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DollFilterDataImplCopyWith<_$DollFilterDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

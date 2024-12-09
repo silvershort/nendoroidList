@@ -12,7 +12,7 @@ part of 'subscribe_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$SubscribeData {
@@ -23,7 +23,9 @@ mixin _$SubscribeData {
   @HiveField(2)
   RuliwebSubscribe get ruliwebSubscribe => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SubscribeDataCopyWith<SubscribeData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +56,8 @@ class _$SubscribeDataCopyWithImpl<$Res, $Val extends SubscribeData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -77,6 +81,8 @@ class _$SubscribeDataCopyWithImpl<$Res, $Val extends SubscribeData>
     ) as $Val);
   }
 
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TwitterSubscribeCopyWith<$Res> get twitterSubscribe {
@@ -85,6 +91,8 @@ class _$SubscribeDataCopyWithImpl<$Res, $Val extends SubscribeData>
     });
   }
 
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DcinsideSubscribeCopyWith<$Res> get dcinsideSubscribe {
@@ -93,6 +101,8 @@ class _$SubscribeDataCopyWithImpl<$Res, $Val extends SubscribeData>
     });
   }
 
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RuliwebSubscribeCopyWith<$Res> get ruliwebSubscribe {
@@ -131,6 +141,8 @@ class __$$SubscribeDataImplCopyWithImpl<$Res>
       _$SubscribeDataImpl _value, $Res Function(_$SubscribeDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -183,7 +195,7 @@ class _$SubscribeDataImpl implements _SubscribeData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SubscribeDataImpl &&
@@ -199,7 +211,9 @@ class _$SubscribeDataImpl implements _SubscribeData {
   int get hashCode => Object.hash(
       runtimeType, twitterSubscribe, dcinsideSubscribe, ruliwebSubscribe);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SubscribeDataImplCopyWith<_$SubscribeDataImpl> get copyWith =>
@@ -222,8 +236,11 @@ abstract class _SubscribeData implements SubscribeData {
   @override
   @HiveField(2)
   RuliwebSubscribe get ruliwebSubscribe;
+
+  /// Create a copy of SubscribeData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SubscribeDataImplCopyWith<_$SubscribeDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -241,7 +258,9 @@ mixin _$TwitterSubscribe {
   @HiveField(4)
   bool get figureInfo => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TwitterSubscribe
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TwitterSubscribeCopyWith<TwitterSubscribe> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -270,6 +289,8 @@ class _$TwitterSubscribeCopyWithImpl<$Res, $Val extends TwitterSubscribe>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TwitterSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -328,6 +349,8 @@ class __$$TwitterSubscribeImplCopyWithImpl<$Res>
       $Res Function(_$TwitterSubscribeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TwitterSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -400,7 +423,7 @@ class _$TwitterSubscribeImpl implements _TwitterSubscribe {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TwitterSubscribeImpl &&
@@ -419,7 +442,9 @@ class _$TwitterSubscribeImpl implements _TwitterSubscribe {
   int get hashCode => Object.hash(
       runtimeType, goodSmileJP, goodSmileUS, goodSmileKR, ninimal, figureInfo);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TwitterSubscribe
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TwitterSubscribeImplCopyWith<_$TwitterSubscribeImpl> get copyWith =>
@@ -450,8 +475,11 @@ abstract class _TwitterSubscribe implements TwitterSubscribe {
   @override
   @HiveField(4)
   bool get figureInfo;
+
+  /// Create a copy of TwitterSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TwitterSubscribeImplCopyWith<_$TwitterSubscribeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -463,7 +491,9 @@ mixin _$DcinsideSubscribe {
   @HiveField(1)
   bool get review => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DcinsideSubscribe
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DcinsideSubscribeCopyWith<DcinsideSubscribe> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -487,6 +517,8 @@ class _$DcinsideSubscribeCopyWithImpl<$Res, $Val extends DcinsideSubscribe>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DcinsideSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -525,6 +557,8 @@ class __$$DcinsideSubscribeImplCopyWithImpl<$Res>
       $Res Function(_$DcinsideSubscribeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DcinsideSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -567,7 +601,7 @@ class _$DcinsideSubscribeImpl implements _DcinsideSubscribe {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DcinsideSubscribeImpl &&
@@ -579,7 +613,9 @@ class _$DcinsideSubscribeImpl implements _DcinsideSubscribe {
   @override
   int get hashCode => Object.hash(runtimeType, information, review);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DcinsideSubscribe
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DcinsideSubscribeImplCopyWith<_$DcinsideSubscribeImpl> get copyWith =>
@@ -598,8 +634,11 @@ abstract class _DcinsideSubscribe implements DcinsideSubscribe {
   @override
   @HiveField(1)
   bool get review;
+
+  /// Create a copy of DcinsideSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DcinsideSubscribeImplCopyWith<_$DcinsideSubscribeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -611,7 +650,9 @@ mixin _$RuliwebSubscribe {
   @HiveField(1)
   bool get review => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RuliwebSubscribe
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RuliwebSubscribeCopyWith<RuliwebSubscribe> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -635,6 +676,8 @@ class _$RuliwebSubscribeCopyWithImpl<$Res, $Val extends RuliwebSubscribe>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RuliwebSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -673,6 +716,8 @@ class __$$RuliwebSubscribeImplCopyWithImpl<$Res>
       $Res Function(_$RuliwebSubscribeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RuliwebSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -715,7 +760,7 @@ class _$RuliwebSubscribeImpl implements _RuliwebSubscribe {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RuliwebSubscribeImpl &&
@@ -727,7 +772,9 @@ class _$RuliwebSubscribeImpl implements _RuliwebSubscribe {
   @override
   int get hashCode => Object.hash(runtimeType, information, review);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RuliwebSubscribe
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RuliwebSubscribeImplCopyWith<_$RuliwebSubscribeImpl> get copyWith =>
@@ -746,8 +793,11 @@ abstract class _RuliwebSubscribe implements RuliwebSubscribe {
   @override
   @HiveField(1)
   bool get review;
+
+  /// Create a copy of RuliwebSubscribe
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RuliwebSubscribeImplCopyWith<_$RuliwebSubscribeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

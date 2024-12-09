@@ -6,46 +6,55 @@ part of 'github_repository.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _GithubRepository implements GithubRepository {
   _GithubRepository(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   });
 
   final Dio _dio;
 
   String? baseUrl;
 
+  final ParseErrorLogger? errorLogger;
+
   @override
   Future<NendoData> getNendoData(
     String folderName,
     String fileName,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<NendoData>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<NendoData>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = NendoData.fromJson(_result.data!);
-    return value;
+        .compose(
+          _dio.options,
+          'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late NendoData _value;
+    try {
+      _value = NendoData.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -53,29 +62,35 @@ class _GithubRepository implements GithubRepository {
     String folderName,
     String fileName,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<NenDollData>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<NenDollData>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/NendoroidDoll/${folderName}/${fileName}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = NenDollData.fromJson(_result.data!);
-    return value;
+        .compose(
+          _dio.options,
+          'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/NendoroidDoll/${folderName}/${fileName}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late NenDollData _value;
+    try {
+      _value = NenDollData.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -83,87 +98,105 @@ class _GithubRepository implements GithubRepository {
     String folderName,
     String fileName,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<SetData>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<SetData>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = SetData.fromJson(_result.data!);
-    return value;
+        .compose(
+          _dio.options,
+          'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SetData _value;
+    try {
+      _value = SetData.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
   Future<List<Repo>> getRepoList(String folderName) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Repo>>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Repo>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/Nendoroid/${folderName}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) => Repo.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
+        .compose(
+          _dio.options,
+          'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/Nendoroid/${folderName}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Repo> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Repo.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
   Future<List<Repo>> getNenDollJsonList(String folderName) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Repo>>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Repo>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/NendoroidDoll/${folderName}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) => Repo.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
+        .compose(
+          _dio.options,
+          'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/NendoroidDoll/${folderName}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Repo> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Repo.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

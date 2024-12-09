@@ -12,7 +12,7 @@ part of 'filter_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$FilterData {
@@ -25,7 +25,9 @@ mixin _$FilterData {
   bool get etcFilter => throw _privateConstructorUsedError;
   bool get preOrderFilter => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FilterData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FilterDataCopyWith<FilterData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +59,8 @@ class _$FilterDataCopyWithImpl<$Res, $Val extends FilterData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FilterData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,6 +137,8 @@ class __$$FilterDataImplCopyWithImpl<$Res>
       _$FilterDataImpl _value, $Res Function(_$FilterDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FilterData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -227,7 +233,7 @@ class _$FilterDataImpl extends _FilterData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FilterDataImpl &&
@@ -261,7 +267,9 @@ class _$FilterDataImpl extends _FilterData {
       etcFilter,
       preOrderFilter);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FilterData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FilterDataImplCopyWith<_$FilterDataImpl> get copyWith =>
@@ -296,8 +304,11 @@ abstract class _FilterData extends FilterData {
   bool get etcFilter;
   @override
   bool get preOrderFilter;
+
+  /// Create a copy of FilterData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FilterDataImplCopyWith<_$FilterDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

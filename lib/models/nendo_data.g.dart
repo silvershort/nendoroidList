@@ -167,17 +167,17 @@ NendoData _$NendoDataFromJson(Map<String, dynamic> json) => NendoData(
       num: json['num'] as String,
       name: Name.fromJson(json['name'] as Map<String, dynamic>),
       series: Series.fromJson(json['series'] as Map<String, dynamic>),
-      gscProductNum: json['gsc_productNum'] as int,
-      price: json['price'] as int,
+      gscProductNum: (json['gsc_productNum'] as num).toInt(),
+      price: (json['price'] as num).toInt(),
       releaseDate: (json['release_date'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       image: json['image'] as String,
       have: json['have'] as bool? ?? false,
       wish: json['wish'] as bool? ?? false,
-      count: json['count'] as int? ?? 0,
+      count: (json['count'] as num?)?.toInt() ?? 0,
       gender: json['gender'] as String?,
-      myPrice: json['myPrice'] as int?,
+      myPrice: (json['myPrice'] as num?)?.toInt(),
       memo: (json['memo'] as List<dynamic>?)?.map((e) => e as String).toList(),
       type: json['type'] as String?,
     );

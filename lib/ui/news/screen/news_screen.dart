@@ -26,6 +26,14 @@ class NewsScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
               children: [
+                if (data.goodSmileNewsModel != null)
+                  NewsListSection.nendoData(
+                    title: '배송 확정🚚 출시 임박 넨도로이드',
+                    onTitleTap: () {
+                      context.push(RoutePath.webView, extra: data.goodSmileNewsModel!.link);
+                    },
+                    nendoList: data.goodSmileNewsModel!.nendoList,
+                  ),
                 NewsListSection(
                   title: '예약마감⏰ 임박 넨도로이드',
                   onTitleTap: () {
@@ -42,7 +50,6 @@ class NewsScreen extends ConsumerWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 10.0),
                 NewsListSection(
                   title: '특전🎁 포함! 굿스마일 코리아 예약 목록',
                   onTitleTap: () {

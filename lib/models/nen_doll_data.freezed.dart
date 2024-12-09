@@ -12,7 +12,7 @@ part of 'nen_doll_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 NenDollData _$NenDollDataFromJson(Map<String, dynamic> json) {
   return _NenDollData.fromJson(json);
@@ -31,8 +31,12 @@ mixin _$NenDollData {
   Series get series => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
 
+  /// Serializes this NenDollData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NenDollData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NenDollDataCopyWith<NenDollData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -64,6 +68,8 @@ class _$NenDollDataCopyWithImpl<$Res, $Val extends NenDollData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NenDollData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,6 +146,8 @@ class __$$NenDollDataImplCopyWithImpl<$Res>
       _$NenDollDataImpl _value, $Res Function(_$NenDollDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NenDollData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -239,7 +247,7 @@ class _$NenDollDataImpl implements _NenDollData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NenDollDataImpl &&
@@ -255,7 +263,7 @@ class _$NenDollDataImpl implements _NenDollData {
             (identical(other.type, type) || other.type == type));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -268,7 +276,9 @@ class _$NenDollDataImpl implements _NenDollData {
       series,
       type);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NenDollData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NenDollDataImplCopyWith<_$NenDollDataImpl> get copyWith =>
@@ -314,8 +324,11 @@ abstract class _NenDollData implements NenDollData {
   Series get series;
   @override
   String get type;
+
+  /// Create a copy of NenDollData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NenDollDataImplCopyWith<_$NenDollDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

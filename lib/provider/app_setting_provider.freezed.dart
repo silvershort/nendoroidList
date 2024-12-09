@@ -12,7 +12,7 @@ part of 'app_setting_provider.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AppSettingState {
@@ -26,7 +26,9 @@ mixin _$AppSettingState {
   String get appFont => throw _privateConstructorUsedError;
   bool get usePopup => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppSettingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AppSettingStateCopyWith<AppSettingState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,6 +61,8 @@ class _$AppSettingStateCopyWithImpl<$Res, $Val extends AppSettingState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AppSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,6 +145,8 @@ class __$$AppSettingStateImplCopyWithImpl<$Res>
       _$AppSettingStateImpl _value, $Res Function(_$AppSettingStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AppSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -234,7 +240,7 @@ class _$AppSettingStateImpl implements _AppSettingState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AppSettingStateImpl &&
@@ -269,7 +275,9 @@ class _$AppSettingStateImpl implements _AppSettingState {
       appFont,
       usePopup);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppSettingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AppSettingStateImplCopyWith<_$AppSettingStateImpl> get copyWith =>
@@ -307,8 +315,11 @@ abstract class _AppSettingState implements AppSettingState {
   String get appFont;
   @override
   bool get usePopup;
+
+  /// Create a copy of AppSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AppSettingStateImplCopyWith<_$AppSettingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

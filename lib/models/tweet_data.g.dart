@@ -73,7 +73,7 @@ Map<String, dynamic> _$MediaToJson(Media instance) => <String, dynamic>{
 
 Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(
       nextToken: json['next_token'] as String?,
-      resultCount: json['result_count'] as int?,
+      resultCount: (json['result_count'] as num?)?.toInt(),
       newestId: json['newest_id'] as String?,
       oldestId: json['oldest_id'] as String?,
     );

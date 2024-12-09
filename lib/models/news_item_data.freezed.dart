@@ -12,7 +12,7 @@ part of 'news_item_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NewsItemData {
@@ -23,7 +23,9 @@ mixin _$NewsItemData {
   String get link => throw _privateConstructorUsedError;
   bool get soldOut => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsItemData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NewsItemDataCopyWith<NewsItemData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$NewsItemDataCopyWithImpl<$Res, $Val extends NewsItemData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NewsItemData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,6 +121,8 @@ class __$$NewsItemDataImplCopyWithImpl<$Res>
       _$NewsItemDataImpl _value, $Res Function(_$NewsItemDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NewsItemData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -188,7 +194,7 @@ class _$NewsItemDataImpl implements _NewsItemData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NewsItemDataImpl &&
@@ -205,7 +211,9 @@ class _$NewsItemDataImpl implements _NewsItemData {
   int get hashCode =>
       Object.hash(runtimeType, number, name, price, imagePath, link, soldOut);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsItemData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NewsItemDataImplCopyWith<_$NewsItemDataImpl> get copyWith =>
@@ -233,8 +241,11 @@ abstract class _NewsItemData implements NewsItemData {
   String get link;
   @override
   bool get soldOut;
+
+  /// Create a copy of NewsItemData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NewsItemDataImplCopyWith<_$NewsItemDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

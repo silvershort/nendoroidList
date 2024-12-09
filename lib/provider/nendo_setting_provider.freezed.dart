@@ -12,7 +12,7 @@ part of 'nendo_setting_provider.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NendoListSettingState {
@@ -23,7 +23,9 @@ mixin _$NendoListSettingState {
   DollFilterData get dollFilterData => throw _privateConstructorUsedError;
   SortData get sortData => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NendoListSettingStateCopyWith<NendoListSettingState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +60,8 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,6 +100,8 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FilterDataCopyWith<$Res> get filterData {
@@ -104,6 +110,8 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DollFilterDataCopyWith<$Res> get dollFilterData {
@@ -112,6 +120,8 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SortDataCopyWith<$Res> get sortData {
@@ -155,6 +165,8 @@ class __$$NendoListSettingStateImplCopyWithImpl<$Res>
       $Res Function(_$NendoListSettingStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -224,7 +236,7 @@ class _$NendoListSettingStateImpl implements _NendoListSettingState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NendoListSettingStateImpl &&
@@ -246,7 +258,9 @@ class _$NendoListSettingStateImpl implements _NendoListSettingState {
   int get hashCode => Object.hash(runtimeType, dataType, viewMode, editMode,
       filterData, dollFilterData, sortData);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NendoListSettingStateImplCopyWith<_$NendoListSettingStateImpl>
@@ -275,8 +289,11 @@ abstract class _NendoListSettingState implements NendoListSettingState {
   DollFilterData get dollFilterData;
   @override
   SortData get sortData;
+
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NendoListSettingStateImplCopyWith<_$NendoListSettingStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

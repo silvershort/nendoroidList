@@ -1,27 +1,47 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
+import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
+import 'package:nendoroid_db/ui/_common_widget/tile/nendo_grid_tile.dart';
 import 'package:nendoroid_db/ui/news/widget/news_list_tile.dart';
 import 'package:nendoroid_db/utilities/constant.dart';
 import 'package:prototype_constrained_box/prototype_constrained_box.dart';
 
 class NewsListSection extends StatelessWidget {
   const NewsListSection({
-    Key? key,
+    super.key,
     required this.title,
     required this.itemList,
+    this.nendoList,
     this.onTitleTap,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String title;
   final List<NewsItemData> itemList;
+  final List<NendoData>? nendoList;
   final VoidCallback? onTitleTap;
   final Function(int index)? onTap;
 
+  factory NewsListSection.nendoData({
+    required String title,
+    required List<NendoData> nendoList,
+    required VoidCallback? onTitleTap,
+    Function(int index)? onTap,
+  }) {
+    return NewsListSection(
+      title: title,
+      itemList: const [],
+      nendoList: nendoList,
+      onTitleTap: onTitleTap,
+      onTap: onTap,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (itemList.isEmpty) {
+    if (itemList.isEmpty && nendoList == null) {
       return const SizedBox.shrink();
     }
     return Column(
@@ -50,34 +70,73 @@ class NewsListSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5.0),
-        PrototypeConstrainedBox.tightFor(
-          prototype: NewsListTile(
-            onTap: null,
-            item: NewsItemData(
-              name: Constant.longText,
-              imagePath: '',
-              price: itemList.first.price,
+        if (nendoList == null)
+          PrototypeConstrainedBox.tightFor(
+            prototype: NewsListTile(
+              onTap: null,
+              item: NewsItemData(
+                name: Constant.longText,
+                imagePath: '',
+                price: itemList.first.price,
+              ),
+            ),
+            height: true,
+            width: false,
+            child: ListView.separated(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final NewsItemData item = itemList[index];
+                return NewsListTile(
+                  item: item,
+                  onTap: () {
+                    onTap?.call(index);
+                  },
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  width: 5,
+                );
+              },
+              itemCount: itemList.length,
+            ),
+          )
+        else
+          SizedBox(
+            height: 120,
+            child: ListView.separated(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final NendoData nendoData = nendoList![index];
+                return InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DetailDialog(nendoData: nendoData);
+                      },
+                    );
+                  },
+                  child: ExtendedImage.network(
+                    nendoData.image,
+                    height: 120,
+                    width: 120,
+                    fit: BoxFit.cover,
+                    cache: true,
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  width: 5,
+                );
+              },
+              itemCount: itemList.length,
             ),
           ),
-          height: true,
-          width: false,
-          child: ListView.separated(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              final NewsItemData item = itemList[index];
-              return NewsListTile(item: item, onTap: () {
-                onTap?.call(index);
-              },);
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(
-                width: 5,
-              );
-            },
-            itemCount: itemList.length,
-          ),
-        ),
+        const SizedBox(height: 10.0),
       ],
     );
   }

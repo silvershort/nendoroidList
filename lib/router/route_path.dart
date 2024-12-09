@@ -12,4 +12,5 @@ class RoutePath {
   static String license = '/license';
   static String imageDetail = '/image-detail';
   static String nendoWeb = '/nendo-web';
+  static String webView = '/web-view';
 }

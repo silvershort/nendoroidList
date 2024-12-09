@@ -12,15 +12,19 @@ part of 'news_provider.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NewsState {
   List<NewsItemData> get specialGoodsList => throw _privateConstructorUsedError;
   List<NewsItemData> get ninimalList => throw _privateConstructorUsedError;
   List<NewsItemData> get imminentList => throw _privateConstructorUsedError;
+  GoodSmileNewsModel? get goodSmileNewsModel =>
+      throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NewsStateCopyWith<NewsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -33,7 +37,10 @@ abstract class $NewsStateCopyWith<$Res> {
   $Res call(
       {List<NewsItemData> specialGoodsList,
       List<NewsItemData> ninimalList,
-      List<NewsItemData> imminentList});
+      List<NewsItemData> imminentList,
+      GoodSmileNewsModel? goodSmileNewsModel});
+
+  $GoodSmileNewsModelCopyWith<$Res>? get goodSmileNewsModel;
 }
 
 /// @nodoc
@@ -46,12 +53,15 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? specialGoodsList = null,
     Object? ninimalList = null,
     Object? imminentList = null,
+    Object? goodSmileNewsModel = freezed,
   }) {
     return _then(_value.copyWith(
       specialGoodsList: null == specialGoodsList
@@ -66,7 +76,26 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
           ? _value.imminentList
           : imminentList // ignore: cast_nullable_to_non_nullable
               as List<NewsItemData>,
+      goodSmileNewsModel: freezed == goodSmileNewsModel
+          ? _value.goodSmileNewsModel
+          : goodSmileNewsModel // ignore: cast_nullable_to_non_nullable
+              as GoodSmileNewsModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GoodSmileNewsModelCopyWith<$Res>? get goodSmileNewsModel {
+    if (_value.goodSmileNewsModel == null) {
+      return null;
+    }
+
+    return $GoodSmileNewsModelCopyWith<$Res>(_value.goodSmileNewsModel!,
+        (value) {
+      return _then(_value.copyWith(goodSmileNewsModel: value) as $Val);
+    });
   }
 }
 
@@ -81,7 +110,11 @@ abstract class _$$NewsStateImplCopyWith<$Res>
   $Res call(
       {List<NewsItemData> specialGoodsList,
       List<NewsItemData> ninimalList,
-      List<NewsItemData> imminentList});
+      List<NewsItemData> imminentList,
+      GoodSmileNewsModel? goodSmileNewsModel});
+
+  @override
+  $GoodSmileNewsModelCopyWith<$Res>? get goodSmileNewsModel;
 }
 
 /// @nodoc
@@ -92,12 +125,15 @@ class __$$NewsStateImplCopyWithImpl<$Res>
       _$NewsStateImpl _value, $Res Function(_$NewsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? specialGoodsList = null,
     Object? ninimalList = null,
     Object? imminentList = null,
+    Object? goodSmileNewsModel = freezed,
   }) {
     return _then(_$NewsStateImpl(
       specialGoodsList: null == specialGoodsList
@@ -112,6 +148,10 @@ class __$$NewsStateImplCopyWithImpl<$Res>
           ? _value._imminentList
           : imminentList // ignore: cast_nullable_to_non_nullable
               as List<NewsItemData>,
+      goodSmileNewsModel: freezed == goodSmileNewsModel
+          ? _value.goodSmileNewsModel
+          : goodSmileNewsModel // ignore: cast_nullable_to_non_nullable
+              as GoodSmileNewsModel?,
     ));
   }
 }
@@ -122,7 +162,8 @@ class _$NewsStateImpl implements _NewsState {
   const _$NewsStateImpl(
       {final List<NewsItemData> specialGoodsList = const [],
       final List<NewsItemData> ninimalList = const [],
-      final List<NewsItemData> imminentList = const []})
+      final List<NewsItemData> imminentList = const [],
+      this.goodSmileNewsModel})
       : _specialGoodsList = specialGoodsList,
         _ninimalList = ninimalList,
         _imminentList = imminentList;
@@ -156,12 +197,15 @@ class _$NewsStateImpl implements _NewsState {
   }
 
   @override
+  final GoodSmileNewsModel? goodSmileNewsModel;
+
+  @override
   String toString() {
-    return 'NewsState(specialGoodsList: $specialGoodsList, ninimalList: $ninimalList, imminentList: $imminentList)';
+    return 'NewsState(specialGoodsList: $specialGoodsList, ninimalList: $ninimalList, imminentList: $imminentList, goodSmileNewsModel: $goodSmileNewsModel)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NewsStateImpl &&
@@ -170,7 +214,9 @@ class _$NewsStateImpl implements _NewsState {
             const DeepCollectionEquality()
                 .equals(other._ninimalList, _ninimalList) &&
             const DeepCollectionEquality()
-                .equals(other._imminentList, _imminentList));
+                .equals(other._imminentList, _imminentList) &&
+            (identical(other.goodSmileNewsModel, goodSmileNewsModel) ||
+                other.goodSmileNewsModel == goodSmileNewsModel));
   }
 
   @override
@@ -178,9 +224,12 @@ class _$NewsStateImpl implements _NewsState {
       runtimeType,
       const DeepCollectionEquality().hash(_specialGoodsList),
       const DeepCollectionEquality().hash(_ninimalList),
-      const DeepCollectionEquality().hash(_imminentList));
+      const DeepCollectionEquality().hash(_imminentList),
+      goodSmileNewsModel);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>
@@ -191,7 +240,8 @@ abstract class _NewsState implements NewsState {
   const factory _NewsState(
       {final List<NewsItemData> specialGoodsList,
       final List<NewsItemData> ninimalList,
-      final List<NewsItemData> imminentList}) = _$NewsStateImpl;
+      final List<NewsItemData> imminentList,
+      final GoodSmileNewsModel? goodSmileNewsModel}) = _$NewsStateImpl;
 
   @override
   List<NewsItemData> get specialGoodsList;
@@ -200,7 +250,12 @@ abstract class _NewsState implements NewsState {
   @override
   List<NewsItemData> get imminentList;
   @override
-  @JsonKey(ignore: true)
+  GoodSmileNewsModel? get goodSmileNewsModel;
+
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

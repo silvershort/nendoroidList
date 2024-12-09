@@ -78,4 +78,14 @@ abstract class ScrapingRepository {
   Future<HttpResponse> getOnlineStoreThumbnailList({
     @Path("gscProductNum") required String gscProductNum,
   });
+
+  // 굿스마일 뉴스정보 가져오기
+  @GET('https://www.goodsmile.com/en/news')
+  Future<HttpResponse> getOnlineStoreNewsList();
+
+  // 굿스마일 뉴스 상세 정보 가져오기
+  @GET('https://www.goodsmile.com/en/news/{newsNumber}')
+  Future<HttpResponse> getOnlineStoreNewsDetail({
+    @Path("newsNumber") String? newsNumber,
+  });
 }

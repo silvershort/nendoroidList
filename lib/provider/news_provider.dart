@@ -1,8 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nendoroid_db/main.dart';
+import 'package:nendoroid_db/models/good_smile_news_model.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/networks/dio/app_dio.dart';
 import 'package:nendoroid_db/networks/services/scraping_serivce.dart';
+import 'package:nendoroid_db/provider/nendo_provider.dart';
+import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'news_provider.freezed.dart';
@@ -27,10 +30,13 @@ class News extends _$News {
     final List<NewsItemData> specialList = await getNendoroidList();
     final List<NewsItemData> ninimalList = await getNinimalList();
     final List<NewsItemData> imminentList = await getNendoroidAnnounced();
+    final GoodSmileNewsModel? goodSmileNewsModel = await getGoodSmileNews();
+
     return NewsState(
       specialGoodsList: specialList,
       ninimalList: ninimalList,
       imminentList: imminentList,
+      goodSmileNewsModel: goodSmileNewsModel,
     );
   }
 
@@ -82,6 +88,34 @@ class News extends _$News {
       },
     );
   }
+
+  Future<GoodSmileNewsModel?> getGoodSmileNews() async {
+    final result = await ref.read(scrapingServiceProvider).getGoodSmileNews();
+
+    return result.when(
+      success: (value) {
+        talker.info('@@@ : ${value.toString()}');
+
+        if (ref.read(nendoProvider).hasValue) {
+          final nendoList = value.nendoNameList.map((e) {
+            return ref.read(nendoProvider).requireValue.nendoList.getNendoByENName(e);
+          }).toList();
+
+          nendoList.remove(null);
+
+          talker.info('@@@ : ${nendoList.toList()}');
+
+          return value;
+        } else {
+          return null;
+        }
+      },
+      error: (error, stackTrace) {
+        talker.error(error.message, error, stackTrace);
+        return null;
+      },
+    );
+  }
 }
 
 @freezed
@@ -90,5 +124,6 @@ class NewsState with _$NewsState {
     @Default([]) List<NewsItemData> specialGoodsList,
     @Default([]) List<NewsItemData> ninimalList,
     @Default([]) List<NewsItemData> imminentList,
+    GoodSmileNewsModel? goodSmileNewsModel,
   }) = _NewsState;
 }

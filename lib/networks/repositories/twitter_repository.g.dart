@@ -6,47 +6,56 @@ part of 'twitter_repository.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _TwitterRepository implements TwitterRepository {
   _TwitterRepository(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   });
 
   final Dio _dio;
 
   String? baseUrl;
 
+  final ParseErrorLogger? errorLogger;
+
   @override
   Future<TweetData> getTwitterTimeline({
     required String id,
     required Map<String, dynamic> queries,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(queries);
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TweetData>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<TweetData>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              'https://api.twitter.com/2/users/${id}/tweets',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = TweetData.fromJson(_result.data!);
-    return value;
+        .compose(
+          _dio.options,
+          'https://api.twitter.com/2/users/${id}/tweets',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late TweetData _value;
+    try {
+      _value = TweetData.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -54,32 +63,38 @@ class _TwitterRepository implements TwitterRepository {
     required String username,
     required String userFields,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'ids': username,
       r'user.fields': userFields,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<UsernameData>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<UsernameData>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              'https://api.twitter.com/2/users',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = UsernameData.fromJson(_result.data!);
-    return value;
+        .compose(
+          _dio.options,
+          'https://api.twitter.com/2/users',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late UsernameData _value;
+    try {
+      _value = UsernameData.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

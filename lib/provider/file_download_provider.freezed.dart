@@ -12,7 +12,7 @@ part of 'file_download_provider.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$FileDownloadState {
@@ -78,6 +78,9 @@ class _$FileDownloadStateCopyWithImpl<$Res, $Val extends FileDownloadState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of FileDownloadState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -94,6 +97,9 @@ class __$$DownloadIdleImplCopyWithImpl<$Res>
   __$$DownloadIdleImplCopyWithImpl(
       _$DownloadIdleImpl _value, $Res Function(_$DownloadIdleImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FileDownloadState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -107,7 +113,7 @@ class _$DownloadIdleImpl implements DownloadIdle {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$DownloadIdleImpl);
   }
@@ -202,6 +208,9 @@ class __$$DownloadSuccessImplCopyWithImpl<$Res>
   __$$DownloadSuccessImplCopyWithImpl(
       _$DownloadSuccessImpl _value, $Res Function(_$DownloadSuccessImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FileDownloadState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -215,7 +224,7 @@ class _$DownloadSuccessImpl implements DownloadSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$DownloadSuccessImpl);
   }
@@ -310,6 +319,9 @@ class __$$DownloadErrorImplCopyWithImpl<$Res>
   __$$DownloadErrorImplCopyWithImpl(
       _$DownloadErrorImpl _value, $Res Function(_$DownloadErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FileDownloadState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -323,7 +335,7 @@ class _$DownloadErrorImpl implements DownloadError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$DownloadErrorImpl);
   }

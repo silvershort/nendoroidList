@@ -10,7 +10,7 @@ Repo _$RepoFromJson(Map<String, dynamic> json) => Repo(
       name: json['name'] as String,
       path: json['path'] as String,
       sha: json['sha'] as String,
-      size: json['size'] as int,
+      size: (json['size'] as num).toInt(),
       url: json['url'] as String,
       htmlUrl: json['html_url'] as String,
       gitUrl: json['git_url'] as String,

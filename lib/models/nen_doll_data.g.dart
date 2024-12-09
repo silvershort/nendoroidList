@@ -9,10 +9,10 @@ part of 'nen_doll_data.dart';
 _$NenDollDataImpl _$$NenDollDataImplFromJson(Map<String, dynamic> json) =>
     _$NenDollDataImpl(
       gender: json['gender'] as String?,
-      gscProductNum: json['gsc_productNum'] as int,
+      gscProductNum: (json['gsc_productNum'] as num).toInt(),
       image: json['image'] as String,
       name: Name.fromJson(json['name'] as Map<String, dynamic>),
-      price: json['price'] as int,
+      price: (json['price'] as num).toInt(),
       releaseDate: (json['release_date'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

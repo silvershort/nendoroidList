@@ -12,7 +12,7 @@ part of 'api_result.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ApiResult<T> {
@@ -72,6 +72,9 @@ class _$ApiResultCopyWithImpl<T, $Res, $Val extends ApiResult<T>>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -91,6 +94,8 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
       _$SuccessImpl<T> _value, $Res Function(_$SuccessImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,7 +124,7 @@ class _$SuccessImpl<T> implements _Success<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl<T> &&
@@ -130,7 +135,9 @@ class _$SuccessImpl<T> implements _Success<T> {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(value));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
@@ -203,7 +210,10 @@ abstract class _Success<T> implements ApiResult<T> {
   const factory _Success(final T value) = _$SuccessImpl<T>;
 
   T get value;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -227,6 +237,8 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
       _$ErrorImpl<T> _value, $Res Function(_$ErrorImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -245,6 +257,8 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
     ));
   }
 
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ApiErrorCopyWith<$Res> get error {
@@ -270,7 +284,7 @@ class _$ErrorImpl<T> implements _Error<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl<T> &&
@@ -282,7 +296,9 @@ class _$ErrorImpl<T> implements _Error<T> {
   @override
   int get hashCode => Object.hash(runtimeType, error, stackTrace);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
@@ -357,7 +373,10 @@ abstract class _Error<T> implements ApiResult<T> {
 
   ApiError get error;
   StackTrace get stackTrace;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ApiResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -367,7 +386,9 @@ mixin _$ApiError {
   int get code => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ApiErrorCopyWith<ApiError> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -390,6 +411,8 @@ class _$ApiErrorCopyWithImpl<$Res, $Val extends ApiError>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -428,6 +451,8 @@ class __$$ApiErrorImplCopyWithImpl<$Res>
       _$ApiErrorImpl _value, $Res Function(_$ApiErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -464,7 +489,7 @@ class _$ApiErrorImpl implements _ApiError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApiErrorImpl &&
@@ -475,7 +500,9 @@ class _$ApiErrorImpl implements _ApiError {
   @override
   int get hashCode => Object.hash(runtimeType, code, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ApiErrorImplCopyWith<_$ApiErrorImpl> get copyWith =>
@@ -490,8 +517,11 @@ abstract class _ApiError implements ApiError {
   int get code;
   @override
   String get message;
+
+  /// Create a copy of ApiError
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiErrorImplCopyWith<_$ApiErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

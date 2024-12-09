@@ -1,11 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/gender_rate.dart';
 import 'package:nendoroid_db/models/most_series.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/models/set_data.dart';
 import 'package:nendoroid_db/models/sort_data.dart';
-import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
@@ -299,5 +298,17 @@ extension NendoListExtension on List<NendoData> {
       groupedData[groupKey]!.add(nendoData);
     }
     return groupedData;
+  }
+
+  // 영어 이름 정보로 넨도를 찾는다
+  NendoData? getNendoByENName(String name) {
+    try {
+      talker.info('@@@ ${name}');
+      final NendoData nendoData = firstWhere((element) => element.name.en == name);
+      talker.info(nendoData.toString());
+      return nendoData;
+    } catch (error, stackTrace) {
+      return null;
+    }
   }
 }
