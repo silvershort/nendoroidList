@@ -28,7 +28,10 @@ final talker = TalkerFlutter.init();
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    name: 'nendoroid_db',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await FlutterDownloader.initialize(debug: true);
 
   await Hive.initFlutter();
@@ -90,7 +93,8 @@ void main() async {
           termsBox: await Hive.openBox(HiveName.termsBoxName),
         ),
       ),
-      sharedPreferencesProvider.overrideWithValue(SharedPreferencesManager(await SharedPreferences.getInstance())),
+      sharedPreferencesProvider.overrideWithValue(
+          SharedPreferencesManager(await SharedPreferences.getInstance())),
     ],
   );
   container.read(authProvider);

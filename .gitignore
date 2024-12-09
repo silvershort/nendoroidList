@@ -48,4 +48,4 @@ app.*.map.json
 
 # Envied
 .env
-lib/env/
+env.g.dart
