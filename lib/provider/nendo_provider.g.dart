@@ -6,7 +6,7 @@ part of 'nendo_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nendoHash() => r'5b55c54ef641236b81b38a34f5b8e15dc68543b4';
+String _$nendoHash() => r'20b90cda655f3d0de806d870b4f3b4fa37587334';
 
 /// See also [Nendo].
 @ProviderFor(Nendo)

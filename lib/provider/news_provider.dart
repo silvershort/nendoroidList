@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/good_smile_news_model.dart';
+import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/networks/dio/app_dio.dart';
 import 'package:nendoroid_db/networks/services/scraping_serivce.dart';
@@ -94,18 +95,16 @@ class News extends _$News {
 
     return result.when(
       success: (value) {
-        talker.info('@@@ : ${value.toString()}');
-
         if (ref.read(nendoProvider).hasValue) {
-          final nendoList = value.nendoNameList.map((e) {
-            return ref.read(nendoProvider).requireValue.nendoList.getNendoByENName(e);
+          final List<NendoData> nendoList = value.nendoNameList.map((e) {
+            return ref.read(nendoProvider).requireValue.nendoList.getNendoByENName(e)!;
           }).toList();
 
-          nendoList.remove(null);
+          final newGoodSmileNews = value.copyWith(
+            nendoList: nendoList,
+          );
 
-          talker.info('@@@ : ${nendoList.toList()}');
-
-          return value;
+          return newGoodSmileNews;
         } else {
           return null;
         }

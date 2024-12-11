@@ -6,6 +6,7 @@ import 'package:nendoroid_db/models/api/api_result.dart';
 import 'package:nendoroid_db/models/good_smile_news_model.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/networks/repositories/scraping_repository.dart';
+import 'package:nendoroid_db/utilities/constant.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -60,13 +61,16 @@ class ScrapingService {
     );
   }
 
-  Future<ApiResult<({List<String> imageList, List<String> thumbnailList})>> getGoodSmileImage({
+  Future<ApiResult<({List<String> imageList, List<String> thumbnailList})>>
+      getGoodSmileImage({
     required String gscProductNum,
   }) async {
     try {
-      final response = await repository.getGoodSmileImage(gscProductNum: gscProductNum);
+      final response =
+          await repository.getGoodSmileImage(gscProductNum: gscProductNum);
       Document document = parse(response.data);
-      Element? nodeList = document.getElementsByClassName("itemPhotos").firstOrNull;
+      Element? nodeList =
+          document.getElementsByClassName("itemPhotos").firstOrNull;
       if (nodeList == null) {
         throw Exception('No itemPhotos');
       }
@@ -79,15 +83,16 @@ class ScrapingService {
               .getElementsByClassName("itemThumb clearfix")
               .firstOrNull
               ?.getElementsByTagName('li')
-              .map((e) => "https:${e.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? ''}")
+              .map((e) =>
+                  "https:${e.getElementsByTagName('img').firstOrNull?.attributes['src'] ?? ''}")
               .toList() ??
           [];
-
-      print("@@@ thumb : ${thumbnailList.toList()}");
-      return ApiResult.success((imageList: imageList, thumbnailList: thumbnailList));
+      return ApiResult.success(
+          (imageList: imageList, thumbnailList: thumbnailList));
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
-      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(
+          ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 
@@ -96,22 +101,33 @@ class ScrapingService {
       final response = await repository.getNendoroidAnnounced();
       final Document document = parse(response.data);
 
-      final Element? imminentText = document.getElementsByClassName('current-date shimelist').firstOrNull;
-      final Element? imminentSection = document.getElementsByClassName('hitList clearfix').firstOrNull;
+      final Element? imminentText =
+          document.getElementsByClassName('current-date shimelist').firstOrNull;
+      final Element? imminentSection =
+          document.getElementsByClassName('hitList clearfix').firstOrNull;
       if (imminentText == null || imminentSection == null) {
         return const ApiResult.success([]);
       }
 
-      final List<Element> imminentList =
-          imminentSection.getElementsByClassName('hitItem shimeproduct nendoroid nendoroid_series');
+      final List<Element> imminentList = imminentSection.getElementsByClassName(
+          'hitItem shimeproduct nendoroid nendoroid_series');
 
       final itemList = imminentList.map((e) {
-        String name =
-            e.getElementsByClassName('hitTtl').firstOrNull?.getElementsByTagName('span').firstOrNull?.text ?? '';
+        String name = e
+                .getElementsByClassName('hitTtl')
+                .firstOrNull
+                ?.getElementsByTagName('span')
+                .firstOrNull
+                ?.text ??
+            '';
         bool soldout = false;
-        String link =
-            e.getElementsByClassName('hitBox').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ??
-                '';
+        String link = e
+                .getElementsByClassName('hitBox')
+                .firstOrNull
+                ?.getElementsByTagName('a')
+                .firstOrNull
+                ?.attributes['href'] ??
+            '';
         String imagePath = e
                 .getElementsByClassName('hitBox')
                 .firstOrNull
@@ -123,7 +139,11 @@ class ScrapingService {
         imagePath = 'https:$imagePath';
 
         // 품절 여부 체크
-        final imgList = e.getElementsByClassName('icon').firstOrNull?.getElementsByTagName('img') ?? [];
+        final imgList = e
+                .getElementsByClassName('icon')
+                .firstOrNull
+                ?.getElementsByTagName('img') ??
+            [];
         for (var img in imgList) {
           if (img.attributes['alt'] == '품절') {
             soldout = true;
@@ -137,9 +157,12 @@ class ScrapingService {
         );
       }).toList();
 
-      return ApiResult.success(itemList.where((element) => !element.name.contains('10cm솜')).toList());
+      return ApiResult.success(itemList
+          .where((element) => !element.name.contains('10cm솜'))
+          .toList());
     } catch (error, stackTrace) {
-      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(
+          ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 
@@ -148,10 +171,17 @@ class ScrapingService {
       final response = await repository.getNinimal();
       final Document document = parse(response.data);
 
-      final List<Element> productList = document.getElementsByClassName('item xans-record-');
+      final List<Element> productList =
+          document.getElementsByClassName('item xans-record-');
 
       final itemList = productList.map((e) {
-        String name = e.getElementsByClassName('name').firstOrNull?.getElementsByTagName('span').lastOrNull?.text ?? '';
+        String name = e
+                .getElementsByClassName('name')
+                .firstOrNull
+                ?.getElementsByTagName('span')
+                .lastOrNull
+                ?.text ??
+            '';
         bool soldout = false;
         String price = e
                 .getElementsByClassName(' xans-record-')
@@ -161,18 +191,30 @@ class ScrapingService {
                 .firstOrNull
                 ?.text ??
             '';
-        String link =
-            e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('a').firstOrNull?.attributes['href'] ??
-                '';
-        String imagePath =
-            e.getElementsByClassName('box').firstOrNull?.getElementsByTagName('img').firstOrNull?.attributes['src'] ??
-                '';
+        String link = e
+                .getElementsByClassName('box')
+                .firstOrNull
+                ?.getElementsByTagName('a')
+                .firstOrNull
+                ?.attributes['href'] ??
+            '';
+        String imagePath = e
+                .getElementsByClassName('box')
+                .firstOrNull
+                ?.getElementsByTagName('img')
+                .firstOrNull
+                ?.attributes['src'] ??
+            '';
 
         link = 'https://ninimal.co.kr/$link';
         imagePath = 'https:$imagePath';
 
         // 품절 여부 체크
-        final imgList = e.getElementsByClassName('icon').firstOrNull?.getElementsByTagName('img') ?? [];
+        final imgList = e
+                .getElementsByClassName('icon')
+                .firstOrNull
+                ?.getElementsByTagName('img') ??
+            [];
         for (var img in imgList) {
           if (img.attributes['alt'] == '품절') {
             soldout = true;
@@ -187,9 +229,12 @@ class ScrapingService {
         );
       }).toList();
 
-      return ApiResult.success(itemList.where((element) => !element.name.contains('10cm솜')).toList());
+      return ApiResult.success(itemList
+          .where((element) => !element.name.contains('10cm솜'))
+          .toList());
     } catch (error, stackTrace) {
-      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(
+          ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 
@@ -212,7 +257,8 @@ class ScrapingService {
       }
 
       // 릴리즈 데이터가 있는 영역
-      final List<Element> releaseDataList = document.getElementsByClassName("arrowlisting");
+      final List<Element> releaseDataList =
+          document.getElementsByClassName("arrowlisting");
 
       for (Element monthItem in releaseDataList) {
         monthItem.getElementsByTagName('largedate');
@@ -221,7 +267,9 @@ class ScrapingService {
       return ApiResult.success(null);
     } on DioException catch (error, stackTrace) {
       return ApiResult.error(
-        ApiError(code: error.response?.statusCode ?? 0, message: error.message ?? ''),
+        ApiError(
+            code: error.response?.statusCode ?? 0,
+            message: error.message ?? ''),
         stackTrace,
       );
     } catch (error, stackTrace) {
@@ -232,16 +280,18 @@ class ScrapingService {
     }
   }
 
-  Future<ApiResult<List<String>>> getOnlineStoreThumbnailList(String gscProductNum) async {
+  Future<ApiResult<List<String>>> getOnlineStoreThumbnailList(
+      String gscProductNum) async {
     try {
       List<String> thumbnailList = [];
 
-      final response = await repository.getOnlineStoreThumbnailList(gscProductNum: gscProductNum);
+      final response = await repository.getOnlineStoreThumbnailList(
+          gscProductNum: gscProductNum);
       final Document document = parse(response.data);
 
       // 썸네일 리스트 클래스 가져오기
-      final List<Element> elementList =
-          document.getElementsByClassName("c-photo-variable-grid__item js-grid-item js-panzoom-show ");
+      final List<Element> elementList = document.getElementsByClassName(
+          "c-photo-variable-grid__item js-grid-item js-panzoom-show ");
 
       // for문을 돌면서 실제 이미지 링크만 뽑아서 저장해둔다.
       for (Element element in elementList) {
@@ -268,37 +318,61 @@ class ScrapingService {
       int lastPage = 1;
 
       while (true) {
-        final response = await repository.getGoodSmileKRSpecialImage(page: currentPage);
+        final response =
+            await repository.getGoodSmileKRSpecialImage(page: currentPage);
         final Document document = parse(response.data);
 
         // 마지막 페이지가 어디인지 확인하고 저장해준다.
         if (lastPage == 1) {
-          final List<Element> pageElement = document.getElementsByClassName("UWN4IvaQza");
+          final List<Element> pageElement =
+              document.getElementsByClassName("UWN4IvaQza");
           lastPage = pageElement.length;
         }
 
-        final List<NewsItemData> tempList =
-            document.getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX").map((e) {
-          String imagePath = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["src"] ?? '';
-          String name = e.getElementsByClassName("_25CKxIKjAk").firstOrNull?.attributes["alt"] ?? '';
+        final List<NewsItemData> tempList = document
+            .getElementsByClassName("ZdiAiTrQWZ _1BDRwBQfa1 SQUARE t52c8ixKbX")
+            .map((e) {
+          String imagePath = e
+                  .getElementsByClassName("_25CKxIKjAk")
+                  .firstOrNull
+                  ?.attributes["src"] ??
+              '';
+          String name = e
+                  .getElementsByClassName("_25CKxIKjAk")
+                  .firstOrNull
+                  ?.attributes["alt"] ??
+              '';
           String number = name.onlyNumberFirst.toString();
           name = name.replaceFirst(number, '');
           String link = e
                   .getElementsByTagName("a")
-                  .firstWhere((element) => element.className.contains("stX4bV9Ny3"))
+                  .firstWhere(
+                      (element) => element.className.contains("stX4bV9Ny3"))
                   .attributes["href"] ??
               '';
-          String price = e.getElementsByClassName('LGJCRfhDKi').firstOrNull?.text ?? '';
-          bool soldOut = e.getElementsByClassName('text blind').firstOrNull?.text == 'SOLD OUT';
+          String price =
+              e.getElementsByClassName('LGJCRfhDKi').firstOrNull?.text ?? '';
+          bool soldOut =
+              e.getElementsByClassName('text blind').firstOrNull?.text ==
+                  'SOLD OUT';
 
           link = 'https://brand.naver.com$link';
           return NewsItemData(
-              imagePath: imagePath, number: number, name: name, link: link, price: price, soldOut: soldOut);
+              imagePath: imagePath,
+              number: number,
+              name: name,
+              link: link,
+              price: price,
+              soldOut: soldOut);
         }).toList();
 
         list.addAll(tempList
             .where((element) => element.name.contains('넨도로이드'))
-            .map((e) => e.copyWith(name: e.name.replaceFirst('[특전]', '').replaceFirst('넨도로이드', '').trim()))
+            .map((e) => e.copyWith(
+                name: e.name
+                    .replaceFirst('[특전]', '')
+                    .replaceFirst('넨도로이드', '')
+                    .trim()))
             .toList());
 
         if (lastPage == currentPage) {
@@ -309,7 +383,8 @@ class ScrapingService {
       return ApiResult.success(list);
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
-      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(
+          ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 
@@ -317,61 +392,92 @@ class ScrapingService {
     final response = await repository.getOnlineStoreNewsList();
     final Document document = parse(response.data);
 
-    final List<Element> pageElement = document.getElementsByClassName("c-news__row");
+    final List<Element> pageElement =
+        document.getElementsByClassName("c-news__row");
+
+    GoodSmileNewsModel? goodSmileNewsModel;
+    // 넨도로이드 이름을 담을 리스트
+    final List<String> releaseNendoList = [];
+
+    // 현재 날짜를 기준으로 지난달과 이번달의 데이터를 들고온다. 20일이 지났다면 이번달 데이터만 들고온다.
+    final today = DateTime.now();
+    final List<String> months = [];
+
+    months.add(Constant.months[today.month - 1]);
+
+    if (today.day < 20) {
+      int previous = today.month - 1;
+      if (previous == 0) {
+        previous = 12;
+      }
+      months.add(Constant.months[previous - 1]);
+    }
 
     for (final Element element in pageElement) {
-      final Element? category = element.getElementsByClassName('c-news__category').firstOrNull;
-      final Element? title = element.getElementsByClassName('c-news__title').firstOrNull;
+      final Element? category =
+          element.getElementsByClassName('c-news__category').firstOrNull;
+      final Element? title =
+          element.getElementsByClassName('c-news__title').firstOrNull;
       final Element? link = element.getElementsByTagName('a').firstOrNull;
 
-      GoodSmileNewsModel? goodSmileNewsModel;
-
       // 뉴스 리스트에서 카테고리가 'Shipping Info'인 항목을 골라낸다.
-      if (category != null && category.text == _releaseNewsCategory) {
-        if (title?.text.contains(_releaseNewsKeyword) ?? false) {
-          final String? detailLink = link?.attributes['href'];
+      if (category?.text != _releaseNewsCategory) {
+        continue;
+      }
 
-          if (detailLink != null) {
-            final String newsNumber = detailLink.split('/').last;
-            final response = await repository.getOnlineStoreNewsDetail(newsNumber: newsNumber);
-            final Document document = parse(response.data);
+      if (title == null) {
+        continue;
+      }
+      // 제목에 Release Dates가 들어가있는 것만 골라낸다
+      if (!title.text.contains(_releaseNewsKeyword)) {
+        continue;
+      }
 
-            final content = document.getElementById('notice-1');
-            
-            if (content == null) {
-              continue;
+      for (final month in months) {
+        if (!title.text.contains(month)) {
+          continue;
+        }
+      }
+
+      final String? detailLink = link?.attributes['href'];
+
+      if (detailLink != null) {
+        final String newsNumber = detailLink.split('/').last;
+        final response =
+        await repository.getOnlineStoreNewsDetail(newsNumber: newsNumber);
+        final Document document = parse(response.data);
+
+        final content = document.getElementById('notice-1');
+
+        if (content == null) {
+          continue;
+        }
+
+        // 실제 뉴스 내용에서 넨도로이드 제품만 추출
+        for (final line in content.text.split('\n')) {
+          if (line.contains('Nendoroid') && !line.contains('Doll')) {
+            // -과 ( 사이의 문자열 추출 후 Nendoroid라는 문자를 삭제
+            final pattern = RegExp(r'- (.*?) \(');
+            final match = pattern.firstMatch(line);
+            final nendoName =
+            match?.group(1)?.replaceAll('Nendoroid', '').trim();
+
+            if (nendoName != null) {
+              releaseNendoList.add(nendoName);
             }
-
-            // 넨도로이드 이름을 담을 리스트
-            final List<String> releaseNendoList = [];
-
-            talker.info('@@@ ${content.text}');
-            // 실제 뉴스 내용에서 넨도로이드 제품만 추출
-            for (final line in content.text.split('\n')) {
-              if (line.contains('Nendoroid') && !line.contains('Doll')) {
-                // -과 ( 사이의 문자열 추출 후 Nendoroid라는 문자를 삭제
-                final pattern = RegExp(r'- (.*?) \(');
-                final match = pattern.firstMatch(line);
-                final nendoName = match?.group(1)?.replaceAll('Nendoroid', '').trim();
-
-                if (nendoName != null) {
-                  releaseNendoList.add(nendoName);
-                }
-              }
-            }
-
-            goodSmileNewsModel = GoodSmileNewsModel(
-              title: title!.text,
-              link: detailLink,
-              nendoNameList: releaseNendoList,
-            );
-
-            return ApiResult.success(goodSmileNewsModel);
           }
         }
       }
     }
-    return const ApiResult.error(ApiError(message: 'Not found news'), StackTrace.empty);
+
+    goodSmileNewsModel = GoodSmileNewsModel(
+      link: 'https://www.goodsmile.com/en/news',
+      nendoNameList: releaseNendoList.toSet().toList(),
+    );
+
+    return ApiResult.success(goodSmileNewsModel);
+    return const ApiResult.error(
+        ApiError(message: 'Not found news'), StackTrace.empty);
   }
 
   Future<ApiResult<int>> getExchangeRate() async {
@@ -381,7 +487,8 @@ class ScrapingService {
       return ApiResult.success(response[0].ttSellingPrice?.toInt() ?? 0);
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
-      return ApiResult.error(ApiError(code: 0, message: error.toString()), stackTrace);
+      return ApiResult.error(
+          ApiError(code: 0, message: error.toString()), stackTrace);
     }
   }
 }

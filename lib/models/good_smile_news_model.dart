@@ -6,7 +6,6 @@ part 'good_smile_news_model.freezed.dart';
 @freezed
 class GoodSmileNewsModel with _$GoodSmileNewsModel {
   const factory GoodSmileNewsModel({
-    required String title,
     required String link,
     @Default([]) List<String> nendoNameList,
     @Default([]) List<NendoData> nendoList,

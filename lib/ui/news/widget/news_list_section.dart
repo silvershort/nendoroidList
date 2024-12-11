@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
@@ -133,7 +134,7 @@ class NewsListSection extends StatelessWidget {
                   width: 5,
                 );
               },
-              itemCount: itemList.length,
+              itemCount: nendoList!.length,
             ),
           ),
         const SizedBox(height: 10.0),

@@ -36,9 +36,10 @@ class _WebViewScreenState extends State<WebViewScreen> {
       appBar: AppBar(),
       body: Column(
         children: [
-          LinearProgressIndicator(
-            value: progress,
-          ),
+          if (progress < 1)
+            LinearProgressIndicator(
+              value: progress,
+            ),
           Expanded(
             child: WebViewWidget(
               controller: _webViewController,

@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GoodSmileNewsModel {
-  String get title => throw _privateConstructorUsedError;
   String get link => throw _privateConstructorUsedError;
   List<String> get nendoNameList => throw _privateConstructorUsedError;
   List<NendoData> get nendoList => throw _privateConstructorUsedError;
@@ -35,10 +34,7 @@ abstract class $GoodSmileNewsModelCopyWith<$Res> {
       _$GoodSmileNewsModelCopyWithImpl<$Res, GoodSmileNewsModel>;
   @useResult
   $Res call(
-      {String title,
-      String link,
-      List<String> nendoNameList,
-      List<NendoData> nendoList});
+      {String link, List<String> nendoNameList, List<NendoData> nendoList});
 }
 
 /// @nodoc
@@ -56,16 +52,11 @@ class _$GoodSmileNewsModelCopyWithImpl<$Res, $Val extends GoodSmileNewsModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
     Object? link = null,
     Object? nendoNameList = null,
     Object? nendoList = null,
   }) {
     return _then(_value.copyWith(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
       link: null == link
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
@@ -91,10 +82,7 @@ abstract class _$$GoodSmileNewsModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String title,
-      String link,
-      List<String> nendoNameList,
-      List<NendoData> nendoList});
+      {String link, List<String> nendoNameList, List<NendoData> nendoList});
 }
 
 /// @nodoc
@@ -110,16 +98,11 @@ class __$$GoodSmileNewsModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
     Object? link = null,
     Object? nendoNameList = null,
     Object? nendoList = null,
   }) {
     return _then(_$GoodSmileNewsModelImpl(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
       link: null == link
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
@@ -140,15 +123,12 @@ class __$$GoodSmileNewsModelImplCopyWithImpl<$Res>
 
 class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
   const _$GoodSmileNewsModelImpl(
-      {required this.title,
-      required this.link,
+      {required this.link,
       final List<String> nendoNameList = const [],
       final List<NendoData> nendoList = const []})
       : _nendoNameList = nendoNameList,
         _nendoList = nendoList;
 
-  @override
-  final String title;
   @override
   final String link;
   final List<String> _nendoNameList;
@@ -171,7 +151,7 @@ class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
 
   @override
   String toString() {
-    return 'GoodSmileNewsModel(title: $title, link: $link, nendoNameList: $nendoNameList, nendoList: $nendoList)';
+    return 'GoodSmileNewsModel(link: $link, nendoNameList: $nendoNameList, nendoList: $nendoList)';
   }
 
   @override
@@ -179,7 +159,6 @@ class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GoodSmileNewsModelImpl &&
-            (identical(other.title, title) || other.title == title) &&
             (identical(other.link, link) || other.link == link) &&
             const DeepCollectionEquality()
                 .equals(other._nendoNameList, _nendoNameList) &&
@@ -190,7 +169,6 @@ class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      title,
       link,
       const DeepCollectionEquality().hash(_nendoNameList),
       const DeepCollectionEquality().hash(_nendoList));
@@ -207,13 +185,10 @@ class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
 
 abstract class _GoodSmileNewsModel implements GoodSmileNewsModel {
   const factory _GoodSmileNewsModel(
-      {required final String title,
-      required final String link,
+      {required final String link,
       final List<String> nendoNameList,
       final List<NendoData> nendoList}) = _$GoodSmileNewsModelImpl;
 
-  @override
-  String get title;
   @override
   String get link;
   @override

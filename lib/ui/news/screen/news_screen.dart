@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/news_item_data.dart';
 import 'package:nendoroid_db/provider/news_provider.dart';
 import 'package:nendoroid_db/router/route_path.dart';
@@ -28,7 +29,7 @@ class NewsScreen extends ConsumerWidget {
               children: [
                 if (data.goodSmileNewsModel != null)
                   NewsListSection.nendoData(
-                    title: '배송 확정🚚 출시 임박 넨도로이드',
+                    title: '출고 확정🚚 배송 임박 넨도로이드',
                     onTitleTap: () {
                       context.push(RoutePath.webView, extra: data.goodSmileNewsModel!.link);
                     },
@@ -71,7 +72,7 @@ class NewsScreen extends ConsumerWidget {
                   title: '넨돌 의상🩳 니니멀 신상품',
                   onTitleTap: () {
                     context.push(
-                      '${RoutePath.newsDetail}?title=넨돌 의상니니멀&homePage=https://ninimal.co.kr',
+                      '${RoutePath.newsDetail}?title=니니멀&homePage=https://ninimal.co.kr',
                       extra: data.ninimalList,
                     );
                   },

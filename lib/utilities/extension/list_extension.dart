@@ -303,7 +303,6 @@ extension NendoListExtension on List<NendoData> {
   // 영어 이름 정보로 넨도를 찾는다
   NendoData? getNendoByENName(String name) {
     try {
-      talker.info('@@@ ${name}');
       final NendoData nendoData = firstWhere((element) => element.name.en == name);
       talker.info(nendoData.toString());
       return nendoData;
