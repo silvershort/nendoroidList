@@ -7,9 +7,8 @@ import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/router/route_path.dart';
 import 'package:nendoroid_db/ui/_common_widget/chip/memo_list_widget.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_info_edit_dialog.dart';
-import 'package:nendoroid_db/ui/_common_widget/icon/check_icon.dart';
-import 'package:nendoroid_db/ui/_common_widget/icon/wish_icon.dart';
 import 'package:nendoroid_db/ui/_common_widget/image_view/detail_image_slider.dart';
+import 'package:nendoroid_db/ui/_common_widget/toggle_button/opacity_toggle_button.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 
 class NendoDetailScreen extends ConsumerStatefulWidget {
@@ -284,48 +283,25 @@ class _NendoDetailScreenState extends ConsumerState<NendoDetailScreen> with Sing
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
-                                          InkWell(
-                                            onTap: () {
-                                              ref.read(nendoProvider.notifier).updateHaveNendo(nendoData.num);
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Row(
-                                                children: [
-                                                  Opacity(
-                                                    opacity: nendoData.have ? 1 : 0.5,
-                                                    child: const CheckIcon(size: 15),
-                                                  ),
-                                                  const SizedBox(width: 5.0),
-                                                  Opacity(
-                                                    opacity: nendoData.have ? 1 : 0.5,
-                                                    child: const Text("보유"),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                          OpacityToggleButton.have(
+                                            onTap: () => ref
+                                                .read(nendoProvider.notifier)
+                                                .updateHaveNendo(nendoData.num),
+                                            nendoData: nendoData,
                                           ),
                                           const SizedBox(width: 5.0),
-                                          InkWell(
-                                            onTap: () {
-                                              ref.read(nendoProvider.notifier).updateWishNendo(nendoData.num);
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Row(
-                                                children: [
-                                                  Opacity(
-                                                    opacity: nendoData.wish ? 1 : 0.5,
-                                                    child: const WishIcon(size: 15),
-                                                  ),
-                                                  const SizedBox(width: 5.0),
-                                                  Opacity(
-                                                    opacity: nendoData.wish ? 1 : 0.5,
-                                                    child: const Text("위시"),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                          OpacityToggleButton.preOrder(
+                                            onTap: () => ref
+                                                .read(nendoProvider.notifier)
+                                                .updatePreOrderNendo(nendoData.num),
+                                            nendoData: nendoData,
+                                          ),
+                                          const SizedBox(width: 5.0),
+                                          OpacityToggleButton.wish(
+                                            onTap: () => ref
+                                                .read(nendoProvider.notifier)
+                                                .updateWishNendo(nendoData.num),
+                                            nendoData: nendoData,
                                           ),
                                         ],
                                       ),
@@ -333,16 +309,22 @@ class _NendoDetailScreenState extends ConsumerState<NendoDetailScreen> with Sing
                                         offstage: !nendoData.have,
                                         child: SizedBox(
                                           width: double.infinity,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return NendoInfoEditDialog(nendoData: nendoData);
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const SizedBox(height: 10),
+                                              TextButton(
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return NendoInfoEditDialog(nendoData: nendoData);
+                                                    },
+                                                  );
                                                 },
-                                              );
-                                            },
-                                            child: const Text("상세편집"),
+                                                child: const Text("상세편집"),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),

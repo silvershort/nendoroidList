@@ -91,6 +91,7 @@ class _ListAppBarState extends ConsumerState<MainSliverAppBar> {
                 Normal() => '넨도로이드 목록',
                 Have() => '보유 넨도 편집',
                 Wish() => '위시 넨도 편집',
+                PreOrder() => '예약 넨도 편집',
               },
             NendoroidDollData() => '넨도로이드 돌 목록',
           },

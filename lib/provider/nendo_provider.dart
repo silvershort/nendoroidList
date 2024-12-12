@@ -173,6 +173,7 @@ class Nendo extends _$Nendo {
                 count: backupData.count,
                 have: backupData.have,
                 wish: backupData.wish,
+                preOrder: backupData.preOrder,
                 myPrice: backupData.myPrice,
                 memo: backupData.memo?.toList(),
               );
@@ -226,6 +227,7 @@ class Nendo extends _$Nendo {
               count: backupData.count,
               have: backupData.have,
               wish: backupData.wish,
+              preOrder: backupData.preOrder,
               myPrice: backupData.myPrice,
               memo: backupData.memo?.toList(),
             );
@@ -254,7 +256,7 @@ class Nendo extends _$Nendo {
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
     _backupNendoList = getLocalNendoList()
         .where((item) =>
-            (item.have || item.wish) ||
+            (item.have || item.wish || item.preOrder) ||
             item.myPrice != null ||
             item.memo != null)
         .toList();
@@ -268,7 +270,7 @@ class Nendo extends _$Nendo {
 
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
     final backupNendoList = getLocalNendoList()
-        .where((item) => (item.have || item.wish) || item.memo != null)
+        .where((item) => (item.have || item.wish || item.preOrder) || item.memo != null)
         .toList();
 
     final String backupDate =
@@ -366,8 +368,7 @@ class Nendo extends _$Nendo {
   }
 
   // 특정 규칙에 따라서 리스트를 필터링 해준다.
-  void filteringList(
-      {List<NendoData>? nendoList, bool searchComplete = false}) {
+  void filteringList({List<NendoData>? nendoList, bool searchComplete = false}) {
     // 검색어가 남아있을 경우 검색어에 따른 필터링을 우선적으로 진행한다.
     if (_lastSearch.isNotEmpty && !searchComplete) {
       searchToWord(_lastSearch);
@@ -391,18 +392,22 @@ class Nendo extends _$Nendo {
       tempList = tempList.where((item) => item.wish).toList();
     }
 
-    if (filterData.expectedFilter) {
-      DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
-      tempList = tempList.where((item) {
-        if (item.releaseDate.isEmpty) {
-          return false;
-        }
-        DateTime itemDate = DateFormat("yyyy/MM")
-            .parse(item.releaseDate[item.releaseDate.length - 1]);
-        // 출시일이 오늘 날짜와 같거나 클때
-        return !itemDate.isBefore(today);
-      }).toList();
+    if (filterData.preOrderFilter) {
+      tempList = tempList.where((item) => item.preOrder).toList();
     }
+
+    // if (filterData.expectedFilter) {
+    //   DateTime today = DateTime(DateTime.now().year, DateTime.now().month, 1);
+    //   tempList = tempList.where((item) {
+    //     if (item.releaseDate.isEmpty) {
+    //       return false;
+    //     }
+    //     DateTime itemDate = DateFormat("yyyy/MM")
+    //         .parse(item.releaseDate[item.releaseDate.length - 1]);
+    //     // 출시일이 오늘 날짜와 같거나 클때
+    //     return !itemDate.isBefore(today);
+    //   }).toList();
+    // }
 
     if (filterData.femaleFilter) {
       tempList = tempList.where((item) => item.gender == "F").toList();
@@ -532,7 +537,7 @@ class Nendo extends _$Nendo {
   }
 
   // 넨도 데이터를 갱신해줌
-  void renewrData() {
+  void renewalData() {
     if (state.value == null) {
       return;
     }
@@ -560,7 +565,7 @@ class Nendo extends _$Nendo {
     }
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
     await nendoBox.put(item.num, item);
-    renewrData();
+    renewalData();
   }
 
   // 모든 넨도로이드를 보유 상태로 변경(테스트 용)
@@ -575,7 +580,7 @@ class Nendo extends _$Nendo {
         nendo.count = 1;
       }
     }
-    renewrData();
+    renewalData();
   }
 
   // 선택한 넨도의 위시 여부를 수정함
@@ -591,7 +596,23 @@ class Nendo extends _$Nendo {
 
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
     await nendoBox.put(item.num, item);
-    renewrData();
+    renewalData();
+  }
+
+  // 선택한 넨도의 예약 여부를 수정함
+  void updatePreOrderNendo(String number) async {
+    if (state.value == null) {
+      return;
+    }
+
+    NendoData item = state.requireValue.nendoList
+        .where((element) => element.num == number)
+        .first;
+    item.preOrder = !item.preOrder;
+
+    final Box nendoBox = ref.watch(hiveProvider).nendoBox;
+    await nendoBox.put(item.num, item);
+    renewalData();
   }
 
   // 넨도 구매 가격 변경
@@ -606,7 +627,7 @@ class Nendo extends _$Nendo {
 
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
     await nendoBox.put(item.num, item);
-    renewrData();
+    renewalData();
   }
 
   // 보유 넨도개수 조절
@@ -624,7 +645,7 @@ class Nendo extends _$Nendo {
     item.count = count;
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
     await nendoBox.put(item.num, item);
-    renewrData();
+    renewalData();
   }
 
   // 넨도 메모 저장
@@ -642,7 +663,7 @@ class Nendo extends _$Nendo {
     }
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
     await nendoBox.put(item.num, item);
-    renewrData();
+    renewalData();
   }
 
   // 넨도 메모 삭제
@@ -658,7 +679,7 @@ class Nendo extends _$Nendo {
     }
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
     await nendoBox.put(item.num, item);
-    renewrData();
+    renewalData();
   }
 
   // 번호에 맞는 넨도 반환

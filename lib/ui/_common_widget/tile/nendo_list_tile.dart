@@ -14,6 +14,7 @@ import 'package:nendoroid_db/ui/_common_widget/chip/memo_list_widget.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/detail_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/dialog/nendo_info_edit_dialog.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/check_icon.dart';
+import 'package:nendoroid_db/ui/_common_widget/icon/pre_order_icon.dart';
 import 'package:nendoroid_db/ui/_common_widget/icon/wish_icon.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 
@@ -22,6 +23,7 @@ class NendoListTile extends ConsumerWidget {
     super.key,
     required this.nendoData,
   });
+
   final NendoData nendoData;
 
   Color _setItemSelectedColor(BuildContext context, NendoListSettingState state) {
@@ -33,6 +35,12 @@ class NendoListTile extends ConsumerWidget {
           return Theme.of(context).colorScheme.surface;
         }
       case Wish():
+        if (nendoData.wish) {
+          return Theme.of(context).colorScheme.secondary.withAlpha(80);
+        } else {
+          return Theme.of(context).colorScheme.surface;
+        }
+      case PreOrder():
         if (nendoData.wish) {
           return Theme.of(context).colorScheme.secondary.withAlpha(80);
         } else {
@@ -70,6 +78,8 @@ class NendoListTile extends ConsumerWidget {
           case Have():
             nendoController.updateHaveNendo(nendoData.num);
           case Wish():
+            nendoController.updateWishNendo(nendoData.num);
+          case PreOrder():
             nendoController.updateWishNendo(nendoData.num);
         }
 
@@ -144,10 +154,25 @@ class NendoListTile extends ConsumerWidget {
                               child: const CheckIcon(),
                             ),
                           ),
-                          const SizedBox(
-                            width: 3.0,
+                          Visibility(
+                            visible: nendoData.preOrder,
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(width: 3.0),
+                                PreOrderIcon(),
+                              ],
+                            ),
                           ),
-                          Visibility(visible: nendoData.wish, child: const WishIcon()),
+                          Visibility(
+                            visible: nendoData.wish,
+                            child: const Row(
+                              children: [
+                                SizedBox(width: 3.0),
+                                WishIcon(),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 7.5),
@@ -229,6 +254,7 @@ class NendoListTile extends ConsumerWidget {
 
 class NendoPrice extends StatelessWidget {
   const NendoPrice({super.key, required this.state, required this.nendoData});
+
   final NendoListSettingState state;
   final NendoData nendoData;
 
@@ -256,6 +282,7 @@ class NendoPrice extends StatelessWidget {
           ],
         );
       case Wish():
+      case PreOrder():
       case Normal():
         String purchasePrice = '출시가격 : ${nendoData.price.comma} 엔';
         if (nendoData.myPrice != null && nendoData.have) {

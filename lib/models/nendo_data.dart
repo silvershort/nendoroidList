@@ -37,6 +37,8 @@ class NendoData {
   List<String>? memo;
   @HiveField(13)
   String? type;
+  @HiveField(14, defaultValue: false)
+  bool preOrder;
 
   NendoData({
     required this.num,
@@ -53,6 +55,7 @@ class NendoData {
     this.myPrice,
     this.memo,
     this.type,
+    this.preOrder = false,
   });
 
   factory NendoData.fromJson(Map<String, dynamic> json) => _$NendoDataFromJson(json);
@@ -89,6 +92,7 @@ class NendoData {
     List<String>? memo,
     String? type,
     String? image2,
+    bool? preOrder
   }) {
     return NendoData(
       num: num ?? this.num,
@@ -105,12 +109,13 @@ class NendoData {
       myPrice: myPrice ?? this.myPrice,
       memo: memo ?? this.memo,
       type: type ?? this.type,
+      preOrder: preOrder ?? this.preOrder,
     );
   }
 
   @override
   String toString() {
-    return 'NendoData{num: $num, name: $name, series: $series, gscProductNum: $gscProductNum, price: $price, releaseDate: $releaseDate, image: $image, gender: $gender, have: $have, wish: $wish, count: $count, myPrice: $myPrice, memo: $memo, type: $type}';
+    return 'NendoData{num: $num, name: $name, series: $series, gscProductNum: $gscProductNum, price: $price, releaseDate: $releaseDate, image: $image, gender: $gender, have: $have, wish: $wish, count: $count, myPrice: $myPrice, memo: $memo, type: $type, preOrder: $preOrder}';
   }
 }
 

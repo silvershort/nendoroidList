@@ -120,6 +120,7 @@ class MyApp extends ConsumerWidget {
           child: child!,
         );
       },
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: settingState.seedColor,

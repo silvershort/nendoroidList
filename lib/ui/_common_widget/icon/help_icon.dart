@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class HelpIcon extends StatelessWidget {
   const HelpIcon({
-    Key? key,
+    super.key,
     required this.onTap,
-  }) : super(key: key);
+  });
   final VoidCallback onTap;
 
   @override

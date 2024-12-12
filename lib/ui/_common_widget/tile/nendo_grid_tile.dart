@@ -33,6 +33,12 @@ class NendoGridTile extends ConsumerWidget {
         } else {
           return false;
         }
+      case PreOrder():
+        if (nendoData.preOrder) {
+          return true;
+        } else {
+          return false;
+        }
       case Normal():
         return false;
     }
@@ -66,6 +72,8 @@ class NendoGridTile extends ConsumerWidget {
             nendoController.updateHaveNendo(nendoData.num);
           case Wish():
             nendoController.updateWishNendo(nendoData.num);
+          case PreOrder():
+            nendoController.updatePreOrderNendo(nendoData.num);
         }
 
         // 아이템 클릭했을때 포커스 해제

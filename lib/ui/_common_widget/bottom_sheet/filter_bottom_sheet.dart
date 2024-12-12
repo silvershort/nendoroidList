@@ -6,7 +6,7 @@ import 'package:nendoroid_db/models/sort_data.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 
 class FilterBottomSheet extends ConsumerWidget {
-  const FilterBottomSheet({Key? key}) : super(key: key);
+  const FilterBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -127,48 +127,63 @@ class FilterBottomSheet extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.275,
+                width: MediaQuery.of(context).size.width * 0.2,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     backgroundColor: switch (state.editMode) {
-                      Normal() => Theme.of(context).colorScheme.surfaceVariant,
+                      Normal() => Theme.of(context).colorScheme.surfaceContainerHighest,
                       _ => Theme.of(context).colorScheme.surface,
                     },
                   ),
                   onPressed: () => controller.changeEditMode(Normal()),
                   child: const Text(
-                    "일반모드",
+                    "일반",
                     style: TextStyle(),
                   ),
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.275,
+                width: MediaQuery.of(context).size.width * 0.2,
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: switch (state.editMode) {
-                        Have() => Theme.of(context).colorScheme.surfaceVariant,
+                        Have() => Theme.of(context).colorScheme.surfaceContainerHighest,
                         _ => Theme.of(context).colorScheme.surface,
                       },
                     ),
                     onPressed: () => controller.changeEditMode(Have()),
                     child: const Text(
-                      "보유편집",
+                      "보유",
                       style: TextStyle(),
                     )),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.275,
+                width: MediaQuery.of(context).size.width * 0.2,
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: switch (state.editMode) {
-                        Wish() => Theme.of(context).colorScheme.surfaceVariant,
+                        PreOrder() => Theme.of(context).colorScheme.surfaceContainerHighest,
+                        _ => Theme.of(context).colorScheme.surface,
+                      },
+                    ),
+                    onPressed: () => controller.changeEditMode(PreOrder()),
+                    child: const Text(
+                      "예약",
+                      style: TextStyle(),
+                    )),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: switch (state.editMode) {
+                        Wish() => Theme.of(context).colorScheme.surfaceContainerHighest,
                         _ => Theme.of(context).colorScheme.surface,
                       },
                     ),
                     onPressed: () => controller.changeEditMode(Wish()),
                     child: const Text(
-                      "위시편집",
+                      "위시",
                       style: TextStyle(),
                     )),
               ),
@@ -284,19 +299,26 @@ class _FilterColunm extends ConsumerWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 _FilterButton(
+                  isSelected: state.filterData.preOrderFilter,
+                  onPressed: () {
+                    controller.changeFilterData(state.filterData.invertPreOrder());
+                  },
+                  title: '예약',
+                ),
+                _FilterButton(
                   isSelected: state.filterData.wishFilter,
                   onPressed: () {
                     controller.changeFilterData(state.filterData.invertWish());
                   },
                   title: '위시',
                 ),
-                _FilterButton(
-                  isSelected: state.filterData.expectedFilter,
-                  onPressed: () {
-                    controller.changeFilterData(state.filterData.invertExpected());
-                  },
-                  title: '출시예정',
-                ),
+                // _FilterButton(
+                //   isSelected: state.filterData.expectedFilter,
+                //   onPressed: () {
+                //     controller.changeFilterData(state.filterData.invertExpected());
+                //   },
+                //   title: '출시예정',
+                // ),
               ],
             ),
             Row(

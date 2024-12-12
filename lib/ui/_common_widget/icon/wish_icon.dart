@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class WishIcon extends StatelessWidget {
   const WishIcon({
-    Key? key,
+    super.key,
     this.size = 16,
-  }) : super(key: key);
+  });
   final double size;
 
   @override

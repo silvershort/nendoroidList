@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CheckIcon extends StatelessWidget {
-  const CheckIcon({
+class PreOrderIcon extends StatelessWidget {
+  const PreOrderIcon({
     super.key,
     this.size = 16,
   });
@@ -10,7 +10,7 @@ class CheckIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-      Icons.check,
+      Icons.alarm_outlined,
       color: Theme.of(context).colorScheme.tertiary,
       size: size,
     );

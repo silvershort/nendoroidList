@@ -8,11 +8,11 @@ class FilterData with _$FilterData {
     @Default(false) bool haveFilter,
     @Default(false) bool notHaveFilter,
     @Default(false) bool wishFilter,
-    @Default(false) bool expectedFilter,
+    // @Default(false) bool expectedFilter,
+    @Default(false) bool preOrderFilter,
     @Default(false) bool femaleFilter,
     @Default(false) bool maleFilter,
     @Default(false) bool etcFilter,
-    @Default(false) bool preOrderFilter,
   }) = _FilterData;
 
   const FilterData._();
@@ -26,9 +26,12 @@ class FilterData with _$FilterData {
   FilterData invertWish() {
     return copyWith(wishFilter: !wishFilter);
   }
-  FilterData invertExpected() {
-    return copyWith(expectedFilter: !expectedFilter);
+  FilterData invertPreOrder() {
+    return copyWith(preOrderFilter: !preOrderFilter);
   }
+  // FilterData invertExpected() {
+  //   return copyWith(expectedFilter: !expectedFilter);
+  // }
   FilterData invertFemale() {
     return copyWith(femaleFilter: !femaleFilter);
   }
@@ -37,8 +40,5 @@ class FilterData with _$FilterData {
   }
   FilterData invertEtc() {
     return copyWith(etcFilter: !etcFilter);
-  }
-  FilterData invertPreOrder() {
-    return copyWith(preOrderFilter: !preOrderFilter);
   }
 }

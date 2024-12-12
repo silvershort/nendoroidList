@@ -18,12 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FilterData {
   bool get haveFilter => throw _privateConstructorUsedError;
   bool get notHaveFilter => throw _privateConstructorUsedError;
-  bool get wishFilter => throw _privateConstructorUsedError;
-  bool get expectedFilter => throw _privateConstructorUsedError;
+  bool get wishFilter =>
+      throw _privateConstructorUsedError; // @Default(false) bool expectedFilter,
+  bool get preOrderFilter => throw _privateConstructorUsedError;
   bool get femaleFilter => throw _privateConstructorUsedError;
   bool get maleFilter => throw _privateConstructorUsedError;
   bool get etcFilter => throw _privateConstructorUsedError;
-  bool get preOrderFilter => throw _privateConstructorUsedError;
 
   /// Create a copy of FilterData
   /// with the given fields replaced by the non-null parameter values.
@@ -42,11 +42,10 @@ abstract class $FilterDataCopyWith<$Res> {
       {bool haveFilter,
       bool notHaveFilter,
       bool wishFilter,
-      bool expectedFilter,
+      bool preOrderFilter,
       bool femaleFilter,
       bool maleFilter,
-      bool etcFilter,
-      bool preOrderFilter});
+      bool etcFilter});
 }
 
 /// @nodoc
@@ -67,11 +66,10 @@ class _$FilterDataCopyWithImpl<$Res, $Val extends FilterData>
     Object? haveFilter = null,
     Object? notHaveFilter = null,
     Object? wishFilter = null,
-    Object? expectedFilter = null,
+    Object? preOrderFilter = null,
     Object? femaleFilter = null,
     Object? maleFilter = null,
     Object? etcFilter = null,
-    Object? preOrderFilter = null,
   }) {
     return _then(_value.copyWith(
       haveFilter: null == haveFilter
@@ -86,9 +84,9 @@ class _$FilterDataCopyWithImpl<$Res, $Val extends FilterData>
           ? _value.wishFilter
           : wishFilter // ignore: cast_nullable_to_non_nullable
               as bool,
-      expectedFilter: null == expectedFilter
-          ? _value.expectedFilter
-          : expectedFilter // ignore: cast_nullable_to_non_nullable
+      preOrderFilter: null == preOrderFilter
+          ? _value.preOrderFilter
+          : preOrderFilter // ignore: cast_nullable_to_non_nullable
               as bool,
       femaleFilter: null == femaleFilter
           ? _value.femaleFilter
@@ -101,10 +99,6 @@ class _$FilterDataCopyWithImpl<$Res, $Val extends FilterData>
       etcFilter: null == etcFilter
           ? _value.etcFilter
           : etcFilter // ignore: cast_nullable_to_non_nullable
-              as bool,
-      preOrderFilter: null == preOrderFilter
-          ? _value.preOrderFilter
-          : preOrderFilter // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -122,11 +116,10 @@ abstract class _$$FilterDataImplCopyWith<$Res>
       {bool haveFilter,
       bool notHaveFilter,
       bool wishFilter,
-      bool expectedFilter,
+      bool preOrderFilter,
       bool femaleFilter,
       bool maleFilter,
-      bool etcFilter,
-      bool preOrderFilter});
+      bool etcFilter});
 }
 
 /// @nodoc
@@ -145,11 +138,10 @@ class __$$FilterDataImplCopyWithImpl<$Res>
     Object? haveFilter = null,
     Object? notHaveFilter = null,
     Object? wishFilter = null,
-    Object? expectedFilter = null,
+    Object? preOrderFilter = null,
     Object? femaleFilter = null,
     Object? maleFilter = null,
     Object? etcFilter = null,
-    Object? preOrderFilter = null,
   }) {
     return _then(_$FilterDataImpl(
       haveFilter: null == haveFilter
@@ -164,9 +156,9 @@ class __$$FilterDataImplCopyWithImpl<$Res>
           ? _value.wishFilter
           : wishFilter // ignore: cast_nullable_to_non_nullable
               as bool,
-      expectedFilter: null == expectedFilter
-          ? _value.expectedFilter
-          : expectedFilter // ignore: cast_nullable_to_non_nullable
+      preOrderFilter: null == preOrderFilter
+          ? _value.preOrderFilter
+          : preOrderFilter // ignore: cast_nullable_to_non_nullable
               as bool,
       femaleFilter: null == femaleFilter
           ? _value.femaleFilter
@@ -180,10 +172,6 @@ class __$$FilterDataImplCopyWithImpl<$Res>
           ? _value.etcFilter
           : etcFilter // ignore: cast_nullable_to_non_nullable
               as bool,
-      preOrderFilter: null == preOrderFilter
-          ? _value.preOrderFilter
-          : preOrderFilter // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -195,11 +183,10 @@ class _$FilterDataImpl extends _FilterData {
       {this.haveFilter = false,
       this.notHaveFilter = false,
       this.wishFilter = false,
-      this.expectedFilter = false,
+      this.preOrderFilter = false,
       this.femaleFilter = false,
       this.maleFilter = false,
-      this.etcFilter = false,
-      this.preOrderFilter = false})
+      this.etcFilter = false})
       : super._();
 
   @override
@@ -211,9 +198,10 @@ class _$FilterDataImpl extends _FilterData {
   @override
   @JsonKey()
   final bool wishFilter;
+// @Default(false) bool expectedFilter,
   @override
   @JsonKey()
-  final bool expectedFilter;
+  final bool preOrderFilter;
   @override
   @JsonKey()
   final bool femaleFilter;
@@ -223,13 +211,10 @@ class _$FilterDataImpl extends _FilterData {
   @override
   @JsonKey()
   final bool etcFilter;
-  @override
-  @JsonKey()
-  final bool preOrderFilter;
 
   @override
   String toString() {
-    return 'FilterData(haveFilter: $haveFilter, notHaveFilter: $notHaveFilter, wishFilter: $wishFilter, expectedFilter: $expectedFilter, femaleFilter: $femaleFilter, maleFilter: $maleFilter, etcFilter: $etcFilter, preOrderFilter: $preOrderFilter)';
+    return 'FilterData(haveFilter: $haveFilter, notHaveFilter: $notHaveFilter, wishFilter: $wishFilter, preOrderFilter: $preOrderFilter, femaleFilter: $femaleFilter, maleFilter: $maleFilter, etcFilter: $etcFilter)';
   }
 
   @override
@@ -243,29 +228,19 @@ class _$FilterDataImpl extends _FilterData {
                 other.notHaveFilter == notHaveFilter) &&
             (identical(other.wishFilter, wishFilter) ||
                 other.wishFilter == wishFilter) &&
-            (identical(other.expectedFilter, expectedFilter) ||
-                other.expectedFilter == expectedFilter) &&
+            (identical(other.preOrderFilter, preOrderFilter) ||
+                other.preOrderFilter == preOrderFilter) &&
             (identical(other.femaleFilter, femaleFilter) ||
                 other.femaleFilter == femaleFilter) &&
             (identical(other.maleFilter, maleFilter) ||
                 other.maleFilter == maleFilter) &&
             (identical(other.etcFilter, etcFilter) ||
-                other.etcFilter == etcFilter) &&
-            (identical(other.preOrderFilter, preOrderFilter) ||
-                other.preOrderFilter == preOrderFilter));
+                other.etcFilter == etcFilter));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      haveFilter,
-      notHaveFilter,
-      wishFilter,
-      expectedFilter,
-      femaleFilter,
-      maleFilter,
-      etcFilter,
-      preOrderFilter);
+  int get hashCode => Object.hash(runtimeType, haveFilter, notHaveFilter,
+      wishFilter, preOrderFilter, femaleFilter, maleFilter, etcFilter);
 
   /// Create a copy of FilterData
   /// with the given fields replaced by the non-null parameter values.
@@ -281,11 +256,10 @@ abstract class _FilterData extends FilterData {
       {final bool haveFilter,
       final bool notHaveFilter,
       final bool wishFilter,
-      final bool expectedFilter,
+      final bool preOrderFilter,
       final bool femaleFilter,
       final bool maleFilter,
-      final bool etcFilter,
-      final bool preOrderFilter}) = _$FilterDataImpl;
+      final bool etcFilter}) = _$FilterDataImpl;
   const _FilterData._() : super._();
 
   @override
@@ -293,17 +267,15 @@ abstract class _FilterData extends FilterData {
   @override
   bool get notHaveFilter;
   @override
-  bool get wishFilter;
+  bool get wishFilter; // @Default(false) bool expectedFilter,
   @override
-  bool get expectedFilter;
+  bool get preOrderFilter;
   @override
   bool get femaleFilter;
   @override
   bool get maleFilter;
   @override
   bool get etcFilter;
-  @override
-  bool get preOrderFilter;
 
   /// Create a copy of FilterData
   /// with the given fields replaced by the non-null parameter values.
