@@ -6,32 +6,30 @@ part of 'exchange_rate_yen.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ExchangeRateYen _$ExchangeRateYenFromJson(Map<String, dynamic> json) =>
-    ExchangeRateYen(
-      code: json['code'] as String?,
-      currencyCode: json['currencyCode'] as String?,
-      currencyName: json['currencyName'] as String?,
-      country: json['country'] as String?,
-      name: json['name'] as String?,
-      date: json['date'] as String?,
-      time: json['time'] as String?,
-      basePrice: (json['basePrice'] as num?)?.toDouble(),
-      ttSellingPrice: (json['ttSellingPrice'] as num?)?.toDouble(),
-      modifiedAt: json['modifiedAt'] as String?,
-      createdAt: json['createdAt'] as String?,
+_$ExchangeRateYenImpl _$$ExchangeRateYenImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ExchangeRateYenImpl(
+      countryList: (json['country'] as List<dynamic>)
+          .map((e) => Country.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$ExchangeRateYenToJson(ExchangeRateYen instance) =>
+Map<String, dynamic> _$$ExchangeRateYenImplToJson(
+        _$ExchangeRateYenImpl instance) =>
     <String, dynamic>{
-      'code': instance.code,
-      'currencyCode': instance.currencyCode,
-      'currencyName': instance.currencyName,
-      'country': instance.country,
-      'name': instance.name,
-      'date': instance.date,
-      'time': instance.time,
-      'basePrice': instance.basePrice,
-      'ttSellingPrice': instance.ttSellingPrice,
-      'modifiedAt': instance.modifiedAt,
-      'createdAt': instance.createdAt,
+      'country': instance.countryList,
+    };
+
+_$CountryImpl _$$CountryImplFromJson(Map<String, dynamic> json) =>
+    _$CountryImpl(
+      value: json['value'] as String,
+      subValue: json['subValue'] as String,
+      currencyUnit: json['currencyUnit'] as String,
+    );
+
+Map<String, dynamic> _$$CountryImplToJson(_$CountryImpl instance) =>
+    <String, dynamic>{
+      'value': instance.value,
+      'subValue': instance.subValue,
+      'currencyUnit': instance.currencyUnit,
     };

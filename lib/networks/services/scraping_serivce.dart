@@ -484,7 +484,16 @@ class ScrapingService {
     try {
       final response = await repository.getExchangeRate();
       talker.info(response.toString());
-      return ApiResult.success(response[0].ttSellingPrice?.toInt() ?? 0);
+
+      late int price;
+
+      for (final country in response.countryList) {
+        if (country.currencyUnit.contains('원')) {
+          price = (country.value.onlyDouble * 100).toInt();
+        }
+      }
+
+      return ApiResult.success(price);
     } catch (error, stackTrace) {
       talker.error(error.toString(), error, stackTrace);
       return ApiResult.error(

@@ -32,6 +32,14 @@ extension StringExtension on String {
     }
   }
 
+  double get onlyDouble {
+    try {
+      return double.parse(replaceAll(RegExp(r'[^0-9.]'), ''));
+    } catch (_) {
+      return 0.0;
+    }
+  }
+
   int get onlyNumberFirst {
     try {
       RegExp regExp = RegExp(r'\d+');

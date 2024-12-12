@@ -66,8 +66,8 @@ abstract class ScrapingRepository {
   Future<HttpResponse> getNendoroidAnnounced();
 
   // 엔화 환율 정보
-  @GET("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY")
-  Future<List<ExchangeRateYen>> getExchangeRate();
+  @GET("https://m.search.naver.com/p/csearch/content/qapirender.nhn?key=calculator&pkid=141&q=%ED%99%98%EC%9C%A8&where=m&u1=keb&u6=standardUnit&u7=0&u3=JPY&u4=KRW&u8=down&u2=1")
+  Future<ExchangeRateYen> getExchangeRate();
 
   // 굿스마일 넨도로이드 일정 페이지
   @GET('https://www.goodsmile.info/en/releaseinfo')

@@ -267,19 +267,19 @@ class _ScrapingRepository implements ScrapingRepository {
   }
 
   @override
-  Future<List<ExchangeRateYen>> getExchangeRate() async {
+  Future<ExchangeRateYen> getExchangeRate() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<ExchangeRateYen>>(Options(
+    final _options = _setStreamType<ExchangeRateYen>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWJPY',
+          'https://m.search.naver.com/p/csearch/content/qapirender.nhn?key=calculator&pkid=141&q=%ED%99%98%EC%9C%A8&where=m&u1=keb&u6=standardUnit&u7=0&u3=JPY&u4=KRW&u8=down&u2=1',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -288,13 +288,10 @@ class _ScrapingRepository implements ScrapingRepository {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<ExchangeRateYen> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ExchangeRateYen _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) =>
-              ExchangeRateYen.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = ExchangeRateYen.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
