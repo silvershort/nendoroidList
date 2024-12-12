@@ -6,7 +6,7 @@ part of 'nendo_setting_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nendoListSettingHash() => r'6e900483c0eceaa36381f57ff6972ac278e6b857';
+String _$nendoListSettingHash() => r'5a803709efe0b75786865f31878362c9bed0940c';
 
 /// See also [NendoListSetting].
 @ProviderFor(NendoListSetting)

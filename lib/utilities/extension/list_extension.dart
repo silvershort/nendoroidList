@@ -4,7 +4,7 @@ import 'package:nendoroid_db/main.dart';
 import 'package:nendoroid_db/models/gender_rate.dart';
 import 'package:nendoroid_db/models/most_series.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/sort_data.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 

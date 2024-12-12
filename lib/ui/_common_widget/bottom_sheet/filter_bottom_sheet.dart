@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/doll_type.dart';
-import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
-import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/nendo_setting_sealed.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/sort_data.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 
 class FilterBottomSheet extends ConsumerWidget {

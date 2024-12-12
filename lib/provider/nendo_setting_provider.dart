@@ -1,8 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:nendoroid_db/models/doll_filter_data.dart';
-import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
-import 'package:nendoroid_db/models/filter_data.dart';
-import 'package:nendoroid_db/models/sort_data.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/doll_filter_data.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/grid_visible_data.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/nendo_setting_sealed.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/filter_data.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/sort_data.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,6 +20,7 @@ class NendoListSettingState with _$NendoListSettingState {
     required FilterData filterData,
     required DollFilterData dollFilterData,
     required SortData sortData,
+    required GridVisibleData gridVisibleData,
   }) = _NendoListSettingState;
 }
 
@@ -33,6 +35,7 @@ class NendoListSetting extends _$NendoListSetting {
       filterData: const FilterData(),
       dollFilterData: const DollFilterData(),
       sortData: const SortData(),
+      gridVisibleData: const GridVisibleData(),
     );
   }
 
@@ -96,5 +99,11 @@ class NendoListSetting extends _$NendoListSetting {
         );
     }
     ref.read(nendoProvider.notifier).resortingList();
+  }
+
+  void setGridVisibleData(GridVisibleData gridVisibleData) {
+    state = state.copyWith(
+      gridVisibleData: gridVisibleData,
+    );
   }
 }

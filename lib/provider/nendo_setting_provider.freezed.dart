@@ -22,6 +22,7 @@ mixin _$NendoListSettingState {
   FilterData get filterData => throw _privateConstructorUsedError;
   DollFilterData get dollFilterData => throw _privateConstructorUsedError;
   SortData get sortData => throw _privateConstructorUsedError;
+  GridVisibleData get gridVisibleData => throw _privateConstructorUsedError;
 
   /// Create a copy of NendoListSettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -42,11 +43,13 @@ abstract class $NendoListSettingStateCopyWith<$Res> {
       EditMode editMode,
       FilterData filterData,
       DollFilterData dollFilterData,
-      SortData sortData});
+      SortData sortData,
+      GridVisibleData gridVisibleData});
 
   $FilterDataCopyWith<$Res> get filterData;
   $DollFilterDataCopyWith<$Res> get dollFilterData;
   $SortDataCopyWith<$Res> get sortData;
+  $GridVisibleDataCopyWith<$Res> get gridVisibleData;
 }
 
 /// @nodoc
@@ -71,6 +74,7 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
     Object? filterData = null,
     Object? dollFilterData = null,
     Object? sortData = null,
+    Object? gridVisibleData = null,
   }) {
     return _then(_value.copyWith(
       dataType: null == dataType
@@ -97,6 +101,10 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
           ? _value.sortData
           : sortData // ignore: cast_nullable_to_non_nullable
               as SortData,
+      gridVisibleData: null == gridVisibleData
+          ? _value.gridVisibleData
+          : gridVisibleData // ignore: cast_nullable_to_non_nullable
+              as GridVisibleData,
     ) as $Val);
   }
 
@@ -129,6 +137,16 @@ class _$NendoListSettingStateCopyWithImpl<$Res,
       return _then(_value.copyWith(sortData: value) as $Val);
     });
   }
+
+  /// Create a copy of NendoListSettingState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GridVisibleDataCopyWith<$Res> get gridVisibleData {
+    return $GridVisibleDataCopyWith<$Res>(_value.gridVisibleData, (value) {
+      return _then(_value.copyWith(gridVisibleData: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -146,7 +164,8 @@ abstract class _$$NendoListSettingStateImplCopyWith<$Res>
       EditMode editMode,
       FilterData filterData,
       DollFilterData dollFilterData,
-      SortData sortData});
+      SortData sortData,
+      GridVisibleData gridVisibleData});
 
   @override
   $FilterDataCopyWith<$Res> get filterData;
@@ -154,6 +173,8 @@ abstract class _$$NendoListSettingStateImplCopyWith<$Res>
   $DollFilterDataCopyWith<$Res> get dollFilterData;
   @override
   $SortDataCopyWith<$Res> get sortData;
+  @override
+  $GridVisibleDataCopyWith<$Res> get gridVisibleData;
 }
 
 /// @nodoc
@@ -176,6 +197,7 @@ class __$$NendoListSettingStateImplCopyWithImpl<$Res>
     Object? filterData = null,
     Object? dollFilterData = null,
     Object? sortData = null,
+    Object? gridVisibleData = null,
   }) {
     return _then(_$NendoListSettingStateImpl(
       dataType: null == dataType
@@ -202,6 +224,10 @@ class __$$NendoListSettingStateImplCopyWithImpl<$Res>
           ? _value.sortData
           : sortData // ignore: cast_nullable_to_non_nullable
               as SortData,
+      gridVisibleData: null == gridVisibleData
+          ? _value.gridVisibleData
+          : gridVisibleData // ignore: cast_nullable_to_non_nullable
+              as GridVisibleData,
     ));
   }
 }
@@ -215,7 +241,8 @@ class _$NendoListSettingStateImpl implements _NendoListSettingState {
       required this.editMode,
       required this.filterData,
       required this.dollFilterData,
-      required this.sortData});
+      required this.sortData,
+      required this.gridVisibleData});
 
   @override
   final DataType dataType;
@@ -229,10 +256,12 @@ class _$NendoListSettingStateImpl implements _NendoListSettingState {
   final DollFilterData dollFilterData;
   @override
   final SortData sortData;
+  @override
+  final GridVisibleData gridVisibleData;
 
   @override
   String toString() {
-    return 'NendoListSettingState(dataType: $dataType, viewMode: $viewMode, editMode: $editMode, filterData: $filterData, dollFilterData: $dollFilterData, sortData: $sortData)';
+    return 'NendoListSettingState(dataType: $dataType, viewMode: $viewMode, editMode: $editMode, filterData: $filterData, dollFilterData: $dollFilterData, sortData: $sortData, gridVisibleData: $gridVisibleData)';
   }
 
   @override
@@ -251,12 +280,14 @@ class _$NendoListSettingStateImpl implements _NendoListSettingState {
             (identical(other.dollFilterData, dollFilterData) ||
                 other.dollFilterData == dollFilterData) &&
             (identical(other.sortData, sortData) ||
-                other.sortData == sortData));
+                other.sortData == sortData) &&
+            (identical(other.gridVisibleData, gridVisibleData) ||
+                other.gridVisibleData == gridVisibleData));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, dataType, viewMode, editMode,
-      filterData, dollFilterData, sortData);
+      filterData, dollFilterData, sortData, gridVisibleData);
 
   /// Create a copy of NendoListSettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -270,12 +301,14 @@ class _$NendoListSettingStateImpl implements _NendoListSettingState {
 
 abstract class _NendoListSettingState implements NendoListSettingState {
   const factory _NendoListSettingState(
-      {required final DataType dataType,
-      required final ViewMode viewMode,
-      required final EditMode editMode,
-      required final FilterData filterData,
-      required final DollFilterData dollFilterData,
-      required final SortData sortData}) = _$NendoListSettingStateImpl;
+          {required final DataType dataType,
+          required final ViewMode viewMode,
+          required final EditMode editMode,
+          required final FilterData filterData,
+          required final DollFilterData dollFilterData,
+          required final SortData sortData,
+          required final GridVisibleData gridVisibleData}) =
+      _$NendoListSettingStateImpl;
 
   @override
   DataType get dataType;
@@ -289,6 +322,8 @@ abstract class _NendoListSettingState implements NendoListSettingState {
   DollFilterData get dollFilterData;
   @override
   SortData get sortData;
+  @override
+  GridVisibleData get gridVisibleData;
 
   /// Create a copy of NendoListSettingState
   /// with the given fields replaced by the non-null parameter values.

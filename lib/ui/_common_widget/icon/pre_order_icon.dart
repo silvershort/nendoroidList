@@ -11,7 +11,7 @@ class PreOrderIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       Icons.alarm_outlined,
-      color: Theme.of(context).colorScheme.tertiary,
+      color: Theme.of(context).colorScheme.primary,
       size: size,
     );
   }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/nendo_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';

@@ -6,6 +6,7 @@ import 'package:nendoroid_db/ui/_common_widget/animation/scroll_to_opacity_widge
 import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar_controller.dart';
 import 'package:nendoroid_db/ui/_common_widget/bottom_sheet/filter_bottom_sheet.dart';
+import 'package:nendoroid_db/ui/list/widget/grid_visible_filter_view.dart';
 import 'package:nendoroid_db/ui/list/widget/main_sliver_list.dart';
 import 'package:nendoroid_db/ui/list/widget/nendo_search_result_view.dart';
 
@@ -49,6 +50,7 @@ class _ListScreenState extends ConsumerState<ListScreen> {
                 controller: scrollController,
                 slivers: const [
                   MainSliverAppBar(),
+                  GridVisibleFilterView(),
                   NendoSearchResultView(),
                   MainSliverList(),
                 ],

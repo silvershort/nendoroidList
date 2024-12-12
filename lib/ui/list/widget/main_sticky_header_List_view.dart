@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nendoroid_db/models/nendo_group.dart';
-import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/ui/list/widget/nendo_list_section.dart';
 import 'package:nendoroid_db/ui/list/widget/main_grid_list_view.dart';

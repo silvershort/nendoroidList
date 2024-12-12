@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nendoroid_db/models/nendo_setting_sealed.dart';
+import 'package:nendoroid_db/models/nendo_list_setting/nendo_setting_sealed.dart';
 import 'package:nendoroid_db/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/ui/_common_widget/app_bar/main_sliver_app_bar_controller.dart';
