@@ -46,7 +46,7 @@ class AppInfoScreen extends ConsumerWidget {
             title: "오픈소스 라이센스 고지",
             buttonTitle: "오픈소스 라이센스 정보",
             onClick: () {
-              context.go(RoutePath.license);
+              context.push(RoutePath.license);
             },
           ),
           _TitleAndButton(
