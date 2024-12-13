@@ -41,7 +41,7 @@ class NendoListTile extends ConsumerWidget {
           return Theme.of(context).colorScheme.surface;
         }
       case PreOrder():
-        if (nendoData.wish) {
+        if (nendoData.preOrder) {
           return Theme.of(context).colorScheme.secondary.withAlpha(80);
         } else {
           return Theme.of(context).colorScheme.surface;
@@ -80,7 +80,7 @@ class NendoListTile extends ConsumerWidget {
           case Wish():
             nendoController.updateWishNendo(nendoData.num);
           case PreOrder():
-            nendoController.updateWishNendo(nendoData.num);
+            nendoController.updatePreOrderNendo(nendoData.num);
         }
 
         // 아이템 클릭했을때 포커스 해제
