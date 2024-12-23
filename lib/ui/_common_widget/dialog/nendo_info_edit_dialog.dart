@@ -10,7 +10,7 @@ import 'package:nendoroid_db/utilities/extension/num_extension.dart';
 import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 
 class NendoInfoEditDialog extends ConsumerStatefulWidget {
-  const NendoInfoEditDialog({Key? key, required this.nendoData}) : super(key: key);
+  const NendoInfoEditDialog({super.key, required this.nendoData});
   final NendoData nendoData;
 
   @override
@@ -35,8 +35,12 @@ class _NendoInfoEditDialogState extends ConsumerState<NendoInfoEditDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final nendoList = ref.watch(nendoProvider).requireValue.filteredNendoList;
+    final nendoList = ref.watch(nendoProvider).requireValue.nendoList;
     final NendoData nendoData = nendoList.firstWhere((element) => element.num == widget.nendoData.num);
+
+    if (nendoData == null) {
+      return const SizedBox.shrink();
+    }
 
     return GestureDetector(
       onTap: () {

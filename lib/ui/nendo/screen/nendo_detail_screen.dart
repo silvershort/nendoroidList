@@ -222,7 +222,7 @@ class _NendoDetailScreenState extends ConsumerState<NendoDetailScreen> with Sing
                               ),
                               Consumer(
                                 builder: (context, ref, child) {
-                                  final nendoList = ref.watch(nendoProvider).requireValue.filteredNendoList;
+                                  final nendoList = ref.watch(nendoProvider).requireValue.nendoList;
                                   final NendoData nendoData = nendoList.firstWhere((element) => element.num == widget.nendoData.num);
 
                                   return Column(

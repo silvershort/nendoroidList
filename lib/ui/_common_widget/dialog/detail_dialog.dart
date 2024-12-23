@@ -171,7 +171,7 @@ class DetailDialog extends ConsumerWidget {
                     ),
                     Consumer(
                       builder: (context, ref, child) {
-                        final nendoList = ref.watch(nendoProvider).requireValue.filteredNendoList;
+                        final nendoList = ref.watch(nendoProvider).requireValue.nendoList;
                         final NendoData nendoData =
                             nendoList.firstWhere((element) => element.num == this.nendoData.num);
 

@@ -57,6 +57,7 @@ dependencies:
   fluttertoast: ^8.2.8
   talker_flutter: ^4.4.1
   google_generative_ai: ^0.4.5
+  collection: ^1.18.0
   # Environment
   envied: ^0.5.4+1
 
