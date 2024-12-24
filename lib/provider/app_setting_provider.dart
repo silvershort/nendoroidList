@@ -126,5 +126,6 @@ class AppSetting extends _$AppSetting {
     state = state.copyWith(
       usePopup: usePopup,
     );
+    _appThemeBox.put(HiveName.nendoDetailUsePopupKey, usePopup);
   }
 }
