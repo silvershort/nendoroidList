@@ -207,7 +207,6 @@ class ScrapingService {
             '';
 
         link = 'https://ninimal.co.kr/$link';
-        imagePath = 'https:$imagePath';
 
         // 품절 여부 체크
         final imgList = e

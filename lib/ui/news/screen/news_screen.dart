@@ -35,22 +35,22 @@ class NewsScreen extends ConsumerWidget {
                     },
                     nendoList: data.goodSmileNewsModel!.nendoList,
                   ),
-                NewsListSection(
-                  title: '예약마감⏰ 임박 넨도로이드',
-                  onTitleTap: () {
-                    context.push(
-                      '${RoutePath.newsDetail}?title=마감 임박 넨도로이드&homePage=https://www.goodsmile.info/en/products/category/nendoroid_series/announced',
-                      extra: data.imminentList,
-                    );
-                  },
-                  itemList: data.imminentList,
-                  onTap: (index) {
-                    launchUrl(
-                      Uri.parse(data.imminentList[index].link),
-                      mode: LaunchMode.externalApplication,
-                    );
-                  },
-                ),
+                // NewsListSection(
+                //   title: '예약마감⏰ 임박 넨도로이드',
+                //   onTitleTap: () {
+                //     context.push(
+                //       '${RoutePath.newsDetail}?title=마감 임박 넨도로이드&homePage=https://www.goodsmile.info/en/products/category/nendoroid_series/announced',
+                //       extra: data.imminentList,
+                //     );
+                //   },
+                //   itemList: data.imminentList,
+                //   onTap: (index) {
+                //     launchUrl(
+                //       Uri.parse(data.imminentList[index].link),
+                //       mode: LaunchMode.externalApplication,
+                //     );
+                //   },
+                // ),
                 NewsListSection(
                   title: '특전🎁 포함! 굿스마일 코리아 예약 목록',
                   onTitleTap: () {
@@ -96,8 +96,10 @@ class NewsScreen extends ConsumerWidget {
           );
         },
         error: (error, stackTrace) {
+          talker.error(error.toString());
+          talker.error(stackTrace.toString());
           return const Center(
-            child: Text('데이터가 로딩에 실패했습니다.'),
+            child: Text('데이터 로딩에 실패했습니다.'),
           );
         },
         loading: () {

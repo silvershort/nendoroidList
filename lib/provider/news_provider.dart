@@ -96,8 +96,9 @@ class News extends _$News {
     return result.when(
       success: (value) {
         if (ref.read(nendoProvider).hasValue) {
-          final List<NendoData> nendoList = value.nendoNameList.map((e) {
-            return ref.read(nendoProvider).requireValue.nendoList.getNendoByENName(e)!;
+          final List<NendoData> nendoList = value.nendoNameList.expand<NendoData>((e) {
+            final NendoData? nendo = ref.read(nendoProvider).requireValue.nendoList.getNendoByENName(e);
+            return nendo != null ? [nendo] : [];
           }).toList();
 
           final newGoodSmileNews = value.copyWith(
