@@ -105,6 +105,35 @@ flutter:
           weight: 500
         - asset: fonts/gyeonggi_cheonnyen_bold.otf
           weight: 700
+    - family: suite
+      fonts:
+        - asset: fonts/SUITE-Light.otf
+          weight: 300
+        - asset: fonts/SUITE-Regular.otf
+          weight: 400
+        - asset: fonts/SUITE-Medium.otf
+          weight: 500
+        - asset: fonts/SUITE-SemiBold.otf
+          weight: 600
+        - asset: fonts/SUITE-Bold.otf
+          weight: 700
+        - asset: fonts/SUITE-Heavy.otf
+          weight: 800
+    - family: maruburi
+      fonts:
+        - asset: fonts/MaruBuri-ExtraLight.otf
+          weight: 200
+        - asset: fonts/MaruBuri-Light.otf
+          weight: 300
+        - asset: fonts/MaruBuri-Regular.otf
+          weight: 400
+        - asset: fonts/MaruBuri-SemiBold.otf
+          weight: 600
+        - asset: fonts/MaruBuri-Bold.otf
+          weight: 700
+    - family: ohsquareAir
+      fonts:
+        - asset: fonts/Cafe24OhsquareAir-v2.0.otf
 
 flutter_native_splash:
   color: "#FFFFFF"

@@ -14,7 +14,7 @@ class FontView extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Row(
+          child: Wrap(
             children: AppFont.fontList.map((e) {
               return FontSelectView(
                 title: e.title,
