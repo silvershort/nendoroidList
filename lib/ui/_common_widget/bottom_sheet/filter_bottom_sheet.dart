@@ -127,13 +127,14 @@ class FilterBottomSheet extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
+                width: MediaQuery.of(context).size.width * 0.215,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     backgroundColor: switch (state.editMode) {
                       Normal() => Theme.of(context).colorScheme.surfaceContainerHighest,
                       _ => Theme.of(context).colorScheme.surface,
                     },
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                   ),
                   onPressed: () => controller.changeEditMode(Normal()),
                   child: const Text(
@@ -143,13 +144,14 @@ class FilterBottomSheet extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
+                width: MediaQuery.of(context).size.width * 0.215,
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: switch (state.editMode) {
                         Have() => Theme.of(context).colorScheme.surfaceContainerHighest,
                         _ => Theme.of(context).colorScheme.surface,
                       },
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                     ),
                     onPressed: () => controller.changeEditMode(Have()),
                     child: const Text(
@@ -158,13 +160,14 @@ class FilterBottomSheet extends ConsumerWidget {
                     )),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
+                width: MediaQuery.of(context).size.width * 0.215,
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: switch (state.editMode) {
                         PreOrder() => Theme.of(context).colorScheme.surfaceContainerHighest,
                         _ => Theme.of(context).colorScheme.surface,
                       },
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                     ),
                     onPressed: () => controller.changeEditMode(PreOrder()),
                     child: const Text(
@@ -173,13 +176,14 @@ class FilterBottomSheet extends ConsumerWidget {
                     )),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
+                width: MediaQuery.of(context).size.width * 0.215,
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: switch (state.editMode) {
                         Wish() => Theme.of(context).colorScheme.surfaceContainerHighest,
                         _ => Theme.of(context).colorScheme.surface,
                       },
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                     ),
                     onPressed: () => controller.changeEditMode(Wish()),
                     child: const Text(
