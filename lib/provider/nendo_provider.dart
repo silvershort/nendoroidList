@@ -22,6 +22,7 @@ import 'package:nendoroid_db/provider/nendo_setting_provider.dart';
 import 'package:nendoroid_db/provider/remote_config_provider.dart';
 import 'package:nendoroid_db/utilities/extension/list_extension.dart';
 import 'package:nendoroid_db/utilities/extension/num_extension.dart';
+import 'package:nendoroid_db/utilities/extension/string_extension.dart';
 import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -309,9 +310,9 @@ class Nendo extends _$Nendo {
 
     // 초성검색, 대소문자무시
     RegExp regExp = getRegExp(
-      word.trim(),
+      word.trim().escapeRegExp(),
       RegExpOptions(
-        initialSearch: true,
+        // initialSearch: true,
         ignoreCase: true,
       ),
     );

@@ -1,6 +1,12 @@
 import 'package:intl/intl.dart';
 
 extension StringExtension on String {
+  String escapeRegExp() {
+    return replaceAllMapped(RegExp(r'[.*+?^${}()|[\]\\]'), (match) {
+      return '\\${match[0]}'; // 특수 문자를 백슬래시로 이스케이프
+    });
+  }
+
   String get convertRuliwebDateFormat {
    return DateFormat('yyyy-MM-dd').format(DateTime.parse(this));
   }
