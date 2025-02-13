@@ -290,14 +290,14 @@ class ScrapingService {
 
       // 썸네일 리스트 클래스 가져오기
       final List<Element> elementList = document.getElementsByClassName(
-          "c-photo-variable-grid__item js-grid-item js-panzoom-show ");
+          "c-photo-product-slider__thumbnail-button ");
 
       // for문을 돌면서 실제 이미지 링크만 뽑아서 저장해둔다.
       for (Element element in elementList) {
         final String? url = element
-            .getElementsByClassName('c-image')
-            .firstOrNull
-            ?.getElementsByTagName('img')
+            // .getElementsByClassName('c-image')
+            // .firstOrNull
+            .getElementsByTagName('img')
             .firstOrNull
             ?.attributes['src'];
         if (url != null) {
