@@ -1,7 +1,7 @@
 name: nendoroid_db
 description: A new Flutter project.
 publish_to: 'none'
-version: 2.9.2+39
+version: 2.9.3+40
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
