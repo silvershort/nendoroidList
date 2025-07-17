@@ -8,21 +8,18 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:nendoroid_db/app/constant/hive_name.dart';
+import 'package:nendoroid_db/app/router/app_router.dart';
+import 'package:nendoroid_db/feature/_common/provider/app_setting_provider.dart';
+import 'package:nendoroid_db/feature/_common/provider/hive_provider.dart';
+import 'package:nendoroid_db/feature/_common/provider/notification_provider.dart';
+import 'package:nendoroid_db/feature/_common/provider/shared_preference_provider.dart';
+import 'package:nendoroid_db/feature/auth/provider/auth_provider.dart';
+import 'package:nendoroid_db/feature/nendo/model/nendo_data.dart';
+import 'package:nendoroid_db/feature/scraping/model/set_data.dart';
 import 'package:nendoroid_db/firebase_options.dart';
-import 'package:nendoroid_db/models/nendo_data.dart';
-import 'package:nendoroid_db/models/set_data.dart';
-import 'package:nendoroid_db/models/subscribe_data.dart';
-import 'package:nendoroid_db/provider/app_setting_provider.dart';
-import 'package:nendoroid_db/provider/auth_provider.dart';
-import 'package:nendoroid_db/provider/hive_provider.dart';
-import 'package:nendoroid_db/provider/notification_provider.dart';
-import 'package:nendoroid_db/provider/shared_preference_provider.dart';
-import 'package:nendoroid_db/router/app_router.dart';
-import 'package:nendoroid_db/utilities/hive_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-
-import 'utilities/app_font.dart';
 
 final talker = TalkerFlutter.init();
 
@@ -39,10 +36,6 @@ void main() async {
   Hive.registerAdapter(NameAdapter());
   Hive.registerAdapter(SeriesAdapter());
   Hive.registerAdapter(SetDataAdapter());
-  Hive.registerAdapter(SubscribeDataAdapter());
-  Hive.registerAdapter(TwitterSubscribeAdapter());
-  Hive.registerAdapter(RuliwebSubscribeAdapter());
-  Hive.registerAdapter(DcinsideSubscribeAdapter());
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // 앱 시작시 푸시 알림 권한 요청

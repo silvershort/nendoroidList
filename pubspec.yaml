@@ -63,6 +63,7 @@ dependencies:
 
 dependency_overrides:
   web: ^1.0.0
+  analyzer: 6.9.0
 
 dev_dependencies:
   flutter_test:
@@ -70,12 +71,12 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   retrofit_generator: ^8.2.1
   riverpod_generator: ^2.4.3
-  build_runner: ^2.4.12
+  build_runner: ^2.5.4
   json_serializable: ^6.8.0
   hive_generator:
   change_app_package_name: ^1.3.0
   freezed: ^2.5.7
-  custom_lint: ^0.6.5
+  custom_lint: ^0.6.8
   riverpod_lint: ^2.3.13
   envied_generator: ^0.5.4+1
 
