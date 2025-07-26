@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'grid_visible_data.freezed.dart';
 
 @freezed
-class GridVisibleData with _$GridVisibleData {
+abstract class GridVisibleData with _$GridVisibleData {
   const factory GridVisibleData({
     @Default(false) bool number,
     @Default(false) bool name,

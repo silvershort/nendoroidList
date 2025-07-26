@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sort_data.freezed.dart';
 
 @freezed
-class SortData with _$SortData {
+abstract class SortData with _$SortData {
   const factory SortData({
     @Default(DESC()) SortingOrder sortingOrder,
     @Default(SortingMethodNum()) SortingMethod sortingMethod,

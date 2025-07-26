@@ -6,8 +6,7 @@ part of 'backup_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BackupDataImpl _$$BackupDataImplFromJson(Map<String, dynamic> json) =>
-    _$BackupDataImpl(
+_BackupData _$BackupDataFromJson(Map<String, dynamic> json) => _BackupData(
       nendoList: (json['nendoList'] as List<dynamic>)
           .map((e) => NendoData.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -24,7 +23,7 @@ _$BackupDataImpl _$$BackupDataImplFromJson(Map<String, dynamic> json) =>
       backupDate: json['backupDate'] as String,
     );
 
-Map<String, dynamic> _$$BackupDataImplToJson(_$BackupDataImpl instance) =>
+Map<String, dynamic> _$BackupDataToJson(_BackupData instance) =>
     <String, dynamic>{
       'nendoList': instance.nendoList,
       'nenDollList': instance.nenDollList,

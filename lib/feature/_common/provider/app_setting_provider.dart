@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:nendoroid_db/app/constant/hive_name.dart';
 import 'package:nendoroid_db/app/theme/app_color.dart';
 import 'package:nendoroid_db/feature/_common/provider/hive_provider.dart';
@@ -11,7 +11,7 @@ part 'app_setting_provider.freezed.dart';
 part 'app_setting_provider.g.dart';
 
 @freezed
-class AppSettingState with _$AppSettingState {
+abstract class AppSettingState with _$AppSettingState {
   const factory AppSettingState({
     required MaterialColor seedColor,
     required Brightness brightness,

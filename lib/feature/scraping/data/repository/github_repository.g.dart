@@ -6,14 +6,10 @@ part of 'github_repository.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
 class _GithubRepository implements GithubRepository {
-  _GithubRepository(
-    this._dio, {
-    this.baseUrl,
-    this.errorLogger,
-  });
+  _GithubRepository(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -22,30 +18,21 @@ class _GithubRepository implements GithubRepository {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NendoData> getNendoData(
-    String folderName,
-    String fileName,
-  ) async {
+  Future<NendoData> getNendoData(String folderName, String fileName) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NendoData>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<NendoData>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late NendoData _value;
     try {
@@ -58,30 +45,21 @@ class _GithubRepository implements GithubRepository {
   }
 
   @override
-  Future<SetData> getSetData(
-    String folderName,
-    String fileName,
-  ) async {
+  Future<SetData> getSetData(String folderName, String fileName) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SetData>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<SetData>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'https://raw.githubusercontent.com/silvershort/NewNendoroidDB/main/Nendoroid/${folderName}/${fileName}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late SetData _value;
     try {
@@ -99,22 +77,16 @@ class _GithubRepository implements GithubRepository {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Repo>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/Nendoroid/${folderName}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<List<Repo>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/Nendoroid/${folderName}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<List<dynamic>>(_options);
     late List<Repo> _value;
     try {
@@ -134,22 +106,16 @@ class _GithubRepository implements GithubRepository {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Repo>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/NendoroidDoll/${folderName}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<List<Repo>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'https://api.github.com/repos/silvershort/NewNendoroidDB/contents/NendoroidDoll/${folderName}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<List<dynamic>>(_options);
     late List<Repo> _value;
     try {
@@ -176,10 +142,7 @@ class _GithubRepository implements GithubRepository {
     return requestOptions;
   }
 
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

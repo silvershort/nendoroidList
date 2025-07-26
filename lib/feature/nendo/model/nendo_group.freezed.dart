@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,81 +9,55 @@ part of 'nendo_group.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NendoGroup {
-  String get name => throw _privateConstructorUsedError;
-  List<NendoData> get nendoList => throw _privateConstructorUsedError;
+  String get name;
+  List<NendoData> get nendoList;
 
   /// Create a copy of NendoGroup
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $NendoGroupCopyWith<NendoGroup> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NendoGroupCopyWith<$Res> {
-  factory $NendoGroupCopyWith(
-          NendoGroup value, $Res Function(NendoGroup) then) =
-      _$NendoGroupCopyWithImpl<$Res, NendoGroup>;
-  @useResult
-  $Res call({String name, List<NendoData> nendoList});
-}
-
-/// @nodoc
-class _$NendoGroupCopyWithImpl<$Res, $Val extends NendoGroup>
-    implements $NendoGroupCopyWith<$Res> {
-  _$NendoGroupCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of NendoGroup
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $NendoGroupCopyWith<NendoGroup> get copyWith =>
+      _$NendoGroupCopyWithImpl<NendoGroup>(this as NendoGroup, _$identity);
+
   @override
-  $Res call({
-    Object? name = null,
-    Object? nendoList = null,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      nendoList: null == nendoList
-          ? _value.nendoList
-          : nendoList // ignore: cast_nullable_to_non_nullable
-              as List<NendoData>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NendoGroup &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other.nendoList, nendoList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, name, const DeepCollectionEquality().hash(nendoList));
+
+  @override
+  String toString() {
+    return 'NendoGroup(name: $name, nendoList: $nendoList)';
   }
 }
 
 /// @nodoc
-abstract class _$$NendoGroupImplCopyWith<$Res>
-    implements $NendoGroupCopyWith<$Res> {
-  factory _$$NendoGroupImplCopyWith(
-          _$NendoGroupImpl value, $Res Function(_$NendoGroupImpl) then) =
-      __$$NendoGroupImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $NendoGroupCopyWith<$Res> {
+  factory $NendoGroupCopyWith(
+          NendoGroup value, $Res Function(NendoGroup) _then) =
+      _$NendoGroupCopyWithImpl;
   @useResult
   $Res call({String name, List<NendoData> nendoList});
 }
 
 /// @nodoc
-class __$$NendoGroupImplCopyWithImpl<$Res>
-    extends _$NendoGroupCopyWithImpl<$Res, _$NendoGroupImpl>
-    implements _$$NendoGroupImplCopyWith<$Res> {
-  __$$NendoGroupImplCopyWithImpl(
-      _$NendoGroupImpl _value, $Res Function(_$NendoGroupImpl) _then)
-      : super(_value, _then);
+class _$NendoGroupCopyWithImpl<$Res> implements $NendoGroupCopyWith<$Res> {
+  _$NendoGroupCopyWithImpl(this._self, this._then);
+
+  final NendoGroup _self;
+  final $Res Function(NendoGroup) _then;
 
   /// Create a copy of NendoGroup
   /// with the given fields replaced by the non-null parameter values.
@@ -93,23 +67,180 @@ class __$$NendoGroupImplCopyWithImpl<$Res>
     Object? name = null,
     Object? nendoList = null,
   }) {
-    return _then(_$NendoGroupImpl(
+    return _then(_self.copyWith(
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       nendoList: null == nendoList
-          ? _value._nendoList
+          ? _self.nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [NendoGroup].
+extension NendoGroupPatterns on NendoGroup {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NendoGroup value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NendoGroup() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_NendoGroup value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoGroup():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_NendoGroup value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoGroup() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String name, List<NendoData> nendoList)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NendoGroup() when $default != null:
+        return $default(_that.name, _that.nendoList);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String name, List<NendoData> nendoList) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoGroup():
+        return $default(_that.name, _that.nendoList);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String name, List<NendoData> nendoList)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoGroup() when $default != null:
+        return $default(_that.name, _that.nendoList);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
-class _$NendoGroupImpl implements _NendoGroup {
-  const _$NendoGroupImpl(
+class _NendoGroup implements NendoGroup {
+  const _NendoGroup(
       {required this.name, required final List<NendoData> nendoList})
       : _nendoList = nendoList;
 
@@ -123,16 +254,19 @@ class _$NendoGroupImpl implements _NendoGroup {
     return EqualUnmodifiableListView(_nendoList);
   }
 
+  /// Create a copy of NendoGroup
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'NendoGroup(name: $name, nendoList: $nendoList)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NendoGroupCopyWith<_NendoGroup> get copyWith =>
+      __$NendoGroupCopyWithImpl<_NendoGroup>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NendoGroupImpl &&
+            other is _NendoGroup &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._nendoList, _nendoList));
@@ -142,29 +276,49 @@ class _$NendoGroupImpl implements _NendoGroup {
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_nendoList));
 
+  @override
+  String toString() {
+    return 'NendoGroup(name: $name, nendoList: $nendoList)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$NendoGroupCopyWith<$Res>
+    implements $NendoGroupCopyWith<$Res> {
+  factory _$NendoGroupCopyWith(
+          _NendoGroup value, $Res Function(_NendoGroup) _then) =
+      __$NendoGroupCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String name, List<NendoData> nendoList});
+}
+
+/// @nodoc
+class __$NendoGroupCopyWithImpl<$Res> implements _$NendoGroupCopyWith<$Res> {
+  __$NendoGroupCopyWithImpl(this._self, this._then);
+
+  final _NendoGroup _self;
+  final $Res Function(_NendoGroup) _then;
+
   /// Create a copy of NendoGroup
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$NendoGroupImplCopyWith<_$NendoGroupImpl> get copyWith =>
-      __$$NendoGroupImplCopyWithImpl<_$NendoGroupImpl>(this, _$identity);
+  $Res call({
+    Object? name = null,
+    Object? nendoList = null,
+  }) {
+    return _then(_NendoGroup(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      nendoList: null == nendoList
+          ? _self._nendoList
+          : nendoList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+    ));
+  }
 }
 
-abstract class _NendoGroup implements NendoGroup {
-  const factory _NendoGroup(
-      {required final String name,
-      required final List<NendoData> nendoList}) = _$NendoGroupImpl;
-
-  @override
-  String get name;
-  @override
-  List<NendoData> get nendoList;
-
-  /// Create a copy of NendoGroup
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NendoGroupImplCopyWith<_$NendoGroupImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

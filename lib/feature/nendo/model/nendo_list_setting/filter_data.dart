@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'filter_data.freezed.dart';
 
 @freezed
-class FilterData with _$FilterData {
+abstract class FilterData with _$FilterData {
   const factory FilterData({
     @Default(false) bool haveFilter,
     @Default(false) bool notHaveFilter,

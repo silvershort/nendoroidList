@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,84 +9,60 @@ part of 'nendo_release_info_data.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NendoRelaseInfoData {
-  DateTime get lastReleaseDate => throw _privateConstructorUsedError;
-  List<MonthReleaseData> get monthReleaseList =>
-      throw _privateConstructorUsedError;
+  DateTime get lastReleaseDate;
+  List<MonthReleaseData> get monthReleaseList;
 
   /// Create a copy of NendoRelaseInfoData
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $NendoRelaseInfoDataCopyWith<NendoRelaseInfoData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NendoRelaseInfoDataCopyWith<$Res> {
-  factory $NendoRelaseInfoDataCopyWith(
-          NendoRelaseInfoData value, $Res Function(NendoRelaseInfoData) then) =
-      _$NendoRelaseInfoDataCopyWithImpl<$Res, NendoRelaseInfoData>;
-  @useResult
-  $Res call(
-      {DateTime lastReleaseDate, List<MonthReleaseData> monthReleaseList});
-}
-
-/// @nodoc
-class _$NendoRelaseInfoDataCopyWithImpl<$Res, $Val extends NendoRelaseInfoData>
-    implements $NendoRelaseInfoDataCopyWith<$Res> {
-  _$NendoRelaseInfoDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of NendoRelaseInfoData
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $NendoRelaseInfoDataCopyWith<NendoRelaseInfoData> get copyWith =>
+      _$NendoRelaseInfoDataCopyWithImpl<NendoRelaseInfoData>(
+          this as NendoRelaseInfoData, _$identity);
+
   @override
-  $Res call({
-    Object? lastReleaseDate = null,
-    Object? monthReleaseList = null,
-  }) {
-    return _then(_value.copyWith(
-      lastReleaseDate: null == lastReleaseDate
-          ? _value.lastReleaseDate
-          : lastReleaseDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      monthReleaseList: null == monthReleaseList
-          ? _value.monthReleaseList
-          : monthReleaseList // ignore: cast_nullable_to_non_nullable
-              as List<MonthReleaseData>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NendoRelaseInfoData &&
+            (identical(other.lastReleaseDate, lastReleaseDate) ||
+                other.lastReleaseDate == lastReleaseDate) &&
+            const DeepCollectionEquality()
+                .equals(other.monthReleaseList, monthReleaseList));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, lastReleaseDate,
+      const DeepCollectionEquality().hash(monthReleaseList));
+
+  @override
+  String toString() {
+    return 'NendoRelaseInfoData(lastReleaseDate: $lastReleaseDate, monthReleaseList: $monthReleaseList)';
   }
 }
 
 /// @nodoc
-abstract class _$$NendoRelaseInfoDataImplCopyWith<$Res>
-    implements $NendoRelaseInfoDataCopyWith<$Res> {
-  factory _$$NendoRelaseInfoDataImplCopyWith(_$NendoRelaseInfoDataImpl value,
-          $Res Function(_$NendoRelaseInfoDataImpl) then) =
-      __$$NendoRelaseInfoDataImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $NendoRelaseInfoDataCopyWith<$Res> {
+  factory $NendoRelaseInfoDataCopyWith(
+          NendoRelaseInfoData value, $Res Function(NendoRelaseInfoData) _then) =
+      _$NendoRelaseInfoDataCopyWithImpl;
   @useResult
   $Res call(
       {DateTime lastReleaseDate, List<MonthReleaseData> monthReleaseList});
 }
 
 /// @nodoc
-class __$$NendoRelaseInfoDataImplCopyWithImpl<$Res>
-    extends _$NendoRelaseInfoDataCopyWithImpl<$Res, _$NendoRelaseInfoDataImpl>
-    implements _$$NendoRelaseInfoDataImplCopyWith<$Res> {
-  __$$NendoRelaseInfoDataImplCopyWithImpl(_$NendoRelaseInfoDataImpl _value,
-      $Res Function(_$NendoRelaseInfoDataImpl) _then)
-      : super(_value, _then);
+class _$NendoRelaseInfoDataCopyWithImpl<$Res>
+    implements $NendoRelaseInfoDataCopyWith<$Res> {
+  _$NendoRelaseInfoDataCopyWithImpl(this._self, this._then);
+
+  final NendoRelaseInfoData _self;
+  final $Res Function(NendoRelaseInfoData) _then;
 
   /// Create a copy of NendoRelaseInfoData
   /// with the given fields replaced by the non-null parameter values.
@@ -96,23 +72,186 @@ class __$$NendoRelaseInfoDataImplCopyWithImpl<$Res>
     Object? lastReleaseDate = null,
     Object? monthReleaseList = null,
   }) {
-    return _then(_$NendoRelaseInfoDataImpl(
+    return _then(_self.copyWith(
       lastReleaseDate: null == lastReleaseDate
-          ? _value.lastReleaseDate
+          ? _self.lastReleaseDate
           : lastReleaseDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
       monthReleaseList: null == monthReleaseList
-          ? _value._monthReleaseList
+          ? _self.monthReleaseList
           : monthReleaseList // ignore: cast_nullable_to_non_nullable
               as List<MonthReleaseData>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [NendoRelaseInfoData].
+extension NendoRelaseInfoDataPatterns on NendoRelaseInfoData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NendoRelaseInfoData value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NendoRelaseInfoData() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_NendoRelaseInfoData value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoRelaseInfoData():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_NendoRelaseInfoData value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoRelaseInfoData() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            DateTime lastReleaseDate, List<MonthReleaseData> monthReleaseList)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NendoRelaseInfoData() when $default != null:
+        return $default(_that.lastReleaseDate, _that.monthReleaseList);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            DateTime lastReleaseDate, List<MonthReleaseData> monthReleaseList)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoRelaseInfoData():
+        return $default(_that.lastReleaseDate, _that.monthReleaseList);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            DateTime lastReleaseDate, List<MonthReleaseData> monthReleaseList)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoRelaseInfoData() when $default != null:
+        return $default(_that.lastReleaseDate, _that.monthReleaseList);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
-class _$NendoRelaseInfoDataImpl implements _NendoRelaseInfoData {
-  const _$NendoRelaseInfoDataImpl(
+class _NendoRelaseInfoData implements NendoRelaseInfoData {
+  const _NendoRelaseInfoData(
       {required this.lastReleaseDate,
       required final List<MonthReleaseData> monthReleaseList})
       : _monthReleaseList = monthReleaseList;
@@ -128,16 +267,20 @@ class _$NendoRelaseInfoDataImpl implements _NendoRelaseInfoData {
     return EqualUnmodifiableListView(_monthReleaseList);
   }
 
+  /// Create a copy of NendoRelaseInfoData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'NendoRelaseInfoData(lastReleaseDate: $lastReleaseDate, monthReleaseList: $monthReleaseList)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NendoRelaseInfoDataCopyWith<_NendoRelaseInfoData> get copyWith =>
+      __$NendoRelaseInfoDataCopyWithImpl<_NendoRelaseInfoData>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NendoRelaseInfoDataImpl &&
+            other is _NendoRelaseInfoData &&
             (identical(other.lastReleaseDate, lastReleaseDate) ||
                 other.lastReleaseDate == lastReleaseDate) &&
             const DeepCollectionEquality()
@@ -148,111 +291,104 @@ class _$NendoRelaseInfoDataImpl implements _NendoRelaseInfoData {
   int get hashCode => Object.hash(runtimeType, lastReleaseDate,
       const DeepCollectionEquality().hash(_monthReleaseList));
 
-  /// Create a copy of NendoRelaseInfoData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$NendoRelaseInfoDataImplCopyWith<_$NendoRelaseInfoDataImpl> get copyWith =>
-      __$$NendoRelaseInfoDataImplCopyWithImpl<_$NendoRelaseInfoDataImpl>(
-          this, _$identity);
-}
-
-abstract class _NendoRelaseInfoData implements NendoRelaseInfoData {
-  const factory _NendoRelaseInfoData(
-          {required final DateTime lastReleaseDate,
-          required final List<MonthReleaseData> monthReleaseList}) =
-      _$NendoRelaseInfoDataImpl;
-
-  @override
-  DateTime get lastReleaseDate;
-  @override
-  List<MonthReleaseData> get monthReleaseList;
-
-  /// Create a copy of NendoRelaseInfoData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NendoRelaseInfoDataImplCopyWith<_$NendoRelaseInfoDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$MonthReleaseData {
-  int get year => throw _privateConstructorUsedError;
-  int get month => throw _privateConstructorUsedError;
-  List<ReleaseData> get releaseList => throw _privateConstructorUsedError;
-
-  /// Create a copy of MonthReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $MonthReleaseDataCopyWith<MonthReleaseData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $MonthReleaseDataCopyWith<$Res> {
-  factory $MonthReleaseDataCopyWith(
-          MonthReleaseData value, $Res Function(MonthReleaseData) then) =
-      _$MonthReleaseDataCopyWithImpl<$Res, MonthReleaseData>;
-  @useResult
-  $Res call({int year, int month, List<ReleaseData> releaseList});
-}
-
-/// @nodoc
-class _$MonthReleaseDataCopyWithImpl<$Res, $Val extends MonthReleaseData>
-    implements $MonthReleaseDataCopyWith<$Res> {
-  _$MonthReleaseDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of MonthReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? year = null,
-    Object? month = null,
-    Object? releaseList = null,
-  }) {
-    return _then(_value.copyWith(
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int,
-      month: null == month
-          ? _value.month
-          : month // ignore: cast_nullable_to_non_nullable
-              as int,
-      releaseList: null == releaseList
-          ? _value.releaseList
-          : releaseList // ignore: cast_nullable_to_non_nullable
-              as List<ReleaseData>,
-    ) as $Val);
+  String toString() {
+    return 'NendoRelaseInfoData(lastReleaseDate: $lastReleaseDate, monthReleaseList: $monthReleaseList)';
   }
 }
 
 /// @nodoc
-abstract class _$$MonthReleaseDataImplCopyWith<$Res>
-    implements $MonthReleaseDataCopyWith<$Res> {
-  factory _$$MonthReleaseDataImplCopyWith(_$MonthReleaseDataImpl value,
-          $Res Function(_$MonthReleaseDataImpl) then) =
-      __$$MonthReleaseDataImplCopyWithImpl<$Res>;
+abstract mixin class _$NendoRelaseInfoDataCopyWith<$Res>
+    implements $NendoRelaseInfoDataCopyWith<$Res> {
+  factory _$NendoRelaseInfoDataCopyWith(_NendoRelaseInfoData value,
+          $Res Function(_NendoRelaseInfoData) _then) =
+      __$NendoRelaseInfoDataCopyWithImpl;
   @override
+  @useResult
+  $Res call(
+      {DateTime lastReleaseDate, List<MonthReleaseData> monthReleaseList});
+}
+
+/// @nodoc
+class __$NendoRelaseInfoDataCopyWithImpl<$Res>
+    implements _$NendoRelaseInfoDataCopyWith<$Res> {
+  __$NendoRelaseInfoDataCopyWithImpl(this._self, this._then);
+
+  final _NendoRelaseInfoData _self;
+  final $Res Function(_NendoRelaseInfoData) _then;
+
+  /// Create a copy of NendoRelaseInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? lastReleaseDate = null,
+    Object? monthReleaseList = null,
+  }) {
+    return _then(_NendoRelaseInfoData(
+      lastReleaseDate: null == lastReleaseDate
+          ? _self.lastReleaseDate
+          : lastReleaseDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      monthReleaseList: null == monthReleaseList
+          ? _self._monthReleaseList
+          : monthReleaseList // ignore: cast_nullable_to_non_nullable
+              as List<MonthReleaseData>,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$MonthReleaseData {
+  int get year;
+  int get month;
+  List<ReleaseData> get releaseList;
+
+  /// Create a copy of MonthReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $MonthReleaseDataCopyWith<MonthReleaseData> get copyWith =>
+      _$MonthReleaseDataCopyWithImpl<MonthReleaseData>(
+          this as MonthReleaseData, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is MonthReleaseData &&
+            (identical(other.year, year) || other.year == year) &&
+            (identical(other.month, month) || other.month == month) &&
+            const DeepCollectionEquality()
+                .equals(other.releaseList, releaseList));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, year, month,
+      const DeepCollectionEquality().hash(releaseList));
+
+  @override
+  String toString() {
+    return 'MonthReleaseData(year: $year, month: $month, releaseList: $releaseList)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $MonthReleaseDataCopyWith<$Res> {
+  factory $MonthReleaseDataCopyWith(
+          MonthReleaseData value, $Res Function(MonthReleaseData) _then) =
+      _$MonthReleaseDataCopyWithImpl;
   @useResult
   $Res call({int year, int month, List<ReleaseData> releaseList});
 }
 
 /// @nodoc
-class __$$MonthReleaseDataImplCopyWithImpl<$Res>
-    extends _$MonthReleaseDataCopyWithImpl<$Res, _$MonthReleaseDataImpl>
-    implements _$$MonthReleaseDataImplCopyWith<$Res> {
-  __$$MonthReleaseDataImplCopyWithImpl(_$MonthReleaseDataImpl _value,
-      $Res Function(_$MonthReleaseDataImpl) _then)
-      : super(_value, _then);
+class _$MonthReleaseDataCopyWithImpl<$Res>
+    implements $MonthReleaseDataCopyWith<$Res> {
+  _$MonthReleaseDataCopyWithImpl(this._self, this._then);
+
+  final MonthReleaseData _self;
+  final $Res Function(MonthReleaseData) _then;
 
   /// Create a copy of MonthReleaseData
   /// with the given fields replaced by the non-null parameter values.
@@ -263,27 +399,187 @@ class __$$MonthReleaseDataImplCopyWithImpl<$Res>
     Object? month = null,
     Object? releaseList = null,
   }) {
-    return _then(_$MonthReleaseDataImpl(
+    return _then(_self.copyWith(
       year: null == year
-          ? _value.year
+          ? _self.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
       month: null == month
-          ? _value.month
+          ? _self.month
           : month // ignore: cast_nullable_to_non_nullable
               as int,
       releaseList: null == releaseList
-          ? _value._releaseList
+          ? _self.releaseList
           : releaseList // ignore: cast_nullable_to_non_nullable
               as List<ReleaseData>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [MonthReleaseData].
+extension MonthReleaseDataPatterns on MonthReleaseData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_MonthReleaseData value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _MonthReleaseData() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_MonthReleaseData value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MonthReleaseData():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_MonthReleaseData value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MonthReleaseData() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(int year, int month, List<ReleaseData> releaseList)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _MonthReleaseData() when $default != null:
+        return $default(_that.year, _that.month, _that.releaseList);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(int year, int month, List<ReleaseData> releaseList)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MonthReleaseData():
+        return $default(_that.year, _that.month, _that.releaseList);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(int year, int month, List<ReleaseData> releaseList)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MonthReleaseData() when $default != null:
+        return $default(_that.year, _that.month, _that.releaseList);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
-class _$MonthReleaseDataImpl implements _MonthReleaseData {
-  const _$MonthReleaseDataImpl(
+class _MonthReleaseData implements MonthReleaseData {
+  const _MonthReleaseData(
       {required this.year,
       required this.month,
       required final List<ReleaseData> releaseList})
@@ -301,16 +597,19 @@ class _$MonthReleaseDataImpl implements _MonthReleaseData {
     return EqualUnmodifiableListView(_releaseList);
   }
 
+  /// Create a copy of MonthReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'MonthReleaseData(year: $year, month: $month, releaseList: $releaseList)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$MonthReleaseDataCopyWith<_MonthReleaseData> get copyWith =>
+      __$MonthReleaseDataCopyWithImpl<_MonthReleaseData>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MonthReleaseDataImpl &&
+            other is _MonthReleaseData &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.month, month) || other.month == month) &&
             const DeepCollectionEquality()
@@ -321,164 +620,74 @@ class _$MonthReleaseDataImpl implements _MonthReleaseData {
   int get hashCode => Object.hash(runtimeType, year, month,
       const DeepCollectionEquality().hash(_releaseList));
 
-  /// Create a copy of MonthReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$MonthReleaseDataImplCopyWith<_$MonthReleaseDataImpl> get copyWith =>
-      __$$MonthReleaseDataImplCopyWithImpl<_$MonthReleaseDataImpl>(
-          this, _$identity);
-}
-
-abstract class _MonthReleaseData implements MonthReleaseData {
-  const factory _MonthReleaseData(
-      {required final int year,
-      required final int month,
-      required final List<ReleaseData> releaseList}) = _$MonthReleaseDataImpl;
-
-  @override
-  int get year;
-  @override
-  int get month;
-  @override
-  List<ReleaseData> get releaseList;
-
-  /// Create a copy of MonthReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MonthReleaseDataImplCopyWith<_$MonthReleaseDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$ReleaseData {
-  DateTime get releaseData => throw _privateConstructorUsedError;
-  NendoReleaseData get nendoData => throw _privateConstructorUsedError;
-
-  /// Create a copy of ReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ReleaseDataCopyWith<ReleaseData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ReleaseDataCopyWith<$Res> {
-  factory $ReleaseDataCopyWith(
-          ReleaseData value, $Res Function(ReleaseData) then) =
-      _$ReleaseDataCopyWithImpl<$Res, ReleaseData>;
-  @useResult
-  $Res call({DateTime releaseData, NendoReleaseData nendoData});
-
-  $NendoReleaseDataCopyWith<$Res> get nendoData;
-}
-
-/// @nodoc
-class _$ReleaseDataCopyWithImpl<$Res, $Val extends ReleaseData>
-    implements $ReleaseDataCopyWith<$Res> {
-  _$ReleaseDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? releaseData = null,
-    Object? nendoData = null,
-  }) {
-    return _then(_value.copyWith(
-      releaseData: null == releaseData
-          ? _value.releaseData
-          : releaseData // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      nendoData: null == nendoData
-          ? _value.nendoData
-          : nendoData // ignore: cast_nullable_to_non_nullable
-              as NendoReleaseData,
-    ) as $Val);
-  }
-
-  /// Create a copy of ReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $NendoReleaseDataCopyWith<$Res> get nendoData {
-    return $NendoReleaseDataCopyWith<$Res>(_value.nendoData, (value) {
-      return _then(_value.copyWith(nendoData: value) as $Val);
-    });
+  String toString() {
+    return 'MonthReleaseData(year: $year, month: $month, releaseList: $releaseList)';
   }
 }
 
 /// @nodoc
-abstract class _$$ReleaseDataImplCopyWith<$Res>
-    implements $ReleaseDataCopyWith<$Res> {
-  factory _$$ReleaseDataImplCopyWith(
-          _$ReleaseDataImpl value, $Res Function(_$ReleaseDataImpl) then) =
-      __$$ReleaseDataImplCopyWithImpl<$Res>;
+abstract mixin class _$MonthReleaseDataCopyWith<$Res>
+    implements $MonthReleaseDataCopyWith<$Res> {
+  factory _$MonthReleaseDataCopyWith(
+          _MonthReleaseData value, $Res Function(_MonthReleaseData) _then) =
+      __$MonthReleaseDataCopyWithImpl;
   @override
   @useResult
-  $Res call({DateTime releaseData, NendoReleaseData nendoData});
-
-  @override
-  $NendoReleaseDataCopyWith<$Res> get nendoData;
+  $Res call({int year, int month, List<ReleaseData> releaseList});
 }
 
 /// @nodoc
-class __$$ReleaseDataImplCopyWithImpl<$Res>
-    extends _$ReleaseDataCopyWithImpl<$Res, _$ReleaseDataImpl>
-    implements _$$ReleaseDataImplCopyWith<$Res> {
-  __$$ReleaseDataImplCopyWithImpl(
-      _$ReleaseDataImpl _value, $Res Function(_$ReleaseDataImpl) _then)
-      : super(_value, _then);
+class __$MonthReleaseDataCopyWithImpl<$Res>
+    implements _$MonthReleaseDataCopyWith<$Res> {
+  __$MonthReleaseDataCopyWithImpl(this._self, this._then);
 
-  /// Create a copy of ReleaseData
+  final _MonthReleaseData _self;
+  final $Res Function(_MonthReleaseData) _then;
+
+  /// Create a copy of MonthReleaseData
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
-    Object? releaseData = null,
-    Object? nendoData = null,
+    Object? year = null,
+    Object? month = null,
+    Object? releaseList = null,
   }) {
-    return _then(_$ReleaseDataImpl(
-      releaseData: null == releaseData
-          ? _value.releaseData
-          : releaseData // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      nendoData: null == nendoData
-          ? _value.nendoData
-          : nendoData // ignore: cast_nullable_to_non_nullable
-              as NendoReleaseData,
+    return _then(_MonthReleaseData(
+      year: null == year
+          ? _self.year
+          : year // ignore: cast_nullable_to_non_nullable
+              as int,
+      month: null == month
+          ? _self.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int,
+      releaseList: null == releaseList
+          ? _self._releaseList
+          : releaseList // ignore: cast_nullable_to_non_nullable
+              as List<ReleaseData>,
     ));
   }
 }
 
 /// @nodoc
+mixin _$ReleaseData {
+  DateTime get releaseData;
+  NendoReleaseData get nendoData;
 
-class _$ReleaseDataImpl implements _ReleaseData {
-  const _$ReleaseDataImpl({required this.releaseData, required this.nendoData});
-
-  @override
-  final DateTime releaseData;
-  @override
-  final NendoReleaseData nendoData;
-
-  @override
-  String toString() {
-    return 'ReleaseData(releaseData: $releaseData, nendoData: $nendoData)';
-  }
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ReleaseDataCopyWith<ReleaseData> get copyWith =>
+      _$ReleaseDataCopyWithImpl<ReleaseData>(this as ReleaseData, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ReleaseDataImpl &&
+            other is ReleaseData &&
             (identical(other.releaseData, releaseData) ||
                 other.releaseData == releaseData) &&
             (identical(other.nendoData, nendoData) ||
@@ -488,159 +697,329 @@ class _$ReleaseDataImpl implements _ReleaseData {
   @override
   int get hashCode => Object.hash(runtimeType, releaseData, nendoData);
 
-  /// Create a copy of ReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ReleaseDataImplCopyWith<_$ReleaseDataImpl> get copyWith =>
-      __$$ReleaseDataImplCopyWithImpl<_$ReleaseDataImpl>(this, _$identity);
-}
-
-abstract class _ReleaseData implements ReleaseData {
-  const factory _ReleaseData(
-      {required final DateTime releaseData,
-      required final NendoReleaseData nendoData}) = _$ReleaseDataImpl;
-
-  @override
-  DateTime get releaseData;
-  @override
-  NendoReleaseData get nendoData;
-
-  /// Create a copy of ReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ReleaseDataImplCopyWith<_$ReleaseDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$NendoReleaseData {
-  String? get imageLink => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get productLink => throw _privateConstructorUsedError;
-
-  /// Create a copy of NendoReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $NendoReleaseDataCopyWith<NendoReleaseData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NendoReleaseDataCopyWith<$Res> {
-  factory $NendoReleaseDataCopyWith(
-          NendoReleaseData value, $Res Function(NendoReleaseData) then) =
-      _$NendoReleaseDataCopyWithImpl<$Res, NendoReleaseData>;
-  @useResult
-  $Res call({String? imageLink, String name, String productLink});
-}
-
-/// @nodoc
-class _$NendoReleaseDataCopyWithImpl<$Res, $Val extends NendoReleaseData>
-    implements $NendoReleaseDataCopyWith<$Res> {
-  _$NendoReleaseDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of NendoReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? imageLink = freezed,
-    Object? name = null,
-    Object? productLink = null,
-  }) {
-    return _then(_value.copyWith(
-      imageLink: freezed == imageLink
-          ? _value.imageLink
-          : imageLink // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      productLink: null == productLink
-          ? _value.productLink
-          : productLink // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$NendoReldeaseDataImplCopyWith<$Res>
-    implements $NendoReleaseDataCopyWith<$Res> {
-  factory _$$NendoReldeaseDataImplCopyWith(_$NendoReldeaseDataImpl value,
-          $Res Function(_$NendoReldeaseDataImpl) then) =
-      __$$NendoReldeaseDataImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? imageLink, String name, String productLink});
-}
-
-/// @nodoc
-class __$$NendoReldeaseDataImplCopyWithImpl<$Res>
-    extends _$NendoReleaseDataCopyWithImpl<$Res, _$NendoReldeaseDataImpl>
-    implements _$$NendoReldeaseDataImplCopyWith<$Res> {
-  __$$NendoReldeaseDataImplCopyWithImpl(_$NendoReldeaseDataImpl _value,
-      $Res Function(_$NendoReldeaseDataImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of NendoReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? imageLink = freezed,
-    Object? name = null,
-    Object? productLink = null,
-  }) {
-    return _then(_$NendoReldeaseDataImpl(
-      imageLink: freezed == imageLink
-          ? _value.imageLink
-          : imageLink // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      productLink: null == productLink
-          ? _value.productLink
-          : productLink // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$NendoReldeaseDataImpl implements _NendoReldeaseData {
-  const _$NendoReldeaseDataImpl(
-      {this.imageLink, required this.name, required this.productLink});
-
-  @override
-  final String? imageLink;
-  @override
-  final String name;
-  @override
-  final String productLink;
-
   @override
   String toString() {
-    return 'NendoReleaseData(imageLink: $imageLink, name: $name, productLink: $productLink)';
+    return 'ReleaseData(releaseData: $releaseData, nendoData: $nendoData)';
   }
+}
+
+/// @nodoc
+abstract mixin class $ReleaseDataCopyWith<$Res> {
+  factory $ReleaseDataCopyWith(
+          ReleaseData value, $Res Function(ReleaseData) _then) =
+      _$ReleaseDataCopyWithImpl;
+  @useResult
+  $Res call({DateTime releaseData, NendoReleaseData nendoData});
+
+  $NendoReleaseDataCopyWith<$Res> get nendoData;
+}
+
+/// @nodoc
+class _$ReleaseDataCopyWithImpl<$Res> implements $ReleaseDataCopyWith<$Res> {
+  _$ReleaseDataCopyWithImpl(this._self, this._then);
+
+  final ReleaseData _self;
+  final $Res Function(ReleaseData) _then;
+
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? releaseData = null,
+    Object? nendoData = null,
+  }) {
+    return _then(_self.copyWith(
+      releaseData: null == releaseData
+          ? _self.releaseData
+          : releaseData // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      nendoData: null == nendoData
+          ? _self.nendoData
+          : nendoData // ignore: cast_nullable_to_non_nullable
+              as NendoReleaseData,
+    ));
+  }
+
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $NendoReleaseDataCopyWith<$Res> get nendoData {
+    return $NendoReleaseDataCopyWith<$Res>(_self.nendoData, (value) {
+      return _then(_self.copyWith(nendoData: value));
+    });
+  }
+}
+
+/// Adds pattern-matching-related methods to [ReleaseData].
+extension ReleaseDataPatterns on ReleaseData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ReleaseData value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ReleaseData() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ReleaseData value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ReleaseData():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ReleaseData value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ReleaseData() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(DateTime releaseData, NendoReleaseData nendoData)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ReleaseData() when $default != null:
+        return $default(_that.releaseData, _that.nendoData);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(DateTime releaseData, NendoReleaseData nendoData) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ReleaseData():
+        return $default(_that.releaseData, _that.nendoData);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(DateTime releaseData, NendoReleaseData nendoData)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ReleaseData() when $default != null:
+        return $default(_that.releaseData, _that.nendoData);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class _ReleaseData implements ReleaseData {
+  const _ReleaseData({required this.releaseData, required this.nendoData});
+
+  @override
+  final DateTime releaseData;
+  @override
+  final NendoReleaseData nendoData;
+
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ReleaseDataCopyWith<_ReleaseData> get copyWith =>
+      __$ReleaseDataCopyWithImpl<_ReleaseData>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NendoReldeaseDataImpl &&
+            other is _ReleaseData &&
+            (identical(other.releaseData, releaseData) ||
+                other.releaseData == releaseData) &&
+            (identical(other.nendoData, nendoData) ||
+                other.nendoData == nendoData));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, releaseData, nendoData);
+
+  @override
+  String toString() {
+    return 'ReleaseData(releaseData: $releaseData, nendoData: $nendoData)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ReleaseDataCopyWith<$Res>
+    implements $ReleaseDataCopyWith<$Res> {
+  factory _$ReleaseDataCopyWith(
+          _ReleaseData value, $Res Function(_ReleaseData) _then) =
+      __$ReleaseDataCopyWithImpl;
+  @override
+  @useResult
+  $Res call({DateTime releaseData, NendoReleaseData nendoData});
+
+  @override
+  $NendoReleaseDataCopyWith<$Res> get nendoData;
+}
+
+/// @nodoc
+class __$ReleaseDataCopyWithImpl<$Res> implements _$ReleaseDataCopyWith<$Res> {
+  __$ReleaseDataCopyWithImpl(this._self, this._then);
+
+  final _ReleaseData _self;
+  final $Res Function(_ReleaseData) _then;
+
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? releaseData = null,
+    Object? nendoData = null,
+  }) {
+    return _then(_ReleaseData(
+      releaseData: null == releaseData
+          ? _self.releaseData
+          : releaseData // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      nendoData: null == nendoData
+          ? _self.nendoData
+          : nendoData // ignore: cast_nullable_to_non_nullable
+              as NendoReleaseData,
+    ));
+  }
+
+  /// Create a copy of ReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $NendoReleaseDataCopyWith<$Res> get nendoData {
+    return $NendoReleaseDataCopyWith<$Res>(_self.nendoData, (value) {
+      return _then(_self.copyWith(nendoData: value));
+    });
+  }
+}
+
+/// @nodoc
+mixin _$NendoReleaseData {
+  String? get imageLink;
+  String get name;
+  String get productLink;
+
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $NendoReleaseDataCopyWith<NendoReleaseData> get copyWith =>
+      _$NendoReleaseDataCopyWithImpl<NendoReleaseData>(
+          this as NendoReleaseData, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NendoReleaseData &&
             (identical(other.imageLink, imageLink) ||
                 other.imageLink == imageLink) &&
             (identical(other.name, name) || other.name == name) &&
@@ -651,33 +1030,300 @@ class _$NendoReldeaseDataImpl implements _NendoReldeaseData {
   @override
   int get hashCode => Object.hash(runtimeType, imageLink, name, productLink);
 
+  @override
+  String toString() {
+    return 'NendoReleaseData(imageLink: $imageLink, name: $name, productLink: $productLink)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $NendoReleaseDataCopyWith<$Res> {
+  factory $NendoReleaseDataCopyWith(
+          NendoReleaseData value, $Res Function(NendoReleaseData) _then) =
+      _$NendoReleaseDataCopyWithImpl;
+  @useResult
+  $Res call({String? imageLink, String name, String productLink});
+}
+
+/// @nodoc
+class _$NendoReleaseDataCopyWithImpl<$Res>
+    implements $NendoReleaseDataCopyWith<$Res> {
+  _$NendoReleaseDataCopyWithImpl(this._self, this._then);
+
+  final NendoReleaseData _self;
+  final $Res Function(NendoReleaseData) _then;
+
   /// Create a copy of NendoReleaseData
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? imageLink = freezed,
+    Object? name = null,
+    Object? productLink = null,
+  }) {
+    return _then(_self.copyWith(
+      imageLink: freezed == imageLink
+          ? _self.imageLink
+          : imageLink // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      productLink: null == productLink
+          ? _self.productLink
+          : productLink // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [NendoReleaseData].
+extension NendoReleaseDataPatterns on NendoReleaseData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NendoReldeaseData value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NendoReldeaseData() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_NendoReldeaseData value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoReldeaseData():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_NendoReldeaseData value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoReldeaseData() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? imageLink, String name, String productLink)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NendoReldeaseData() when $default != null:
+        return $default(_that.imageLink, _that.name, _that.productLink);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? imageLink, String name, String productLink)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoReldeaseData():
+        return $default(_that.imageLink, _that.name, _that.productLink);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? imageLink, String name, String productLink)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NendoReldeaseData() when $default != null:
+        return $default(_that.imageLink, _that.name, _that.productLink);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class _NendoReldeaseData implements NendoReleaseData {
+  const _NendoReldeaseData(
+      {this.imageLink, required this.name, required this.productLink});
+
+  @override
+  final String? imageLink;
+  @override
+  final String name;
+  @override
+  final String productLink;
+
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NendoReldeaseDataCopyWith<_NendoReldeaseData> get copyWith =>
+      __$NendoReldeaseDataCopyWithImpl<_NendoReldeaseData>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _NendoReldeaseData &&
+            (identical(other.imageLink, imageLink) ||
+                other.imageLink == imageLink) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.productLink, productLink) ||
+                other.productLink == productLink));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, imageLink, name, productLink);
+
+  @override
+  String toString() {
+    return 'NendoReleaseData(imageLink: $imageLink, name: $name, productLink: $productLink)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$NendoReldeaseDataCopyWith<$Res>
+    implements $NendoReleaseDataCopyWith<$Res> {
+  factory _$NendoReldeaseDataCopyWith(
+          _NendoReldeaseData value, $Res Function(_NendoReldeaseData) _then) =
+      __$NendoReldeaseDataCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String? imageLink, String name, String productLink});
+}
+
+/// @nodoc
+class __$NendoReldeaseDataCopyWithImpl<$Res>
+    implements _$NendoReldeaseDataCopyWith<$Res> {
+  __$NendoReldeaseDataCopyWithImpl(this._self, this._then);
+
+  final _NendoReldeaseData _self;
+  final $Res Function(_NendoReldeaseData) _then;
+
+  /// Create a copy of NendoReleaseData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$NendoReldeaseDataImplCopyWith<_$NendoReldeaseDataImpl> get copyWith =>
-      __$$NendoReldeaseDataImplCopyWithImpl<_$NendoReldeaseDataImpl>(
-          this, _$identity);
+  $Res call({
+    Object? imageLink = freezed,
+    Object? name = null,
+    Object? productLink = null,
+  }) {
+    return _then(_NendoReldeaseData(
+      imageLink: freezed == imageLink
+          ? _self.imageLink
+          : imageLink // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      productLink: null == productLink
+          ? _self.productLink
+          : productLink // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
-abstract class _NendoReldeaseData implements NendoReleaseData {
-  const factory _NendoReldeaseData(
-      {final String? imageLink,
-      required final String name,
-      required final String productLink}) = _$NendoReldeaseDataImpl;
-
-  @override
-  String? get imageLink;
-  @override
-  String get name;
-  @override
-  String get productLink;
-
-  /// Create a copy of NendoReleaseData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NendoReldeaseDataImplCopyWith<_$NendoReldeaseDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,89 +9,64 @@ part of 'good_smile_news_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$GoodSmileNewsModel {
-  String get link => throw _privateConstructorUsedError;
-  List<String> get nendoNameList => throw _privateConstructorUsedError;
-  List<NendoData> get nendoList => throw _privateConstructorUsedError;
+  String get link;
+  List<String> get nendoNameList;
+  List<NendoData> get nendoList;
 
   /// Create a copy of GoodSmileNewsModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $GoodSmileNewsModelCopyWith<GoodSmileNewsModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $GoodSmileNewsModelCopyWith<$Res> {
-  factory $GoodSmileNewsModelCopyWith(
-          GoodSmileNewsModel value, $Res Function(GoodSmileNewsModel) then) =
-      _$GoodSmileNewsModelCopyWithImpl<$Res, GoodSmileNewsModel>;
-  @useResult
-  $Res call(
-      {String link, List<String> nendoNameList, List<NendoData> nendoList});
-}
-
-/// @nodoc
-class _$GoodSmileNewsModelCopyWithImpl<$Res, $Val extends GoodSmileNewsModel>
-    implements $GoodSmileNewsModelCopyWith<$Res> {
-  _$GoodSmileNewsModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of GoodSmileNewsModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $GoodSmileNewsModelCopyWith<GoodSmileNewsModel> get copyWith =>
+      _$GoodSmileNewsModelCopyWithImpl<GoodSmileNewsModel>(
+          this as GoodSmileNewsModel, _$identity);
+
   @override
-  $Res call({
-    Object? link = null,
-    Object? nendoNameList = null,
-    Object? nendoList = null,
-  }) {
-    return _then(_value.copyWith(
-      link: null == link
-          ? _value.link
-          : link // ignore: cast_nullable_to_non_nullable
-              as String,
-      nendoNameList: null == nendoNameList
-          ? _value.nendoNameList
-          : nendoNameList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      nendoList: null == nendoList
-          ? _value.nendoList
-          : nendoList // ignore: cast_nullable_to_non_nullable
-              as List<NendoData>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is GoodSmileNewsModel &&
+            (identical(other.link, link) || other.link == link) &&
+            const DeepCollectionEquality()
+                .equals(other.nendoNameList, nendoNameList) &&
+            const DeepCollectionEquality().equals(other.nendoList, nendoList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      link,
+      const DeepCollectionEquality().hash(nendoNameList),
+      const DeepCollectionEquality().hash(nendoList));
+
+  @override
+  String toString() {
+    return 'GoodSmileNewsModel(link: $link, nendoNameList: $nendoNameList, nendoList: $nendoList)';
   }
 }
 
 /// @nodoc
-abstract class _$$GoodSmileNewsModelImplCopyWith<$Res>
-    implements $GoodSmileNewsModelCopyWith<$Res> {
-  factory _$$GoodSmileNewsModelImplCopyWith(_$GoodSmileNewsModelImpl value,
-          $Res Function(_$GoodSmileNewsModelImpl) then) =
-      __$$GoodSmileNewsModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $GoodSmileNewsModelCopyWith<$Res> {
+  factory $GoodSmileNewsModelCopyWith(
+          GoodSmileNewsModel value, $Res Function(GoodSmileNewsModel) _then) =
+      _$GoodSmileNewsModelCopyWithImpl;
   @useResult
   $Res call(
       {String link, List<String> nendoNameList, List<NendoData> nendoList});
 }
 
 /// @nodoc
-class __$$GoodSmileNewsModelImplCopyWithImpl<$Res>
-    extends _$GoodSmileNewsModelCopyWithImpl<$Res, _$GoodSmileNewsModelImpl>
-    implements _$$GoodSmileNewsModelImplCopyWith<$Res> {
-  __$$GoodSmileNewsModelImplCopyWithImpl(_$GoodSmileNewsModelImpl _value,
-      $Res Function(_$GoodSmileNewsModelImpl) _then)
-      : super(_value, _then);
+class _$GoodSmileNewsModelCopyWithImpl<$Res>
+    implements $GoodSmileNewsModelCopyWith<$Res> {
+  _$GoodSmileNewsModelCopyWithImpl(this._self, this._then);
+
+  final GoodSmileNewsModel _self;
+  final $Res Function(GoodSmileNewsModel) _then;
 
   /// Create a copy of GoodSmileNewsModel
   /// with the given fields replaced by the non-null parameter values.
@@ -102,27 +77,190 @@ class __$$GoodSmileNewsModelImplCopyWithImpl<$Res>
     Object? nendoNameList = null,
     Object? nendoList = null,
   }) {
-    return _then(_$GoodSmileNewsModelImpl(
+    return _then(_self.copyWith(
       link: null == link
-          ? _value.link
+          ? _self.link
           : link // ignore: cast_nullable_to_non_nullable
               as String,
       nendoNameList: null == nendoNameList
-          ? _value._nendoNameList
+          ? _self.nendoNameList
           : nendoNameList // ignore: cast_nullable_to_non_nullable
               as List<String>,
       nendoList: null == nendoList
-          ? _value._nendoList
+          ? _self.nendoList
           : nendoList // ignore: cast_nullable_to_non_nullable
               as List<NendoData>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [GoodSmileNewsModel].
+extension GoodSmileNewsModelPatterns on GoodSmileNewsModel {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_GoodSmileNewsModel value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _GoodSmileNewsModel() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_GoodSmileNewsModel value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _GoodSmileNewsModel():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_GoodSmileNewsModel value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _GoodSmileNewsModel() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String link, List<String> nendoNameList, List<NendoData> nendoList)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _GoodSmileNewsModel() when $default != null:
+        return $default(_that.link, _that.nendoNameList, _that.nendoList);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String link, List<String> nendoNameList, List<NendoData> nendoList)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _GoodSmileNewsModel():
+        return $default(_that.link, _that.nendoNameList, _that.nendoList);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String link, List<String> nendoNameList, List<NendoData> nendoList)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _GoodSmileNewsModel() when $default != null:
+        return $default(_that.link, _that.nendoNameList, _that.nendoList);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
-class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
-  const _$GoodSmileNewsModelImpl(
+class _GoodSmileNewsModel implements GoodSmileNewsModel {
+  const _GoodSmileNewsModel(
       {required this.link,
       final List<String> nendoNameList = const [],
       final List<NendoData> nendoList = const []})
@@ -149,16 +287,19 @@ class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
     return EqualUnmodifiableListView(_nendoList);
   }
 
+  /// Create a copy of GoodSmileNewsModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'GoodSmileNewsModel(link: $link, nendoNameList: $nendoNameList, nendoList: $nendoList)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$GoodSmileNewsModelCopyWith<_GoodSmileNewsModel> get copyWith =>
+      __$GoodSmileNewsModelCopyWithImpl<_GoodSmileNewsModel>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GoodSmileNewsModelImpl &&
+            other is _GoodSmileNewsModel &&
             (identical(other.link, link) || other.link == link) &&
             const DeepCollectionEquality()
                 .equals(other._nendoNameList, _nendoNameList) &&
@@ -173,33 +314,56 @@ class _$GoodSmileNewsModelImpl implements _GoodSmileNewsModel {
       const DeepCollectionEquality().hash(_nendoNameList),
       const DeepCollectionEquality().hash(_nendoList));
 
+  @override
+  String toString() {
+    return 'GoodSmileNewsModel(link: $link, nendoNameList: $nendoNameList, nendoList: $nendoList)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$GoodSmileNewsModelCopyWith<$Res>
+    implements $GoodSmileNewsModelCopyWith<$Res> {
+  factory _$GoodSmileNewsModelCopyWith(
+          _GoodSmileNewsModel value, $Res Function(_GoodSmileNewsModel) _then) =
+      __$GoodSmileNewsModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String link, List<String> nendoNameList, List<NendoData> nendoList});
+}
+
+/// @nodoc
+class __$GoodSmileNewsModelCopyWithImpl<$Res>
+    implements _$GoodSmileNewsModelCopyWith<$Res> {
+  __$GoodSmileNewsModelCopyWithImpl(this._self, this._then);
+
+  final _GoodSmileNewsModel _self;
+  final $Res Function(_GoodSmileNewsModel) _then;
+
   /// Create a copy of GoodSmileNewsModel
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$GoodSmileNewsModelImplCopyWith<_$GoodSmileNewsModelImpl> get copyWith =>
-      __$$GoodSmileNewsModelImplCopyWithImpl<_$GoodSmileNewsModelImpl>(
-          this, _$identity);
+  $Res call({
+    Object? link = null,
+    Object? nendoNameList = null,
+    Object? nendoList = null,
+  }) {
+    return _then(_GoodSmileNewsModel(
+      link: null == link
+          ? _self.link
+          : link // ignore: cast_nullable_to_non_nullable
+              as String,
+      nendoNameList: null == nendoNameList
+          ? _self._nendoNameList
+          : nendoNameList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      nendoList: null == nendoList
+          ? _self._nendoList
+          : nendoList // ignore: cast_nullable_to_non_nullable
+              as List<NendoData>,
+    ));
+  }
 }
 
-abstract class _GoodSmileNewsModel implements GoodSmileNewsModel {
-  const factory _GoodSmileNewsModel(
-      {required final String link,
-      final List<String> nendoNameList,
-      final List<NendoData> nendoList}) = _$GoodSmileNewsModelImpl;
-
-  @override
-  String get link;
-  @override
-  List<String> get nendoNameList;
-  @override
-  List<NendoData> get nendoList;
-
-  /// Create a copy of GoodSmileNewsModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$GoodSmileNewsModelImplCopyWith<_$GoodSmileNewsModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

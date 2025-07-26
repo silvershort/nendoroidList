@@ -7,8 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:nendoroid_db/app/constant/hive_name.dart';
+import 'package:nendoroid_db/app/env/env.dart';
 import 'package:nendoroid_db/app/router/app_router.dart';
 import 'package:nendoroid_db/feature/_common/provider/app_setting_provider.dart';
 import 'package:nendoroid_db/feature/_common/provider/hive_provider.dart';
@@ -19,9 +20,11 @@ import 'package:nendoroid_db/feature/nendo/model/nendo_data.dart';
 import 'package:nendoroid_db/feature/scraping/model/set_data.dart';
 import 'package:nendoroid_db/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final talker = TalkerFlutter.init();
+late SupabaseClient supabase;
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +33,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FlutterDownloader.initialize(debug: true);
+  await Supabase.initialize(
+    url: Env.supabaseUrl,
+    anonKey: Env.supabaseApiKey,
+  );
+  supabase = Supabase.instance.client;
 
   await Hive.initFlutter();
   Hive.registerAdapter(NendoDataAdapter());

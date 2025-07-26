@@ -5,13 +5,13 @@ import 'package:nendoroid_db/main.dart';
 part 'api_result.freezed.dart';
 
 @freezed
-class ApiResult<T> with _$ApiResult<T> {
+abstract class ApiResult<T> with _$ApiResult<T> {
   const factory ApiResult.success(T value) = _Success<T>;
   const factory ApiResult.error(ApiError error, StackTrace stackTrace) = _Error;
 }
 
 @freezed
-class ApiError with _$ApiError {
+abstract class ApiError with _$ApiError {
   const factory ApiError({
     @Default(0) int code,
     required String message,

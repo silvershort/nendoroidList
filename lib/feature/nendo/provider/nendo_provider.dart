@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:korea_regexp/korea_regexp.dart';
 import 'package:nendoroid_db/app/constant/hive_name.dart';
@@ -25,10 +25,11 @@ import 'package:nendoroid_db/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nendo_provider.freezed.dart';
+
 part 'nendo_provider.g.dart';
 
 @freezed
-class NendoState with _$NendoState {
+abstract class NendoState with _$NendoState {
   const factory NendoState({
     @Default([]) List<NendoData> nendoList,
     @Default([]) List<NendoData> nenDollList,
@@ -57,8 +58,7 @@ class Nendo extends _$Nendo {
     _setBox = ref.watch(hiveProvider).setBox;
     _settingBox = ref.watch(hiveProvider).settingBox;
 
-    ref.listen(nendoListSettingProvider.select((value) => value.dataType),
-        (previous, next) {
+    ref.listen(nendoListSettingProvider.select((value) => value.dataType), (previous, next) {
       if (state.value == null) {
         return;
       }
@@ -84,10 +84,8 @@ class Nendo extends _$Nendo {
     if (!state.hasValue || state is AsyncLoading) {
       return;
     }
-    final int remoteVersion =
-        ref.read(remoteConfigManagerProvider).getFirestoreVersion();
-    final int localVersion =
-        _settingBox.get(HiveName.localDataVersionKey, defaultValue: 0);
+    final int remoteVersion = ref.read(remoteConfigManagerProvider).getFirestoreVersion();
+    final int localVersion = _settingBox.get(HiveName.localDataVersionKey, defaultValue: 0);
 
     talker.info('remoteVersion : $remoteVersion');
     talker.info('localVersion : $localVersion');
@@ -119,14 +117,10 @@ class Nendo extends _$Nendo {
     // 로컬에서 넨도와 세트 정보를 가져온 후 정렬
     else {
       try {
-        final List<NendoData> nendoList =
-            _nendoBox.values.map((e) => e as NendoData).toList();
-        final List<NendoData> nenDollList =
-            _nenDollBox.values.map((e) => e as NendoData).toList();
-        final List<SetData> setList =
-            _setBox.values.map((e) => e as SetData).toList();
-        nendoList.sortBySetting(ref
-            .read(nendoListSettingProvider.select((value) => value.sortData)));
+        final List<NendoData> nendoList = _nendoBox.values.map((e) => e as NendoData).toList();
+        final List<NendoData> nenDollList = _nenDollBox.values.map((e) => e as NendoData).toList();
+        final List<SetData> setList = _setBox.values.map((e) => e as SetData).toList();
+        nendoList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
 
         final NendoState nendoState = NendoState(
           nendoList: nendoList,
@@ -153,8 +147,7 @@ class Nendo extends _$Nendo {
         talker.info(value.setList.toString());
 
         List<NendoData> sortList = [...value.nendoList];
-        sortList.sortBySetting(ref
-            .read(nendoListSettingProvider.select((value) => value.sortData)));
+        sortList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
         talker.info('nendolist : ${sortList.length}');
 
         // 임시 백업 데이터가 있을 경우 백업을 진행
@@ -163,8 +156,7 @@ class Nendo extends _$Nendo {
 
           for (int i = _backupNendoList.length - 1; i >= 0; i--) {
             final backupData = _backupNendoList[i];
-            int index = sortList
-                .indexWhere((e) => e.gscProductNum == backupData.gscProductNum);
+            int index = sortList.indexWhere((e) => e.gscProductNum == backupData.gscProductNum);
 
             if (index >= 0) {
               sortList[index] = sortList[index].copyWith(
@@ -201,15 +193,43 @@ class Nendo extends _$Nendo {
     );
   }
 
+  // Future<void> uploadToSupabase() async {
+  //   if (state.hasValue) {
+  //     try {
+  //       ref.read(nendoSupaRepositoryProvider).createOrUpdateNendoList(
+  //             nendoList: state.requireValue.nendoList.map(
+  //               (e) {
+  //                 return NendoModel(
+  //                   nendo: appDatabase.NendoData(
+  //                     num: e.num,
+  //                     gscProductNum: e.gscProductNum,
+  //                     price: e.price,
+  //                     image: e.image,
+  //                     have: false,
+  //                     wish: false,
+  //                     count: 0,
+  //                     preOrder: false,
+  //                   ),
+  //                   releaseDateList: e.releaseDate,
+  //                   memoList: [],
+  //                 );
+  //               },
+  //             ).toList(),
+  //           );
+  //     } catch (error, stackTrace) {
+  //
+  //     }
+  //   }
+  // }
+
   // 파이어스토어에 저장된 데이터를 복구한다.
   Future<void> restoreBackupList(String documentID) async {
     if (state.value == null) {
       return;
     }
 
-    final ApiResult<BackupData> result = await ref
-        .read(firebaseServiceProvider)
-        .readUserBackupData(documentID: documentID);
+    final ApiResult<BackupData> result =
+        await ref.read(firebaseServiceProvider).readUserBackupData(documentID: documentID);
 
     result.when(
       success: (value) async {
@@ -218,8 +238,8 @@ class Nendo extends _$Nendo {
 
         for (int i = backupNendoList.length - 1; i >= 0; i--) {
           NendoData backupData = backupNendoList[i];
-          NendoData? nendoData = state.requireValue.nendoList
-              .firstWhereOrNull((newItem) => newItem.num == backupData.num);
+          NendoData? nendoData =
+              state.requireValue.nendoList.firstWhereOrNull((newItem) => newItem.num == backupData.num);
           if (nendoData != null) {
             nendoData = nendoData.copyWith(
               count: backupData.count,
@@ -253,10 +273,7 @@ class Nendo extends _$Nendo {
   void backupDataToCache() {
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
     _backupNendoList = getLocalNendoList()
-        .where((item) =>
-            (item.have || item.wish || item.preOrder) ||
-            item.myPrice != null ||
-            item.memo != null)
+        .where((item) => (item.have || item.wish || item.preOrder) || item.myPrice != null || item.memo != null)
         .toList();
   }
 
@@ -267,12 +284,10 @@ class Nendo extends _$Nendo {
     }
 
     // 소지하고 있거나 위시넨도일경우 백업리스트에 저장
-    final backupNendoList = getLocalNendoList()
-        .where((item) => (item.have || item.wish || item.preOrder) || item.memo != null)
-        .toList();
+    final backupNendoList =
+        getLocalNendoList().where((item) => (item.have || item.wish || item.preOrder) || item.memo != null).toList();
 
-    final String backupDate =
-        DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now());
+    final String backupDate = DateFormat("yyyy-MM-dd HH:mm").format(DateTime.now());
 
     final result = await ref.read(firebaseServiceProvider).createBackupData(
           documentID: user.uid,
@@ -406,9 +421,7 @@ class Nendo extends _$Nendo {
     } else if (filterData.maleFilter) {
       tempList = tempList.where((item) => item.gender == "M").toList();
     } else if (filterData.etcFilter) {
-      tempList = tempList
-          .where((item) => item.gender != "F" && item.gender != "M")
-          .toList();
+      tempList = tempList.where((item) => item.gender != "F" && item.gender != "M").toList();
     }
 
     // 필터링 완료한 리스트를 넣어준다.
@@ -429,8 +442,7 @@ class Nendo extends _$Nendo {
       return;
     }
     final List<NendoData> sortList = [...state.requireValue.filteredNendoList];
-    sortList.sortBySetting(
-        ref.read(nendoListSettingProvider.select((value) => value.sortData)));
+    sortList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
     state = AsyncData(
       state.requireValue.copyWith(
         filteredNendoList: sortList,
@@ -484,8 +496,7 @@ class Nendo extends _$Nendo {
     }
     state = AsyncData(state.requireValue.copyWith(
       nendoList: getLocalNendoList()
-        ..sortBySetting(ref
-            .read(nendoListSettingProvider.select((value) => value.sortData))),
+        ..sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData))),
     ));
     filteringList();
   }
@@ -496,9 +507,7 @@ class Nendo extends _$Nendo {
       return;
     }
 
-    NendoData item = state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     item.have = !item.have;
     // 보유넨도가 됐을경우 수량을 1로 수정
     if (item.have && item.count == 0) {
@@ -530,9 +539,7 @@ class Nendo extends _$Nendo {
       return;
     }
 
-    NendoData item = state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     item.wish = !item.wish;
 
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
@@ -546,9 +553,7 @@ class Nendo extends _$Nendo {
       return;
     }
 
-    NendoData item = state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     item.preOrder = !item.preOrder;
 
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
@@ -561,9 +566,7 @@ class Nendo extends _$Nendo {
     if (state.value == null) {
       return;
     }
-    NendoData item = state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     item.myPrice = price;
 
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
@@ -580,9 +583,7 @@ class Nendo extends _$Nendo {
     if (count <= 0) {
       return;
     }
-    NendoData item = state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     item.count = count;
     final Box nendoBox = ref.watch(hiveProvider).nendoBox;
     await nendoBox.put(item.num, item);
@@ -594,9 +595,7 @@ class Nendo extends _$Nendo {
     if (state.value == null) {
       return;
     }
-    NendoData item = state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     if (item.memo != null) {
       item.memo!.addAll(memo);
     } else {
@@ -612,9 +611,7 @@ class Nendo extends _$Nendo {
     if (state.value == null) {
       return;
     }
-    NendoData item = state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    NendoData item = state.requireValue.nendoList.where((element) => element.num == number).first;
     if (item.memo != null) {
       item.memo!.remove(memo);
     }
@@ -625,9 +622,7 @@ class Nendo extends _$Nendo {
 
   // 번호에 맞는 넨도 반환
   NendoData getNendoDataByNumber(String number) {
-    return state.requireValue.nendoList
-        .where((element) => element.num == number)
-        .first;
+    return state.requireValue.nendoList.where((element) => element.num == number).first;
   }
 
   // 넨도 그룹핑
@@ -640,18 +635,12 @@ class Nendo extends _$Nendo {
 
     switch (grouping) {
       case NumberGroup():
-        state.requireValue.filteredNendoList
-            .getNendoNumberGroupList()
-            .forEach((key, value) {
-          nendoGroupList.add(NendoGroup(
-              name: '${key.rangeName()} [${value.length}개]', nendoList: value));
+        state.requireValue.filteredNendoList.getNendoNumberGroupList().forEach((key, value) {
+          nendoGroupList.add(NendoGroup(name: '${key.rangeName()} [${value.length}개]', nendoList: value));
         });
       case SeriesGroup():
-        state.requireValue.filteredNendoList
-            .getNendoSeriesGroupList()
-            .forEach((key, value) {
-          nendoGroupList.add(
-              NendoGroup(name: '$key [${value.length}개]', nendoList: value));
+        state.requireValue.filteredNendoList.getNendoSeriesGroupList().forEach((key, value) {
+          nendoGroupList.add(NendoGroup(name: '$key [${value.length}개]', nendoList: value));
         });
     }
 
@@ -664,10 +653,8 @@ class Nendo extends _$Nendo {
       return '';
     }
 
-    final String total =
-        '수집한 넨도로이드 총 개수 : ${state.requireValue.nendoList.getHaveCount()}\n\n';
-    final sortedList = state.requireValue.nendoList.getHaveList()
-      ..sortBySetting(const SortData(sortingOrder: ASC()));
+    final String total = '수집한 넨도로이드 총 개수 : ${state.requireValue.nendoList.getHaveCount()}\n\n';
+    final sortedList = state.requireValue.nendoList.getHaveList()..sortBySetting(const SortData(sortingOrder: ASC()));
     final List<String> list = sortedList.map((e) {
       if (e.count <= 1) {
         return '[${e.num}] ${e.name.ko}';
@@ -694,8 +681,7 @@ class Nendo extends _$Nendo {
     }
 
     List<({String name, int count})> completeList = [];
-    List<NendoData> haveList =
-        state.requireValue.nendoList.where((item) => item.have).toList();
+    List<NendoData> haveList = state.requireValue.nendoList.where((item) => item.have).toList();
 
     // 2.0 상품이 있을 경우 구넨과 신넨을 모두 보유처리로 만들어 준다.
     for (int i = haveList.length - 1; i >= 0; i--) {
@@ -711,18 +697,15 @@ class Nendo extends _$Nendo {
 
     for (SetData setData in _newSetData) {
       // 보유한 넨도 리스트에서 같은 시리즈 이름을 가진 리스트를 뽑고 거기서 넨도 번호를 받아온다.
-      List<String> tempHaveSetList = haveList
-          .where((item) => (item.series.ko ?? "") == setData.setName)
-          .map((e) => e.num)
-          .toList();
+      List<String> tempHaveSetList =
+          haveList.where((item) => (item.series.ko ?? "") == setData.setName).map((e) => e.num).toList();
 
       // 순수 숫자만 남기고 중복되는 숫자를 제거하여 DX같은 파생상품을 지운다
       for (int i = 0; i < setData.list.length; i++) {
         setData.list[i] = setData.list[i].replaceAll(RegExp(r"[^0-9]"), "");
       }
       for (int i = 0; i < tempHaveSetList.length; i++) {
-        tempHaveSetList[i] =
-            tempHaveSetList[i].replaceAll(RegExp(r"[^0-9]"), "");
+        tempHaveSetList[i] = tempHaveSetList[i].replaceAll(RegExp(r"[^0-9]"), "");
       }
 
       // 중복 제거
@@ -817,8 +800,7 @@ class Nendo extends _$Nendo {
       nendoList: resetList,
     );
 
-    resetList.sortBySetting(
-        ref.read(nendoListSettingProvider.select((value) => value.sortData)));
+    resetList.sortBySetting(ref.read(nendoListSettingProvider.select((value) => value.sortData)));
 
     state = AsyncData(state.requireValue.copyWith(
       nendoList: resetList,

@@ -4,7 +4,7 @@ part 'exchange_rate_yen.freezed.dart';
 part 'exchange_rate_yen.g.dart';
 
 @freezed
-class ExchangeRateYen with _$ExchangeRateYen {
+abstract class ExchangeRateYen with _$ExchangeRateYen {
   const factory ExchangeRateYen({
     @JsonKey(name: 'country') required List<Country> countryList,
   }) = _ExchangeRateYen;
@@ -13,7 +13,7 @@ class ExchangeRateYen with _$ExchangeRateYen {
 }
 
 @freezed
-class Country with _$Country {
+abstract class Country with _$Country {
   const factory Country({
     required String value,
     required String subValue,

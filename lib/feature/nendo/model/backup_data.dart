@@ -7,7 +7,7 @@ part 'backup_data.freezed.dart';
 part 'backup_data.g.dart';
 
 @freezed
-class BackupData with _$BackupData {
+abstract class BackupData with _$BackupData {
   const factory BackupData({
     required List<NendoData> nendoList,
     @Default([]) List<NendoData> nenDollList,

@@ -1,3 +1,4 @@
+import 'package:nendoroid_db/feature/_common/model/api_result.dart';
 import 'package:nendoroid_db/feature/scraping/data/service/scraping_serivce.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

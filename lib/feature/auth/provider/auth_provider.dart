@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:nendoroid_db/app/constant/hive_name.dart';
 import 'package:nendoroid_db/feature/_common/provider/hive_provider.dart';
 import 'package:nendoroid_db/main.dart';

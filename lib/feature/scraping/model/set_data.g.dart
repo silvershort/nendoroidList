@@ -8,7 +8,7 @@ part of 'set_data.dart';
 
 class SetDataAdapter extends TypeAdapter<SetData> {
   @override
-  final int typeId = 3;
+  final typeId = 3;
 
   @override
   SetData read(BinaryReader reader) {

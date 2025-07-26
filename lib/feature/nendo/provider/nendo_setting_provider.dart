@@ -10,7 +10,7 @@ part 'nendo_setting_provider.freezed.dart';
 part 'nendo_setting_provider.g.dart';
 
 @freezed
-class NendoListSettingState with _$NendoListSettingState {
+abstract class NendoListSettingState with _$NendoListSettingState {
   const factory NendoListSettingState({
     required DataType dataType,
     required ViewMode viewMode,

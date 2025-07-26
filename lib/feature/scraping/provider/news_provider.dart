@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nendoroid_db/app/extention/list_extension.dart';
 import 'package:nendoroid_db/feature/_common/data/dio/app_dio.dart';
+import 'package:nendoroid_db/feature/_common/model/api_result.dart';
 import 'package:nendoroid_db/feature/nendo/model/nendo_data.dart';
 import 'package:nendoroid_db/feature/nendo/provider/nendo_provider.dart';
 import 'package:nendoroid_db/feature/scraping/data/service/scraping_serivce.dart';
@@ -118,7 +119,7 @@ class News extends _$News {
 }
 
 @freezed
-class NewsState with _$NewsState {
+abstract class NewsState with _$NewsState {
   const factory NewsState({
     @Default([]) List<NewsItemData> specialGoodsList,
     @Default([]) List<NewsItemData> ninimalList,

@@ -8,7 +8,7 @@ part 'main_sliver_app_bar_controller.freezed.dart';
 part 'main_sliver_app_bar_controller.g.dart';
 
 @freezed
-class ListAppBarState with _$ListAppBarState {
+abstract class ListAppBarState with _$ListAppBarState {
   const factory ListAppBarState({
     @Default(false) bool isSearchMode,
     @Default('') String searchText,

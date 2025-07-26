@@ -20,7 +20,7 @@ void downloadCallback(String id, int status, int progress) {
 }
 
 @freezed
-sealed class FileDownloadState {
+sealed class FileDownloadState with _$FileDownloadState {
   factory FileDownloadState.idle() = DownloadIdle;
   factory FileDownloadState.success() = DownloadSuccess;
   factory FileDownloadState.error() = DownloadError;
@@ -97,7 +97,7 @@ class FileDownload extends _$FileDownload {
     String? downloadDirPath;
 
     if (Platform.isAndroid) {
-      downloadDirPath = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+      downloadDirPath = await ExternalPath.getExternalStoragePublicDirectory('DOWNLOAD');
       Directory dir = Directory(downloadDirPath);
 
       if (!dir.existsSync()) {

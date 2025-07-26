@@ -8,7 +8,7 @@ part of 'nendo_data.dart';
 
 class NendoDataAdapter extends TypeAdapter<NendoData> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   NendoData read(BinaryReader reader) {
@@ -20,15 +20,15 @@ class NendoDataAdapter extends TypeAdapter<NendoData> {
       num: fields[0] as String,
       name: fields[1] as Name,
       series: fields[2] as Series,
-      gscProductNum: fields[3] as int,
-      price: fields[4] as int,
+      gscProductNum: (fields[3] as num).toInt(),
+      price: (fields[4] as num).toInt(),
       releaseDate: (fields[5] as List).cast<String>(),
       image: fields[6] as String,
-      have: fields[8] as bool,
-      wish: fields[9] as bool,
-      count: fields[10] as int,
+      have: fields[8] == null ? false : fields[8] as bool,
+      wish: fields[9] == null ? false : fields[9] as bool,
+      count: fields[10] == null ? 0 : (fields[10] as num).toInt(),
       gender: fields[7] as String?,
-      myPrice: fields[11] as int?,
+      myPrice: (fields[11] as num?)?.toInt(),
       memo: (fields[12] as List?)?.cast<String>(),
       type: fields[13] as String?,
       preOrder: fields[14] == null ? false : fields[14] as bool,
@@ -84,7 +84,7 @@ class NendoDataAdapter extends TypeAdapter<NendoData> {
 
 class NameAdapter extends TypeAdapter<Name> {
   @override
-  final int typeId = 1;
+  final typeId = 1;
 
   @override
   Name read(BinaryReader reader) {
@@ -124,7 +124,7 @@ class NameAdapter extends TypeAdapter<Name> {
 
 class SeriesAdapter extends TypeAdapter<Series> {
   @override
-  final int typeId = 2;
+  final typeId = 2;
 
   @override
   Series read(BinaryReader reader) {

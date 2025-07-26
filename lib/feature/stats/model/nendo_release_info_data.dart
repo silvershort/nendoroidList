@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'nendo_release_info_data.freezed.dart';
 
 @freezed
-class NendoRelaseInfoData with _$NendoRelaseInfoData {
+abstract class NendoRelaseInfoData with _$NendoRelaseInfoData {
   const factory NendoRelaseInfoData({
     required DateTime lastReleaseDate,
     required List<MonthReleaseData> monthReleaseList,
@@ -11,7 +11,7 @@ class NendoRelaseInfoData with _$NendoRelaseInfoData {
 }
 
 @freezed
-class MonthReleaseData with _$MonthReleaseData {
+abstract class MonthReleaseData with _$MonthReleaseData {
   const factory MonthReleaseData({
     required int year,
     required int month,
@@ -20,7 +20,7 @@ class MonthReleaseData with _$MonthReleaseData {
 }
 
 @freezed
-class ReleaseData with _$ReleaseData {
+abstract class ReleaseData with _$ReleaseData {
   const factory ReleaseData({
     required DateTime releaseData,
     required NendoReleaseData nendoData,
@@ -28,7 +28,7 @@ class ReleaseData with _$ReleaseData {
 }
 
 @freezed
-class NendoReleaseData with _$NendoReleaseData {
+abstract class NendoReleaseData with _$NendoReleaseData {
   const factory NendoReleaseData({
     String? imageLink,
     required String name,
